@@ -4,7 +4,10 @@ import 'package:noti_buddy/models/notification_item.dart';
 class AppData {
   static AppData? _instance;
   static Future<AppData> get instance async {
-    _instance ??= await FileManager.load();
+    _instance ??= await FileManager.load() ??
+        AppData(
+          notificationItems: [],
+        );
 
     return _instance!;
   }
@@ -14,6 +17,10 @@ class AppData {
   AppData({
     required this.notificationItems,
   });
+
+  Future<void> save() async {
+    await FileManager.save(toJson());
+  }
 
   Map<String, dynamic> toJson() {
     return {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/models/app_data.dart';
+import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/widgets/notification_list.dart';
 
 class MainPage extends StatefulWidget {
@@ -31,6 +32,18 @@ class _MainPageState extends State<MainPage> {
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var appData = await AppData.instance;
+          appData.notificationItems
+              .add(NotificationItem(title: 'Test', colour: Colors.red));
+
+          setState(() {});
+          await appData.save();
+        },
+        tooltip: 'Add',
+        child: const Icon(Icons.add),
       ),
     );
   }

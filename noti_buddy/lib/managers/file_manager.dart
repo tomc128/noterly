@@ -18,10 +18,10 @@ class FileManager {
   static Future save(Map<String, dynamic> data) async {
     final file = await _localFile;
 
-    return file.writeAsString('$data');
+    file.writeAsString(jsonEncode(data));
   }
 
-  static Future<AppData> load() async {
+  static Future<AppData?> load() async {
     try {
       final file = await _localFile;
 
@@ -29,7 +29,8 @@ class FileManager {
 
       return AppData.fromJson(jsonDecode(contents));
     } catch (e) {
-      return AppData(notificationItems: []);
+      print('No previous save found. Error $e');
+      return null;
     }
   }
 }
