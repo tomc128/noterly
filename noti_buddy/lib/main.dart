@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/pages/main_page.dart';
 
 void main() {
@@ -16,7 +17,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const MainPage(),
+      home: MainPage(
+        items: [
+          NotificationItem(
+            title: 'Test',
+            colour: Colors.red,
+          ),
+          NotificationItem(
+            title: 'Test',
+            body: 'Test body',
+            colour: Colors.green,
+          ),
+          NotificationItem(
+            title: 'Test',
+            body: 'Test body',
+            dateTime: DateTime.now().add(const Duration(days: 7)),
+            colour: Colors.blue,
+          ),
+        ],
+      ),
     );
   }
 }
