@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noti_buddy/models/app_data.dart';
+import 'package:noti_buddy/widgets/notification_list.dart';
 
 class MainPage extends StatefulWidget {
-  final List<NotificationItem> items;
-
   const MainPage({
-    required this.items,
     super.key,
   });
 
@@ -21,21 +19,15 @@ class _MainPageState extends State<MainPage> {
         title: const Text('Noti Buddy'),
       ),
       body: Center(
-        child: ListView.builder(
-          itemCount: widget.items.length,
-          itemBuilder: (context, index) {
-            final item = widget.items[index];
+        child: FutureBuilder(
+          future: AppData.instance,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const CircularProgressIndicator();
+            }
 
-            return ListTile(
-              title: Text(item.title),
-              subtitle: item.body != null ? Text(item.body!) : null,
-              trailing: item.dateTime != null ? Text('${item.dateTime}') : null,
-              leading: SizedBox(
-                width: 8,
-                child: CircleAvatar(
-                  backgroundColor: item.colour,
-                ),
-              ),
+            return NotificationList(
+              items: snapshot.data!.notificationItems,
             );
           },
         ),
