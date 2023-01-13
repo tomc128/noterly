@@ -16,12 +16,18 @@ class AppManager {
           // data will have been saved to file. We need to reload the data from file to ensure the UI is up to date.
           print('Resuming app, reloading data from file...');
           await _load();
+          printItems();
         },
       ),
     );
 
     _load();
   }
+
+  final notifier = ValueNotifier<List<NotificationItem>>([]);
+
+  var isInitialised = false;
+  Future? _loadingFuture;
 
   Future ensureInitialised() async {
     if (isInitialised) {
@@ -30,11 +36,6 @@ class AppManager {
 
     return _loadingFuture;
   }
-
-  var isInitialised = false;
-  Future? _loadingFuture;
-
-  final notifier = ValueNotifier<List<NotificationItem>>([]);
 
   Future _load() async {
     _loadingFuture = FileManager.load();
@@ -63,8 +64,8 @@ class AppManager {
 
   void addItem(NotificationItem item) {
     notifier.value.add(item);
-    _updateNotifier();
     _save();
+    _updateNotifier();
   }
 
   void editItem(NotificationItem item) {
@@ -75,17 +76,25 @@ class AppManager {
 
     var index = notifier.value.indexOf(found.first);
     notifier.value[index] = item;
-    _updateNotifier();
     _save();
+    _updateNotifier();
   }
 
   void deleteItem(String id) {
     notifier.value.removeWhere((element) => element.id == id);
-    _updateNotifier();
     _save();
+    _updateNotifier();
   }
 
   NotificationItem itemAt(int i) => notifier.value[i];
+
+  void fullUpdate() async {
+    print('Full update requested, reloading data from file...');
+    await _load();
+    print('Updaing notifier...');
+    _updateNotifier();
+    printItems();
+  }
 
   void _updateNotifier() {
     notifier.value = List.from(notifier.value); // Update value notifier
@@ -96,6 +105,6 @@ class AppManager {
     for (var element in notifier.value) {
       output += '$element, ';
     }
-    print('[$output]');
+    print('${notifier.value.length} item(s): [$output]');
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
@@ -11,25 +14,54 @@ class NotificationManager {
     init();
   }
 
+  final _plugin = FlutterLocalNotificationsPlugin();
+
+  final mainRecievePort = ReceivePort();
+
   void init() async {
     tz.initializeTimeZones();
 
-    const initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    const initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
-    await _plugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onResponse,
-        onDidReceiveBackgroundNotificationResponse: onBackgroundResponse);
+    // Register the port with the main isolate
+    var registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main');
+    if (!registerResult) {
+      IsolateNameServer.removePortNameMapping('main');
+      registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main');
+
+      if (!registerResult) {
+        throw Exception('Failed to register port with main isolate (x2)');
+      }
+    }
+
+    // Listen for messages from the background isolate
+    mainRecievePort.listen((message) {
+      if (message == 'update') {
+        print('Forcing a full update...');
+        AppManager.instance.fullUpdate();
+      } else {
+        print('Unknown message from background isolate: "$message"');
+      }
+    });
+
+    const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+    await _plugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onResponse,
+      onDidReceiveBackgroundNotificationResponse: onBackgroundResponse,
+    );
   }
 
-  static Future onResponse(NotificationResponse response) async {
-    print('Got notification response: $response');
+  static Future handleResponse(NotificationResponse response, {bool isBackground = false}) async {
+    print('Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
 
     var itemId = response.payload;
     if (itemId == null) {
       print('No payload, ignoring');
       return;
+    }
+
+    if (isBackground) {
+      await AppManager.instance.ensureInitialised();
     }
 
     var item = AppManager.instance.getItem(itemId);
@@ -39,43 +71,31 @@ class NotificationManager {
     }
 
     if (response.actionId == 'done') {
-      print('Removing notification "${item.title}" [foreground]');
+      print('Removing notification "${item.title}"');
       AppManager.instance.deleteItem(itemId);
+
+      // If we're in the background, we need to send a message to the main isolate to update the UI
+      if (isBackground) {
+        var sendPort = IsolateNameServer.lookupPortByName('main');
+        sendPort?.send('update');
+      }
+
       return;
     }
 
-    print('Opening notification "${item.title}"');
+    if (!isBackground) {
+      print('Opening notification "${item.title}"');
+    }
   }
+
+  static Future onResponse(NotificationResponse response) async => handleResponse(response, isBackground: false);
 
   @pragma('vm:entry-point')
-  static Future onBackgroundResponse(NotificationResponse response) async {
-    var itemId = response.payload;
-    if (itemId == null) {
-      return;
-    }
-
-    await AppManager.instance.ensureInitialised();
-
-    var item = AppManager.instance.getItem(itemId);
-    if (item == null) {
-      print('Notification with id "$itemId" not found');
-      return;
-    }
-
-    if (response.actionId == 'done') {
-      print('Removing notification "${item.title}" [background]');
-      AppManager.instance.deleteItem(itemId);
-      return;
-    }
-  }
-
-  final FlutterLocalNotificationsPlugin _plugin =
-      FlutterLocalNotificationsPlugin();
+  static Future onBackgroundResponse(NotificationResponse response) async => handleResponse(response, isBackground: true);
 
   Future requestAndroid13Permissions() async {
     try {
-      var android = _plugin.resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>();
+      var android = _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
       if (android != null) {
         var result = await android.requestPermission();
@@ -158,8 +178,7 @@ class NotificationManager {
       tz.TZDateTime.from(item.dateTime!, tz.local),
       details,
       androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       payload: item.id,
     );
   }
