@@ -1,5 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
+import 'package:noti_buddy/extensions/time_of_day_extensions.dart';
+
+Future<DateTime?> showDateTimePicker({
+  required BuildContext context,
+  required DateTime initialDateTime,
+  required DateTime firstDate,
+  required DateTime lastDate,
+}) async {
+  firstDate = DateUtils.dateOnly(firstDate);
+  lastDate = DateUtils.dateOnly(lastDate);
+  assert(
+    !lastDate.isBefore(firstDate),
+    'lastDate $lastDate must be on or after firstDate $firstDate.',
+  );
+  assert(
+    !initialDateTime.isBefore(firstDate),
+    'initialDateTime $initialDateTime must be on or after firstDate $firstDate.',
+  );
+  assert(
+    !initialDateTime.isAfter(lastDate),
+    'initialDateTime $initialDateTime must be on or before lastDate $lastDate.',
+  );
+
+  var dialog = DateTimePicker(
+    initialDate: initialDateTime,
+    firstDate: firstDate,
+    lastDate: lastDate,
+  );
+
+  return showDialog<DateTime>(
+    context: context,
+    builder: (context) => dialog,
+  );
+}
 
 class DateTimePicker extends StatefulWidget {
   final DateTime initialDate;
@@ -54,8 +88,10 @@ class _DateTimePickerState extends State<DateTimePicker> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    if (_dateTime.isAfter(widget.firstDate)) {
-                      _dateTime = _dateTime.subtract(const Duration(days: 1));
+                    var newDateTime =
+                        _dateTime.subtract(const Duration(days: 1));
+                    if (newDateTime.isAfter(widget.firstDate)) {
+                      _dateTime = newDateTime;
                     }
                   });
                 },
@@ -65,15 +101,29 @@ class _DateTimePickerState extends State<DateTimePicker> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    if (_dateTime.isBefore(widget.lastDate)) {
-                      _dateTime = _dateTime.add(const Duration(days: 1));
+                    var newDateTime = _dateTime.add(const Duration(days: 1));
+                    if (newDateTime.isBefore(widget.lastDate)) {
+                      _dateTime = newDateTime;
                     }
                   });
                 },
                 icon: const Icon(Icons.chevron_right),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDatePicker(
+                    context: context,
+                    initialDate: _dateTime,
+                    firstDate: widget.firstDate,
+                    lastDate: widget.lastDate,
+                  ).then((value) {
+                    if (value != null) {
+                      setState(() {
+                        _dateTime = value;
+                      });
+                    }
+                  });
+                },
                 icon: const Icon(Icons.calendar_today),
               ),
             ],
@@ -84,7 +134,11 @@ class _DateTimePickerState extends State<DateTimePicker> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _dateTime = _dateTime.subtract(const Duration(hours: 1));
+                    var newDateTime =
+                        _dateTime.subtract(const Duration(hours: 1));
+                    if (newDateTime.isAfter(widget.firstDate)) {
+                      _dateTime = newDateTime;
+                    }
                   });
                 },
                 icon: const Icon(Icons.chevron_left),
@@ -93,13 +147,37 @@ class _DateTimePickerState extends State<DateTimePicker> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _dateTime = _dateTime.add(const Duration(hours: 1));
+                    var newDateTime = _dateTime.add(const Duration(hours: 1));
+                    if (newDateTime.isBefore(widget.lastDate)) {
+                      _dateTime = newDateTime;
+                    }
                   });
                 },
                 icon: const Icon(Icons.chevron_right),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(_dateTime),
+                  ).then((value) {
+                    if (value != null) {
+                      setState(() {
+                        if (value.isAfterNow()) {
+                          _dateTime = DateTime(
+                            _dateTime.year,
+                            _dateTime.month,
+                            _dateTime.day,
+                            value.hour,
+                            value.minute,
+                          );
+                        } else {
+                          print('invalid time');
+                        }
+                      });
+                    }
+                  });
+                },
                 icon: const Icon(Icons.access_time),
               ),
             ],
@@ -114,7 +192,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(_dateTime);
                 },
                 child: const Text('OK'),
               ),

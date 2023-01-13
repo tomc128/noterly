@@ -23,7 +23,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   @override
   void initState() {
     var now = DateTime.now();
-    _dateTime = DateTime(now.year, now.month, now.day, 8, 00, 00);
+    _dateTime = DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
 
     _colour = Colors.blue;
 
@@ -73,29 +73,20 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: const Text('Send at'),
               subtitle: Text('$_dateTime'),
               onTap: () {
-                // showDatePicker(
-                //   context: context,
-                //   initialDate: _dateTime,
-                //   firstDate: DateTime.now(),
-                //   lastDate: DateTime.now().add(const Duration(days: 365)),
-                // ).then((value) {
-                //   if (value != null) {
-                //     setState(() {
-                //       _dateTime = DateTime(value.year, value.month, value.day,
-                //           _dateTime.hour, _dateTime.minute, _dateTime.second);
-                //     });
-                //   }
-                // });
-                showDialog<DateTime>(
+                showDateTimePicker(
                   context: context,
-                  builder: (context) {
-                    return DateTimePicker(
-                        initialDate: _dateTime,
-                        firstDate: DateTime.now(),
-                        lastDate:
-                            DateTime.now().add(const Duration(days: 365)));
-                  },
-                );
+                  initialDateTime: _dateTime,
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(
+                    const Duration(days: 365),
+                  ),
+                ).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      _dateTime = value;
+                    });
+                  }
+                });
               },
             ),
           CheckboxListTile(
