@@ -15,10 +15,10 @@ class FileManager {
     return File('$path/data.json');
   }
 
-  static Future save(Map<String, dynamic> data) async {
+  static Future save(AppData data) async {
     final file = await _localFile;
 
-    file.writeAsString(jsonEncode(data));
+    file.writeAsString(jsonEncode(data.toJson()));
   }
 
   static Future<AppData?> load() async {

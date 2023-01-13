@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
-import 'package:noti_buddy/models/app_data.dart';
+import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/widgets/date_time_picker.dart';
 
@@ -113,16 +113,11 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          var appData = await AppData.instance;
-
           _item.title = titleController.text;
           _item.body = bodyController.text;
           _item.dateTime = _isScheduled ? _dateTime : null;
 
-          appData.notificationItems[appData.notificationItems
-              .indexWhere((element) => element.id == _item.id)] = _item;
-
-          await appData.save();
+          AppManager.instance.editItem(_item);
 
           if (mounted) {
             Navigator.of(context).pop();

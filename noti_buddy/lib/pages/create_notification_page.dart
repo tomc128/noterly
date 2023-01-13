@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
-import 'package:noti_buddy/models/app_data.dart';
+import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/widgets/date_time_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -105,9 +105,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          var appData = await AppData.instance;
-
-          appData.notificationItems.add(
+          AppManager.instance.addItem(
             NotificationItem(
               id: const Uuid().v4(),
               title: titleController.text,
@@ -116,8 +114,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               colour: _colour,
             ),
           );
-
-          await appData.save();
 
           if (mounted) {
             Navigator.of(context).pop();

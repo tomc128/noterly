@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/widgets/notification_list.dart';
 
 import 'create_notification_page.dart';
@@ -30,28 +30,29 @@ class _MainPageState extends State<MainPage> {
         actions: [
           IconButton(
             onPressed: () async {
-              var appData = await AppData.instance;
+              AppManager.instance.printItems();
+              setState(() {});
+              AppManager.instance.printItems();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+          IconButton(
+            onPressed: () async {
               NotificationManager.instance
-                  .scheduleNotification(appData.notificationItems.first);
+                  .scheduleNotification(AppManager.instance.itemAt(0));
             },
             icon: const Icon(Icons.notifications),
           ),
         ],
       ),
-      body: Center(
-        child: FutureBuilder(
-          future: AppData.instance,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
-            }
-
-            return NotificationList(
-              items: snapshot.data!.notificationItems,
-              onRefresh: () => setState(() {}),
-            );
-          },
-        ),
+      body: ValueListenableBuilder(
+        valueListenable: AppManager.instance.notifier,
+        builder: (context, value, child) {
+          return NotificationList(
+            items: value,
+            onRefresh: () => setState(() {}),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

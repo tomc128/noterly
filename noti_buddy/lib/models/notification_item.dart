@@ -20,6 +20,11 @@ class NotificationItem {
     required this.colour,
   });
 
+  @override
+  String toString() {
+    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, persistant: $persistant, colour: $colour)';
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
