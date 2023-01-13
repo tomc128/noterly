@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/file_manager.dart';
 import 'package:noti_buddy/managers/lifecycle_event_handler.dart';
+import 'package:noti_buddy/managers/notification_manager.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 
@@ -15,7 +16,7 @@ class AppManager {
           // action. In this case, a separate instance of the app will have been launched to handle the action, and the
           // data will have been saved to file. We need to reload the data from file to ensure the UI is up to date.
           print('Resuming app, reloading data from file...');
-          await _load();
+          await fullUpdate();
           printItems();
         },
       ),
@@ -48,7 +49,7 @@ class AppManager {
       return;
     }
 
-    notifier.value = data.notificationItems;
+    notifier.value = List.from(data.notificationItems);
   }
 
   Future<void> _save() async {
@@ -56,6 +57,9 @@ class AppManager {
 
     await FileManager.save(data);
   }
+
+  // #region List management
+  NotificationItem itemAt(int i) => notifier.value[i];
 
   NotificationItem? getItem(String id) {
     var found = notifier.value.where((element) => element.id == id);
@@ -66,6 +70,8 @@ class AppManager {
     notifier.value.add(item);
     _save();
     _updateNotifier();
+
+    NotificationManager.instance.updateNotification(item);
   }
 
   void editItem(NotificationItem item) {
@@ -78,23 +84,20 @@ class AppManager {
     notifier.value[index] = item;
     _save();
     _updateNotifier();
+
+    NotificationManager.instance.updateNotification(item);
   }
 
   void deleteItem(String id) {
     notifier.value.removeWhere((element) => element.id == id);
     _save();
     _updateNotifier();
-  }
 
-  NotificationItem itemAt(int i) => notifier.value[i];
-
-  void fullUpdate() async {
-    print('Full update requested, reloading data from file...');
-    await _load();
-    print('Updaing notifier...');
-    _updateNotifier();
-    printItems();
+    NotificationManager.instance.cancelNotification(id);
   }
+  // #endregion
+
+  Future fullUpdate() async => await _load();
 
   void _updateNotifier() {
     notifier.value = List.from(notifier.value); // Update value notifier

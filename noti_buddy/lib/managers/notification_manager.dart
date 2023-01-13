@@ -106,9 +106,7 @@ class NotificationManager {
     }
   }
 
-  void _cancelAllNotifications() {
-    _plugin.cancelAll();
-  }
+  void _cancelAllNotifications() => _plugin.cancelAll();
 
   void updateAllNotifications() {
     _cancelAllNotifications();
@@ -121,6 +119,19 @@ class NotificationManager {
       }
     }
   }
+
+  void updateNotification(NotificationItem item) async {
+    // Cancel the existing notification, if any
+    _plugin.cancel(item.id.hashCode);
+
+    if (item.dateTime == null) {
+      _showNotification(item);
+    } else {
+      _scheduleNotification(item);
+    }
+  }
+
+  void cancelNotification(String itemId) async => _plugin.cancel(itemId.hashCode);
 
   Future _showNotification(NotificationItem item) async {
     assert(
