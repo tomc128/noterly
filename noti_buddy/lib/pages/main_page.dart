@@ -30,6 +30,7 @@ class _MainPageState extends State<MainPage> {
 
             return NotificationList(
               items: snapshot.data!.notificationItems,
+              onRefresh: () => setState(() {}),
             );
           },
         ),

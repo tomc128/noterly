@@ -3,31 +3,39 @@ import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/widgets/date_time_picker.dart';
-import 'package:uuid/uuid.dart';
 
-class CreateNotificationPage extends StatefulWidget {
-  const CreateNotificationPage({super.key});
+class EditNotificationPage extends StatefulWidget {
+  final NotificationItem item;
+
+  const EditNotificationPage({
+    required this.item,
+    super.key,
+  });
 
   @override
-  State<CreateNotificationPage> createState() => _CreateNotificationPageState();
+  State<EditNotificationPage> createState() => _EditNotificationPageState();
 }
 
-class _CreateNotificationPageState extends State<CreateNotificationPage> {
+class _EditNotificationPageState extends State<EditNotificationPage> {
   final titleController = TextEditingController();
   final bodyController = TextEditingController();
 
-  var _isScheduled = false;
-  var _isPersistant = false;
+  late NotificationItem _item;
+  late bool _isScheduled;
 
   late DateTime _dateTime;
-  late Color _colour;
 
   @override
   void initState() {
+    _item = widget.item;
+
     var now = DateTime.now();
     _dateTime = DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
 
-    _colour = Colors.blue;
+    _isScheduled = _item.dateTime != null;
+
+    titleController.text = _item.title;
+    bodyController.text = _item.body ?? '';
 
     super.initState();
   }
@@ -44,7 +52,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Notification'),
+        title: const Text('Edit Notification'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -92,11 +100,11 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               },
             ),
           CheckboxListTile(
-            value: _isPersistant,
+            value: _item.persistant,
             title: const Text('Persistant'),
             onChanged: (value) {
               setState(() {
-                _isPersistant = value!;
+                _item.persistant = value!;
               });
             },
           ),
@@ -107,15 +115,12 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
         onPressed: () async {
           var appData = await AppData.instance;
 
-          appData.notificationItems.add(
-            NotificationItem(
-              id: const Uuid().v4(),
-              title: titleController.text,
-              body: bodyController.text,
-              dateTime: _isScheduled ? _dateTime : null,
-              colour: _colour,
-            ),
-          );
+          _item.title = titleController.text;
+          _item.body = bodyController.text;
+          _item.dateTime = _isScheduled ? _dateTime : null;
+
+          appData.notificationItems[appData.notificationItems
+              .indexWhere((element) => element.id == _item.id)] = _item;
 
           await appData.save();
 
@@ -123,8 +128,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
             Navigator.of(context).pop();
           }
         },
-        label: const Text('Add'),
-        icon: const Icon(Icons.add),
+        label: const Text('Save'),
+        icon: const Icon(Icons.save),
       ),
     );
   }

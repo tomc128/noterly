@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noti_buddy/pages/edit_notification_page.dart';
 
 class NotificationList extends StatelessWidget {
   final List<NotificationItem> items;
+  final Function onRefresh;
 
   const NotificationList({
     required this.items,
+    required this.onRefresh,
     super.key,
   });
 
@@ -29,6 +32,17 @@ class NotificationList extends StatelessWidget {
               backgroundColor: item.colour,
             ),
           ),
+          onTap: () {
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute(
+                    builder: (context) => EditNotificationPage(
+                      item: item,
+                    ),
+                  ),
+                )
+                .then((value) => onRefresh());
+          },
         );
       },
     );

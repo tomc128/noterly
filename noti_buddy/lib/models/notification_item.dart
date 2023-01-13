@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NotificationItem {
+  String id;
+
   String title;
   String? body;
 
@@ -10,6 +12,7 @@ class NotificationItem {
   Color colour;
 
   NotificationItem({
+    required this.id,
     required this.title,
     this.body,
     this.dateTime,
@@ -19,6 +22,7 @@ class NotificationItem {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'body': body,
       'dateTime': dateTime?.toIso8601String(),
@@ -29,6 +33,7 @@ class NotificationItem {
 
   factory NotificationItem.fromJson(Map<String, dynamic> json) {
     return NotificationItem(
+      id: json['id'],
       title: json['title'],
       body: json['body'],
       dateTime:
