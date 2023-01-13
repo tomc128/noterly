@@ -33,7 +33,7 @@ class NotificationItem {
       body: json['body'],
       dateTime:
           json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
-      persistant: json['persistant'],
+      persistant: json['persistant'] ?? false,
       colour: Color(json['colour']),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noti_buddy/widgets/date_time_picker.dart';
 
 class CreateNotificationPage extends StatefulWidget {
   const CreateNotificationPage({super.key});
@@ -72,19 +73,29 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: const Text('Send at'),
               subtitle: Text('$_dateTime'),
               onTap: () {
-                showDatePicker(
+                // showDatePicker(
+                //   context: context,
+                //   initialDate: _dateTime,
+                //   firstDate: DateTime.now(),
+                //   lastDate: DateTime.now().add(const Duration(days: 365)),
+                // ).then((value) {
+                //   if (value != null) {
+                //     setState(() {
+                //       _dateTime = DateTime(value.year, value.month, value.day,
+                //           _dateTime.hour, _dateTime.minute, _dateTime.second);
+                //     });
+                //   }
+                // });
+                showDialog<DateTime>(
                   context: context,
-                  initialDate: _dateTime,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(const Duration(days: 365)),
-                ).then((value) {
-                  if (value != null) {
-                    setState(() {
-                      _dateTime = DateTime(value.year, value.month, value.day,
-                          _dateTime.hour, _dateTime.minute, _dateTime.second);
-                    });
-                  }
-                });
+                  builder: (context) {
+                    return DateTimePicker(
+                        initialDate: _dateTime,
+                        firstDate: DateTime.now(),
+                        lastDate:
+                            DateTime.now().add(const Duration(days: 365)));
+                  },
+                );
               },
             ),
           CheckboxListTile(
