@@ -8,4 +8,8 @@ extension DateTimeExtensions on DateTime {
   String toTimeOnlyString() {
     return DateFormat.jm().format(this);
   }
+
+  String toDateTimeString() {
+    return DateFormat.MMMMEEEEd().add_jm().format(this);
+  }
 }

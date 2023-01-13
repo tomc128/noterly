@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 
 class NotificationList extends StatelessWidget {
@@ -19,7 +20,9 @@ class NotificationList extends StatelessWidget {
         return ListTile(
           title: Text(item.title),
           subtitle: item.body != null ? Text(item.body!) : null,
-          trailing: item.dateTime != null ? Text('${item.dateTime}') : null,
+          trailing: item.dateTime != null
+              ? Text(item.dateTime!.toDateTimeString())
+              : null,
           leading: SizedBox(
             width: 8,
             child: CircleAvatar(

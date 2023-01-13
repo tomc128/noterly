@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/widgets/date_time_picker.dart';
@@ -71,7 +72,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
           if (_isScheduled)
             ListTile(
               title: const Text('Send at'),
-              subtitle: Text('$_dateTime'),
+              subtitle: Text(_dateTime.toDateTimeString()),
               onTap: () {
                 showDateTimePicker(
                   context: context,
@@ -109,8 +110,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
             NotificationItem(
               title: titleController.text,
               body: bodyController.text,
-              dateTime: DateTime.now().add(const Duration(days: 7)),
-              colour: Colors.red,
+              dateTime: _isScheduled ? _dateTime : null,
+              colour: _colour,
             ),
           );
 
