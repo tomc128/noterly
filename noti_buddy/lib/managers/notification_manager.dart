@@ -16,31 +16,10 @@ class NotificationManager {
 
   final _plugin = FlutterLocalNotificationsPlugin();
 
-  final mainRecievePort = ReceivePort();
-
   void init() async {
+    print('Initialising notification manager...');
+
     tz.initializeTimeZones();
-
-    // Register the port with the main isolate
-    var registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main');
-    if (!registerResult) {
-      IsolateNameServer.removePortNameMapping('main');
-      registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main');
-
-      if (!registerResult) {
-        throw Exception('Failed to register port with main isolate (x2)');
-      }
-    }
-
-    // Listen for messages from the background isolate
-    mainRecievePort.listen((message) {
-      if (message == 'update') {
-        print('Forcing a full update...');
-        AppManager.instance.fullUpdate();
-      } else {
-        print('Unknown message from background isolate: "$message"');
-      }
-    });
 
     const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
@@ -72,12 +51,13 @@ class NotificationManager {
 
     if (response.actionId == 'done') {
       print('Removing notification "${item.title}"');
-      AppManager.instance.deleteItem(itemId);
+      await AppManager.instance.deleteItem(itemId);
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
       if (isBackground) {
-        var sendPort = IsolateNameServer.lookupPortByName('main');
+        var sendPort = IsolateNameServer.lookupPortByName('main_isolate_port');
         sendPort?.send('update');
+        print('Update request sent from isolate ${Isolate.current.debugName}.');
       }
 
       return;

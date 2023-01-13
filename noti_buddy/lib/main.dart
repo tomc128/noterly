@@ -3,6 +3,7 @@ import 'package:noti_buddy/pages/main_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
   // runApp(const MyApp());
 }

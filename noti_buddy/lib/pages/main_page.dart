@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
@@ -30,6 +32,7 @@ class _MainPageState extends State<MainPage> {
         actions: [
           IconButton(
             onPressed: () async {
+              print('isolate name; ${Isolate.current.debugName}');
               AppManager.instance.printItems();
               setState(() {});
               AppManager.instance.printItems();
@@ -47,6 +50,7 @@ class _MainPageState extends State<MainPage> {
       body: ValueListenableBuilder(
         valueListenable: AppManager.instance.notifier,
         builder: (context, value, child) {
+          print('Building list');
           return NotificationList(
             items: value,
             onRefresh: () => setState(() {}),
