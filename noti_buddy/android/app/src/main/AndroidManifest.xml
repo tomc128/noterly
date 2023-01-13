@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.noti_buddy">
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
    <application
         android:label="noti_buddy"
         android:name="${applicationName}"

@@ -22,6 +22,11 @@ class AppData {
     await FileManager.save(toJson());
   }
 
+  NotificationItem? getItem(String id) {
+    var found = notificationItems.where((element) => element.id == id);
+    return found.isEmpty ? null : found.first;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'notificationItems':

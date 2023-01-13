@@ -26,10 +26,13 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    // compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
     ndkVersion flutter.ndkVersion
 
     compileOptions {
+        coreLibraryDesugaringEnabled true // FLUTTER_LOCAL_NOTIFICATIONS
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -43,12 +46,15 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled true // FLUTTER_LOCAL_NOTIFICATIONS
+
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.noti_buddy"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        // targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -67,5 +73,8 @@ flutter {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5' // FLUTTER_LOCAL_NOTIFICATIONS
+    implementation 'androidx.window:window:1.0.0' // FLUTTER_LOCAL_NOTIFICATIONS
+    implementation 'androidx.window:window-java:1.0.0' // FLUTTER_LOCAL_NOTIFICATIONS
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

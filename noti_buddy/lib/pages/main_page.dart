@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti_buddy/managers/notification_manager.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/widgets/notification_list.dart';
 
@@ -15,10 +16,27 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   @override
+  void initState() {
+    super.initState();
+
+    NotificationManager.instance.requestAndroid13Permissions();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Noti Buddy'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              var appData = await AppData.instance;
+              NotificationManager.instance
+                  .scheduleNotification(appData.notificationItems.first);
+            },
+            icon: const Icon(Icons.notifications),
+          ),
+        ],
       ),
       body: Center(
         child: FutureBuilder(
