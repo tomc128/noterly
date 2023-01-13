@@ -6,12 +6,14 @@ class NotificationItem {
 
   DateTime? dateTime;
 
+  bool persistant;
   Color colour;
 
   NotificationItem({
     required this.title,
     this.body,
     this.dateTime,
+    this.persistant = false,
     required this.colour,
   });
 
@@ -20,6 +22,7 @@ class NotificationItem {
       'title': title,
       'body': body,
       'dateTime': dateTime?.toIso8601String(),
+      'persistant': persistant,
       'colour': colour.value,
     };
   }
@@ -30,6 +33,7 @@ class NotificationItem {
       body: json['body'],
       dateTime:
           json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
+      persistant: json['persistant'],
       colour: Color(json['colour']),
     );
   }

@@ -13,6 +13,22 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   final titleController = TextEditingController();
   final bodyController = TextEditingController();
 
+  var _isScheduled = false;
+  var _isPersistant = false;
+
+  late DateTime _dateTime;
+  late Color _colour;
+
+  @override
+  void initState() {
+    var now = DateTime.now();
+    _dateTime = DateTime(now.year, now.month, now.day, 8, 00, 00);
+
+    _colour = Colors.blue;
+
+    super.initState();
+  }
+
   @override
   void dispose() {
     titleController.dispose();
@@ -42,7 +58,44 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               labelText: 'Body',
             ),
           ),
-          Text('Date: ${DateTime.now().add(const Duration(days: 7))}'),
+          CheckboxListTile(
+            value: _isScheduled,
+            title: const Text('Schedule'),
+            onChanged: (value) {
+              setState(() {
+                _isScheduled = value!;
+              });
+            },
+          ),
+          if (_isScheduled)
+            ListTile(
+              title: const Text('Send at'),
+              subtitle: Text('$_dateTime'),
+              onTap: () {
+                showDatePicker(
+                  context: context,
+                  initialDate: _dateTime,
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(const Duration(days: 365)),
+                ).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      _dateTime = DateTime(value.year, value.month, value.day,
+                          _dateTime.hour, _dateTime.minute, _dateTime.second);
+                    });
+                  }
+                });
+              },
+            ),
+          CheckboxListTile(
+            value: _isPersistant,
+            title: const Text('Persistant'),
+            onChanged: (value) {
+              setState(() {
+                _isPersistant = value!;
+              });
+            },
+          ),
           Text('Colour: ${Colors.red}'),
         ],
       ),
