@@ -38,8 +38,7 @@ class _MainPageState extends State<MainPage> {
           ),
           IconButton(
             onPressed: () async {
-              NotificationManager.instance
-                  .scheduleNotification(AppManager.instance.itemAt(0));
+              NotificationManager.instance.updateAllNotifications();
             },
             icon: const Icon(Icons.notifications),
           ),

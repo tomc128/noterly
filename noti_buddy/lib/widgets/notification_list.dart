@@ -15,36 +15,44 @@ class NotificationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
+    Widget emptyListView() {
+      return const Center(
+        child: Text('No notifications found, create one!'),
+      );
+    }
 
-        return ListTile(
-          title: Text(item.title),
-          subtitle: item.body != null ? Text(item.body!) : null,
-          trailing: item.dateTime != null
-              ? Text(item.dateTime!.toDateTimeString())
-              : null,
-          leading: SizedBox(
-            width: 8,
-            child: CircleAvatar(
-              backgroundColor: item.colour,
-            ),
-          ),
-          onTap: () {
-            Navigator.of(context)
-                .push(
-                  MaterialPageRoute(
-                    builder: (context) => EditNotificationPage(
-                      item: item,
-                    ),
+    return items.isEmpty
+        ? emptyListView()
+        : ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+
+              return ListTile(
+                title: Text(item.title),
+                subtitle: item.body != null ? Text(item.body!) : null,
+                trailing: item.dateTime != null
+                    ? Text(item.dateTime!.toDateTimeString())
+                    : null,
+                leading: SizedBox(
+                  width: 8,
+                  child: CircleAvatar(
+                    backgroundColor: item.colour,
                   ),
-                )
-                .then((value) => onRefresh());
-          },
-        );
-      },
-    );
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) => EditNotificationPage(
+                            item: item,
+                          ),
+                        ),
+                      )
+                      .then((value) => onRefresh());
+                },
+              );
+            },
+          );
   }
 }

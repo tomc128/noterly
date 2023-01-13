@@ -86,7 +86,57 @@ class NotificationManager {
     }
   }
 
-  Future scheduleNotification(NotificationItem item) async {
+  void _cancelAllNotifications() {
+    _plugin.cancelAll();
+  }
+
+  void updateAllNotifications() {
+    _cancelAllNotifications();
+
+    for (var item in AppManager.instance.notifier.value) {
+      if (item.dateTime == null) {
+        _showNotification(item);
+      } else {
+        _scheduleNotification(item);
+      }
+    }
+  }
+
+  Future _showNotification(NotificationItem item) async {
+    assert(
+      item.dateTime == null,
+      'Notification must not have a dateTime in order to be shown immediately.',
+    );
+
+    const androidDetails = AndroidNotificationDetails(
+      'test_channel_id',
+      'test_channel_name',
+      channelDescription: 'channel_description',
+      actions: <AndroidNotificationAction>[
+        AndroidNotificationAction(
+          'done',
+          'Mark as done',
+        ),
+      ],
+    );
+
+    const details = NotificationDetails(android: androidDetails);
+
+    await _plugin.show(
+      item.id.hashCode,
+      item.title,
+      item.body,
+      details,
+      payload: item.id,
+    );
+  }
+
+  Future _scheduleNotification(NotificationItem item) async {
+    assert(
+      item.dateTime != null,
+      'Notification must have a dateTime in order to be scheduled.',
+    );
+
     const androidDetails = AndroidNotificationDetails(
       'test_channel_id',
       'test_channel_name',
@@ -105,7 +155,7 @@ class NotificationManager {
       item.id.hashCode,
       item.title,
       item.body,
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      tz.TZDateTime.from(item.dateTime!, tz.local),
       details,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
