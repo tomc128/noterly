@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/file_manager.dart';
+import 'package:noti_buddy/managers/lifecycle_event_handler.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 
@@ -7,6 +8,18 @@ class AppManager {
   static final AppManager _instance = AppManager._internal();
   static AppManager get instance => _instance;
   AppManager._internal() {
+    WidgetsBinding.instance.addObserver(
+      LifecycleEventHandler(
+        resumeCallback: () async {
+          // If we're resuming, we need to reload the data from file in case an item has been deleted from a notification
+          // action. In this case, a separate instance of the app will have been launched to handle the action, and the
+          // data will have been saved to file. We need to reload the data from file to ensure the UI is up to date.
+          print('Resuming app, reloading data from file...');
+          await _load();
+        },
+      ),
+    );
+
     _load();
   }
 
