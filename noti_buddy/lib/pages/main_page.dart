@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/models/app_data.dart';
-import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/widgets/notification_list.dart';
+
+import 'create_notification_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({
@@ -35,12 +36,13 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          var appData = await AppData.instance;
-          appData.notificationItems
-              .add(NotificationItem(title: 'Test', colour: Colors.red));
-
-          setState(() {});
-          await appData.save();
+          await Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (context) => const CreateNotificationPage(),
+                ),
+              )
+              .then((value) => setState(() {})); // Refresh the list
         },
         tooltip: 'Add',
         child: const Icon(Icons.add),
