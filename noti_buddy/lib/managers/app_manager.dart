@@ -108,8 +108,6 @@ class AppManager {
   }
   // #endregion
 
-  NotificationItem itemAt(int i) => notifier.value[i];
-
   Future fullUpdate() async {
     print('Full update requested, reloading data from file...');
     await _load();

@@ -127,7 +127,7 @@ class NotificationManager {
     );
 
     const androidDetails = AndroidNotificationDetails(
-      'test_channel_id',
+      'test_channel_id_a8768sb',
       'test_channel_name',
       channelDescription: 'channel_description',
       actions: <AndroidNotificationAction>[
@@ -136,6 +136,10 @@ class NotificationManager {
           'Mark as done',
         ),
       ],
+      category: AndroidNotificationCategory.reminder,
+      importance: Importance.max,
+      priority: Priority.high,
+      groupKey: 'com.example.noti_buddy.NOTIFICATIONS_TEST_asb76a8',
     );
 
     const details = NotificationDetails(android: androidDetails);
