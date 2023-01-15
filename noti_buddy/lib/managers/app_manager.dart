@@ -1,5 +1,4 @@
 import 'dart:isolate';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/file_manager.dart';
@@ -18,41 +17,15 @@ class AppManager {
           // If we're resuming, we need to reload the data from file in case an item has been deleted from a notification
           // action. In this case, a separate instance of the app will have been launched to handle the action, and the
           // data will have been saved to file. We need to reload the data from file to ensure the UI is up to date.
-          // print('Resuming app, reloading data from file...');
-          // await fullUpdate();
-          // printItems();
-          print('RESUME');
+          print('Resuming app, reloading data from file...');
+          await fullUpdate();
         },
         suspendingCallback: () async => print('SUSPEND'),
       ),
     );
 
-    // Register the port with the main isolate
-    var registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main_isolate_port');
-    if (!registerResult) {
-      print('Failed to register port with main isolate (x1)');
-      IsolateNameServer.removePortNameMapping('main_isolate_port');
-      registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main_isolate_port');
-
-      if (!registerResult) {
-        throw Exception('Failed to register port with main isolate (x2)');
-      }
-    }
-
-    // Listen for messages from the background isolate
-    mainRecievePort.listen((message) {
-      if (message == 'update') {
-        print('Forcing a full update...');
-        AppManager.instance.fullUpdate();
-      } else {
-        print('Unknown message from background isolate: "$message"');
-      }
-    });
-
     _load();
   }
-
-  final mainRecievePort = ReceivePort();
 
   final notifier = ValueNotifier<List<NotificationItem>>([]);
 
@@ -98,15 +71,17 @@ class AppManager {
     return found.isEmpty ? null : found.first;
   }
 
-  Future addItem(NotificationItem item) async {
+  Future addItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     notifier.value.add(item);
     await _save();
     _updateNotifier();
 
-    NotificationManager.instance.updateNotification(item);
+    if (!deferNotificationManagerCall) {
+      NotificationManager.instance.updateNotification(item);
+    }
   }
 
-  Future editItem(NotificationItem item) async {
+  Future editItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == item.id);
     if (found.isEmpty) {
       return;
@@ -117,19 +92,26 @@ class AppManager {
     await _save();
     _updateNotifier();
 
-    NotificationManager.instance.updateNotification(item);
+    if (!deferNotificationManagerCall) {
+      NotificationManager.instance.updateNotification(item);
+    }
   }
 
-  Future deleteItem(String id) async {
+  Future deleteItem(String id, {bool deferNotificationManagerCall = false}) async {
     notifier.value.removeWhere((element) => element.id == id);
     await _save();
     _updateNotifier();
 
-    NotificationManager.instance.cancelNotification(id);
+    if (!deferNotificationManagerCall) {
+      await NotificationManager.instance.cancelNotification(id);
+    }
   }
   // #endregion
 
+  NotificationItem itemAt(int i) => notifier.value[i];
+
   Future fullUpdate() async {
+    print('Full update requested, reloading data from file...');
     await _load();
     _updateNotifier();
     print('Full update completed on isolate ${Isolate.current.debugName}.');

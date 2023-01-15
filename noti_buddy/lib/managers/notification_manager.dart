@@ -1,8 +1,8 @@
-import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
+import 'package:noti_buddy/managers/isolate_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -45,19 +45,26 @@ class NotificationManager {
 
     var item = AppManager.instance.getItem(itemId);
     if (item == null) {
-      print('No item found for payload, ignoring');
-      return;
+      print('No item found for payload, requesting a full update and retrying...');
+      await AppManager.instance.fullUpdate();
+      item = AppManager.instance.getItem(itemId);
+      if (item == null) {
+        print('Still no item found for payload, ignoring');
+        return;
+      }
     }
 
     if (response.actionId == 'done') {
       print('Removing notification "${item.title}"');
-      await AppManager.instance.deleteItem(itemId);
+      await AppManager.instance.deleteItem(itemId, deferNotificationManagerCall: true);
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
       if (isBackground) {
-        var sendPort = IsolateNameServer.lookupPortByName('main_isolate_port');
+        var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
-        print('Update request sent from isolate ${Isolate.current.debugName}.');
+        if (sendPort == null) {
+          print('Failed to send message to main isolate (port not found).');
+        }
       }
 
       return;
@@ -86,7 +93,9 @@ class NotificationManager {
     }
   }
 
-  void _cancelAllNotifications() => _plugin.cancelAll();
+  Future _cancelAllNotifications() async => await _plugin.cancelAll();
+
+  Future cancelNotification(String itemId) async => await _plugin.cancel(itemId.hashCode);
 
   void updateAllNotifications() {
     _cancelAllNotifications();
@@ -100,18 +109,16 @@ class NotificationManager {
     }
   }
 
-  void updateNotification(NotificationItem item) async {
+  Future updateNotification(NotificationItem item) async {
     // Cancel the existing notification, if any
-    _plugin.cancel(item.id.hashCode);
+    await _plugin.cancel(item.id.hashCode);
 
     if (item.dateTime == null) {
-      _showNotification(item);
+      await _showNotification(item);
     } else {
-      _scheduleNotification(item);
+      await _scheduleNotification(item);
     }
   }
-
-  void cancelNotification(String itemId) async => _plugin.cancel(itemId.hashCode);
 
   Future _showNotification(NotificationItem item) async {
     assert(

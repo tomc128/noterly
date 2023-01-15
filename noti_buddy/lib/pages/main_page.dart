@@ -41,6 +41,15 @@ class _MainPageState extends State<MainPage> {
           ),
           IconButton(
             onPressed: () async {
+              AppManager.instance.printItems();
+              AppManager.instance.fullUpdate();
+              setState(() {});
+              AppManager.instance.printItems();
+            },
+            icon: const Icon(Icons.replay_circle_filled_sharp),
+          ),
+          IconButton(
+            onPressed: () async {
               NotificationManager.instance.updateAllNotifications();
             },
             icon: const Icon(Icons.notifications),
