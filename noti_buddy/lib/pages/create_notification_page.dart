@@ -112,6 +112,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               body: bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
               colour: _colour,
+              persistant: _isPersistant,
             ),
           );
 
