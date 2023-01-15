@@ -1,8 +1,8 @@
-import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
+import 'package:noti_buddy/managers/isolate_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -16,31 +16,8 @@ class NotificationManager {
 
   final _plugin = FlutterLocalNotificationsPlugin();
 
-  final mainRecievePort = ReceivePort();
-
   void init() async {
     tz.initializeTimeZones();
-
-    // Register the port with the main isolate
-    var registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main');
-    if (!registerResult) {
-      IsolateNameServer.removePortNameMapping('main');
-      registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, 'main');
-
-      if (!registerResult) {
-        throw Exception('Failed to register port with main isolate (x2)');
-      }
-    }
-
-    // Listen for messages from the background isolate
-    mainRecievePort.listen((message) {
-      if (message == 'update') {
-        print('Forcing a full update...');
-        AppManager.instance.fullUpdate();
-      } else {
-        print('Unknown message from background isolate: "$message"');
-      }
-    });
 
     const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
@@ -66,18 +43,26 @@ class NotificationManager {
 
     var item = AppManager.instance.getItem(itemId);
     if (item == null) {
-      print('No item found for payload, ignoring');
-      return;
+      print('No item found for payload, requesting a full update and retrying...');
+      await AppManager.instance.fullUpdate();
+      item = AppManager.instance.getItem(itemId);
+      if (item == null) {
+        print('Still no item found for payload, ignoring');
+        return;
+      }
     }
 
     if (response.actionId == 'done') {
       print('Removing notification "${item.title}"');
-      AppManager.instance.deleteItem(itemId);
+      await AppManager.instance.deleteItem(itemId, deferNotificationManagerCall: true);
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
       if (isBackground) {
-        var sendPort = IsolateNameServer.lookupPortByName('main');
+        var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
+        if (sendPort == null) {
+          print('Failed to send message to main isolate (port not found).');
+        }
       }
 
       return;
@@ -106,9 +91,9 @@ class NotificationManager {
     }
   }
 
-  void _cancelAllNotifications() {
-    _plugin.cancelAll();
-  }
+  Future _cancelAllNotifications() async => await _plugin.cancelAll();
+
+  Future cancelNotification(String itemId) async => await _plugin.cancel(itemId.hashCode);
 
   void updateAllNotifications() {
     _cancelAllNotifications();
@@ -119,6 +104,17 @@ class NotificationManager {
       } else {
         _scheduleNotification(item);
       }
+    }
+  }
+
+  Future updateNotification(NotificationItem item) async {
+    // Cancel the existing notification, if any
+    await _plugin.cancel(item.id.hashCode);
+
+    if (item.dateTime == null) {
+      await _showNotification(item);
+    } else {
+      await _scheduleNotification(item);
     }
   }
 

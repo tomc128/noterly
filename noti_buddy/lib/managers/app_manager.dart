@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/file_manager.dart';
 import 'package:noti_buddy/managers/lifecycle_event_handler.dart';
+import 'package:noti_buddy/managers/notification_manager.dart';
 import 'package:noti_buddy/models/app_data.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 
@@ -15,8 +16,7 @@ class AppManager {
           // action. In this case, a separate instance of the app will have been launched to handle the action, and the
           // data will have been saved to file. We need to reload the data from file to ensure the UI is up to date.
           print('Resuming app, reloading data from file...');
-          await _load();
-          printItems();
+          await fullUpdate();
         },
       ),
     );
@@ -62,13 +62,17 @@ class AppManager {
     return found.isEmpty ? null : found.first;
   }
 
-  void addItem(NotificationItem item) {
+  Future addItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     notifier.value.add(item);
-    _save();
+    await _save();
     _updateNotifier();
+
+    if (!deferNotificationManagerCall) {
+      NotificationManager.instance.updateNotification(item);
+    }
   }
 
-  void editItem(NotificationItem item) {
+  Future editItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == item.id);
     if (found.isEmpty) {
       return;
@@ -76,19 +80,27 @@ class AppManager {
 
     var index = notifier.value.indexOf(found.first);
     notifier.value[index] = item;
-    _save();
+    await _save();
     _updateNotifier();
+
+    if (!deferNotificationManagerCall) {
+      NotificationManager.instance.updateNotification(item);
+    }
   }
 
-  void deleteItem(String id) {
+  Future deleteItem(String id, {bool deferNotificationManagerCall = false}) async {
     notifier.value.removeWhere((element) => element.id == id);
-    _save();
+    await _save();
     _updateNotifier();
+
+    if (!deferNotificationManagerCall) {
+      await NotificationManager.instance.cancelNotification(id);
+    }
   }
 
   NotificationItem itemAt(int i) => notifier.value[i];
 
-  void fullUpdate() async {
+  Future fullUpdate() async {
     print('Full update requested, reloading data from file...');
     await _load();
     print('Updaing notifier...');
