@@ -1,11 +1,16 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noti_buddy/managers/isolate_manager.dart';
 import 'package:noti_buddy/pages/main_page.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
+  binding.renderView.automaticSystemUiAdjustment = false;
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.transparent,
+  ));
 
   IsolateManager.init();
 
@@ -22,6 +27,7 @@ class MyApp extends StatelessWidget {
       ColorScheme darkColorScheme;
 
       if (lightDynamic != null && darkDynamic != null) {
+        print('Using dynamic color scheme.');
         // On Android S+ devices, use the provided dynamic color scheme.
         // (Recommended) Harmonize the dynamic color scheme' built-in semantic colors.
         lightColorScheme = lightDynamic.harmonized();
