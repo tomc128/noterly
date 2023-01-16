@@ -27,6 +27,22 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.notifications_active),
+            label: 'Active',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.archive),
+            label: 'Archive',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+      ),
       appBar: AppBar(
         title: const Text('Noti Buddy'),
         actions: [
