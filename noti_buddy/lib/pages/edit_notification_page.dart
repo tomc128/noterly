@@ -54,6 +54,15 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Notification'),
+        actions: [
+          IconButton(
+            icon: const Icon(FluentIcons.delete_16_filled),
+            onPressed: () {
+              AppManager.instance.deleteItem(_item.id);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -81,8 +90,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           ),
           if (_isScheduled)
             ListTile(
-              title: const Text('Send at'),
-              subtitle: Text(_dateTime.toDateTimeString()),
+              title: const Text('Send'),
+              subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
               onTap: () {
                 showDateTimePicker(
                   context: context,

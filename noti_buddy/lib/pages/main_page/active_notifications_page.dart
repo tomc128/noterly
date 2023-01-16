@@ -24,6 +24,18 @@ class ActiveNotificationsPage extends NavigationScreen {
           );
         }
 
+        items.sort((a, b) {
+          if (a.dateTime == null && b.dateTime == null) {
+            return a.title.compareTo(b.title);
+          } else if (a.dateTime == null) {
+            return -1;
+          } else if (b.dateTime == null) {
+            return 1;
+          } else {
+            return a.dateTime!.compareTo(b.dateTime!);
+          }
+        });
+
         return ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {

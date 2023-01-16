@@ -73,8 +73,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
           ),
           if (_isScheduled)
             ListTile(
-              title: const Text('Send at'),
-              subtitle: Text(_dateTime.toDateTimeString()),
+              title: const Text('Send'),
+              subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
               onTap: () {
                 showDateTimePicker(
                   context: context,

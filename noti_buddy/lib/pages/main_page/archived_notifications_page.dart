@@ -23,6 +23,8 @@ class ArchivedNotificationsPage extends NavigationScreen {
           );
         }
 
+        items.sort((a, b) => b.archivedDateTime!.compareTo(a.archivedDateTime!));
+
         return ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {

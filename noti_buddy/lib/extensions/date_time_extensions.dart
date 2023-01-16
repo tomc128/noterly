@@ -8,7 +8,7 @@ extension DateTimeExtensions on DateTime {
 
   String toDateTimeString() => DateFormat.MMMMEEEEd().add_jm().format(this);
 
-  String toRelativeDateTimeString() {
+  String toRelativeDateTimeString({bool alwaysShowDay = false}) {
     final now = DateTime.now();
 
     bool isToday() => now.year == year && now.month == month && now.day == day;
@@ -19,7 +19,7 @@ extension DateTimeExtensions on DateTime {
 
     bool isBeforeNextWeek() => isBefore(now.add(const Duration(days: 7)));
 
-    if (isToday()) return Jiffy(this).fromNow();
+    if (isToday()) return alwaysShowDay ? 'Today, ${toTimeOnlyString()}' : Jiffy(this).fromNow();
 
     if (isYesterday()) return 'Yesterday, ${toTimeOnlyString()}';
 
