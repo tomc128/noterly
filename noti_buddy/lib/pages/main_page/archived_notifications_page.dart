@@ -5,6 +5,8 @@ import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/models/navigation_screen.dart';
 import 'package:noti_buddy/models/notification_item.dart';
 
+import '../edit_notification_page.dart';
+
 class ArchivedNotificationsPage extends NavigationScreen {
   const ArchivedNotificationsPage({
     super.key,
@@ -98,5 +100,13 @@ class ArchivedNotificationsPage extends NavigationScreen {
     return text.isEmpty ? null : Text(text);
   }
 
-  void _onItemTap(BuildContext context, NotificationItem item) => print(item);
+  void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context)
+      .push(
+        MaterialPageRoute(
+          builder: (context) => EditNotificationPage(
+            item: item,
+          ),
+        ),
+      )
+      .then((value) => refresh());
 }

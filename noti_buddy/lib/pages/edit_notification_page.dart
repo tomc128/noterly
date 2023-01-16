@@ -126,6 +126,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           _item.title = titleController.text;
           _item.body = bodyController.text;
           _item.dateTime = _isScheduled ? _dateTime : null;
+          _item.archived = false; // Unarchive if we edit an archived item
 
           AppManager.instance.editItem(_item);
 
