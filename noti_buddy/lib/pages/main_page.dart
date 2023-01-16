@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: () async {
               NotificationManager.instance.updateAllNotifications();
             },
-            icon: const Icon(Icons.notifications),
+            icon: const Icon(FluentIcons.alert_badge_16_filled),
           ),
         ],
       ),
@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
 
           setState(() {});
         },
-        child: const Icon(Icons.add),
+        child: const Icon(FluentIcons.add_16_filled),
       ),
     );
   }

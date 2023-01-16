@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
@@ -124,7 +125,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           }
         },
         label: const Text('Save'),
-        icon: const Icon(Icons.save),
+        icon: const Icon(FluentIcons.save_16_filled),
       ),
     );
   }
