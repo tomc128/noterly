@@ -16,6 +16,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedDestination = 0;
+  final _pageController = PageController(
+    initialPage: 0,
+  );
 
   @override
   void initState() {
@@ -45,6 +48,11 @@ class _MainPageState extends State<MainPage> {
         onDestinationSelected: (value) {
           setState(() {
             _selectedDestination = value;
+            _pageController.animateToPage(
+              value,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOutCirc,
+            );
           });
         },
         selectedIndex: _selectedDestination,
@@ -60,7 +68,23 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: _getPage(_selectedDestination),
+      // body: _getPage(_selectedDestination),
+      body: PageView(
+        onPageChanged: (value) {
+          setState(() => _selectedDestination = value);
+        },
+        controller: _pageController,
+        children: [
+          ActiveNotificationsPage(
+            refresh: () => setState(() {}),
+          ),
+          ArchivedNotificationsPage(
+            refresh: () => setState(() {}),
+          ),
+          const Placeholder(),
+        ],
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.of(context).push(
@@ -74,22 +98,5 @@ class _MainPageState extends State<MainPage> {
         child: const Icon(Icons.add),
       ),
     );
-  }
-
-  Widget _getPage(int index) {
-    switch (index) {
-      case 0:
-        return ActiveNotificationsPage(
-          refresh: () => setState(() {}),
-        );
-      case 1:
-        return ArchivedNotificationsPage(
-          refresh: () => setState(() {}),
-        );
-      case 2:
-        return const Placeholder();
-      default:
-        return const Placeholder();
-    }
   }
 }
