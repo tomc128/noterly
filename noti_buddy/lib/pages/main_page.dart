@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
 import 'package:noti_buddy/pages/main_page/active_notifications_page.dart';
@@ -33,15 +34,15 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.notifications_active),
+            icon: Icon(FluentIcons.alert_16_filled),
             label: 'Active',
           ),
           NavigationDestination(
-            icon: Icon(Icons.archive),
+            icon: Icon(FluentIcons.archive_16_filled),
             label: 'Archive',
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings),
+            icon: Icon(FluentIcons.settings_16_filled),
             label: 'Settings',
           ),
         ],

@@ -101,6 +101,8 @@ class NotificationManager {
     _cancelAllNotifications();
 
     for (var item in AppManager.instance.notifier.value) {
+      if (item.archived) continue;
+
       if (item.dateTime == null) {
         _showNotification(item);
       } else {
@@ -112,6 +114,8 @@ class NotificationManager {
   Future updateNotification(NotificationItem item) async {
     // Cancel the existing notification, if any
     await _plugin.cancel(item.id.hashCode);
+
+    if (item.archived) return;
 
     if (item.dateTime == null) {
       await _showNotification(item);

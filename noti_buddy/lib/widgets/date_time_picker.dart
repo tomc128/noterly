@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/extensions/time_of_day_extensions.dart';
@@ -65,124 +66,31 @@ class _DateTimePickerState extends State<DateTimePicker> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             decoration: BoxDecoration(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(4)),
-              color: Theme.of(context).colorScheme.primary,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              color: Theme.of(context).colorScheme.surface,
             ),
             child: Text(
               'Select date and time',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
             ),
           ),
-          const Text('Date'),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    var newDateTime =
-                        _dateTime.subtract(const Duration(days: 1));
-                    if (newDateTime.isAfter(widget.firstDate)) {
-                      _dateTime = newDateTime;
-                    }
-                  });
-                },
-                icon: const Icon(Icons.chevron_left),
-              ),
-              Text(_dateTime.toDateOnlyString()),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    var newDateTime = _dateTime.add(const Duration(days: 1));
-                    if (newDateTime.isBefore(widget.lastDate)) {
-                      _dateTime = newDateTime;
-                    }
-                  });
-                },
-                icon: const Icon(Icons.chevron_right),
-              ),
-              IconButton(
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: _dateTime,
-                    firstDate: widget.firstDate,
-                    lastDate: widget.lastDate,
-                  ).then((value) {
-                    if (value != null) {
-                      setState(() {
-                        _dateTime = value;
-                      });
-                    }
-                  });
-                },
-                icon: const Icon(Icons.calendar_today),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Date', style: Theme.of(context).textTheme.titleMedium),
           ),
-          const Text('Time'),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    var newDateTime =
-                        _dateTime.subtract(const Duration(hours: 1));
-                    if (newDateTime.isAfter(widget.firstDate)) {
-                      _dateTime = newDateTime;
-                    }
-                  });
-                },
-                icon: const Icon(Icons.chevron_left),
-              ),
-              Text(_dateTime.toTimeOnlyString()),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    var newDateTime = _dateTime.add(const Duration(hours: 1));
-                    if (newDateTime.isBefore(widget.lastDate)) {
-                      _dateTime = newDateTime;
-                    }
-                  });
-                },
-                icon: const Icon(Icons.chevron_right),
-              ),
-              IconButton(
-                onPressed: () {
-                  showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.fromDateTime(_dateTime),
-                  ).then((value) {
-                    if (value != null) {
-                      setState(() {
-                        if (value.isAfterNow()) {
-                          _dateTime = DateTime(
-                            _dateTime.year,
-                            _dateTime.month,
-                            _dateTime.day,
-                            value.hour,
-                            value.minute,
-                          );
-                        } else {
-                          print('invalid time');
-                        }
-                      });
-                    }
-                  });
-                },
-                icon: const Icon(Icons.access_time),
-              ),
-            ],
+          _getDatePicker(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Time', style: Theme.of(context).textTheme.titleMedium),
           ),
-          Row(
+          _getTimePicker(),
+          ButtonBar(
             children: [
               TextButton(
                 onPressed: () {
@@ -202,4 +110,114 @@ class _DateTimePickerState extends State<DateTimePicker> {
       ),
     );
   }
+
+  Widget _getDatePicker() => Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    var newDateTime = _dateTime.subtract(const Duration(days: 1));
+                    if (newDateTime.isAfter(widget.firstDate)) {
+                      _dateTime = newDateTime;
+                    }
+                  });
+                },
+                icon: const Icon(FluentIcons.chevron_left_16_filled),
+              ),
+              Text(_dateTime.toDateOnlyString()),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    var newDateTime = _dateTime.add(const Duration(days: 1));
+                    if (newDateTime.isBefore(widget.lastDate)) {
+                      _dateTime = newDateTime;
+                    }
+                  });
+                },
+                icon: const Icon(FluentIcons.chevron_right_16_filled),
+              ),
+            ],
+          ),
+          TextButton.icon(
+            onPressed: () {
+              showDatePicker(
+                context: context,
+                initialDate: _dateTime,
+                firstDate: widget.firstDate,
+                lastDate: widget.lastDate,
+              ).then((value) {
+                if (value != null) {
+                  setState(() {
+                    _dateTime = value;
+                  });
+                }
+              });
+            },
+            icon: const Icon(FluentIcons.calendar_ltr_16_filled),
+            label: const Text('Select date'),
+          ),
+        ],
+      );
+
+  Widget _getTimePicker() => Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    var newDateTime = _dateTime.subtract(const Duration(hours: 1));
+                    if (newDateTime.isAfter(widget.firstDate)) {
+                      _dateTime = newDateTime;
+                    }
+                  });
+                },
+                icon: const Icon(FluentIcons.subtract_16_filled),
+              ),
+              Text(_dateTime.toTimeOnlyString()),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    var newDateTime = _dateTime.add(const Duration(hours: 1));
+                    if (newDateTime.isBefore(widget.lastDate)) {
+                      _dateTime = newDateTime;
+                    }
+                  });
+                },
+                icon: const Icon(FluentIcons.add_16_filled),
+              ),
+            ],
+          ),
+          TextButton.icon(
+            onPressed: () {
+              showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.fromDateTime(_dateTime),
+              ).then((value) {
+                if (value != null) {
+                  setState(() {
+                    if (value.isAfterNow()) {
+                      _dateTime = DateTime(
+                        _dateTime.year,
+                        _dateTime.month,
+                        _dateTime.day,
+                        value.hour,
+                        value.minute,
+                      );
+                    } else {
+                      print('invalid time');
+                    }
+                  });
+                }
+              });
+            },
+            icon: const Icon(FluentIcons.clock_16_filled),
+            label: const Text('Select time'),
+          ),
+        ],
+      );
 }
