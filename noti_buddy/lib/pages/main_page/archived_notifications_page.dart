@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
@@ -30,26 +31,57 @@ class ArchivedNotificationsPage extends NavigationScreen {
           itemBuilder: (context, index) {
             final item = items[index];
 
-            return ListTile(
-              title: Text(item.title),
-              subtitle: _getSubtitle(item),
-              leading: SizedBox(
-                width: 32,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: CircleAvatar(
-                    radius: 8,
-                    backgroundColor: item.colour,
+            return Dismissible(
+              key: ValueKey(item.id),
+              background: _getDismissibleBackground(context),
+              secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
+              onDismissed: (direction) {
+                AppManager.instance.deleteItem(item.id);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Notification deleted.'),
+                    action: SnackBarAction(
+                      label: 'Undo',
+                      onPressed: () => AppManager.instance.restoreLastDeletedItem(),
+                    ),
+                  ),
+                );
+              },
+              child: ListTile(
+                title: Text(item.title),
+                subtitle: _getSubtitle(item),
+                leading: SizedBox(
+                  width: 32,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: CircleAvatar(
+                      radius: 8,
+                      backgroundColor: item.colour,
+                    ),
                   ),
                 ),
+                onTap: () => _onItemTap(context, item),
               ),
-              onTap: () => _onItemTap(context, item),
             );
           },
         );
       },
     );
   }
+
+  Widget _getDismissibleBackground(BuildContext context, {bool isSecondary = false}) => Container(
+        color: Theme.of(context).colorScheme.primary,
+        child: Align(
+          alignment: isSecondary ? Alignment.centerRight : Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Icon(
+              FluentIcons.delete_16_filled,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
+        ),
+      );
 
   Widget? _getSubtitle(NotificationItem item) {
     String text = '';

@@ -28,6 +28,7 @@ class AppManager {
   }
 
   final notifier = ValueNotifier<List<NotificationItem>>([]);
+  NotificationItem? lastDeletedItem;
 
   var isInitialised = false;
   Future? _loadingFuture;
@@ -98,7 +99,14 @@ class AppManager {
   }
 
   Future deleteItem(String id, {bool deferNotificationManagerCall = false}) async {
-    notifier.value.removeWhere((element) => element.id == id);
+    var found = notifier.value.where((element) => element.id == id);
+    if (found.isEmpty) {
+      return;
+    }
+
+    lastDeletedItem = found.first;
+    notifier.value.remove(found.first);
+
     await _save();
     _updateNotifier();
 
@@ -139,6 +147,15 @@ class AppManager {
     if (!deferNotificationManagerCall) {
       NotificationManager.instance.updateNotification(notifier.value[index]);
     }
+  }
+
+  Future restoreLastDeletedItem({bool deferNotificationManagerCall = false}) async {
+    if (lastDeletedItem == null) {
+      return;
+    }
+
+    await addItem(lastDeletedItem!, deferNotificationManagerCall: deferNotificationManagerCall);
+    lastDeletedItem = null;
   }
   // #endregion
 

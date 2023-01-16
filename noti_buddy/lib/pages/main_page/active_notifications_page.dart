@@ -87,7 +87,7 @@ class ActiveNotificationsPage extends NavigationScreen {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Icon(
-              FluentIcons.delete_16_filled,
+              FluentIcons.archive_16_filled,
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
