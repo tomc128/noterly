@@ -39,6 +39,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
               secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
               onDismissed: (direction) {
                 AppManager.instance.deleteItem(item.id);
+                ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('Notification deleted.'),
