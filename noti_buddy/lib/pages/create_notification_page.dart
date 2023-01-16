@@ -17,7 +17,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   final bodyController = TextEditingController();
 
   var _isScheduled = false;
-  var _isPersistant = false;
+  var _isPersistent = false;
 
   late DateTime _dateTime;
   late Color _colour;
@@ -92,11 +92,11 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               },
             ),
           CheckboxListTile(
-            value: _isPersistant,
-            title: const Text('Persistant'),
+            value: _isPersistent,
+            title: const Text('Persistent'),
             onChanged: (value) {
               setState(() {
-                _isPersistant = value!;
+                _isPersistent = value!;
               });
             },
           ),
@@ -112,7 +112,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               body: bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
               colour: _colour,
-              persistant: _isPersistant,
+              persistent: _isPersistent,
             ),
           );
 

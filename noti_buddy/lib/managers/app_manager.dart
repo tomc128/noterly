@@ -106,6 +106,23 @@ class AppManager {
       await NotificationManager.instance.cancelNotification(id);
     }
   }
+
+  Future archiveItem(String id, {bool deferNotificationManagerCall = false}) async {
+    var found = notifier.value.where((element) => element.id == id);
+    if (found.isEmpty) {
+      return;
+    }
+
+    var index = notifier.value.indexOf(found.first);
+    notifier.value[index].archived = true;
+    notifier.value[index].archivedDateTime = DateTime.now();
+    await _save();
+    _updateNotifier();
+
+    if (!deferNotificationManagerCall) {
+      await NotificationManager.instance.cancelNotification(id);
+    }
+  }
   // #endregion
 
   Future fullUpdate() async {

@@ -100,11 +100,11 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               },
             ),
           CheckboxListTile(
-            value: _item.persistant,
-            title: const Text('Persistant'),
+            value: _item.persistent,
+            title: const Text('Persistent'),
             onChanged: (value) {
               setState(() {
-                _item.persistant = value!;
+                _item.persistent = value!;
               });
             },
           ),

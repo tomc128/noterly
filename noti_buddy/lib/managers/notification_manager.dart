@@ -55,8 +55,8 @@ class NotificationManager {
     }
 
     if (response.actionId == 'done') {
-      print('Removing notification "${item.title}"');
-      await AppManager.instance.deleteItem(itemId, deferNotificationManagerCall: true);
+      print('Archiving notification "${item.title}"');
+      await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
       if (isBackground) {
@@ -174,6 +174,6 @@ class NotificationManager {
         priority: Priority.max,
         groupKey: 'com.example.noti_buddy.NOTIFICATIONS_TEST_asb76a8',
         color: item.colour,
-        ongoing: item.persistant,
+        ongoing: item.persistent,
       );
 }

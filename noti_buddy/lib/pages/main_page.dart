@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
 import 'package:noti_buddy/pages/main_page/active_notifications_page.dart';
+import 'package:noti_buddy/pages/main_page/archived_notifications_page.dart';
 
 import 'create_notification_page.dart';
 
@@ -82,7 +83,9 @@ class _MainPageState extends State<MainPage> {
           refresh: () => setState(() {}),
         );
       case 1:
-        return const Placeholder();
+        return ArchivedNotificationsPage(
+          refresh: () => setState(() {}),
+        );
       case 2:
         return const Placeholder();
       default:
