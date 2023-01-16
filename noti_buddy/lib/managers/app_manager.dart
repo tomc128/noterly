@@ -123,6 +123,23 @@ class AppManager {
       await NotificationManager.instance.cancelNotification(id);
     }
   }
+
+  Future restoreArchivedItem(String id, {bool deferNotificationManagerCall = false}) async {
+    var found = notifier.value.where((element) => element.id == id);
+    if (found.isEmpty) {
+      return;
+    }
+
+    var index = notifier.value.indexOf(found.first);
+    notifier.value[index].archived = false;
+    notifier.value[index].archivedDateTime = null;
+    await _save();
+    _updateNotifier();
+
+    if (!deferNotificationManagerCall) {
+      NotificationManager.instance.updateNotification(notifier.value[index]);
+    }
+  }
   // #endregion
 
   Future fullUpdate() async {
