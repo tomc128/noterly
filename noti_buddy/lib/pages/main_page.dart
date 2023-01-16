@@ -1,9 +1,6 @@
-import 'dart:isolate';
-
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/widgets/notification_list.dart';
+import 'package:noti_buddy/pages/main_page/active_notifications_page.dart';
 
 import 'create_notification_page.dart';
 
@@ -17,6 +14,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _selectedDestination = 0;
+
   @override
   void initState() {
     super.initState();
@@ -42,28 +41,16 @@ class _MainPageState extends State<MainPage> {
             label: 'Settings',
           ),
         ],
+        onDestinationSelected: (value) {
+          setState(() {
+            _selectedDestination = value;
+          });
+        },
+        selectedIndex: _selectedDestination,
       ),
       appBar: AppBar(
         title: const Text('Noti Buddy'),
         actions: [
-          IconButton(
-            onPressed: () async {
-              print('isolate name; ${Isolate.current.debugName}');
-              AppManager.instance.printItems();
-              setState(() {});
-              AppManager.instance.printItems();
-            },
-            icon: const Icon(Icons.refresh),
-          ),
-          IconButton(
-            onPressed: () async {
-              AppManager.instance.printItems();
-              AppManager.instance.fullUpdate();
-              setState(() {});
-              AppManager.instance.printItems();
-            },
-            icon: const Icon(Icons.replay_circle_filled_sharp),
-          ),
           IconButton(
             onPressed: () async {
               NotificationManager.instance.updateAllNotifications();
@@ -72,29 +59,34 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: ValueListenableBuilder(
-        valueListenable: AppManager.instance.notifier,
-        builder: (context, value, child) {
-          print('Building list');
-          return NotificationList(
-            items: value,
-            onRefresh: () => setState(() {}),
-          );
-        },
-      ),
+      body: _getPage(_selectedDestination),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.of(context)
-              .push(
-                MaterialPageRoute(
-                  builder: (context) => const CreateNotificationPage(),
-                ),
-              )
-              .then((value) => setState(() {})); // Refresh the list
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CreateNotificationPage(),
+            ),
+          );
+
+          setState(() {});
         },
-        tooltip: 'Add',
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return ActiveNotificationsPage(
+          refresh: () => setState(() {}),
+        );
+      case 1:
+        return const Placeholder();
+      case 2:
+        return const Placeholder();
+      default:
+        return const Placeholder();
+    }
   }
 }

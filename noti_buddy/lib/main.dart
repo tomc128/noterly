@@ -6,11 +6,10 @@ import 'package:noti_buddy/managers/isolate_manager.dart';
 import 'package:noti_buddy/pages/main_page.dart';
 
 void main() {
-  final WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
-  binding.renderView.automaticSystemUiAdjustment = false;
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
-  ));
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Ensure the app renders behind the system UI.
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   IsolateManager.init();
 
