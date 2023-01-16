@@ -30,12 +30,15 @@ class ArchivedNotificationsPage extends NavigationScreen {
 
             return ListTile(
               title: Text(item.title),
-              subtitle: Text('Archived on ${item.archivedDateTime!.toDateTimeString()}'),
-              trailing: item.dateTime != null ? Text(item.dateTime!.toDateTimeString()) : null,
+              subtitle: _getSubtitle(item),
               leading: SizedBox(
-                width: 8,
-                child: CircleAvatar(
-                  backgroundColor: item.colour,
+                width: 32,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    radius: 8,
+                    backgroundColor: item.colour,
+                  ),
                 ),
               ),
               onTap: () => _onItemTap(context, item),
@@ -44,6 +47,21 @@ class ArchivedNotificationsPage extends NavigationScreen {
         );
       },
     );
+  }
+
+  Widget? _getSubtitle(NotificationItem item) {
+    String text = '';
+    if (item.body != null && item.body!.isNotEmpty) {
+      text += item.body!;
+    }
+
+    if (text.isNotEmpty) {
+      text += '\n';
+    }
+
+    text += 'Archived on ${item.archivedDateTime!.toDateTimeString()}';
+
+    return text.isEmpty ? null : Text(text);
   }
 
   void _onItemTap(BuildContext context, NotificationItem item) => print(item);

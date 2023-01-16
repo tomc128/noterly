@@ -31,12 +31,15 @@ class ActiveNotificationsPage extends NavigationScreen {
 
             return ListTile(
               title: Text(item.title),
-              subtitle: item.body != null ? Text(item.body!) : null,
-              trailing: item.dateTime != null ? Text(item.dateTime!.toDateTimeString()) : null,
+              subtitle: _getSubtitle(item),
               leading: SizedBox(
-                width: 8,
-                child: CircleAvatar(
-                  backgroundColor: item.colour,
+                width: 32,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    radius: 8,
+                    backgroundColor: item.colour,
+                  ),
                 ),
               ),
               onTap: () => _onItemTap(context, item),
@@ -45,6 +48,23 @@ class ActiveNotificationsPage extends NavigationScreen {
         );
       },
     );
+  }
+
+  Widget? _getSubtitle(NotificationItem item) {
+    String text = '';
+    if (item.body != null && item.body!.isNotEmpty) {
+      text += item.body!;
+    }
+
+    if (item.dateTime != null) {
+      if (text.isNotEmpty) {
+        text += '\n';
+      }
+
+      text += item.dateTime!.toDateTimeString();
+    }
+
+    return text.isEmpty ? null : Text(text);
   }
 
   void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context)

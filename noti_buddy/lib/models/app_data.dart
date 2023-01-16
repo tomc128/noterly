@@ -15,9 +15,7 @@ class AppData {
 
   factory AppData.fromJson(Map<String, dynamic> json) {
     return AppData(
-      notificationItems: (json['notificationItems'] as List<dynamic>)
-          .map((e) => NotificationItem.fromJson(e))
-          .toList(),
+      notificationItems: (json['notificationItems'] as List<dynamic>).map((e) => NotificationItem.fromJson(e)).toList(),
     );
   }
 }
