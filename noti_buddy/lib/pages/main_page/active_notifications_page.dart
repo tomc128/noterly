@@ -61,7 +61,7 @@ class ActiveNotificationsPage extends NavigationScreen {
         text += '\n';
       }
 
-      text += item.dateTime!.toDateTimeString();
+      text += item.dateTime!.toRelativeDateTimeString();
     }
 
     return text.isEmpty ? null : Text(text);

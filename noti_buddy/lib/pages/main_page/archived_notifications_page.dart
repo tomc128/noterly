@@ -59,7 +59,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
       text += '\n';
     }
 
-    text += 'Archived on ${item.archivedDateTime!.toDateTimeString()}';
+    text += 'Archived ${item.archivedDateTime!.toRelativeDateTimeString()}';
 
     return text.isEmpty ? null : Text(text);
   }
