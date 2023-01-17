@@ -72,12 +72,12 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ),
               ),
             ),
-            CheckboxListTile(
+            SwitchListTile(
               value: _isScheduled,
               title: const Text('Schedule'),
               onChanged: (value) {
                 setState(() {
-                  _isScheduled = value!;
+                  _isScheduled = value;
                 });
               },
             ),
@@ -102,12 +102,12 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   });
                 },
               ),
-            CheckboxListTile(
+            SwitchListTile(
               value: _isPersistent,
               title: const Text('Persistent'),
               onChanged: (value) {
                 setState(() {
-                  _isPersistent = value!;
+                  _isPersistent = value;
                 });
               },
             ),
