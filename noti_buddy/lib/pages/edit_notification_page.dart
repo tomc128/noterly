@@ -63,6 +63,16 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             icon: const Icon(FluentIcons.delete_16_filled),
             onPressed: () {
               AppManager.instance.deleteItem(_item.id);
+              ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Notification deleted.'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () => AppManager.instance.restoreLastDeletedItem(),
+                  ),
+                ),
+              );
               Navigator.of(context).pop();
             },
           ),
@@ -71,19 +81,22 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(16),
           children: [
-            TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+            ListTile(
+              title: TextFormField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
+                validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
               ),
-              validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
             ),
-            TextFormField(
-              controller: _bodyController,
-              decoration: const InputDecoration(
-                labelText: 'Body',
+            ListTile(
+              title: TextFormField(
+                controller: _bodyController,
+                decoration: const InputDecoration(
+                  labelText: 'Body',
+                ),
               ),
             ),
             SwitchListTile(
