@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/extensions/time_of_day_extensions.dart';
@@ -64,6 +63,13 @@ class _DateTimePickerState extends State<DateTimePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    // The header should use the primary color in light themes and surface color in dark
+    final bool isDark = colorScheme.brightness == Brightness.dark;
+    final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
+    final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -73,11 +79,11 @@ class _DateTimePickerState extends State<DateTimePicker> {
             padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-              color: Theme.of(context).colorScheme.surface,
+              color: primarySurfaceColor,
             ),
             child: Text(
               'Select date and time',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
             ),
           ),
           Padding(
@@ -125,7 +131,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     }
                   });
                 },
-                icon: const Icon(FluentIcons.chevron_left_16_filled),
+                icon: const Icon(Icons.chevron_left),
               ),
               Text(_dateTime.toDateOnlyString()),
               IconButton(
@@ -137,7 +143,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     }
                   });
                 },
-                icon: const Icon(FluentIcons.chevron_right_16_filled),
+                icon: const Icon(Icons.chevron_right),
               ),
             ],
           ),
@@ -156,7 +162,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 }
               });
             },
-            icon: const Icon(FluentIcons.calendar_ltr_16_filled),
+            icon: const Icon(Icons.calendar_month),
             label: const Text('Select date'),
           ),
         ],
@@ -176,7 +182,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     }
                   });
                 },
-                icon: const Icon(FluentIcons.subtract_16_filled),
+                icon: const Icon(Icons.remove),
               ),
               Text(_dateTime.toTimeOnlyString()),
               IconButton(
@@ -188,7 +194,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     }
                   });
                 },
-                icon: const Icon(FluentIcons.add_16_filled),
+                icon: const Icon(Icons.add),
               ),
             ],
           ),
@@ -215,7 +221,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 }
               });
             },
-            icon: const Icon(FluentIcons.clock_16_filled),
+            icon: const Icon(Icons.timer),
             label: const Text('Select time'),
           ),
         ],

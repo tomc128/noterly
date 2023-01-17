@@ -1,5 +1,4 @@
 import 'package:boxy/slivers.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
@@ -44,59 +43,15 @@ class ActiveNotificationsPage extends NavigationScreen {
         var immediateWidgets = immediateItems.isEmpty
             ? []
             : [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text(
-                      'Shown immediately',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ),
-                ),
-                SliverCard(
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-                  elevation: 0,
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => _getItem(context, immediateItems[index]),
-                      childCount: immediateItems.length,
-                    ),
-                  ),
-                ),
+                _getListHeader(context, 'Shown immediately'),
+                _getCard(context, immediateItems),
               ];
 
         var scheduledWidgets = scheduledItems.isEmpty
             ? []
             : [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text(
-                      'Scheduled',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ),
-                ),
-                SliverCard(
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-                  elevation: 0,
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => _getItem(context, scheduledItems[index]),
-                      childCount: scheduledItems.length,
-                    ),
-                  ),
-                ),
+                _getListHeader(context, 'Scheduled'),
+                _getCard(context, scheduledItems),
               ];
 
         var emptyWidgets = [
@@ -120,6 +75,48 @@ class ActiveNotificationsPage extends NavigationScreen {
     );
   }
 
+  Widget _getListHeader(BuildContext context, String title) => SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+      );
+
+  Widget _getCard(BuildContext context, List<NotificationItem> items) => SliverCard(
+        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        clipBehavior: Clip.antiAlias,
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              if (index == items.length - 1) {
+                return _getItem(context, items[index]);
+              } else {
+                return _wrapItem(context, _getItem(context, items[index]));
+              }
+            },
+            childCount: items.length,
+          ),
+        ),
+      );
+
+  Widget _wrapItem(BuildContext context, Widget child) => Column(
+        children: [
+          child,
+          Divider(
+            thickness: 2,
+            height: 2,
+            color: Theme.of(context).colorScheme.background,
+          ),
+        ],
+      );
+
   Widget _getItem(BuildContext context, NotificationItem item) => Dismissible(
         key: ValueKey(item.id),
         background: _getDismissibleBackground(context),
@@ -136,20 +133,24 @@ class ActiveNotificationsPage extends NavigationScreen {
             ),
           );
         },
-        child: ListTile(
-          title: Text(item.title),
-          subtitle: _getSubtitle(item),
-          leading: SizedBox(
-            width: 32,
-            child: Align(
-              alignment: Alignment.center,
-              child: CircleAvatar(
-                radius: 8,
-                backgroundColor: item.colour,
+        child: Material(
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          child: ListTile(
+            title: Text(item.title),
+            subtitle: _getSubtitle(item),
+            minVerticalPadding: 12,
+            leading: SizedBox(
+              width: 32,
+              child: Align(
+                alignment: Alignment.center,
+                child: CircleAvatar(
+                  radius: 8,
+                  backgroundColor: item.colour,
+                ),
               ),
             ),
+            onTap: () => _onItemTap(context, item),
           ),
-          onTap: () => _onItemTap(context, item),
         ),
       );
 
@@ -160,7 +161,7 @@ class ActiveNotificationsPage extends NavigationScreen {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Icon(
-              FluentIcons.archive_16_filled,
+              Icons.archive,
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),

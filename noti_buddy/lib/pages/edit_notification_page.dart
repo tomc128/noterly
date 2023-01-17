@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
@@ -60,7 +59,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
         title: const Text('Edit Notification'),
         actions: [
           IconButton(
-            icon: const Icon(FluentIcons.delete_16_filled),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               AppManager.instance.deleteItem(_item.id);
               ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
@@ -170,7 +169,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           }
         },
         label: const Text('Save'),
-        icon: const Icon(FluentIcons.save_16_filled),
+        icon: const Icon(Icons.save),
       ),
     );
   }

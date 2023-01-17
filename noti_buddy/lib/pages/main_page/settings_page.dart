@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
@@ -21,7 +20,7 @@ class SettingsPage extends NavigationScreen {
         ListTile(
           title: const Text('Generate random items'),
           subtitle: const Text('Generate 10 random items for testing purposes.'),
-          trailing: const Icon(FluentIcons.chevron_right_16_filled),
+          trailing: const Icon(Icons.chevron_right),
           onTap: () {
             String randomString() {
               const chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -49,7 +48,7 @@ class SettingsPage extends NavigationScreen {
         ListTile(
           title: const Text('Resend notifications'),
           subtitle: const Text('Force all notifications to be reset.'),
-          trailing: const Icon(FluentIcons.chevron_right_16_filled),
+          trailing: const Icon(Icons.chevron_right),
           onTap: () {
             NotificationManager.instance.updateAllNotifications();
           },

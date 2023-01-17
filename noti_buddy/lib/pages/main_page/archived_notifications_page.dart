@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
@@ -79,7 +78,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Icon(
-              FluentIcons.delete_16_filled,
+              Icons.delete,
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),

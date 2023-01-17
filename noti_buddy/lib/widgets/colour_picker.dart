@@ -53,6 +53,13 @@ class _ColourPickerState extends State<ColourPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    // The header should use the primary color in light themes and surface color in dark
+    final bool isDark = colorScheme.brightness == Brightness.dark;
+    final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
+    final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -62,11 +69,11 @@ class _ColourPickerState extends State<ColourPicker> {
             padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-              color: Theme.of(context).colorScheme.surface,
+              color: primarySurfaceColor,
             ),
             child: Text(
               'Select colour',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
             ),
           ),
           GridView.builder(
