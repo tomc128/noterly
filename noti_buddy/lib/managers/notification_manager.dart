@@ -148,6 +148,11 @@ class NotificationManager {
       'Notification must have a dateTime in order to be scheduled.',
     );
 
+    if (item.dateTime!.isBefore(DateTime.now())) {
+      print('Notification "${item.title}" is in the past, ignoring');
+      return;
+    }
+
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
 
