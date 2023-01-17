@@ -149,6 +149,7 @@ class NotificationManager {
     );
 
     if (item.dateTime!.isBefore(DateTime.now())) {
+      // TODO: Maybe show the notification immediately instead of ignoring it?
       print('Notification "${item.title}" is in the past, ignoring');
       return;
     }

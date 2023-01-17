@@ -1,13 +1,9 @@
-import 'dart:math';
-
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/pages/main_page/active_notifications_page.dart';
 import 'package:noti_buddy/pages/main_page/archived_notifications_page.dart';
-import 'package:uuid/uuid.dart';
+import 'package:noti_buddy/pages/main_page/settings_page.dart';
 
 import 'create_notification_page.dart';
 
@@ -65,40 +61,6 @@ class _MainPageState extends State<MainPage> {
       ),
       appBar: AppBar(
         title: const Text('Noti Buddy'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              NotificationManager.instance.updateAllNotifications();
-            },
-            icon: const Icon(FluentIcons.alert_badge_16_filled),
-          ),
-          IconButton(
-            onPressed: () {
-              String randomString() {
-                const chars = 'abcdefghijklmnopqrstuvwxyz';
-                return List.generate(10, (index) => chars[Random().nextInt(chars.length)]).join();
-              }
-
-              for (var i = 0; i < 10; i++) {
-                bool shouldHaveBody = Random().nextBool();
-                bool shouldBeScheduled = Random().nextBool();
-
-                DateTime? scheduledTime = shouldBeScheduled ? DateTime.now().add(Duration(days: Random().nextInt(10) + 1)) : null;
-                Color colour = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
-                var item = NotificationItem(
-                  id: const Uuid().v4(),
-                  title: randomString(),
-                  body: shouldHaveBody ? randomString() : null,
-                  dateTime: shouldBeScheduled ? scheduledTime : null,
-                  colour: colour,
-                );
-                AppManager.instance.addItem(item);
-              }
-            },
-            icon: const Icon(FluentIcons.list_16_filled),
-          ),
-        ],
       ),
       // body: _getPage(_selectedDestination),
       body: PageView(
@@ -114,7 +76,9 @@ class _MainPageState extends State<MainPage> {
           ArchivedNotificationsPage(
             refresh: () => setState(() {}),
           ),
-          const Placeholder(),
+          SettingsPage(
+            refresh: () => setState(() {}),
+          ),
         ],
       ),
 
