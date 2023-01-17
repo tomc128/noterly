@@ -110,12 +110,10 @@ class ActiveNotificationsPage extends NavigationScreen {
         return CustomScrollView(
           slivers: [
             ...immediateWidgets,
-            if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty)
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16.0),
-              ),
+            if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
             ...scheduledWidgets,
             if (immediateWidgets.isEmpty && scheduledWidgets.isEmpty) ...emptyWidgets,
+            const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
           ],
         );
       },
