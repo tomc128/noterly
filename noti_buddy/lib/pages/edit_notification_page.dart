@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noti_buddy/widgets/colour_picker.dart';
 import 'package:noti_buddy/widgets/date_time_picker.dart';
+import 'package:noti_buddy/widgets/item_list_decoration.dart';
 
 class EditNotificationPage extends StatefulWidget {
   final NotificationItem item;
@@ -123,7 +125,19 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                 });
               },
             ),
-            Text('Colour: ${Colors.red}'),
+            ListTile(
+              title: const Text('Colour'),
+              leading: ItemListDecoration(colour: _item.colour),
+              onTap: () {
+                showColourPicker(context: context, initialColour: _item.colour).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      _item.colour = value;
+                    });
+                  }
+                });
+              },
+            ),
           ],
         ),
       ),

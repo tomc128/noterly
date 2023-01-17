@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noti_buddy/widgets/colour_picker.dart';
 import 'package:noti_buddy/widgets/date_time_picker.dart';
+import 'package:noti_buddy/widgets/item_list_decoration.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateNotificationPage extends StatefulWidget {
@@ -52,19 +54,22 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(16),
           children: [
-            TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+            ListTile(
+              title: TextFormField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
+                validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
               ),
-              validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
             ),
-            TextFormField(
-              controller: _bodyController,
-              decoration: const InputDecoration(
-                labelText: 'Body',
+            ListTile(
+              title: TextFormField(
+                controller: _bodyController,
+                decoration: const InputDecoration(
+                  labelText: 'Body',
+                ),
               ),
             ),
             CheckboxListTile(
@@ -106,7 +111,19 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 });
               },
             ),
-            Text('Colour: ${Colors.red}'),
+            ListTile(
+              title: const Text('Colour'),
+              leading: ItemListDecoration(colour: _colour),
+              onTap: () {
+                showColourPicker(context: context, initialColour: _colour).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      _colour = value;
+                    });
+                  }
+                });
+              },
+            ),
           ],
         ),
       ),
