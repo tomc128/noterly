@@ -52,6 +52,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
               child: ListTile(
                 title: Text(item.title),
                 subtitle: _getSubtitle(item),
+                minVerticalPadding: 12,
                 leading: SizedBox(
                   width: 32,
                   child: Align(

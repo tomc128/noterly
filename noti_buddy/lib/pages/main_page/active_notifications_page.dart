@@ -1,4 +1,3 @@
-import 'package:boxy/slivers.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_buddy/extensions/date_time_extensions.dart';
 import 'package:noti_buddy/managers/app_manager.dart';
@@ -76,32 +75,25 @@ class ActiveNotificationsPage extends NavigationScreen {
   }
 
   Widget _getListHeader(BuildContext context, String title) => SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+        child: ListTile(
+          title: Text(title),
         ),
       );
 
-  Widget _getCard(BuildContext context, List<NotificationItem> items) => SliverCard(
-        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        clipBehavior: Clip.antiAlias,
-        sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              if (index == items.length - 1) {
-                return _getItem(context, items[index]);
-              } else {
-                return _wrapItem(context, _getItem(context, items[index]));
-              }
-            },
-            childCount: items.length,
+  Widget _getCard(BuildContext context, List<NotificationItem> items) => SliverToBoxAdapter(
+        child: Card(
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+          elevation: 1,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            children: [
+              for (var i = 0; i < items.length; i++)
+                if (i == items.length - 1) _getItem(context, items[i]) else _wrapItem(context, _getItem(context, items[i])),
+            ],
           ),
         ),
       );
@@ -133,24 +125,21 @@ class ActiveNotificationsPage extends NavigationScreen {
             ),
           );
         },
-        child: Material(
-          color: Theme.of(context).colorScheme.surfaceVariant,
-          child: ListTile(
-            title: Text(item.title),
-            subtitle: _getSubtitle(item),
-            minVerticalPadding: 12,
-            leading: SizedBox(
-              width: 32,
-              child: Align(
-                alignment: Alignment.center,
-                child: CircleAvatar(
-                  radius: 8,
-                  backgroundColor: item.colour,
-                ),
+        child: ListTile(
+          title: Text(item.title),
+          subtitle: _getSubtitle(item),
+          minVerticalPadding: 12,
+          leading: SizedBox(
+            width: 32,
+            child: Align(
+              alignment: Alignment.center,
+              child: CircleAvatar(
+                radius: 8,
+                backgroundColor: item.colour,
               ),
             ),
-            onTap: () => _onItemTap(context, item),
           ),
+          onTap: () => _onItemTap(context, item),
         ),
       );
 

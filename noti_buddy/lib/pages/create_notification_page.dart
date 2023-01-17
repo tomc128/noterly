@@ -53,76 +53,90 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
       body: Form(
         key: _formKey,
         child: ListView(
+          padding: const EdgeInsets.only(bottom: 128),
           children: [
-            ListTile(
-              title: TextFormField(
-                controller: _titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Title',
-                ),
-                validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
-              ),
-            ),
-            ListTile(
-              title: TextFormField(
-                controller: _bodyController,
-                decoration: const InputDecoration(
-                  labelText: 'Body',
-                ),
-              ),
-            ),
-            SwitchListTile(
-              value: _isScheduled,
-              title: const Text('Schedule'),
-              onChanged: (value) {
-                setState(() {
-                  _isScheduled = value;
-                });
-              },
-            ),
-            if (_isScheduled)
+            _getHeader('Notification details'),
+            _getCard([
               ListTile(
-                title: const Text('Send'),
-                subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                title: TextFormField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(
+                    labelText: 'Title',
+                  ),
+                  validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
+                ),
+                contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              ),
+              ListTile(
+                title: TextFormField(
+                  controller: _bodyController,
+                  decoration: const InputDecoration(
+                    labelText: 'Body',
+                  ),
+                ),
+                contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              ),
+              ListTile(
+                title: const Text('Colour'),
+                leading: ItemListDecoration(colour: _colour),
                 onTap: () {
-                  showDateTimePicker(
-                    context: context,
-                    initialDateTime: _dateTime,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(
-                      const Duration(days: 365),
-                    ),
-                  ).then((value) {
+                  showColourPicker(context: context, initialColour: _colour).then((value) {
                     if (value != null) {
                       setState(() {
-                        _dateTime = value;
+                        _colour = value;
                       });
                     }
                   });
                 },
               ),
-            SwitchListTile(
-              value: _isPersistent,
-              title: const Text('Persistent'),
-              onChanged: (value) {
-                setState(() {
-                  _isPersistent = value;
-                });
-              },
-            ),
-            ListTile(
-              title: const Text('Colour'),
-              leading: ItemListDecoration(colour: _colour),
-              onTap: () {
-                showColourPicker(context: context, initialColour: _colour).then((value) {
-                  if (value != null) {
-                    setState(() {
-                      _colour = value;
+            ]),
+            _getSpacer(),
+            _getHeader('Schedule'),
+            _getCard([
+              SwitchListTile(
+                value: _isScheduled,
+                title: const Text('Schedule'),
+                onChanged: (value) {
+                  setState(() {
+                    _isScheduled = value;
+                  });
+                },
+              ),
+              if (_isScheduled)
+                ListTile(
+                  title: const Text('Send'),
+                  subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  onTap: () {
+                    showDateTimePicker(
+                      context: context,
+                      initialDateTime: _dateTime,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(
+                        const Duration(days: 365),
+                      ),
+                    ).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          _dateTime = value;
+                        });
+                      }
                     });
-                  }
-                });
-              },
-            ),
+                  },
+                ),
+            ]),
+            _getSpacer(),
+            _getHeader('Notification options'),
+            _getCard([
+              SwitchListTile(
+                value: _isPersistent,
+                title: const Text('Persistent'),
+                onChanged: (value) {
+                  setState(() {
+                    _isPersistent = value;
+                  });
+                },
+              ),
+            ]),
           ],
         ),
       ),
@@ -150,4 +164,26 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
       ),
     );
   }
+
+  Widget _getCard(List<Widget> children) => Card(
+        clipBehavior: Clip.antiAlias,
+        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        shadowColor: Colors.transparent,
+        child: Column(
+          children: children.expand((child) => [child, _getDivider()]).take(children.length * 2 - 1).toList(),
+        ),
+      );
+
+  Widget _getHeader(String title) => ListTile(title: Text(title));
+
+  Widget _getSpacer() => const SizedBox(height: 16);
+
+  Widget _getDivider() => Divider(
+        thickness: 2,
+        height: 2,
+        color: Theme.of(context).colorScheme.background,
+      );
 }
