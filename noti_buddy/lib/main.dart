@@ -10,6 +10,10 @@ void main() {
 
   // Ensure the app renders behind the system UI.
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+  ));
 
   IsolateManager.init();
 
@@ -65,8 +69,7 @@ class MyApp extends StatelessWidget {
         ),
         themeMode: ThemeMode.system,
         home: const MainPage(),
-
-        // Theme.of(context).textTheme.
+        debugShowCheckedModeBanner: false,
       );
     });
   }

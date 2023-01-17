@@ -14,8 +14,10 @@ class CreateNotificationPage extends StatefulWidget {
 }
 
 class _CreateNotificationPageState extends State<CreateNotificationPage> {
-  final titleController = TextEditingController();
-  final bodyController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final _titleController = TextEditingController();
+  final _bodyController = TextEditingController();
 
   var _isScheduled = false;
   var _isPersistent = false;
@@ -35,8 +37,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
 
   @override
   void dispose() {
-    titleController.dispose();
-    bodyController.dispose();
+    _titleController.dispose();
+    _bodyController.dispose();
 
     super.dispose();
   }
@@ -47,70 +49,76 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
       appBar: AppBar(
         title: const Text('Create Notification'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          TextField(
-            controller: titleController,
-            decoration: const InputDecoration(
-              labelText: 'Title',
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            TextFormField(
+              controller: _titleController,
+              decoration: const InputDecoration(
+                labelText: 'Title',
+              ),
+              validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
             ),
-          ),
-          TextField(
-            controller: bodyController,
-            decoration: const InputDecoration(
-              labelText: 'Body',
+            TextFormField(
+              controller: _bodyController,
+              decoration: const InputDecoration(
+                labelText: 'Body',
+              ),
             ),
-          ),
-          CheckboxListTile(
-            value: _isScheduled,
-            title: const Text('Schedule'),
-            onChanged: (value) {
-              setState(() {
-                _isScheduled = value!;
-              });
-            },
-          ),
-          if (_isScheduled)
-            ListTile(
-              title: const Text('Send'),
-              subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
-              onTap: () {
-                showDateTimePicker(
-                  context: context,
-                  initialDateTime: _dateTime,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365),
-                  ),
-                ).then((value) {
-                  if (value != null) {
-                    setState(() {
-                      _dateTime = value;
-                    });
-                  }
+            CheckboxListTile(
+              value: _isScheduled,
+              title: const Text('Schedule'),
+              onChanged: (value) {
+                setState(() {
+                  _isScheduled = value!;
                 });
               },
             ),
-          CheckboxListTile(
-            value: _isPersistent,
-            title: const Text('Persistent'),
-            onChanged: (value) {
-              setState(() {
-                _isPersistent = value!;
-              });
-            },
-          ),
-          Text('Colour: ${Colors.red}'),
-        ],
+            if (_isScheduled)
+              ListTile(
+                title: const Text('Send'),
+                subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                onTap: () {
+                  showDateTimePicker(
+                    context: context,
+                    initialDateTime: _dateTime,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(
+                      const Duration(days: 365),
+                    ),
+                  ).then((value) {
+                    if (value != null) {
+                      setState(() {
+                        _dateTime = value;
+                      });
+                    }
+                  });
+                },
+              ),
+            CheckboxListTile(
+              value: _isPersistent,
+              title: const Text('Persistent'),
+              onChanged: (value) {
+                setState(() {
+                  _isPersistent = value!;
+                });
+              },
+            ),
+            Text('Colour: ${Colors.red}'),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
+          if (!_formKey.currentState!.validate()) return;
+
           AppManager.instance.addItem(
             NotificationItem(
               id: const Uuid().v4(),
-              title: titleController.text,
-              body: bodyController.text,
+              title: _titleController.text,
+              body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
               colour: _colour,
               persistent: _isPersistent,
