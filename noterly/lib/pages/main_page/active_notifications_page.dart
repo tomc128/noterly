@@ -129,6 +129,7 @@ class ActiveNotificationsPage extends NavigationScreen {
               ),
             ),
           );
+          refresh();
         },
         child: ListTile(
           title: Text(item.title),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti_buddy/managers/app_manager.dart';
 import 'package:noti_buddy/managers/notification_manager.dart';
 import 'package:noti_buddy/pages/main_page/active_notifications_page.dart';
 import 'package:noti_buddy/pages/main_page/archived_notifications_page.dart';
@@ -63,16 +64,16 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.notifications_active),
+            icon: Icon(AppManager.instance.notifier.value.where((element) => !element.archived).isNotEmpty ? Icons.notifications_active : Icons.notifications_none),
             label: 'Active',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.archive),
             label: 'Archive',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
