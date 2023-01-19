@@ -2,6 +2,8 @@ import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 
 extension DateTimeExtensions on DateTime {
+  bool isToday() => DateTime.now().year == year && DateTime.now().month == month && DateTime.now().day == day;
+
   String toDateOnlyString() => DateFormat.MMMMEEEEd().format(this);
 
   String toTimeOnlyString() => DateFormat.jm().format(this);

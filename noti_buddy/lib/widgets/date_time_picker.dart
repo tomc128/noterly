@@ -206,17 +206,18 @@ class _DateTimePickerState extends State<DateTimePicker> {
               ).then((value) {
                 if (value != null) {
                   setState(() {
-                    if (value.isAfterNow()) {
-                      _dateTime = DateTime(
-                        _dateTime.year,
-                        _dateTime.month,
-                        _dateTime.day,
-                        value.hour,
-                        value.minute,
-                      );
-                    } else {
-                      print('invalid time');
+                    if (_dateTime.isToday() && !value.isAfterNow()) {
+                      print('invalid time!');
+                      return;
                     }
+
+                    _dateTime = DateTime(
+                      _dateTime.year,
+                      _dateTime.month,
+                      _dateTime.day,
+                      value.hour,
+                      value.minute,
+                    );
                   });
                 }
               });

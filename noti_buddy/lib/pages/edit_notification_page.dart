@@ -34,7 +34,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
     _item = widget.item;
 
     var now = DateTime.now();
-    _dateTime = DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
+    _dateTime = _item.dateTime ?? DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
 
     _isScheduled = _item.dateTime != null;
 
