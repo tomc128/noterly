@@ -3,10 +3,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
-import 'package:noti_buddy/managers/isolate_manager.dart';
-import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/pages/main_page.dart';
+import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/managers/isolate_manager.dart';
+import 'package:noterly/managers/notification_manager.dart';
+import 'package:noterly/pages/main_page.dart';
 
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {

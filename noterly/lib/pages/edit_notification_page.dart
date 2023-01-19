@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/extensions/date_time_extensions.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
-import 'package:noti_buddy/models/notification_item.dart';
-import 'package:noti_buddy/widgets/colour_picker.dart';
-import 'package:noti_buddy/widgets/date_time_picker.dart';
-import 'package:noti_buddy/widgets/item_list_decoration.dart';
+import 'package:noterly/extensions/date_time_extensions.dart';
+import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/widgets/colour_picker.dart';
+import 'package:noterly/widgets/date_time_picker.dart';
+import 'package:noterly/widgets/item_list_decoration.dart';
 
 class EditNotificationPage extends StatefulWidget {
   final NotificationItem item;

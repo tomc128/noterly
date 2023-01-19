@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:noti_buddy/models/app_data.dart';
+import 'package:noterly/models/app_data.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileManager {

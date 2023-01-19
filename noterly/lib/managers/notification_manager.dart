@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
-import 'package:noti_buddy/managers/isolate_manager.dart';
-import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/managers/isolate_manager.dart';
+import 'package:noterly/models/notification_item.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -21,7 +21,7 @@ class NotificationManager {
 
     tz.initializeTimeZones();
 
-    const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initializationSettingsAndroid = AndroidInitializationSettings('notification_icon_24');
     const initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
     await _plugin.initialize(
       initializationSettings,

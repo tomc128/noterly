@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
-import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/models/navigation_screen.dart';
-import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/managers/notification_manager.dart';
+import 'package:noterly/models/navigation_screen.dart';
+import 'package:noterly/models/notification_item.dart';
 import 'package:uuid/uuid.dart';
 
 class SettingsPage extends NavigationScreen {

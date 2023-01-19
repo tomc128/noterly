@@ -1,11 +1,11 @@
 import 'dart:isolate';
 
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/managers/file_manager.dart';
-import 'package:noti_buddy/managers/lifecycle_event_handler.dart';
-import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/models/app_data.dart';
-import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noterly/managers/file_manager.dart';
+import 'package:noterly/managers/lifecycle_event_handler.dart';
+import 'package:noterly/managers/notification_manager.dart';
+import 'package:noterly/models/app_data.dart';
+import 'package:noterly/models/notification_item.dart';
 
 class AppManager {
   static final AppManager _instance = AppManager._internal();

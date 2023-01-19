@@ -1,4 +1,4 @@
-import 'package:noti_buddy/models/notification_item.dart';
+import 'package:noterly/models/notification_item.dart';
 
 class AppData {
   List<NotificationItem> notificationItems;

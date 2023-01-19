@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/managers/app_manager.dart';
-import 'package:noti_buddy/managers/notification_manager.dart';
-import 'package:noti_buddy/pages/main_page/active_notifications_page.dart';
-import 'package:noti_buddy/pages/main_page/archived_notifications_page.dart';
-import 'package:noti_buddy/pages/main_page/settings_page.dart';
+import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/managers/notification_manager.dart';
+import 'package:noterly/pages/main_page/active_notifications_page.dart';
+import 'package:noterly/pages/main_page/archived_notifications_page.dart';
+import 'package:noterly/pages/main_page/settings_page.dart';
 
 import 'create_notification_page.dart';
 
@@ -82,11 +82,13 @@ class _MainPageState extends State<MainPage> {
           setState(() {
             if (_selectedDestination == value) {
               // Already on this page, scroll to top
-              _scrollControllers[value].animateTo(
-                0,
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.easeInOutCirc,
-              );
+              if (_scrollControllers[value].hasClients) {
+                _scrollControllers[value].animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeInOutCirc,
+                );
+              }
             } else {
               _selectedDestination = value;
               _pageController.animateToPage(

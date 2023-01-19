@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:noti_buddy/extensions/date_time_extensions.dart';
-import 'package:noti_buddy/extensions/time_of_day_extensions.dart';
+import 'package:noterly/extensions/date_time_extensions.dart';
+import 'package:noterly/extensions/time_of_day_extensions.dart';
 
 Future<DateTime?> showDateTimePicker({
   required BuildContext context,
