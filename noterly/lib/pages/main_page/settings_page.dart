@@ -58,7 +58,7 @@ class SettingsPage extends NavigationScreen {
             trailing: const Icon(Icons.chevron_right),
             minVerticalPadding: 12,
             onTap: () {
-              NotificationManager.instance.updateAllNotifications();
+              NotificationManager.instance.forceUpdateAllNotifications();
             },
           ),
         ]),
