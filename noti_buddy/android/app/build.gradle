@@ -27,7 +27,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     // compileSdkVersion flutter.compileSdkVersion
-    compileSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
+    // compileSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
+    compileSdkVersion rootProject.ext.compileSdkVersion // BACKGROUND_FETCH && FLUTTER_LOCAL_NOTIFICATIONS
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -54,7 +55,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion flutter.minSdkVersion
         // targetSdkVersion flutter.targetSdkVersion
-        targetSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
+        // targetSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
+        targetSdkVersion rootProject.ext.targetSdkVersion // BACKGROUND_FETCH && FLUTTER_LOCAL_NOTIFICATIONS
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

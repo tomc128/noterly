@@ -19,8 +19,12 @@ class AppManager {
           // data will have been saved to file. We need to reload the data from file to ensure the UI is up to date.
           print('Resuming app, reloading data from file...');
           await fullUpdate();
+
+          // We also need to update the notifications, to ensure any notifications that need to be displayed are displayed.
+          print('Updating notifications...');
+          await NotificationManager.instance.updateAllNotifications();
         },
-        suspendingCallback: () async => print('SUSPEND'),
+        suspendingCallback: () async => print('App suspending.'),
       ),
     );
 

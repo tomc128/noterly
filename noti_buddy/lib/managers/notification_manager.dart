@@ -97,26 +97,47 @@ class NotificationManager {
 
   Future cancelNotification(String itemId) async => await _plugin.cancel(itemId.hashCode);
 
-  void updateAllNotifications() {
-    _cancelAllNotifications();
+  Future<bool> _notificationIsShown(NotificationItem item) async {
+    var notifications = await _plugin.getActiveNotifications();
+    return notifications.any((n) => n.id == item.id.hashCode);
+  }
+
+  Future updateAllNotifications() async {
+    for (var item in AppManager.instance.notifier.value) {
+      if (item.archived) continue;
+
+      await updateNotification(item);
+    }
+  }
+
+  Future forceUpdateAllNotifications() async {
+    await _cancelAllNotifications(); // Cancel all existing notifications; faster than checking each one
 
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
-      if (item.dateTime == null) {
-        _showNotification(item);
-      } else {
-        _scheduleNotification(item);
-      }
+      await _showOrScheduleNotification(item);
     }
   }
 
   Future updateNotification(NotificationItem item) async {
+    if (await _notificationIsShown(item)) {
+      return; // Notification is already shown, no need to show another
+    }
+
+    if (item.archived) return;
+    await _showOrScheduleNotification(item);
+  }
+
+  Future forceUpdateNotification(NotificationItem item) async {
     // Cancel the existing notification, if any
     await _plugin.cancel(item.id.hashCode);
 
     if (item.archived) return;
+    await _showOrScheduleNotification(item);
+  }
 
+  Future _showOrScheduleNotification(NotificationItem item) async {
     if (item.dateTime == null) {
       await _showNotification(item);
     } else {
@@ -124,11 +145,13 @@ class NotificationManager {
     }
   }
 
-  Future _showNotification(NotificationItem item) async {
-    assert(
-      item.dateTime == null,
-      'Notification must not have a dateTime in order to be shown immediately.',
-    );
+  Future _showNotification(NotificationItem item, {bool ignoreDateTime = false}) async {
+    if (!ignoreDateTime) {
+      assert(
+        item.dateTime == null,
+        'Notification must not have a dateTime in order to be shown immediately.',
+      );
+    }
 
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
@@ -149,8 +172,8 @@ class NotificationManager {
     );
 
     if (item.dateTime!.isBefore(DateTime.now())) {
-      // TODO: Maybe show the notification immediately instead of ignoring it?
-      print('Notification "${item.title}" is in the past, ignoring');
+      // Show notification immediately if it's in the past
+      await _showNotification(item, ignoreDateTime: true);
       return;
     }
 
@@ -185,5 +208,6 @@ class NotificationManager {
         groupKey: 'com.example.noti_buddy.NOTIFICATIONS_TEST_asb76a8',
         color: item.colour,
         ongoing: item.persistent,
+        when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
       );
 }

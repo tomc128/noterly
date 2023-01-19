@@ -27,6 +27,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
 
         items.sort((a, b) => b.archivedDateTime!.compareTo(a.archivedDateTime!));
 
+        // TODO: rework to allow for card design
         return ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {

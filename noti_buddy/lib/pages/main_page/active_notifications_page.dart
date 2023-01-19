@@ -115,6 +115,7 @@ class ActiveNotificationsPage extends NavigationScreen {
         secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
         onDismissed: (direction) {
           AppManager.instance.archiveItem(item.id);
+          ScaffoldMessenger.of(context).clearSnackBars(); // Prevents multiple snackbars from building up
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: const Text('Notification archived.'),
