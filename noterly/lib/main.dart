@@ -1,4 +1,5 @@
 import 'package:background_fetch/background_fetch.dart';
+import 'package:build_context_provider/build_context_provider.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
+import 'package:noterly/pages/create_notification_page.dart';
 import 'package:noterly/pages/main_page.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
@@ -45,6 +48,23 @@ void main() {
   runApp(const MyApp());
 
   BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
+
+  const quickActions = QuickActions();
+  quickActions.initialize((shortcutType) {
+    if (shortcutType == 'action_new') {
+      print('New note shortcut pressed!');
+      // show new note screen
+      // get the current context and navigate to the new note screen
+      BuildContextProvider().call(
+        (context) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNotificationPage())),
+      );
+    }
+    // More handling code...
+  });
+
+  quickActions.setShortcutItems(<ShortcutItem>[
+    const ShortcutItem(type: 'action_new', localizedTitle: 'New note', icon: 'notification_icon_24'),
+  ]);
 }
 
 class MyApp extends StatefulWidget {
