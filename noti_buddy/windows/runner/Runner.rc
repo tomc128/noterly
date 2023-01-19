@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "noti_buddy" "\0"
+            VALUE "FileDescription", "Noterly" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "noti_buddy" "\0"
+            VALUE "InternalName", "Noterly" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "noti_buddy.exe" "\0"
-            VALUE "ProductName", "noti_buddy" "\0"
+            VALUE "ProductName", "Noterly" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

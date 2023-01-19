@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
         selectedIndex: _selectedDestination,
       ),
       appBar: AppBar(
-        title: const Text('Noti Buddy'),
+        title: const Text('Noterly'),
         elevation: _getAppBarElevation(),
       ),
       body: PageView(

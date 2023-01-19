@@ -97,3 +97,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+# Flutter rename:
+# flutter pub global run rename --bundleId com.name.here
+# flutter pub global run rename --appname "Name Here"
