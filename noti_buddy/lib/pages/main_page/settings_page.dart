@@ -8,14 +8,18 @@ import 'package:noti_buddy/models/notification_item.dart';
 import 'package:uuid/uuid.dart';
 
 class SettingsPage extends NavigationScreen {
+  final ScrollController scrollController;
+
   const SettingsPage({
     super.key,
     required Function refresh,
+    required this.scrollController,
   }) : super(refresh: refresh);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
+      controller: scrollController,
       children: [
         _getHeader('Debug options'),
         _getCard(context, [

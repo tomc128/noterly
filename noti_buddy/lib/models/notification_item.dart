@@ -6,10 +6,9 @@ class NotificationItem {
   String title;
   String? body;
 
-  DateTime? dateTime;
-
-  bool persistent;
   Color colour;
+
+  DateTime? dateTime;
 
   bool archived;
   DateTime? archivedDateTime;
@@ -19,7 +18,6 @@ class NotificationItem {
     required this.title,
     this.body,
     this.dateTime,
-    this.persistent = false,
     required this.colour,
     this.archived = false,
     this.archivedDateTime,
@@ -27,7 +25,7 @@ class NotificationItem {
 
   @override
   String toString() {
-    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, persistent: $persistent, colour: $colour, archived: $archived)';
+    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, colour: $colour, archived: $archived)';
   }
 
   Map<String, dynamic> toJson() {
@@ -36,7 +34,6 @@ class NotificationItem {
       'title': title,
       'body': body,
       'dateTime': dateTime?.toIso8601String(),
-      'persistent': persistent,
       'colour': colour.value,
       'archived': archived,
       'archivedDateTime': archivedDateTime?.toIso8601String(),
@@ -49,7 +46,6 @@ class NotificationItem {
       title: json['title'],
       body: json['body'],
       dateTime: json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
-      persistent: json['persistent'] ?? false,
       colour: Color(json['colour']),
       archived: json['archived'] ?? false,
       archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,

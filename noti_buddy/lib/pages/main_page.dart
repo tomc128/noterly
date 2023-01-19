@@ -21,11 +21,42 @@ class _MainPageState extends State<MainPage> {
     initialPage: 0,
   );
 
+  final ScrollController _activeNotificationsPageScrollController = ScrollController();
+  final ScrollController _archivedNotificationsPageScrollController = ScrollController();
+  final ScrollController _settingsPageScrollController = ScrollController();
+
+  late final List<ScrollController> _scrollControllers;
+
   @override
   void initState() {
     super.initState();
 
+    _scrollControllers = [
+      _activeNotificationsPageScrollController,
+      _archivedNotificationsPageScrollController,
+      _settingsPageScrollController,
+    ];
+
+    _activeNotificationsPageScrollController.addListener(() => setState(() {}));
+    _archivedNotificationsPageScrollController.addListener(() => setState(() {}));
+    _settingsPageScrollController.addListener(() => setState(() {}));
+
     NotificationManager.instance.requestAndroid13Permissions();
+  }
+
+  double _getAppBarElevation() {
+    for (int i = 0; i < _scrollControllers.length; i++) {
+      if (i != _selectedDestination) {
+        continue;
+      }
+
+      var controller = _scrollControllers[i];
+
+      if (controller.hasClients && controller.offset > 0) {
+        return 3.0;
+      }
+    }
+    return 0.0;
   }
 
   @override
@@ -48,20 +79,29 @@ class _MainPageState extends State<MainPage> {
         ],
         onDestinationSelected: (value) {
           setState(() {
-            _selectedDestination = value;
-            _pageController.animateToPage(
-              value,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOutCirc,
-            );
+            if (_selectedDestination == value) {
+              // Already on this page, scroll to top
+              _scrollControllers[value].animateTo(
+                0,
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.easeInOutCirc,
+              );
+            } else {
+              _selectedDestination = value;
+              _pageController.animateToPage(
+                value,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOutCirc,
+              );
+            }
           });
         },
         selectedIndex: _selectedDestination,
       ),
       appBar: AppBar(
         title: const Text('Noti Buddy'),
+        elevation: _getAppBarElevation(),
       ),
-      // body: _getPage(_selectedDestination),
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) {
@@ -71,16 +111,18 @@ class _MainPageState extends State<MainPage> {
         children: [
           ActiveNotificationsPage(
             refresh: () => setState(() {}),
+            scrollController: _activeNotificationsPageScrollController,
           ),
           ArchivedNotificationsPage(
             refresh: () => setState(() {}),
+            scrollController: _archivedNotificationsPageScrollController,
           ),
           SettingsPage(
             refresh: () => setState(() {}),
+            scrollController: _settingsPageScrollController,
           ),
         ],
       ),
-
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.of(context).push(

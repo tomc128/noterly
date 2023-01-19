@@ -151,19 +151,6 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   },
                 ),
             ]),
-            _getSpacer(),
-            _getHeader('Notification options'),
-            _getCard([
-              SwitchListTile(
-                value: _item.persistent,
-                title: const Text('Persistent'),
-                onChanged: (value) {
-                  setState(() {
-                    _item.persistent = value;
-                  });
-                },
-              ),
-            ]),
           ],
         ),
       ),

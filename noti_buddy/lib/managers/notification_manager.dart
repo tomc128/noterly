@@ -207,7 +207,7 @@ class NotificationManager {
         priority: Priority.max,
         groupKey: 'com.example.noti_buddy.NOTIFICATIONS_TEST_asb76a8',
         color: item.colour,
-        ongoing: item.persistent,
+        ongoing: true,
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
       );
 }

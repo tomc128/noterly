@@ -7,8 +7,11 @@ import 'package:noti_buddy/models/notification_item.dart';
 import '../edit_notification_page.dart';
 
 class ArchivedNotificationsPage extends NavigationScreen {
+  final ScrollController scrollController;
+
   const ArchivedNotificationsPage({
     super.key,
+    required this.scrollController,
     required Function refresh,
   }) : super(refresh: refresh);
 
@@ -29,6 +32,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
 
         // TODO: rework to allow for card design
         return ListView.builder(
+          controller: scrollController,
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];

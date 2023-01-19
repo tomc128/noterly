@@ -6,9 +6,12 @@ import 'package:noti_buddy/models/notification_item.dart';
 import 'package:noti_buddy/pages/edit_notification_page.dart';
 
 class ActiveNotificationsPage extends NavigationScreen {
+  final ScrollController scrollController;
+
   const ActiveNotificationsPage({
     super.key,
     required Function refresh,
+    required this.scrollController,
   }) : super(refresh: refresh);
 
   @override
@@ -62,6 +65,7 @@ class ActiveNotificationsPage extends NavigationScreen {
         ];
 
         return CustomScrollView(
+          controller: scrollController,
           slivers: [
             ...immediateWidgets,
             if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),

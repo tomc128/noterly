@@ -21,7 +21,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   final _bodyController = TextEditingController();
 
   var _isScheduled = false;
-  var _isPersistent = false;
+  final _isPersistent = false;
 
   late DateTime _dateTime;
   late Color _colour;
@@ -124,19 +124,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   },
                 ),
             ]),
-            _getSpacer(),
-            _getHeader('Notification options'),
-            _getCard([
-              SwitchListTile(
-                value: _isPersistent,
-                title: const Text('Persistent'),
-                onChanged: (value) {
-                  setState(() {
-                    _isPersistent = value;
-                  });
-                },
-              ),
-            ]),
           ],
         ),
       ),
@@ -151,7 +138,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
               colour: _colour,
-              persistent: _isPersistent,
             ),
           );
 
