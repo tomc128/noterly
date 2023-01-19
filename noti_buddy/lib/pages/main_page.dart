@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
@@ -91,7 +91,8 @@ class _MainPageState extends State<MainPage> {
 
           setState(() {});
         },
-        child: const Icon(Icons.add),
+        label: const Text('Create'),
+        icon: const Icon(Icons.add),
       ),
     );
   }

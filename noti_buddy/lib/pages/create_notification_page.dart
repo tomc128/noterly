@@ -159,7 +159,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
             Navigator.of(context).pop();
           }
         },
-        label: const Text('Add'),
+        label: const Text('Create'),
         icon: const Icon(Icons.add),
       ),
     );
