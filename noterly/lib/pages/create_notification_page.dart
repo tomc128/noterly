@@ -21,7 +21,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   final _bodyController = TextEditingController();
 
   var _isScheduled = false;
-  final _isPersistent = false;
 
   late DateTime _dateTime;
   late Color _colour;

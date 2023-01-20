@@ -113,6 +113,8 @@ class _MyAppState extends State<MyApp> {
     );
     print('[BackgroundFetch] configure success: $status');
 
+    await NotificationManager.instance.updateAllNotifications();
+
     if (!mounted) return;
   }
 
@@ -140,7 +142,7 @@ class _MyAppState extends State<MyApp> {
       }
 
       return MaterialApp(
-        title: 'Noti Buddy',
+        title: 'Noterly',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: lightColorScheme,

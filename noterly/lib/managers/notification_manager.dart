@@ -21,7 +21,7 @@ class NotificationManager {
 
     tz.initializeTimeZones();
 
-    const initializationSettingsAndroid = AndroidInitializationSettings('notification_icon_24');
+    const initializationSettingsAndroid = AndroidInitializationSettings('notification_icon_48');
     const initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
     await _plugin.initialize(
       initializationSettings,

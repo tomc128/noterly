@@ -15,9 +15,6 @@ Future<Color?> showColourPicker({
 }
 
 Map<String, Color> colours = {
-  'primary': Colors.transparent,
-  'secondary': Colors.transparent,
-  'tertiary': Colors.transparent,
   'red': Colors.red,
   'green': Colors.green,
   'blue': Colors.blue,
@@ -57,11 +54,6 @@ class _ColourPickerState extends State<ColourPicker> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    // get dyanmic colours
-    colours['primary'] = Theme.of(context).colorScheme.primary;
-    colours['secondary'] = Theme.of(context).colorScheme.secondary;
-    colours['tertiary'] = Theme.of(context).colorScheme.tertiary;
   }
 
   @override
