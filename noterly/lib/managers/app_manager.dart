@@ -54,6 +54,7 @@ class AppManager {
 
     if (data == null) {
       print('No previous save found.');
+      notifier.value = [];
       return;
     }
 

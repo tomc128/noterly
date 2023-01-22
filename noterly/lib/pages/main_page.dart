@@ -52,17 +52,6 @@ class _MainPageState extends State<MainPage> {
     return ValueListenableBuilder(
       valueListenable: AppManager.instance.notifier,
       builder: (context, value, child) {
-        if (value.isEmpty) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Noterly'),
-            ),
-            body: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-
         var activeNotifications = value.where((element) => !element.archived).toList();
         var archivedNotifications = value.where((element) => element.archived).toList();
 
