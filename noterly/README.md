@@ -1,4 +1,4 @@
-# noti_buddy
+# noterly
 
 A new Flutter project.
 

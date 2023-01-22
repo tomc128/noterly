@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "noti_buddy",
+            "name": "noterly",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "noti_buddy (profile mode)",
+            "name": "noterly (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "noti_buddy (release mode)",
+            "name": "noterly (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

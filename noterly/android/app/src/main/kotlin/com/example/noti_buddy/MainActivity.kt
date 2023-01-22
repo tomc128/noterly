@@ -1,4 +1,4 @@
-package com.example.noti_buddy
+package uk.co.tdsstudios.noterly
 
 import io.flutter.embedding.android.FlutterActivity
 

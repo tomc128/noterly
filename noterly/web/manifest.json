@@ -1,6 +1,6 @@
 {
-    "name": "noti_buddy",
-    "short_name": "noti_buddy",
+    "name": "noterly",
+    "short_name": "noterly",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

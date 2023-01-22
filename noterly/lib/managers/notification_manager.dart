@@ -205,7 +205,7 @@ class NotificationManager {
         category: AndroidNotificationCategory.reminder,
         importance: Importance.max,
         priority: Priority.max,
-        groupKey: 'com.example.noti_buddy.NOTIFICATIONS_TEST_asb76a8',
+        groupKey: 'uk.co.tdsstudios.noterly.NOTIFICATIONS_TEST_asb76a8',
         color: item.colour,
         ongoing: true,
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
