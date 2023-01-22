@@ -3,9 +3,9 @@ import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/main_page/active_notifications_page.dart';
 import 'package:noterly/pages/main_page/archived_notifications_page.dart';
-import 'package:noterly/pages/main_page/settings_page.dart';
 
 import 'create_notification_page.dart';
+import 'settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({
@@ -24,7 +24,6 @@ class _MainPageState extends State<MainPage> {
 
   final ScrollController _activeNotificationsPageScrollController = ScrollController();
   final ScrollController _archivedNotificationsPageScrollController = ScrollController();
-  final ScrollController _settingsPageScrollController = ScrollController();
 
   late final List<ScrollController> _scrollControllers;
 
@@ -35,12 +34,10 @@ class _MainPageState extends State<MainPage> {
     _scrollControllers = [
       _activeNotificationsPageScrollController,
       _archivedNotificationsPageScrollController,
-      _settingsPageScrollController,
     ];
 
     _activeNotificationsPageScrollController.addListener(() => setState(() {}));
     _archivedNotificationsPageScrollController.addListener(() => setState(() {}));
-    _settingsPageScrollController.addListener(() => setState(() {}));
 
     NotificationManager.instance.requestAndroid13Permissions();
   }
@@ -63,6 +60,56 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Noterly'),
+        elevation: _getAppBarElevation(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SettingsPage(
+                      refresh: setState,
+                    );
+                  },
+                ),
+              );
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+      ),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (value) {
+          setState(() => _selectedDestination = value);
+        },
+        controller: _pageController,
+        children: [
+          ActiveNotificationsPage(
+            refresh: () => setState(() {}),
+            scrollController: _activeNotificationsPageScrollController,
+          ),
+          ArchivedNotificationsPage(
+            refresh: () => setState(() {}),
+            scrollController: _archivedNotificationsPageScrollController,
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CreateNotificationPage(),
+            ),
+          );
+
+          setState(() {});
+        },
+        label: const Text('Create'),
+        icon: const Icon(Icons.add),
+      ),
       bottomNavigationBar: NavigationBar(
         destinations: [
           NavigationDestination(
@@ -72,10 +119,6 @@ class _MainPageState extends State<MainPage> {
           const NavigationDestination(
             icon: Icon(Icons.archive),
             label: 'Archive',
-          ),
-          const NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
           ),
         ],
         onDestinationSelected: (value) {
@@ -100,44 +143,6 @@ class _MainPageState extends State<MainPage> {
           });
         },
         selectedIndex: _selectedDestination,
-      ),
-      appBar: AppBar(
-        title: const Text('Noterly'),
-        elevation: _getAppBarElevation(),
-      ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (value) {
-          setState(() => _selectedDestination = value);
-        },
-        controller: _pageController,
-        children: [
-          ActiveNotificationsPage(
-            refresh: () => setState(() {}),
-            scrollController: _activeNotificationsPageScrollController,
-          ),
-          ArchivedNotificationsPage(
-            refresh: () => setState(() {}),
-            scrollController: _archivedNotificationsPageScrollController,
-          ),
-          SettingsPage(
-            refresh: () => setState(() {}),
-            scrollController: _settingsPageScrollController,
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const CreateNotificationPage(),
-            ),
-          );
-
-          setState(() {});
-        },
-        label: const Text('Create'),
-        icon: const Icon(Icons.add),
       ),
     );
   }
