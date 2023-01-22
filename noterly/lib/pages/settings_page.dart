@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
@@ -68,7 +69,7 @@ class SettingsPage extends StatelessWidget {
           _getCard(context, [
             const ListTile(
               title: Text('Version'),
-              subtitle: Text('1.0.0'),
+              subtitle: Text(BuildInfo.appVersion),
               leading: Icon(Icons.info),
               minVerticalPadding: 12,
             ),
@@ -93,7 +94,13 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(Icons.article),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
-              onTap: () {},
+              onTap: () {
+                showLicensePage(
+                  context: context,
+                  applicationLegalese: 'Copyright © 2023 Tom Chapman, TDS Studios.',
+                  applicationVersion: BuildInfo.appVersion,
+                );
+              },
             ),
           ]),
         ],
