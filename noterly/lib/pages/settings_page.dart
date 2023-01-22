@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -71,12 +72,21 @@ class SettingsPage extends StatelessWidget {
               leading: Icon(Icons.info),
               minVerticalPadding: 12,
             ),
+            const ListTile(
+              title: Text('Copyright'),
+              subtitle: Text('2023 Tom Chapman, TDS Studios.'),
+              leading: Icon(Icons.copyright),
+              minVerticalPadding: 12,
+            ),
             ListTile(
               title: const Text('Privacy policy'),
               leading: const Icon(Icons.privacy_tip),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
-              onTap: () {},
+              onTap: () async {
+                var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
+                await _launchUrl(uri);
+              },
             ),
             ListTile(
               title: const Text('Licenses'),
@@ -89,6 +99,12 @@ class SettingsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _launchUrl(Uri uri) async {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $uri');
+    }
   }
 
   Widget _getCard(BuildContext context, List<Widget> children) => Card(
