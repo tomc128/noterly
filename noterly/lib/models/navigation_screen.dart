@@ -1,11 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 class NavigationScreen extends StatelessWidget {
-  final Function refresh;
-
   const NavigationScreen({
-    required this.refresh,
     super.key,
   });
 

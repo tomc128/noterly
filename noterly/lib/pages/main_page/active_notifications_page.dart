@@ -7,74 +7,68 @@ import 'package:noterly/pages/edit_notification_page.dart';
 
 class ActiveNotificationsPage extends NavigationScreen {
   final ScrollController scrollController;
+  final List<NotificationItem> items;
 
   const ActiveNotificationsPage({
     super.key,
-    required Function refresh,
+    required this.items,
     required this.scrollController,
-  }) : super(refresh: refresh);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: AppManager.instance.notifier,
-      builder: (context, value, child) {
-        var items = value.where((element) => !element.archived).toList();
+    if (items.isEmpty) {
+      return const Center(
+        child: Text('No active notifications.'),
+      );
+    }
 
-        if (items.isEmpty) {
-          return const Center(
-            child: Text('No active notifications.'),
-          );
-        }
+    items.sort((a, b) {
+      if (a.dateTime == null && b.dateTime == null) {
+        return a.title.compareTo(b.title);
+      } else if (a.dateTime == null) {
+        return -1;
+      } else if (b.dateTime == null) {
+        return 1;
+      } else {
+        return a.dateTime!.compareTo(b.dateTime!);
+      }
+    });
 
-        items.sort((a, b) {
-          if (a.dateTime == null && b.dateTime == null) {
-            return a.title.compareTo(b.title);
-          } else if (a.dateTime == null) {
-            return -1;
-          } else if (b.dateTime == null) {
-            return 1;
-          } else {
-            return a.dateTime!.compareTo(b.dateTime!);
-          }
-        });
+    var immediateItems = items.where((element) => element.dateTime == null).toList();
+    var scheduledItems = items.where((element) => element.dateTime != null).toList();
 
-        var immediateItems = items.where((element) => element.dateTime == null).toList();
-        var scheduledItems = items.where((element) => element.dateTime != null).toList();
+    var immediateWidgets = immediateItems.isEmpty
+        ? []
+        : [
+            _getListHeader(context, 'Shown immediately'),
+            _getCard(context, immediateItems),
+          ];
 
-        var immediateWidgets = immediateItems.isEmpty
-            ? []
-            : [
-                _getListHeader(context, 'Shown immediately'),
-                _getCard(context, immediateItems),
-              ];
+    var scheduledWidgets = scheduledItems.isEmpty
+        ? []
+        : [
+            _getListHeader(context, 'Scheduled'),
+            _getCard(context, scheduledItems),
+          ];
 
-        var scheduledWidgets = scheduledItems.isEmpty
-            ? []
-            : [
-                _getListHeader(context, 'Scheduled'),
-                _getCard(context, scheduledItems),
-              ];
+    var emptyWidgets = [
+      const SliverToBoxAdapter(
+        child: Center(
+          child: Text('No active notifications.'),
+        ),
+      ),
+    ];
 
-        var emptyWidgets = [
-          const SliverToBoxAdapter(
-            child: Center(
-              child: Text('No active notifications.'),
-            ),
-          ),
-        ];
-
-        return CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            ...immediateWidgets,
-            if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
-            ...scheduledWidgets,
-            if (immediateWidgets.isEmpty && scheduledWidgets.isEmpty) ...emptyWidgets,
-            const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
-          ],
-        );
-      },
+    return CustomScrollView(
+      controller: scrollController,
+      slivers: [
+        ...immediateWidgets,
+        if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+        ...scheduledWidgets,
+        if (immediateWidgets.isEmpty && scheduledWidgets.isEmpty) ...emptyWidgets,
+        const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+      ],
     );
   }
 
@@ -129,7 +123,6 @@ class ActiveNotificationsPage extends NavigationScreen {
               ),
             ),
           );
-          refresh();
         },
         child: ListTile(
           title: Text(item.title),
@@ -180,13 +173,11 @@ class ActiveNotificationsPage extends NavigationScreen {
     return text.isEmpty ? null : Text(text);
   }
 
-  void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context)
-      .push(
+  void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => EditNotificationPage(
             item: item,
           ),
         ),
-      )
-      .then((value) => refresh());
+      );
 }

@@ -3,15 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
-import 'package:noterly/models/navigation_screen.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:uuid/uuid.dart';
 
-class SettingsPage extends NavigationScreen {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({
     super.key,
-    required Function refresh,
-  }) : super(refresh: refresh);
+  });
 
   @override
   Widget build(BuildContext context) {

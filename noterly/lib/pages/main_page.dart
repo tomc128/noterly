@@ -43,18 +43,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   double _getAppBarElevation() {
-    for (int i = 0; i < _scrollControllers.length; i++) {
-      if (i != _selectedDestination) {
-        continue;
-      }
-
-      var controller = _scrollControllers[i];
-
-      if (controller.hasClients && controller.offset > 0) {
-        return 3.0;
-      }
-    }
-    return 0.0;
+    var controller = _scrollControllers[_selectedDestination];
+    return (controller.hasClients && controller.offset > 0) ? 3.0 : 0.0;
   }
 
   @override
@@ -68,11 +58,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) {
-                    return SettingsPage(
-                      refresh: setState,
-                    );
-                  },
+                  builder: (context) => const SettingsPage(),
                 ),
               );
             },
@@ -80,22 +66,25 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (value) {
-          setState(() => _selectedDestination = value);
-        },
-        controller: _pageController,
-        children: [
-          ActiveNotificationsPage(
-            refresh: () => setState(() {}),
-            scrollController: _activeNotificationsPageScrollController,
-          ),
-          ArchivedNotificationsPage(
-            refresh: () => setState(() {}),
-            scrollController: _archivedNotificationsPageScrollController,
-          ),
-        ],
+      body: ValueListenableBuilder(
+        valueListenable: AppManager.instance.notifier,
+        builder: (context, value, child) => PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          onPageChanged: (value) {
+            setState(() => _selectedDestination = value);
+          },
+          controller: _pageController,
+          children: [
+            ActiveNotificationsPage(
+              items: value.where((element) => !element.archived).toList(),
+              scrollController: _activeNotificationsPageScrollController,
+            ),
+            ArchivedNotificationsPage(
+              items: value.where((element) => element.archived).toList(),
+              scrollController: _archivedNotificationsPageScrollController,
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
