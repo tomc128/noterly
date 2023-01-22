@@ -23,6 +23,7 @@ dependencies:
   quick_actions: ^1.0.1
   build_context_provider: ^1.1.0
   url_launcher: ^6.1.8
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:

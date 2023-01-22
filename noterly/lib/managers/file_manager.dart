@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:path_provider/path_provider.dart';
 import 'package:noterly/models/app_data.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'log.dart';
 
 class FileManager {
   static Future<String> get _localPath async {
@@ -29,7 +31,7 @@ class FileManager {
 
       return AppData.fromJson(jsonDecode(contents));
     } catch (e) {
-      print('No previous save found. Error $e');
+      Log.logger.d('No previous save found. Error $e');
       return null;
     }
   }

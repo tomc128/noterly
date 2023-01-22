@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
+import 'package:noterly/managers/log.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -17,7 +18,7 @@ class NotificationManager {
   final _plugin = FlutterLocalNotificationsPlugin();
 
   void init() async {
-    print('Initialising notification manager...');
+    Log.logger.d('Initialising notification manager...');
 
     tz.initializeTimeZones();
 
@@ -31,11 +32,11 @@ class NotificationManager {
   }
 
   static Future handleResponse(NotificationResponse response, {bool isBackground = false}) async {
-    print('Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
+    Log.logger.d('Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
 
     var itemId = response.payload;
     if (itemId == null) {
-      print('No payload, ignoring');
+      Log.logger.d('No payload, ignoring');
       return;
     }
 
@@ -45,17 +46,17 @@ class NotificationManager {
 
     var item = AppManager.instance.getItem(itemId);
     if (item == null) {
-      print('No item found for payload, requesting a full update and retrying...');
+      Log.logger.d('No item found for payload, requesting a full update and retrying...');
       await AppManager.instance.fullUpdate();
       item = AppManager.instance.getItem(itemId);
       if (item == null) {
-        print('Still no item found for payload, ignoring');
+        Log.logger.d('Still no item found for payload, ignoring');
         return;
       }
     }
 
     if (response.actionId == 'done') {
-      print('Archiving notification "${item.title}"');
+      Log.logger.d('Archiving notification "${item.title}"');
       await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
@@ -63,7 +64,7 @@ class NotificationManager {
         var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
         if (sendPort == null) {
-          print('Failed to send message to main isolate (port not found).');
+          Log.logger.e('Failed to send message to main isolate (port not found).');
         }
       }
 
@@ -71,7 +72,8 @@ class NotificationManager {
     }
 
     if (!isBackground) {
-      print('Opening notification "${item.title}"');
+      // TODO: Open the item
+      Log.logger.d('Opening notification "${item.title}"');
     }
   }
 
@@ -86,10 +88,10 @@ class NotificationManager {
 
       if (android != null) {
         var result = await android.requestPermission();
-        print('Got A13 permission result: $result');
+        Log.logger.d('Got A13 permission result: $result');
       }
     } catch (e) {
-      print('Failed to request A13 notification permission, $e');
+      Log.logger.e('Failed to request A13 notification permission, $e');
     }
   }
 

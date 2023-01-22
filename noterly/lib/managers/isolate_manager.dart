@@ -1,6 +1,8 @@
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:noterly/managers/log.dart';
+
 import 'app_manager.dart';
 
 class IsolateManager {
@@ -22,10 +24,10 @@ class IsolateManager {
     // Listen for messages from the background isolate
     mainRecievePort.listen((message) {
       if (message == 'update') {
-        print('Forcing a full update...');
+        Log.logger.d('Forcing a full update...');
         AppManager.instance.fullUpdate();
       } else {
-        print('Unknown message from background isolate: "$message"');
+        Log.logger.w('Unknown message from background isolate: "$message"');
       }
     });
   }

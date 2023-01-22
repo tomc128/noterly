@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
+import 'package:noterly/managers/log.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/main_page.dart';
 
@@ -14,14 +15,13 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   bool isTimeout = task.timeout;
 
   if (isTimeout) {
-    // This task has exceeded its allowed running-time.
-    // You must stop what you're doing and immediately .finish(taskId)
-    print('TSBackgroundFetch] [BackgroundFetch] Headless task timed-out: $taskId');
+    // Immediately finish the task if it's timed-out.
+    Log.logger.w('[BackgroundFetch] Headless task timed-out: $taskId');
     BackgroundFetch.finish(taskId);
     return;
   }
 
-  print('[BackgroundFetch] Headless event received.');
+  Log.logger.d('[BackgroundFetch] Headless event received.');
 
   await AppManager.instance.ensureInitialised();
   await AppManager.instance.fullUpdate();
@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
           requiredNetworkType: NetworkType.NONE),
       (String taskId) async {
         // <-- Event handler
-        print("[BackgroundFetch] Event received $taskId");
+        Log.logger.d('[BackgroundFetch] Event received $taskId');
 
         await AppManager.instance.ensureInitialised();
         await AppManager.instance.fullUpdate();
@@ -105,11 +105,11 @@ class _MyAppState extends State<MyApp> {
       },
       (String taskId) async {
         // <-- Task timeout handler.
-        print("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
+        Log.logger.w('[BackgroundFetch] Task timeout: $taskId');
         BackgroundFetch.finish(taskId);
       },
     );
-    print('[BackgroundFetch] configure success: $status');
+    Log.logger.d('[BackgroundFetch] configure success: $status');
 
     await NotificationManager.instance.updateAllNotifications();
 
@@ -123,12 +123,12 @@ class _MyAppState extends State<MyApp> {
       ColorScheme darkColorScheme;
 
       if (lightDynamic != null && darkDynamic != null) {
-        print('Using dynamic color scheme.');
+        Log.logger.d('Using dynamic color scheme.');
 
         lightColorScheme = lightDynamic.harmonized();
         darkColorScheme = darkDynamic.harmonized();
       } else {
-        print('No dynamic color scheme, using fallback.');
+        Log.logger.d('No dynamic color scheme, using fallback.');
 
         lightColorScheme = ColorScheme.fromSeed(
           seedColor: Colors.red,

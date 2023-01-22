@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/extensions/time_of_day_extensions.dart';
 
+import '../managers/log.dart';
+
 Future<DateTime?> showDateTimePicker({
   required BuildContext context,
   required DateTime initialDateTime,
@@ -207,7 +209,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 if (value != null) {
                   setState(() {
                     if (_dateTime.isToday() && !value.isAfterNow()) {
-                      print('invalid time!');
+                      Log.logger.d('Invalid time, ignoring.');
                       return;
                     }
 
