@@ -49,90 +49,110 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Noterly'),
-        elevation: _getAppBarElevation(),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const SettingsPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.settings),
-          ),
-        ],
-      ),
-      body: ValueListenableBuilder(
-        valueListenable: AppManager.instance.notifier,
-        builder: (context, value, child) => PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          onPageChanged: (value) {
-            setState(() => _selectedDestination = value);
-          },
-          controller: _pageController,
-          children: [
-            ActiveNotificationsPage(
-              items: value.where((element) => !element.archived).toList(),
-              scrollController: _activeNotificationsPageScrollController,
+    return ValueListenableBuilder(
+      valueListenable: AppManager.instance.notifier,
+      builder: (context, value, child) {
+        if (value.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Noterly'),
             ),
-            ArchivedNotificationsPage(
-              items: value.where((element) => element.archived).toList(),
-              scrollController: _archivedNotificationsPageScrollController,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const CreateNotificationPage(),
+            body: const Center(
+              child: CircularProgressIndicator(),
             ),
           );
+        }
 
-          setState(() {});
-        },
-        label: const Text('Create'),
-        icon: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: NavigationBar(
-        destinations: [
-          NavigationDestination(
-            icon: Icon(AppManager.instance.notifier.value.where((element) => !element.archived).isNotEmpty ? Icons.notifications_active : Icons.notifications_none),
-            label: 'Active',
+        var activeNotifications = value.where((element) => !element.archived).toList();
+        var archivedNotifications = value.where((element) => element.archived).toList();
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Noterly'),
+            elevation: _getAppBarElevation(),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.settings),
+              ),
+            ],
           ),
-          const NavigationDestination(
-            icon: Icon(Icons.archive),
-            label: 'Archive',
+          body: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (value) {
+              setState(() => _selectedDestination = value);
+            },
+            controller: _pageController,
+            children: [
+              ActiveNotificationsPage(
+                items: activeNotifications,
+                scrollController: _activeNotificationsPageScrollController,
+              ),
+              ArchivedNotificationsPage(
+                items: archivedNotifications,
+                scrollController: _archivedNotificationsPageScrollController,
+              ),
+            ],
           ),
-        ],
-        onDestinationSelected: (value) {
-          setState(() {
-            if (_selectedDestination == value) {
-              // Already on this page, scroll to top
-              if (_scrollControllers[value].hasClients) {
-                _scrollControllers[value].animateTo(
-                  0,
-                  duration: const Duration(milliseconds: 1000),
-                  curve: Curves.easeInOutCirc,
-                );
-              }
-            } else {
-              _selectedDestination = value;
-              _pageController.animateToPage(
-                value,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOutCirc,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CreateNotificationPage(),
+                ),
               );
-            }
-          });
-        },
-        selectedIndex: _selectedDestination,
-      ),
+
+              setState(() {});
+            },
+            label: const Text('Create'),
+            icon: const Icon(Icons.add),
+          ),
+          bottomNavigationBar: NavigationBar(
+            destinations: [
+              NavigationDestination(
+                icon: Badge.count(
+                  isLabelVisible: activeNotifications.isNotEmpty,
+                  count: activeNotifications.length,
+                  child: Icon(activeNotifications.isNotEmpty ? Icons.notifications : Icons.notifications_none),
+                ),
+                label: 'Active',
+              ),
+              const NavigationDestination(
+                icon: Icon(Icons.archive),
+                label: 'Archive',
+              ),
+            ],
+            onDestinationSelected: (value) {
+              setState(() {
+                if (_selectedDestination == value) {
+                  // Already on this page, scroll to top
+                  if (_scrollControllers[value].hasClients) {
+                    _scrollControllers[value].animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 1000),
+                      curve: Curves.easeInOutCirc,
+                    );
+                  }
+                } else {
+                  _selectedDestination = value;
+                  _pageController.animateToPage(
+                    value,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOutCirc,
+                  );
+                }
+              });
+            },
+            selectedIndex: _selectedDestination,
+          ),
+        );
+      },
     );
   }
 }
