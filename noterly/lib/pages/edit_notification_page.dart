@@ -92,6 +92,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Title',
+                    border: InputBorder.none,
                   ),
                   validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
                 ),
@@ -105,6 +106,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Body',
+                    border: InputBorder.none,
                   ),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),

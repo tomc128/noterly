@@ -65,6 +65,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Title',
+                    border: InputBorder.none,
                   ),
                   validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
                 ),
@@ -78,6 +79,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Body',
+                    border: InputBorder.none,
                   ),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
@@ -112,6 +114,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ListTile(
                   title: const Text('Send'),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  minVerticalPadding: 12,
                   onTap: () {
                     showDateTimePicker(
                       context: context,

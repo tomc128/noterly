@@ -31,4 +31,6 @@ extension DateTimeExtensions on DateTime {
 
     return toDateTimeString();
   }
+
+  DateTime toOnlyDate() => DateTime(year, month, day);
 }
