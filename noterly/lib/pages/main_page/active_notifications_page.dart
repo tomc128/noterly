@@ -35,8 +35,9 @@ class ActiveNotificationsPage extends NavigationScreen {
       }
     });
 
-    var immediateItems = items.where((element) => element.dateTime == null).toList();
-    var scheduledItems = items.where((element) => element.dateTime != null).toList();
+    var immediateItems = items.where((element) => element.dateTime == null && element.repeatDuration == null).toList();
+    var scheduledItems = items.where((element) => element.dateTime != null && element.repeatDuration == null).toList();
+    var repeatingItems = items.where((element) => element.repeatDuration != null).toList();
 
     var immediateWidgets = immediateItems.isEmpty
         ? []
@@ -52,6 +53,13 @@ class ActiveNotificationsPage extends NavigationScreen {
             _getCard(context, scheduledItems),
           ];
 
+    var repeatingWidgets = repeatingItems.isEmpty
+        ? []
+        : [
+            _getListHeader(context, 'Repeating'),
+            _getCard(context, repeatingItems),
+          ];
+
     var emptyWidgets = [
       const SliverToBoxAdapter(
         child: Center(
@@ -60,14 +68,23 @@ class ActiveNotificationsPage extends NavigationScreen {
       ),
     ];
 
+    bool isEmpty = immediateWidgets.isEmpty && scheduledWidgets.isEmpty && repeatingWidgets.isEmpty;
+
+    var widgets = isEmpty
+        ? emptyWidgets
+        : [
+            ...immediateWidgets,
+            if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+            ...scheduledWidgets,
+            if (scheduledWidgets.isNotEmpty && repeatingWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+            ...repeatingWidgets,
+          ];
+
     return CustomScrollView(
       controller: scrollController,
       slivers: [
-        ...immediateWidgets,
-        if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
-        ...scheduledWidgets,
-        if (immediateWidgets.isEmpty && scheduledWidgets.isEmpty) ...emptyWidgets,
-        const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+        ...widgets,
+        const SliverToBoxAdapter(child: SizedBox(height: 86)), // Add some padding at the bottom so the FAB doesn't overlap with the last item
       ],
     );
   }
