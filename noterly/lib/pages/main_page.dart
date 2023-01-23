@@ -113,7 +113,7 @@ class _MainPageState extends State<MainPage> {
                 label: 'Active',
               ),
               const NavigationDestination(
-                icon: Icon(Icons.archive),
+                icon: Icon(Icons.history),
                 label: 'Archive',
               ),
             ],
