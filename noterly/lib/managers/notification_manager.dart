@@ -56,8 +56,13 @@ class NotificationManager {
     }
 
     if (response.actionId == 'done') {
-      Log.logger.d('Archiving notification "${item.title}"');
-      await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
+      if (item.repeatDuration != null) {
+        Log.logger.d('Snoozing notification "${item.title}"');
+        await NotificationManager.instance.updateRepeatingNotification(item);
+      } else {
+        Log.logger.d('Archiving notification "${item.title}"');
+        await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
+      }
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
       if (isBackground) {
@@ -108,7 +113,11 @@ class NotificationManager {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
-      await updateNotification(item);
+      if (item.repeatDuration != null) {
+        await updateRepeatingNotification(item);
+      } else {
+        await updateNotification(item);
+      }
     }
   }
 
@@ -117,6 +126,9 @@ class NotificationManager {
 
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
+
+      // TODO: also update repeating notifications
+      if (item.repeatDuration != null) continue;
 
       await _showOrScheduleNotification(item);
     }
@@ -137,6 +149,42 @@ class NotificationManager {
 
     if (item.archived) return;
     await _showOrScheduleNotification(item);
+  }
+
+  Future updateAllRepeatingNotifications() async {
+    for (var item in AppManager.instance.notifier.value) {
+      if (item.archived) continue;
+      if (item.repeatDuration != null) continue;
+
+      await updateRepeatingNotification(item);
+    }
+  }
+
+  Future updateRepeatingNotification(NotificationItem item) async {
+    if (item.archived) return;
+    if (item.repeatDuration == null) return;
+
+    var isShown = await _notificationIsShown(item);
+
+    if (item.dateTime != null) {
+      // Scheduled: check if repeat duration has passed
+      var now = DateTime.now();
+      var diff = now.difference(item.dateTime!);
+      if (diff.inSeconds < item.repeatDuration!.inSeconds) {
+        // Repeat duration has not passed, no need to update
+        if (isShown) return;
+      }
+
+      // Repeat duration has passed, update the dateTime and schedule the notification
+      item.dateTime = item.dateTime!.add(item.repeatDuration!);
+      await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
+      await _scheduleNotification(item);
+
+      print('Updated notification "${item.title}", new dateTime: ${item.dateTime}');
+    } else {
+      // TODO: come up with a way to handle this case, or force all repeating notifications to have a dateTime
+      Log.logger.e('Item has a repeat duration but no dateTime, ignoring!');
+    }
   }
 
   Future _showOrScheduleNotification(NotificationItem item) async {

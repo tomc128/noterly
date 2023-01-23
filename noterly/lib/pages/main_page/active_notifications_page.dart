@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/navigation_screen.dart';
 import 'package:noterly/models/notification_item.dart';
@@ -181,12 +182,16 @@ class ActiveNotificationsPage extends NavigationScreen {
       text += item.body!;
     }
 
+    // Add the date/time
     if (item.dateTime != null) {
-      if (text.isNotEmpty) {
-        text += '\n';
-      }
-
+      if (text.isNotEmpty) text += '\n';
       text += item.dateTime!.toRelativeDateTimeString();
+    }
+
+    // Add the repeat duration
+    if (item.repeatDuration != null) {
+      if (text.isNotEmpty) text += '\n';
+      text += 'Repeats every ${item.repeatDuration!.toRelativeDurationString()}';
     }
 
     return text.isEmpty ? null : Text(text);

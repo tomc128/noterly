@@ -21,6 +21,6 @@ extension DurationExtensions on Duration {
             : '$minutes minutes';
 
     final combined = '$daysString, $hoursString, $minutesString'.trim();
-    return combined.replaceAll(RegExp(r', ,'), ',').replaceAll(RegExp(r',$'), ''); // Rem,ove trailing or double commas
+    return combined.replaceAll(RegExp(r', ,'), ',').replaceAll(RegExp(r',$'), '').replaceAll(RegExp(r'^,\s*'), ''); // Remove trailing, leading or double commas
   }
 }
