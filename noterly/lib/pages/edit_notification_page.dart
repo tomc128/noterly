@@ -196,6 +196,13 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   },
                 ),
             ]),
+            if (_isRepeating) ...[
+              _getSpacer(),
+              const ListTile(
+                leading: Icon(Icons.info),
+                subtitle: Text('Repeating notifications will repeat once they are marked as done from the notification.'),
+              ),
+            ],
           ],
         ),
       ),
