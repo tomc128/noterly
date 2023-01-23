@@ -127,10 +127,11 @@ class NotificationManager {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
-      // TODO: also update repeating notifications
-      if (item.repeatDuration != null) continue;
-
-      await _showOrScheduleNotification(item);
+      if (item.repeatDuration != null) {
+        await updateRepeatingNotification(item); // Need to do some calculations before, so call update instead of show/schedule
+      } else {
+        await _showOrScheduleNotification(item);
+      }
     }
   }
 
@@ -190,8 +191,18 @@ class NotificationManager {
 
       print('Updated notification "${item.title}", new dateTime: ${item.dateTime}');
     } else {
-      // TODO: come up with a way to handle this case, or force all repeating notifications to have a dateTime
-      Log.logger.e('Item has a repeat duration but no dateTime, ignoring!');
+      // Since this notification has no dateTime, we'll just show it immediately and set the dateTime to now + repeatDuration
+      // Which will mean this notification is shown again in repeatDuration seconds
+      item.dateTime = DateTime.now().add(item.repeatDuration!);
+      await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
+
+      if (isShown) {
+        Log.logger.d('Repeating & unscheduled notification "${item.title}" is already shown, no need to update');
+        return;
+      }
+
+      Log.logger.d('Repeating & unscheduled notification "${item.title}" needs to be updated');
+      await _scheduleNotification(item);
     }
   }
 
