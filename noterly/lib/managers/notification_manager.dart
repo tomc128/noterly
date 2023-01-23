@@ -172,11 +172,19 @@ class NotificationManager {
       var diff = now.difference(item.dateTime!);
       if (diff.inSeconds < item.repeatDuration!.inSeconds) {
         // Repeat duration has not passed, no need to update
-        if (isShown) return;
+        if (isShown) {
+          Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
+          return;
+        }
       }
 
+      Log.logger.d('Repeating & scheduled notification "${item.title}" needs to be updated');
+
       // Repeat duration has passed, update the dateTime and schedule the notification
-      item.dateTime = item.dateTime!.add(item.repeatDuration!);
+      // calculate next time as dateTime + repeatDuration as many times as needed to get to the future
+      while (item.dateTime!.isBefore(now)) {
+        item.dateTime = item.dateTime!.add(item.repeatDuration!);
+      }
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
       await _scheduleNotification(item);
 
