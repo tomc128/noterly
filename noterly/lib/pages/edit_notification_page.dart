@@ -87,6 +87,9 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ListTile(
                 title: TextFormField(
                   controller: _titleController,
+                  autocorrect: true,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Title',
                   ),
@@ -97,6 +100,9 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ListTile(
                 title: TextFormField(
                   controller: _bodyController,
+                  autocorrect: true,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Body',
                   ),

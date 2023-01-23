@@ -59,6 +59,10 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ListTile(
                 title: TextFormField(
                   controller: _titleController,
+                  autocorrect: true,
+                  autofocus: true,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Title',
                   ),
@@ -69,6 +73,9 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ListTile(
                 title: TextFormField(
                   controller: _bodyController,
+                  autocorrect: true,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     labelText: 'Body',
                   ),
