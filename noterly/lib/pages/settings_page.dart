@@ -6,6 +6,7 @@ import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
@@ -23,6 +24,17 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         children: [
           if (kDebugMode) ..._getDebugOptions(context),
+          _getHeader('System'),
+          _getCard(context, [
+            ListTile(
+              title: const Text('Notification settings'),
+              leading: const Icon(Icons.notifications),
+              trailing: const Icon(Icons.open_in_new),
+              minVerticalPadding: 12,
+              onTap: () => SystemSettings.appNotifications(),
+            )
+          ]),
+          _getSpacer(),
           _getHeader('About'),
           _getCard(context, [
             const ListTile(
@@ -40,7 +52,7 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               title: const Text('Privacy policy'),
               leading: const Icon(Icons.privacy_tip),
-              trailing: const Icon(Icons.chevron_right),
+              trailing: const Icon(Icons.open_in_new),
               minVerticalPadding: 12,
               onTap: () async {
                 var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
@@ -78,8 +90,7 @@ class SettingsPage extends StatelessWidget {
           context,
           [
             ListTile(
-              title: const Text('Generate random items'),
-              subtitle: const Text('Generate 10 random items for testing purposes.'),
+              title: const Text('Generate 10 random items'),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
               onTap: () {
@@ -107,17 +118,16 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Resend notifications'),
-              subtitle: const Text('Force all notifications to be reset.'),
+              title: const Text('Force update all notifications'),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
               onTap: () {
                 NotificationManager.instance.forceUpdateAllNotifications();
               },
             ),
-            _getSpacer(),
           ],
-        )
+        ),
+        _getSpacer(),
       ];
 
   Widget _getCard(BuildContext context, List<Widget> children) => Card(
