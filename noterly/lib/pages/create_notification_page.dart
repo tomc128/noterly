@@ -152,7 +152,10 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   subtitle: Text('every ${_duration.toRelativeDurationString()}'),
                   minVerticalPadding: 12,
                   onTap: () {
-                    showDurationPicker(context: context).then((value) {
+                    showDurationPicker(
+                      initialDuration: _duration,
+                      context: context,
+                    ).then((value) {
                       if (value != null) {
                         setState(() {
                           _duration = value;

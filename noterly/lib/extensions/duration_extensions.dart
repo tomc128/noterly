@@ -3,16 +3,24 @@ extension DurationExtensions on Duration {
     final days = inDays;
     final hours = inHours % 24;
     final minutes = inMinutes % 60;
-    final seconds = inSeconds % 60;
 
-    final daysString = days == 1 ? '1 day' : '$days days';
-    final hoursString = hours == 1 ? '1 hour' : '$hours hours';
-    final minutesString = minutes == 1 ? '1 minute' : '$minutes minutes';
-    final secondsString = seconds == 1 ? '1 second' : '$seconds seconds';
+    final daysString = days == 0
+        ? ''
+        : days == 1
+            ? '1 day'
+            : '$days days';
+    final hoursString = hours == 0
+        ? ''
+        : hours == 1
+            ? '1 hour'
+            : '$hours hours';
+    final minutesString = minutes == 0
+        ? ''
+        : minutes == 1
+            ? '1 minute'
+            : '$minutes minutes';
 
-    if (days > 0) return daysString;
-    if (hours > 0) return hoursString;
-    if (minutes > 0) return minutesString;
-    return secondsString;
+    final combined = '$daysString, $hoursString, $minutesString'.trim();
+    return combined.replaceAll(RegExp(r', ,'), ',').replaceAll(RegExp(r',$'), ''); // Rem,ove trailing or double commas
   }
 }
