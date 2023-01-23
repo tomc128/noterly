@@ -115,6 +115,7 @@ class SettingsPage extends StatelessWidget {
                 NotificationManager.instance.forceUpdateAllNotifications();
               },
             ),
+            _getSpacer(),
           ],
         )
       ];

@@ -195,9 +195,9 @@ class NotificationManager {
   }
 
   AndroidNotificationDetails _getNotificationDetails(NotificationItem item) => AndroidNotificationDetails(
-        'test_channel_id_a8768sb',
-        'test_channel_name',
-        channelDescription: 'channel_description',
+        item.dateTime == null ? 'immediate_notifications' : 'scheduled_notifications',
+        item.dateTime == null ? 'Immediate notifications' : 'Scheduled notifications',
+        channelDescription: item.dateTime == null ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
         actions: <AndroidNotificationAction>[
           const AndroidNotificationAction(
             'done',
@@ -207,7 +207,7 @@ class NotificationManager {
         category: AndroidNotificationCategory.reminder,
         importance: Importance.max,
         priority: Priority.max,
-        groupKey: 'uk.co.tdsstudios.noterly.NOTIFICATIONS_TEST_asb76a8',
+        groupKey: 'uk.co.tdsstudios.noterly.ALL_NOTIFICATIONS_GROUP',
         color: item.colour,
         ongoing: true,
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,

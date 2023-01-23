@@ -35,7 +35,11 @@ flutter:
 
 
 # IconKitchen
-# https://icon.kitchen/i/H4sIAAAAAAAAA0WQMWvEMAyF%2F0rQfENnz6XblUKylQ66WHbE2ZaxlcIR7r9XTindpE967wkd8I1ppw7uAI%2FtvmyUCZy2nS4Q4vKo1gFnjAQDXLHf%2F8cf6D2XOMQqFdzLBRrHTc%2FqJqqSzzJRGOxp8M9ylSTNLG9x3vCXcFvTSNFxgwcXMHWLqf1NiskPCJg5PWz19TrNWDqYYe0Lq8kcvItSs%2FHJMCYug86ca6KpiHLgFZWlTI0yF0%2FtNMji9zQe8AlYfBP28PX8AdrnM%2FUXAQAA
+# Old: https://icon.kitchen/i/H4sIAAAAAAAAA0WQMWvEMAyF%2F0rQfENnz6XblUKylQ66WHbE2ZaxlcIR7r9XTindpE967wkd8I1ppw7uAI%2FtvmyUCZy2nS4Q4vKo1gFnjAQDXLHf%2F8cf6D2XOMQqFdzLBRrHTc%2FqJqqSzzJRGOxp8M9ylSTNLG9x3vCXcFvTSNFxgwcXMHWLqf1NiskPCJg5PWz19TrNWDqYYe0Lq8kcvItSs%2FHJMCYug86ca6KpiHLgFZWlTI0yF0%2FtNMji9zQe8AlYfBP28PX8AdrnM%2FUXAQAA
+
+# https://icon.kitchen/i/H4sIAAAAAAAAA12OvQrDMAyE30Vzhs5%2Bh0Kh2UoHOfIfseNgy4US8u61TKdsp0P33R3wwdhMBXUAYVlnb5IBxaWZCaybv3u%2FICR0BsR4IFHYnLxz3kHdJijBeR5KZ%2BachozGindK5o51BWUx1s7U7ulxQJdQlihUfa1hGUH%2FSEekTC3KxhfgRiUHgvf5A0C99Nq6AAAA
+# Change foregroun to the themed version to generate better themed icon
+
 
 # Flutter rename:
 # flutter pub global run rename --bundleId com.name.here
