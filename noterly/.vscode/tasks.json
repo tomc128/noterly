@@ -7,7 +7,9 @@
             "label": "Build AppBundle",
             "type": "shell",
             "command": [
-                "((Get-Content -path ./lib/build_info.dart -Raw) -replace 'UNSET_VERSION','${input:versionName}') | Set-Content -Path ./lib/build_info.dart",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace 'UNSET_VERSION','${input:versionName}'}  | ",
+                "Out-File ./lib/build_info.dart",
                 "&&",
                 "flutter",
                 "build",
@@ -15,7 +17,9 @@
                 "--build-name=${input:versionName}",
                 "--build-number=${input:versionCode}",
                 "&&",
-                "((Get-Content -path ./lib/build_info.dart -Raw) -replace '${input:versionName}','UNSET_VERSION') | Set-Content -Path ./lib/build_info.dart",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace '${input:versionName}','UNSET_VERSION'}  | ",
+                "Out-File ./lib/build_info.dart",
             ]
         }
     ],
