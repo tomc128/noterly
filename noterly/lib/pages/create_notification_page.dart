@@ -119,6 +119,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ListTile(
                   title: const Text('Send'),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  leading: const Icon(Icons.calendar_today),
+                  minLeadingWidth: 24,
                   minVerticalPadding: 12,
                   onTap: () {
                     showDateTimePicker(
@@ -150,6 +152,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ListTile(
                   title: const Text('Repeat'),
                   subtitle: Text('every ${_duration.toRelativeDurationString()}'),
+                  leading: const Icon(Icons.repeat),
+                  minLeadingWidth: 24,
                   minVerticalPadding: 12,
                   onTap: () {
                     showDurationPicker(
@@ -178,6 +182,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: _titleController.text,
               body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
+              repeatDuration: _isRepeating ? _duration : null,
               colour: _colour,
             ),
           );

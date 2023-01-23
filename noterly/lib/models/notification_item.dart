@@ -9,6 +9,7 @@ class NotificationItem {
   Color colour;
 
   DateTime? dateTime;
+  Duration? repeatDuration;
 
   bool archived;
   DateTime? archivedDateTime;
@@ -18,6 +19,7 @@ class NotificationItem {
     required this.title,
     this.body,
     this.dateTime,
+    this.repeatDuration,
     required this.colour,
     this.archived = false,
     this.archivedDateTime,
@@ -25,7 +27,7 @@ class NotificationItem {
 
   @override
   String toString() {
-    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, colour: $colour, archived: $archived)';
+    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, repeatDuration: $repeatDuration, colour: $colour, archived: $archived)';
   }
 
   Map<String, dynamic> toJson() {
@@ -34,6 +36,7 @@ class NotificationItem {
       'title': title,
       'body': body,
       'dateTime': dateTime?.toIso8601String(),
+      'repeatDuration': repeatDuration?.inMilliseconds,
       'colour': colour.value,
       'archived': archived,
       'archivedDateTime': archivedDateTime?.toIso8601String(),
@@ -46,6 +49,7 @@ class NotificationItem {
       title: json['title'],
       body: json['body'],
       dateTime: json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
+      repeatDuration: json['repeatDuration'] != null ? Duration(milliseconds: json['repeatDuration']) : null,
       colour: Color(json['colour']),
       archived: json['archived'] ?? false,
       archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,
