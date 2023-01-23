@@ -107,43 +107,60 @@ class ActiveNotificationsPage extends NavigationScreen {
         ],
       );
 
-  Widget _getItem(BuildContext context, NotificationItem item) => Dismissible(
-        key: ValueKey(item.id),
-        background: _getDismissibleBackground(context),
-        secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
-        onDismissed: (direction) {
-          AppManager.instance.archiveItem(item.id);
-          ScaffoldMessenger.of(context).clearSnackBars(); // Prevents multiple snackbars from building up
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Notification archived.'),
-              action: SnackBarAction(
-                label: 'Undo',
-                onPressed: () => AppManager.instance.restoreArchivedItem(item.id),
+  Widget _getItem(BuildContext context, NotificationItem item) => Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Dismissible(
+          key: ValueKey(item.id),
+          background: _getDismissibleBackground(context),
+          secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
+          onDismissed: (direction) {
+            AppManager.instance.archiveItem(item.id);
+            ScaffoldMessenger.of(context).clearSnackBars(); // Prevents multiple snackbars from building up
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Notification archived.'),
+                action: SnackBarAction(
+                  label: 'Undo',
+                  onPressed: () => AppManager.instance.restoreArchivedItem(item.id),
+                ),
               ),
+            );
+          },
+          child: Material(
+            clipBehavior: Clip.antiAlias, // Prevents the ripple from going outside the card
+            color: Theme.of(context).colorScheme.surface,
+            elevation: 1,
+            surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
             ),
-          );
-        },
-        child: ListTile(
-          title: Text(item.title),
-          subtitle: _getSubtitle(item),
-          minVerticalPadding: 12,
-          leading: SizedBox(
-            width: 32,
-            child: Align(
-              alignment: Alignment.center,
-              child: CircleAvatar(
-                radius: 8,
-                backgroundColor: item.colour,
+            child: ListTile(
+              title: Text(item.title),
+              subtitle: _getSubtitle(item),
+              minVerticalPadding: 12,
+              leading: SizedBox(
+                width: 32,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    radius: 8,
+                    backgroundColor: item.colour,
+                  ),
+                ),
               ),
+              onTap: () => _onItemTap(context, item),
             ),
           ),
-          onTap: () => _onItemTap(context, item),
         ),
       );
 
   Widget _getDismissibleBackground(BuildContext context, {bool isSecondary = false}) => Container(
-        color: Theme.of(context).colorScheme.primary,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+        ),
         child: Align(
           alignment: isSecondary ? Alignment.centerRight : Alignment.centerLeft,
           child: Padding(
