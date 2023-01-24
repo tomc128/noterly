@@ -168,15 +168,21 @@ class NotificationManager {
     var isShown = await _notificationIsShown(item);
 
     if (item.dateTime != null) {
-      // Scheduled: check if repeat duration has passed
+      // var diff = now.difference(item.dateTime!);
+      // if (diff.inSeconds < item.repeatDuration!.inSeconds) {
+      //   // Repeat duration has not passed, no need to update
+      //   if (isShown) {
+      //     Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
+      //     return;
+      //   }
+      // }
+
       var now = DateTime.now();
-      var diff = now.difference(item.dateTime!);
-      if (diff.inSeconds < item.repeatDuration!.inSeconds) {
-        // Repeat duration has not passed, no need to update
-        if (isShown) {
-          Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
-          return;
-        }
+
+      if (isShown) {
+        // Notification is already shown, don't update it (until the user marks it as done)
+        Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
+        return;
       }
 
       Log.logger.d('Repeating & scheduled notification "${item.title}" needs to be updated');
