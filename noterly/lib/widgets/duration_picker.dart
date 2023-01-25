@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 
 Future<Duration?> showDurationPicker({
   required BuildContext context,
@@ -56,9 +57,18 @@ class _DurationPickerState extends State<DurationPicker> {
               borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
               color: primarySurfaceColor,
             ),
-            child: Text(
-              'Select repeat duration',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Select repeat duration',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+                ),
+                Text(
+                  'every ${_duration.toRelativeDurationString()}',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
+                ),
+              ],
             ),
           ),
           _getMinutePicker(),
