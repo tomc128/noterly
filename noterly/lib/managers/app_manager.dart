@@ -180,11 +180,5 @@ class AppManager {
     notifier.value = List.from(notifier.value); // Update value notifier
   }
 
-  void printItems() {
-    var output = '';
-    for (var element in notifier.value) {
-      output += '$element, ';
-    }
-    Log.logger.d('${notifier.value.length} item(s): [$output]');
-  }
+  void printItems() => Log.logger.d(notifier.value);
 }

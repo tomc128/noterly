@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/widgets/colour_picker.dart';
 import 'package:noterly/widgets/date_time_picker.dart';
+import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/item_list_decoration.dart';
 
 class EditNotificationPage extends StatefulWidget {
@@ -26,8 +28,10 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
 
   late NotificationItem _item;
   late bool _isScheduled;
+  late bool _isRepeating;
 
   late DateTime _dateTime;
+  late Duration _duration;
 
   @override
   void initState() {
@@ -35,8 +39,10 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
 
     var now = DateTime.now();
     _dateTime = _item.dateTime ?? DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
-
     _isScheduled = _item.dateTime != null;
+
+    _duration = _item.repeatDuration ?? const Duration(days: 1);
+    _isRepeating = _item.repeatDuration != null;
 
     _titleController.text = _item.title;
     _bodyController.text = _item.body ?? '';
@@ -126,7 +132,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ),
             ]),
             _getSpacer(),
-            _getHeader('Schedule'),
+            _getHeader('Timing'),
             _getCard([
               SwitchListTile(
                 value: _isScheduled,
@@ -141,6 +147,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                 ListTile(
                   title: const Text('Send'),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  leading: const Icon(Icons.calendar_today),
+                  minLeadingWidth: 24,
                   onTap: () {
                     showDateTimePicker(
                       context: context,
@@ -158,7 +166,43 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                     });
                   },
                 ),
+              SwitchListTile(
+                value: _isRepeating,
+                title: const Text('Repeating'),
+                onChanged: (value) {
+                  setState(() {
+                    _isRepeating = value;
+                  });
+                },
+              ),
+              if (_isRepeating)
+                ListTile(
+                  title: const Text('Repeat'),
+                  subtitle: Text('every ${_duration.toRelativeDurationString()}'),
+                  leading: const Icon(Icons.repeat),
+                  minLeadingWidth: 24,
+                  minVerticalPadding: 12,
+                  onTap: () {
+                    showDurationPicker(
+                      initialDuration: _duration,
+                      context: context,
+                    ).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          _duration = value;
+                        });
+                      }
+                    });
+                  },
+                ),
             ]),
+            if (_isRepeating) ...[
+              _getSpacer(),
+              const ListTile(
+                leading: Icon(Icons.info),
+                subtitle: Text('Repeating notifications will repeat once they are marked as done from the notification.'),
+              ),
+            ],
           ],
         ),
       ),

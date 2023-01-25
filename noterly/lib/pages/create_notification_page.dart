@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/widgets/colour_picker.dart';
 import 'package:noterly/widgets/date_time_picker.dart';
+import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/item_list_decoration.dart';
 import 'package:uuid/uuid.dart';
 
@@ -21,8 +23,11 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   final _bodyController = TextEditingController();
 
   var _isScheduled = false;
+  var _isRepeating = false;
 
   late DateTime _dateTime;
+  Duration _duration = const Duration(days: 1);
+
   late Color _colour;
 
   @override
@@ -99,7 +104,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ),
             ]),
             _getSpacer(),
-            _getHeader('Schedule'),
+            _getHeader('Timing'),
             _getCard([
               SwitchListTile(
                 value: _isScheduled,
@@ -114,6 +119,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ListTile(
                   title: const Text('Send'),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  leading: const Icon(Icons.calendar_today),
+                  minLeadingWidth: 24,
                   minVerticalPadding: 12,
                   onTap: () {
                     showDateTimePicker(
@@ -132,7 +139,43 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                     });
                   },
                 ),
+              SwitchListTile(
+                value: _isRepeating,
+                title: const Text('Repeating'),
+                onChanged: (value) {
+                  setState(() {
+                    _isRepeating = value;
+                  });
+                },
+              ),
+              if (_isRepeating)
+                ListTile(
+                  title: const Text('Repeat'),
+                  subtitle: Text('every ${_duration.toRelativeDurationString()}'),
+                  leading: const Icon(Icons.repeat),
+                  minLeadingWidth: 24,
+                  minVerticalPadding: 12,
+                  onTap: () {
+                    showDurationPicker(
+                      initialDuration: _duration,
+                      context: context,
+                    ).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          _duration = value;
+                        });
+                      }
+                    });
+                  },
+                ),
             ]),
+            if (_isRepeating) ...[
+              _getSpacer(),
+              const ListTile(
+                leading: Icon(Icons.info),
+                subtitle: Text('Repeating notifications will repeat once they are marked as done from the notification.'),
+              ),
+            ],
           ],
         ),
       ),
@@ -146,6 +189,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: _titleController.text,
               body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
+              repeatDuration: _isRepeating ? _duration : null,
               colour: _colour,
             ),
           );
