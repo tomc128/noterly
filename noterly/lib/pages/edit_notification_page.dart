@@ -220,8 +220,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           await FirebaseAnalytics.instance.logEvent(
             name: 'edit_item',
             parameters: {
-              'is_scheduled': _isScheduled,
-              'is_repeating': _isRepeating,
+              'is_scheduled': _isScheduled ? 'yes' : 'no',
+              'is_repeating': _isRepeating ? 'yes' : 'no',
             },
           );
 

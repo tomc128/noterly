@@ -35,7 +35,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   BackgroundFetch.finish(taskId);
 }
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Ensure the app renders behind the system UI.
@@ -47,19 +47,12 @@ void main() async {
 
   IsolateManager.init();
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
+
   runApp(const MyApp());
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  await FirebaseAnalytics.instance.setDefaultEventParameters({
-    'version': BuildInfo.appVersion,
-  });
-
-  FirebaseAnalytics.instance; // Initialise analytics
 
   // TODO: implement quick actions
   // const quickActions = QuickActions();

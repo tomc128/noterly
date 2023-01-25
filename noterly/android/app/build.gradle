@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services' // FIREBASE
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 def keystoreProperties = new Properties()
@@ -92,4 +93,8 @@ dependencies {
     implementation 'androidx.window:window:1.0.0' // FLUTTER_LOCAL_NOTIFICATIONS
     implementation 'androidx.window:window-java:1.0.0' // FLUTTER_LOCAL_NOTIFICATIONS
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // FIREBASE:
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }

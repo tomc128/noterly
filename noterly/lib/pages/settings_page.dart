@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
@@ -31,23 +33,55 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(Icons.notifications),
               trailing: const Icon(Icons.open_in_new),
               minVerticalPadding: 12,
-              onTap: () => SystemSettings.appNotifications(),
+              onTap: () async {
+                SystemSettings.appNotifications();
+
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_notification_settings',
+                );
+              },
             )
           ]),
           _getSpacer(),
           _getHeader('About'),
           _getCard(context, [
-            const ListTile(
-              title: Text('Version'),
-              subtitle: Text(BuildInfo.appVersion),
-              leading: Icon(Icons.info),
-              minVerticalPadding: 12,
+            RawGestureDetector(
+              gestures: {
+                SerialTapGestureRecognizer: GestureRecognizerFactoryWithHandlers<SerialTapGestureRecognizer>(
+                  () => SerialTapGestureRecognizer(),
+                  (instance) {
+                    instance.onSerialTapDown = (details) async {
+                      if (details.count == 7) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Text('Easter egg!'),
+                            content: Text('You found the easter egg! That\'s it... there\'s nothing else here.'),
+                          ),
+                        );
+
+                        await FirebaseAnalytics.instance.logEvent(
+                          name: 'easter_egg',
+                        );
+                      }
+                    };
+                  },
+                ),
+              },
+              child: ListTile(
+                title: const Text('Version'),
+                subtitle: const Text(BuildInfo.appVersion),
+                leading: const Icon(Icons.info),
+                minVerticalPadding: 12,
+                onTap: () {}, // allow for ripple effect
+              ),
             ),
-            const ListTile(
-              title: Text('Copyright'),
-              subtitle: Text('2023 Tom Chapman, TDS Studios.'),
-              leading: Icon(Icons.copyright),
+            ListTile(
+              title: const Text('Copyright'),
+              subtitle: const Text('2023 Tom Chapman, TDS Studios.'),
+              leading: const Icon(Icons.copyright),
               minVerticalPadding: 12,
+              onTap: () {}, // allow for ripple effect
             ),
             ListTile(
               title: const Text('Privacy policy'),
@@ -57,6 +91,10 @@ class SettingsPage extends StatelessWidget {
               onTap: () async {
                 var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
                 await _launchUrl(uri);
+
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_privacy_policy',
+                );
               },
             ),
             ListTile(
@@ -69,6 +107,10 @@ class SettingsPage extends StatelessWidget {
                   context: context,
                   applicationLegalese: 'Copyright © 2023 Tom Chapman, TDS Studios.',
                   applicationVersion: BuildInfo.appVersion,
+                );
+
+                FirebaseAnalytics.instance.logEvent(
+                  name: 'open_licenses',
                 );
               },
             ),

@@ -196,8 +196,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
           await FirebaseAnalytics.instance.logEvent(
             name: 'create_item',
             parameters: {
-              'is_scheduled': _isScheduled,
-              'is_repeating': _isRepeating,
+              'is_scheduled': _isScheduled ? 'yes' : 'no',
+              'is_repeating': _isRepeating ? 'yes' : 'no',
             },
           );
 
