@@ -137,6 +137,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               SwitchListTile(
                 value: _isScheduled,
                 title: const Text('Schedule'),
+                secondary: const Icon(Icons.calendar_today),
                 onChanged: (value) {
                   setState(() {
                     _isScheduled = value;
@@ -147,8 +148,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                 ListTile(
                   title: const Text('Send'),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
-                  leading: const Icon(Icons.calendar_today),
-                  minLeadingWidth: 24,
+                  minVerticalPadding: 12,
                   onTap: () {
                     showDateTimePicker(
                       context: context,
@@ -169,6 +169,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               SwitchListTile(
                 value: _isRepeating,
                 title: const Text('Repeating'),
+                secondary: const Icon(Icons.repeat),
                 onChanged: (value) {
                   setState(() {
                     _isRepeating = value;
@@ -179,8 +180,6 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                 ListTile(
                   title: const Text('Repeat'),
                   subtitle: Text('every ${_duration.toRelativeDurationString()}'),
-                  leading: const Icon(Icons.repeat),
-                  minLeadingWidth: 24,
                   minVerticalPadding: 12,
                   onTap: () {
                     showDurationPicker(
