@@ -94,20 +94,15 @@ class _ColourPickerState extends State<ColourPicker> {
             itemBuilder: (context, index) {
               var colour = colours.values.elementAt(index);
 
-              return GestureDetector(
+              return InkWell(
+                borderRadius: BorderRadius.circular(16),
                 onTap: () {
-                  if (_colour == colour) {
-                    // Second tap - submit dialog
-                    Navigator.of(context).pop(_colour);
-                  } else {
-                    // First tap - select colour
-                    setState(() {
-                      _colour = colour;
-                    });
-                  }
+                  setState(() {
+                    _colour = colour;
+                    Navigator.of(context).pop(colour);
+                  });
                 },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
+                child: Ink(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     color: colour,
@@ -116,7 +111,8 @@ class _ColourPickerState extends State<ColourPicker> {
                       width: 2,
                     ),
                     boxShadow: [
-                      BoxShadow(color: colour.withOpacity(0.25), blurRadius: 2, offset: const Offset(0, 3)),
+                      BoxShadow(color: colour.withOpacity(0.5), blurRadius: 2, offset: const Offset(0, 2)),
+                      BoxShadow(color: colour.withOpacity(0.25), blurRadius: 5, offset: const Offset(0, 5)),
                     ],
                   ),
                 ),
@@ -130,12 +126,6 @@ class _ColourPickerState extends State<ColourPicker> {
                   Navigator.of(context).pop();
                 },
                 child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(_colour);
-                },
-                child: const Text('OK'),
               ),
             ],
           ),
