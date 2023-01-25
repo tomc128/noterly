@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/extensions/duration_extensions.dart';
@@ -214,7 +215,15 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           _item.dateTime = _isScheduled ? _dateTime : null;
           _item.archived = false; // Unarchive if we edit an archived item
 
-          AppManager.instance.editItem(_item);
+          await AppManager.instance.editItem(_item);
+
+          await FirebaseAnalytics.instance.logEvent(
+            name: 'edit_item',
+            parameters: {
+              'is_scheduled': _isScheduled,
+              'is_repeating': _isRepeating,
+            },
+          );
 
           if (mounted) {
             Navigator.of(context).pop();

@@ -59,7 +59,8 @@ android {
         applicationId "uk.co.tdsstudios.noterly"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        // minSdkVersion flutter.minSdkVersion
+        minSdkVersion 19 // FIREBASE
         // targetSdkVersion flutter.targetSdkVersion
         // targetSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
         targetSdkVersion rootProject.ext.targetSdkVersion // BACKGROUND_FETCH && FLUTTER_LOCAL_NOTIFICATIONS

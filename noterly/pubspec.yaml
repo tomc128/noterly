@@ -25,6 +25,8 @@ dependencies:
   url_launcher: ^6.1.8
   logger: ^1.1.0
   system_settings: ^2.1.0
+  firebase_core: ^2.4.1
+  firebase_analytics: ^10.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "785359253319",
+    "project_id": "noterly",
+    "storage_bucket": "noterly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785359253319:android:5f2b4bcc833a715698a662",
+        "android_client_info": {
+          "package_name": "uk.co.tdsstudios.noterly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785359253319-loimnkr2h8mc73u9jntcinvontcbdmqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUc9aCGvB4liffuR-8msAHn4HYkLLUc4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785359253319-loimnkr2h8mc73u9jntcinvontcbdmqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

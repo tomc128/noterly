@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/extensions/duration_extensions.dart';
@@ -181,7 +182,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
         onPressed: () async {
           if (!_formKey.currentState!.validate()) return;
 
-          AppManager.instance.addItem(
+          await AppManager.instance.addItem(
             NotificationItem(
               id: const Uuid().v4(),
               title: _titleController.text,
@@ -190,6 +191,14 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               repeatDuration: _isRepeating ? _duration : null,
               colour: _colour,
             ),
+          );
+
+          await FirebaseAnalytics.instance.logEvent(
+            name: 'create_item',
+            parameters: {
+              'is_scheduled': _isScheduled,
+              'is_repeating': _isRepeating,
+            },
           );
 
           if (mounted) {
