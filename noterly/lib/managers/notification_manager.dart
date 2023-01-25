@@ -166,19 +166,9 @@ class NotificationManager {
     if (item.repeatDuration == null) return;
 
     var isShown = await _notificationIsShown(item);
+    var now = DateTime.now();
 
     if (item.dateTime != null) {
-      // var diff = now.difference(item.dateTime!);
-      // if (diff.inSeconds < item.repeatDuration!.inSeconds) {
-      //   // Repeat duration has not passed, no need to update
-      //   if (isShown) {
-      //     Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
-      //     return;
-      //   }
-      // }
-
-      var now = DateTime.now();
-
       if (isShown) {
         // Notification is already shown, don't update it (until the user marks it as done)
         Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
@@ -194,12 +184,10 @@ class NotificationManager {
       }
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
       await _scheduleNotification(item);
-
-      print('Updated notification "${item.title}", new dateTime: ${item.dateTime}');
     } else {
       // Since this notification has no dateTime, we'll just show it immediately and set the dateTime to now + repeatDuration
       // Which will mean this notification is shown again in repeatDuration seconds
-      item.dateTime = DateTime.now().add(item.repeatDuration!);
+      item.dateTime = now.add(item.repeatDuration!);
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
 
       if (isShown) {

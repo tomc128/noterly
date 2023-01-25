@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
@@ -27,9 +29,15 @@ class _MainPageState extends State<MainPage> {
 
   late final List<ScrollController> _scrollControllers;
 
+  late final Timer _timer;
+
   @override
   void initState() {
     super.initState();
+
+    _timer = Timer.periodic(const Duration(seconds: 20), (timer) {
+      setState(() {}); // Rebuild so that relative times are updated
+    });
 
     _scrollControllers = [
       _activeNotificationsPageScrollController,
@@ -40,6 +48,16 @@ class _MainPageState extends State<MainPage> {
     _archivedNotificationsPageScrollController.addListener(() => setState(() {}));
 
     NotificationManager.instance.requestAndroid13Permissions();
+
+    // Ensure app manager has been initialised, then update notifications
+    AppManager.instance.ensureInitialised().then((value) => NotificationManager.instance.updateAllNotifications());
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+
+    super.dispose();
   }
 
   double _getAppBarElevation() {
