@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/main_page/active_notifications_page.dart';
 import 'package:noterly/pages/main_page/archived_notifications_page.dart';
 
+import '../managers/log.dart';
 import 'create_notification_page.dart';
 import 'settings_page.dart';
 
@@ -78,6 +80,13 @@ class _MainPageState extends State<MainPage> {
             title: const Text('Noterly'),
             elevation: _getAppBarElevation(),
             actions: [
+              IconButton(
+                onPressed: () async {
+                  await FirebaseAnalytics.instance.logEvent(name: 'test');
+                  Log.logger.d('Analytics event sent');
+                },
+                icon: const Icon(Icons.analytics),
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.of(context).push(
