@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
@@ -7,6 +9,8 @@ import 'package:noterly/managers/log.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+
+import '../build_info.dart';
 
 class NotificationManager {
   static final NotificationManager _instance = NotificationManager._internal();
@@ -55,13 +59,18 @@ class NotificationManager {
       }
     }
 
+    await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
+    await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
+
     if (response.actionId == 'done') {
       if (item.repeatDuration != null) {
         Log.logger.d('Snoozing notification "${item.title}"');
         await NotificationManager.instance.updateRepeatingNotification(item);
+        await FirebaseAnalytics.instance.logEvent(name: 'mark_repeating_notification_done');
       } else {
         Log.logger.d('Archiving notification "${item.title}"');
         await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
+        await FirebaseAnalytics.instance.logEvent(name: 'mark_notification_done');
       }
 
       // If we're in the background, we need to send a message to the main isolate to update the UI

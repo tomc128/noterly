@@ -12,8 +12,6 @@ import 'package:noterly/managers/log.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/main_page.dart';
 
-import 'firebase_options.dart';
-
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
   String taskId = task.taskId;
@@ -47,7 +45,9 @@ Future<void> main() async {
 
   IsolateManager.init();
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // ALSO CHANGE THIS IN NOTIFICATION_MANAGER
+  await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
   await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
 
   runApp(const MyApp());
