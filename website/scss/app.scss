@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
+
+@import 'core/reset';
+@import 'core/misc_base';
+@import 'core/typography';
+
+// @import 'compontents/*';
+
+@import 'layout/layout';
+@import 'layout/navigation';
+
+@import 'sections/hero';
