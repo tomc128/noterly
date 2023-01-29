@@ -118,6 +118,7 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                 controller: _intervalController,
                 onSubmitted: (value) {
                   setState(() {
+                    // TODO: Also make this update when the user changes the value (as if you click OK without submitting, it doesn't update)
                     _repetitionData.number = int.parse(value);
                   });
                 },
