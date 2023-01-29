@@ -200,11 +200,11 @@ class NotificationManager {
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
 
       if (isShown) {
-        Log.logger.d('Repeating & unscheduled notification "${item.title}" is already shown, no need to update');
+        Log.logger.d('Repeating & unscheduled notification "${item.title}" is already shown, not rescheduling');
         return;
       }
 
-      Log.logger.d('Repeating & unscheduled notification "${item.title}" needs to be updated');
+      Log.logger.d('Repeating & unscheduled (now scheduled) notification "${item.title}" needs to be scheduled');
       await _scheduleNotification(item);
     }
   }

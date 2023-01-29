@@ -143,7 +143,7 @@ class ActiveNotificationsPage extends NavigationScreen {
         },
         child: ListTile(
           title: Text(item.title),
-          subtitle: _getSubtitle(item),
+          subtitle: _getSubtitle(context, item),
           minVerticalPadding: 12,
           leading: SizedBox(
             width: 32,
@@ -175,27 +175,29 @@ class ActiveNotificationsPage extends NavigationScreen {
         ),
       );
 
-  Widget? _getSubtitle(NotificationItem item) {
-    String text = '';
-    if (item.body != null && item.body!.isNotEmpty) {
-      text += item.body!;
-    }
-
-    // Add the date/time
-    if (item.dateTime != null) {
-      if (text.isNotEmpty) text += '\n';
-      text += item.dateTime!.toRelativeDateTimeString();
-    }
-
-    // Add the repeat duration
-    if (item.isRepeating) {
-      if (text.isNotEmpty) text += '\n';
-      // text += 'Repeats every ${item.repeatDuration!.toRelativeDurationString()}';
-      text += 'Repeats every ${item.repetitionData}';
-    }
-
-    return text.isEmpty ? null : Text(text);
-  }
+  Widget? _getSubtitle(BuildContext context, NotificationItem item) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (item.body != null && item.body!.isNotEmpty) Text(item.body!),
+          if (item.body != null && (item.dateTime != null || item.isRepeating)) const SizedBox(height: 4),
+          if (item.dateTime != null)
+            Row(
+              children: [
+                const Icon(Icons.access_time, size: 16),
+                const SizedBox(width: 8),
+                Text(item.dateTime!.toRelativeDateTimeString(), style: Theme.of(context).textTheme.labelLarge),
+              ],
+            ),
+          if (item.isRepeating)
+            Row(
+              children: [
+                const Icon(Icons.repeat, size: 16),
+                const SizedBox(width: 8),
+                Text('Repeats ${item.repetitionData!.toReadableString()}', style: Theme.of(context).textTheme.labelLarge),
+              ],
+            ),
+        ],
+      );
 
   void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(
         MaterialPageRoute(
