@@ -43,7 +43,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
     _dateTime = _item.dateTime ?? DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
     _isScheduled = _item.dateTime != null;
 
-    _repetitionData = _item.repetitionData ?? RepetitionData(interval: 1, type: Repetition.daily);
+    _repetitionData = _item.repetitionData ?? RepetitionData(number: 1, type: Repetition.daily);
     _isRepeating = _item.isRepeating;
 
     _titleController.text = _item.title;

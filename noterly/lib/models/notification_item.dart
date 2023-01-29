@@ -42,47 +42,43 @@ class NotificationItem {
     final now = DateTime.now();
     final lastSent = dateTime ?? now;
 
+    // Return the duration between now and the next time the notification should be sent
+
     switch (repetitionData!.type) {
       case Repetition.hourly:
-        return Duration(hours: repetitionData!.interval) - (now.difference(lastSent));
+        return Duration(hours: repetitionData!.number) - (now.difference(lastSent));
       case Repetition.daily:
-        return Duration(days: repetitionData!.interval) - (now.difference(lastSent));
+        return Duration(days: repetitionData!.number) - (now.difference(lastSent));
       case Repetition.weekly:
-        return Duration(days: repetitionData!.interval * 7) - (now.difference(lastSent));
+        return Duration(days: repetitionData!.number * 7) - (now.difference(lastSent));
       case Repetition.monthly:
-        var nextMonth = DateTime(lastSent.year, lastSent.month + repetitionData!.interval, lastSent.day);
+        var nextMonth = DateTime(lastSent.year, lastSent.month + repetitionData!.number, lastSent.day);
         return nextMonth.difference(now);
       case Repetition.yearly:
-        var nextYear = DateTime(lastSent.year + repetitionData!.interval, lastSent.month, lastSent.day);
+        var nextYear = DateTime(lastSent.year + repetitionData!.number, lastSent.month, lastSent.day);
         return nextYear.difference(now);
     }
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'body': body,
-      'dateTime': dateTime?.toIso8601String(),
-      // 'repeatDuration': repeatDuration?.inMilliseconds,
-      'repetitionData': repetitionData?.toJson(),
-      'colour': colour.value,
-      'archived': archived,
-      'archivedDateTime': archivedDateTime?.toIso8601String(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'body': body,
+        'dateTime': dateTime?.toIso8601String(),
+        'repetitionData': repetitionData?.toJson(),
+        'colour': colour.value,
+        'archived': archived,
+        'archivedDateTime': archivedDateTime?.toIso8601String(),
+      };
 
-  factory NotificationItem.fromJson(Map<String, dynamic> json) {
-    return NotificationItem(
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
-      dateTime: json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
-      // repeatDuration: json['repeatDuration'] != null ? Duration(milliseconds: json['repeatDuration']) : null,
-      repetitionData: RepetitionData.fromJson(json['repetitionData']),
-      colour: Color(json['colour']),
-      archived: json['archived'] ?? false,
-      archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,
-    );
-  }
+  factory NotificationItem.fromJson(Map<String, dynamic> json) => NotificationItem(
+        id: json['id'],
+        title: json['title'],
+        body: json['body'],
+        dateTime: json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
+        repetitionData: RepetitionData.fromJson(json['repetitionData']),
+        colour: Color(json['colour']),
+        archived: json['archived'] ?? false,
+        archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,
+      );
 }

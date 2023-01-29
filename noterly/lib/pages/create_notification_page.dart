@@ -28,7 +28,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
 
   late DateTime _dateTime;
   // Duration _duration = const Duration(days: 1);
-  RepetitionData _repetitionData = RepetitionData(interval: 1, type: Repetition.daily);
+  RepetitionData _repetitionData = RepetitionData(number: 1, type: Repetition.daily);
 
   late Color _colour;
 

@@ -36,7 +36,7 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
   void initState() {
     super.initState();
 
-    _intervalController = TextEditingController(text: widget.initialRepetitionData.interval.toString());
+    _intervalController = TextEditingController(text: widget.initialRepetitionData.number.toString());
 
     _repetitionData = widget.initialRepetitionData;
   }
@@ -118,7 +118,7 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                 controller: _intervalController,
                 onSubmitted: (value) {
                   setState(() {
-                    _repetitionData.interval = int.parse(value);
+                    _repetitionData.number = int.parse(value);
                   });
                 },
               ),
@@ -132,11 +132,11 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                   labelText: 'Period',
                 ),
                 items: [
-                  DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.interval == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.daily, child: Text('Day${_repetitionData.interval == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.weekly, child: Text('Week${_repetitionData.interval == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.monthly, child: Text('Month${_repetitionData.interval == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.yearly, child: Text('Year${_repetitionData.interval == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.number == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.daily, child: Text('Day${_repetitionData.number == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.weekly, child: Text('Week${_repetitionData.number == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.monthly, child: Text('Month${_repetitionData.number == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.yearly, child: Text('Year${_repetitionData.number == 1 ? '' : 's'}')),
                 ],
                 value: _repetitionData.type,
                 onChanged: (value) {

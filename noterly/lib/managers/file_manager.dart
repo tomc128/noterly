@@ -35,4 +35,26 @@ class FileManager {
       return null;
     }
   }
+
+  static Future<String?> loadRaw() async {
+    try {
+      final file = await _localFile;
+
+      final contents = await file.readAsString();
+
+      return contents;
+    } catch (e) {
+      Log.logger.d('No previous save found. Error $e');
+      return null;
+    }
+  }
+
+  static Future delete() async {
+    try {
+      final file = await _localFile;
+      await file.delete();
+    } catch (e) {
+      Log.logger.d('No previous save found. Error $e');
+    }
+  }
 }

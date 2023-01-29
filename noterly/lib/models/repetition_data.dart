@@ -1,44 +1,53 @@
-enum Repetition {
-  hourly(0, 'hours'),
-  daily(1, 'days'),
-  weekly(2, 'weeks'),
-  monthly(3, 'months'),
-  yearly(4, 'years');
+import 'package:noterly/managers/log.dart';
 
-  final int value;
+enum Repetition {
+  hourly('hours'),
+  daily('days'),
+  weekly('weeks'),
+  monthly('months'),
+  yearly('years');
+
   final String pluralName;
-  const Repetition(this.value, this.pluralName);
+  const Repetition(this.pluralName);
 }
 
 class RepetitionData {
   Repetition type = Repetition.daily;
-  int interval = 1;
+  int number = 1;
 
   RepetitionData({
     required this.type,
-    required this.interval,
+    required this.number,
   });
 
   Map<String, dynamic> toJson() => {
         'type': type.index,
-        'interval': interval,
+        'number': number,
       };
 
-  factory RepetitionData.fromJson(Map<String, dynamic> json) => RepetitionData(
-        type: Repetition.values[json['type']],
-        interval: json['interval'],
-      );
+  factory RepetitionData.fromJson(Map<String, dynamic> json) {
+    Log.logger.d([
+      'RepetitionData.fromJson: $json',
+      'json.type = ${json['type']}',
+      'Repetition.values[json.type] = ${Repetition.values[json['type']]}',
+    ]);
+
+    return RepetitionData(
+      type: Repetition.values[json['type']],
+      number: json['number'],
+    );
+  }
 
   @override
   String toString() {
-    return 'RepetitionData(type: $type, interval: $interval)';
+    return 'RepetitionData(type: $type, number: $number)';
   }
 
   String toReadableString() {
-    if (interval == 1) {
+    if (number == 1) {
       return type.name;
     } else {
-      return 'every $interval ${type.pluralName}';
+      return 'every $number ${type.pluralName}';
     }
   }
 }

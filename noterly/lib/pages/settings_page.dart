@@ -6,6 +6,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/managers/file_manager.dart';
+import 'package:noterly/managers/log.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:system_settings/system_settings.dart';
@@ -165,6 +167,30 @@ class SettingsPage extends StatelessWidget {
               minVerticalPadding: 12,
               onTap: () {
                 NotificationManager.instance.forceUpdateAllNotifications();
+              },
+            ),
+            ListTile(
+              title: const Text('Print all notifications'),
+              trailing: const Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+              onTap: () {
+                AppManager.instance.printItems();
+              },
+            ),
+            ListTile(
+              title: const Text('Print raw app data'),
+              trailing: const Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+              onTap: () {
+                FileManager.loadRaw().then((value) => Log.logger.d(value));
+              },
+            ),
+            ListTile(
+              title: const Text('Delete app data'),
+              trailing: const Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+              onTap: () {
+                FileManager.delete().then((value) => AppManager.instance.fullUpdate());
               },
             ),
           ],
