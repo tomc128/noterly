@@ -1,5 +1,3 @@
-import 'package:noterly/managers/log.dart';
-
 enum Repetition {
   hourly('hours'),
   daily('days'),
@@ -25,18 +23,10 @@ class RepetitionData {
         'number': number,
       };
 
-  factory RepetitionData.fromJson(Map<String, dynamic> json) {
-    Log.logger.d([
-      'RepetitionData.fromJson: $json',
-      'json.type = ${json['type']}',
-      'Repetition.values[json.type] = ${Repetition.values[json['type']]}',
-    ]);
-
-    return RepetitionData(
-      type: Repetition.values[json['type']],
-      number: json['number'],
-    );
-  }
+  factory RepetitionData.fromJson(Map<String, dynamic> json) => RepetitionData(
+        type: Repetition.values[json['type']],
+        number: json['number'],
+      );
 
   @override
   String toString() {

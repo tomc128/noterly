@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/file_manager.dart';
-import 'package:noterly/managers/log.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:system_settings/system_settings.dart';
@@ -137,6 +136,7 @@ class SettingsPage extends StatelessWidget {
               title: const Text('Generate 10 random items'),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
+              leading: const Icon(Icons.generating_tokens),
               onTap: () {
                 String randomString() {
                   const chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -164,33 +164,37 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               title: const Text('Force update all notifications'),
               trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.notification_important),
               minVerticalPadding: 12,
               onTap: () {
                 NotificationManager.instance.forceUpdateAllNotifications();
               },
             ),
             ListTile(
-              title: const Text('Print all notifications'),
+              title: const Text('Print notification items'),
               trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.print),
               minVerticalPadding: 12,
               onTap: () {
                 AppManager.instance.printItems();
               },
             ),
             ListTile(
-              title: const Text('Print raw app data'),
-              trailing: const Icon(Icons.chevron_right),
-              minVerticalPadding: 12,
-              onTap: () {
-                FileManager.loadRaw().then((value) => Log.logger.d(value));
-              },
-            ),
-            ListTile(
               title: const Text('Delete app data'),
               trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.delete_forever),
               minVerticalPadding: 12,
               onTap: () {
                 FileManager.delete().then((value) => AppManager.instance.fullUpdate());
+              },
+            ),
+            ListTile(
+              title: const Text('Send test analytics event'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.analytics),
+              minVerticalPadding: 12,
+              onTap: () {
+                FirebaseAnalytics.instance.logEvent(name: 'test');
               },
             ),
           ],
