@@ -153,11 +153,17 @@ class _MyAppState extends State<MyApp> {
           useMaterial3: true,
           colorScheme: lightColorScheme,
           fontFamily: GoogleFonts.dmSans().fontFamily,
+          textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+            labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
+          ),
         ),
         darkTheme: ThemeData(
           useMaterial3: true,
           colorScheme: darkColorScheme,
           fontFamily: GoogleFonts.dmSans().fontFamily,
+          textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
+            labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
+          ),
         ),
         themeMode: ThemeMode.system,
         home: const MainPage(),
