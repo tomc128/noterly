@@ -71,9 +71,14 @@ class _DurationPickerState extends State<DurationPicker> {
               ],
             ),
           ),
-          _getMinutePicker(),
-          _getHourPicker(),
-          _getDayPicker(),
+
+          _getMainSection(),
+          const Divider(thickness: 0),
+          _getSpecifierSection(),
+
+          // _getMinutePicker(),
+          // _getHourPicker(),
+          // _getDayPicker(),
           ButtonBar(
             children: [
               TextButton(
@@ -94,6 +99,20 @@ class _DurationPickerState extends State<DurationPicker> {
       ),
     );
   }
+
+  Widget _getMainSection() => Row(
+        children: [
+          const TextField(),
+          DropdownButton(items: const [
+            DropdownMenuItem(value: 'day', child: Text('Days')),
+            DropdownMenuItem(value: 'week', child: Text('Weeks')),
+            DropdownMenuItem(value: 'month', child: Text('Weeks')),
+            DropdownMenuItem(value: 'year', child: Text('Weeks')),
+          ], onChanged: (value) {}),
+        ],
+      );
+
+  Widget _getSpecifierSection() => Row();
 
   Widget _getMinutePicker() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
