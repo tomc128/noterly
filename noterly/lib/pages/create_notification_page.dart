@@ -112,11 +112,13 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 value: _isScheduled,
                 title: const Text('Schedule'),
                 secondary: const Icon(Icons.calendar_today),
-                onChanged: (value) {
-                  setState(() {
-                    _isScheduled = value;
-                  });
-                },
+                onChanged: _isRepeating
+                    ? null
+                    : (value) {
+                        setState(() {
+                          _isScheduled = value;
+                        });
+                      },
               ),
               if (_isScheduled)
                 ListTile(
@@ -147,6 +149,10 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 onChanged: (value) {
                   setState(() {
                     _isRepeating = value;
+                    // if we are repeating, we must also be scheduled
+                    if (_isRepeating) {
+                      _isScheduled = true;
+                    }
                   });
                 },
               ),
