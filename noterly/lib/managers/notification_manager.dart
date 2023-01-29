@@ -189,16 +189,14 @@ class NotificationManager {
       // Repeat duration has passed, update the dateTime and schedule the notification
       // calculate next time as dateTime + repeatDuration as many times as needed to get to the future
       while (item.dateTime!.isBefore(now)) {
-        // item.dateTime = item.dateTime!.add(item.repeatDuration!);
-        //! TODO: Update date time calculation here
+        item.dateTime = item.dateTime!.add(item.nextRepeatDuration);
       }
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
       await _scheduleNotification(item);
     } else {
       // Since this notification has no dateTime, we'll just show it immediately and set the dateTime to now + repeatDuration
       // Which will mean this notification is shown again in repeatDuration seconds
-      // item.dateTime = now.add(item.repeatDuration!);
-      //! TODO: Update date time calculation here
+      item.dateTime = now.add(item.nextRepeatDuration);
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
 
       if (isShown) {

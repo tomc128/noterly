@@ -34,7 +34,7 @@ class NotificationItem {
     return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, repetitionData: $repetitionData, colour: $colour, archived: $archived)';
   }
 
-  Duration get nextRepeat {
+  Duration get nextRepeatDuration {
     if (repetitionData == null) {
       return Duration.zero;
     }

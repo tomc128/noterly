@@ -153,7 +153,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               if (_isRepeating)
                 ListTile(
                   title: const Text('Repeat'),
-                  subtitle: Text('every $_repetitionData'),
+                  subtitle: Text(_repetitionData.toReadableString()),
                   minVerticalPadding: 12,
                   onTap: () {
                     showRepetitionPicker(
@@ -173,7 +173,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               _getSpacer(),
               const ListTile(
                 leading: Icon(Icons.info),
-                subtitle: Text('Repeating notifications will repeat once they are marked as done from the notification.'),
+                subtitle: Text('Repeating notifications will only repeat once they are marked as done from the notification.'),
               ),
             ],
           ],

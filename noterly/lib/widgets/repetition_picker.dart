@@ -30,11 +30,22 @@ class RepetitionPicker extends StatefulWidget {
 class _RepetitionPickerState extends State<RepetitionPicker> {
   late RepetitionData _repetitionData;
 
+  late TextEditingController _intervalController;
+
   @override
   void initState() {
     super.initState();
 
+    _intervalController = TextEditingController(text: widget.initialRepetitionData.interval.toString());
+
     _repetitionData = widget.initialRepetitionData;
+  }
+
+  @override
+  void dispose() {
+    _intervalController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -65,20 +76,13 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  'every $_repetitionData',
+                  'repeats ${_repetitionData.toReadableString()}',
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
             ),
           ),
-
           _getMainSection(),
-          const Divider(thickness: 0),
-          _getSpecifierSection(),
-
-          // _getMinutePicker(),
-          // _getHourPicker(),
-          // _getDayPicker(),
           ButtonBar(
             children: [
               TextButton(
@@ -100,127 +104,49 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
     );
   }
 
-  Widget _getMainSection() => Row(
-        children: [
-          const TextField(),
-          DropdownButton(items: const [
-            DropdownMenuItem(value: 'day', child: Text('Days')),
-            DropdownMenuItem(value: 'week', child: Text('Weeks')),
-            DropdownMenuItem(value: 'month', child: Text('Weeks')),
-            DropdownMenuItem(value: 'year', child: Text('Weeks')),
-          ], onChanged: (value) {}),
-        ],
+  Widget _getMainSection() => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Flexible(
+              flex: 1,
+              child: TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Number',
+                ),
+                controller: _intervalController,
+                onSubmitted: (value) {
+                  setState(() {
+                    _repetitionData.interval = int.parse(value);
+                  });
+                },
+              ),
+            ),
+            const SizedBox(width: 16),
+            Flexible(
+              flex: 2,
+              child: DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Period',
+                ),
+                items: [
+                  DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.interval == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.daily, child: Text('Day${_repetitionData.interval == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.weekly, child: Text('Week${_repetitionData.interval == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.monthly, child: Text('Month${_repetitionData.interval == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.yearly, child: Text('Year${_repetitionData.interval == 1 ? '' : 's'}')),
+                ],
+                value: _repetitionData.type,
+                onChanged: (value) {
+                  setState(() {
+                    _repetitionData.type = value!;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
       );
-
-  Widget _getSpecifierSection() => Row();
-
-  // Widget _getMinutePicker() => Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 16),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           Text('Minutes', style: Theme.of(context).textTheme.titleMedium),
-  //           const Spacer(),
-  //           IconButton(
-  //             onPressed: () {
-  //               setState(() {
-  //                 var newDuration = _duration - const Duration(minutes: 1);
-
-  //                 if (newDuration.isNegative) {
-  //                   newDuration = Duration.zero;
-  //                 }
-
-  //                 _duration = newDuration;
-  //               });
-  //             },
-  //             icon: const Icon(Icons.remove),
-  //           ),
-  //           // calculate the number of minutes in the duration, ignoring hours
-  //           Text((_duration.inMinutes % 60).toString()),
-  //           IconButton(
-  //             onPressed: () {
-  //               setState(() {
-  //                 var newDuration = _duration + const Duration(minutes: 1);
-
-  //                 _duration = newDuration;
-  //               });
-  //             },
-  //             icon: const Icon(Icons.add),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-
-  // Widget _getHourPicker() => Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 16),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           Text('Hours', style: Theme.of(context).textTheme.titleMedium),
-  //           const Spacer(),
-  //           IconButton(
-  //             onPressed: () {
-  //               setState(() {
-  //                 var newDuration = _duration - const Duration(hours: 1);
-
-  //                 if (newDuration.isNegative) {
-  //                   newDuration = Duration.zero;
-  //                 }
-
-  //                 _duration = newDuration;
-  //               });
-  //             },
-  //             icon: const Icon(Icons.remove),
-  //           ),
-  //           // calculate the number of hours in the duration, ignoring days
-  //           Text((_duration.inHours % 24).toString()),
-  //           IconButton(
-  //             onPressed: () {
-  //               setState(() {
-  //                 var newDuration = _duration + const Duration(hours: 1);
-
-  //                 _duration = newDuration;
-  //               });
-  //             },
-  //             icon: const Icon(Icons.add),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-
-  // Widget _getDayPicker() => Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 16),
-  //   child: Row(
-  //     mainAxisAlignment = MainAxisAlignment.center,
-  //     children = [
-  //       Text('Days', style: Theme.of(context).textTheme.titleMedium),
-  //       const Spacer(),
-  //       IconButton(
-  //         onPressed: () {
-  //           setState(() {
-  //             var newDuration = _duration - const Duration(days: 1);
-
-  //             if (newDuration.isNegative) {
-  //               newDuration = Duration.zero;
-  //             }
-
-  //             _duration = newDuration;
-  //           });
-  //         },
-  //         icon: const Icon(Icons.remove),
-  //       ),
-  //       Text(_duration.inDays.toString()),
-  //       IconButton(
-  //         onPressed: () {
-  //           setState(() {
-  //             var newDuration = _duration + const Duration(days: 1);
-
-  //             _duration = newDuration;
-  //           });
-  //         },
-  //         icon: const Icon(Icons.add),
-  //       ),
-  //     ],
-  //   ),
-  // );
 }

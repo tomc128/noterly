@@ -1,12 +1,13 @@
 enum Repetition {
-  hourly(0),
-  daily(1),
-  weekly(2),
-  monthly(3),
-  yearly(4);
+  hourly(0, 'hours'),
+  daily(1, 'days'),
+  weekly(2, 'weeks'),
+  monthly(3, 'months'),
+  yearly(4, 'years');
 
   final int value;
-  const Repetition(this.value);
+  final String pluralName;
+  const Repetition(this.value, this.pluralName);
 }
 
 class RepetitionData {
@@ -31,5 +32,13 @@ class RepetitionData {
   @override
   String toString() {
     return 'RepetitionData(type: $type, interval: $interval)';
+  }
+
+  String toReadableString() {
+    if (interval == 1) {
+      return type.name;
+    } else {
+      return 'every $interval ${type.pluralName}';
+    }
   }
 }
