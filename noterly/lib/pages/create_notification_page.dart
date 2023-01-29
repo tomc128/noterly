@@ -1,13 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
-import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/colour_picker.dart';
 import 'package:noterly/widgets/date_time_picker.dart';
-import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/item_list_decoration.dart';
+import 'package:noterly/widgets/repetition_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateNotificationPage extends StatefulWidget {
@@ -27,7 +27,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   var _isRepeating = false;
 
   late DateTime _dateTime;
-  Duration _duration = const Duration(days: 1);
+  // Duration _duration = const Duration(days: 1);
+  RepetitionData _repetitionData = RepetitionData(interval: 1, type: Repetition.daily);
 
   late Color _colour;
 
@@ -152,16 +153,16 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               if (_isRepeating)
                 ListTile(
                   title: const Text('Repeat'),
-                  subtitle: Text('every ${_duration.toRelativeDurationString()}'),
+                  subtitle: Text('every $_repetitionData'),
                   minVerticalPadding: 12,
                   onTap: () {
-                    showDurationPicker(
-                      initialDuration: _duration,
+                    showRepetitionPicker(
+                      initialRepetitionData: _repetitionData,
                       context: context,
                     ).then((value) {
                       if (value != null) {
                         setState(() {
-                          _duration = value;
+                          _repetitionData = value;
                         });
                       }
                     });
@@ -188,7 +189,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: _titleController.text,
               body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
-              repeatDuration: _isRepeating ? _duration : null,
+              // repeatDuration: _isRepeating ? _duration : null,
+              repetitionData: _isRepeating ? _repetitionData : null,
               colour: _colour,
             ),
           );

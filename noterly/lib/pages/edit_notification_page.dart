@@ -1,13 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
-import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/colour_picker.dart';
 import 'package:noterly/widgets/date_time_picker.dart';
-import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/item_list_decoration.dart';
+import 'package:noterly/widgets/repetition_picker.dart';
 
 class EditNotificationPage extends StatefulWidget {
   final NotificationItem item;
@@ -32,7 +32,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
   late bool _isRepeating;
 
   late DateTime _dateTime;
-  late Duration _duration;
+  // late Duration _duration;
+  late RepetitionData _repetitionData;
 
   @override
   void initState() {
@@ -42,8 +43,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
     _dateTime = _item.dateTime ?? DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
     _isScheduled = _item.dateTime != null;
 
-    _duration = _item.repeatDuration ?? const Duration(days: 1);
-    _isRepeating = _item.repeatDuration != null;
+    _repetitionData = _item.repetitionData ?? RepetitionData(interval: 1, type: Repetition.daily);
+    _isRepeating = _item.isRepeating;
 
     _titleController.text = _item.title;
     _bodyController.text = _item.body ?? '';
@@ -180,16 +181,16 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               if (_isRepeating)
                 ListTile(
                   title: const Text('Repeat'),
-                  subtitle: Text('every ${_duration.toRelativeDurationString()}'),
+                  subtitle: Text('every $_repetitionData'),
                   minVerticalPadding: 12,
                   onTap: () {
-                    showDurationPicker(
-                      initialDuration: _duration,
+                    showRepetitionPicker(
+                      initialRepetitionData: _repetitionData,
                       context: context,
                     ).then((value) {
                       if (value != null) {
                         setState(() {
-                          _duration = value;
+                          _repetitionData = value;
                         });
                       }
                     });

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
-import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/navigation_screen.dart';
 import 'package:noterly/models/notification_item.dart';
@@ -36,9 +35,9 @@ class ActiveNotificationsPage extends NavigationScreen {
       }
     });
 
-    var immediateItems = items.where((element) => element.dateTime == null && element.repeatDuration == null).toList();
-    var scheduledItems = items.where((element) => element.dateTime != null && element.repeatDuration == null).toList();
-    var repeatingItems = items.where((element) => element.repeatDuration != null).toList();
+    var immediateItems = items.where((element) => element.dateTime == null && !element.isRepeating).toList();
+    var scheduledItems = items.where((element) => element.dateTime != null && !element.isRepeating).toList();
+    var repeatingItems = items.where((element) => element.isRepeating).toList();
 
     var immediateWidgets = immediateItems.isEmpty
         ? []
@@ -189,9 +188,10 @@ class ActiveNotificationsPage extends NavigationScreen {
     }
 
     // Add the repeat duration
-    if (item.repeatDuration != null) {
+    if (item.isRepeating) {
       if (text.isNotEmpty) text += '\n';
-      text += 'Repeats every ${item.repeatDuration!.toRelativeDurationString()}';
+      // text += 'Repeats every ${item.repeatDuration!.toRelativeDurationString()}';
+      text += 'Repeats every ${item.repetitionData}';
     }
 
     return text.isEmpty ? null : Text(text);

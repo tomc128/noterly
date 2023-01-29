@@ -13,6 +13,8 @@ class NotificationItem {
   // Duration? repeatDuration;
   RepetitionData? repetitionData;
 
+  bool get isRepeating => repetitionData != null;
+
   bool archived;
   DateTime? archivedDateTime;
 

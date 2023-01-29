@@ -27,4 +27,9 @@ class RepetitionData {
         type: Repetition.values[json['type']],
         interval: json['interval'],
       );
+
+  @override
+  String toString() {
+    return 'RepetitionData(type: $type, interval: $interval)';
+  }
 }
