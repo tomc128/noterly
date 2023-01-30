@@ -2,6 +2,8 @@ import 'package:background_fetch/background_fetch.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,10 +47,18 @@ Future<void> main() async {
 
   IsolateManager.init();
 
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // ALSO CHANGE THIS IN NOTIFICATION_MANAGER
+  //* IF CHANGING THIS TO DART-ONLY, ALSO CHANGE THIS IN NOTIFICATION_MANAGER
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // Previous method of initialising Firebase
   await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
   await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
+
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
   runApp(const MyApp());
 
