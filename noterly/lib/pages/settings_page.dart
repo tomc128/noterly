@@ -151,7 +151,10 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   List<Widget> _getDebugOptions(BuildContext context) => [
-        _getHeader('Debug options'),
+        _getHeader(
+          'Debug options',
+          subtitle: 'These options are not supported and may cause issues. Use at your own risk.',
+        ),
         _getCard(
           context,
           [
@@ -255,7 +258,11 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       );
 
-  Widget _getHeader(String title) => ListTile(title: Text(title));
+  Widget _getHeader(String title, {String? subtitle}) => ListTile(
+        title: Text(title),
+        subtitle: subtitle != null ? Text(subtitle) : null,
+        minVerticalPadding: 16,
+      );
 
   Widget _getSpacer() => const SizedBox(height: 16);
 
