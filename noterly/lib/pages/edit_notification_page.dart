@@ -217,6 +217,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
         onPressed: () async {
           if (!_formKey.currentState!.validate()) return;
 
+          var itemWasArchived = _item.archived;
+
           _item.title = _titleController.text;
           _item.body = _bodyController.text;
           _item.dateTime = _isScheduled ? _dateTime : null;
@@ -225,7 +227,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           await AppManager.instance.editItem(_item);
 
           await FirebaseAnalytics.instance.logEvent(
-            name: 'edit_item',
+            name: itemWasArchived ? 'reactivate_item' : 'edit_item',
             parameters: {
               'is_scheduled': _isScheduled ? 'yes' : 'no',
               'is_repeating': _isRepeating ? 'yes' : 'no',
@@ -236,7 +238,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             Navigator.of(context).pop();
           }
         },
-        label: _item.archived ? const Text('Re-activate') : const Text('Save'),
+        label: _item.archived ? const Text('Reactivate') : const Text('Save'),
         icon: _item.archived ? const Icon(Icons.restore) : const Icon(Icons.save),
       ),
     );
