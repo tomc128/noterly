@@ -175,29 +175,33 @@ class ActiveNotificationsPage extends NavigationScreen {
         ),
       );
 
-  Widget? _getSubtitle(BuildContext context, NotificationItem item) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (item.body != null && item.body!.isNotEmpty) Text(item.body!),
-          if (item.body != null && (item.dateTime != null || item.isRepeating)) const SizedBox(height: 4),
-          if (item.dateTime != null)
-            Row(
-              children: [
-                const Icon(Icons.access_time, size: 16),
-                const SizedBox(width: 8),
-                Text(item.dateTime!.toRelativeDateTimeString(), style: Theme.of(context).textTheme.labelLarge),
-              ],
-            ),
-          if (item.isRepeating)
-            Row(
-              children: [
-                const Icon(Icons.repeat, size: 16),
-                const SizedBox(width: 8),
-                Text('Repeats ${item.repetitionData!.toReadableString()}', style: Theme.of(context).textTheme.labelLarge),
-              ],
-            ),
-        ],
-      );
+  Widget? _getSubtitle(BuildContext context, NotificationItem item) {
+    if (item.body.isEmpty && item.dateTime == null && !item.isRepeating) return null; // No subtitle
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (item.body.isNotEmpty) Text(item.body),
+        if ((item.dateTime != null || item.isRepeating)) const SizedBox(height: 4),
+        if (item.dateTime != null)
+          Row(
+            children: [
+              const Icon(Icons.access_time, size: 16),
+              const SizedBox(width: 8),
+              Text(item.dateTime!.toRelativeDateTimeString(), style: Theme.of(context).textTheme.labelLarge),
+            ],
+          ),
+        if (item.isRepeating)
+          Row(
+            children: [
+              const Icon(Icons.repeat, size: 16),
+              const SizedBox(width: 8),
+              Text('Repeats ${item.repetitionData!.toReadableString()}', style: Theme.of(context).textTheme.labelLarge),
+            ],
+          ),
+      ],
+    );
+  }
 
   void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(
         MaterialPageRoute(
