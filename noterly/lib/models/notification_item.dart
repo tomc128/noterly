@@ -34,29 +34,25 @@ class NotificationItem {
     return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, repetitionData: $repetitionData, colour: $colour, archived: $archived)';
   }
 
-  Duration get nextRepeatDuration {
-    if (repetitionData == null) {
-      return Duration.zero;
-    }
+  DateTime get nextRepeatDateTime {
+    if (repetitionData == null) return DateTime.now();
 
     final now = DateTime.now();
     final lastSent = dateTime ?? now;
 
-    // Return the duration between now and the next time the notification should be sent
+    // Return the datetime at which the notification should be sent next. Base it off the last time it was sent.
 
     switch (repetitionData!.type) {
       case Repetition.hourly:
-        return Duration(hours: repetitionData!.number) - (now.difference(lastSent));
+        return lastSent.add(Duration(hours: repetitionData!.number));
       case Repetition.daily:
-        return Duration(days: repetitionData!.number) - (now.difference(lastSent));
+        return lastSent.add(Duration(days: repetitionData!.number));
       case Repetition.weekly:
-        return Duration(days: repetitionData!.number * 7) - (now.difference(lastSent));
+        return lastSent.add(Duration(days: repetitionData!.number * 7));
       case Repetition.monthly:
-        var nextMonth = DateTime(lastSent.year, lastSent.month + repetitionData!.number, lastSent.day);
-        return nextMonth.difference(now);
+        return DateTime(lastSent.year, lastSent.month + repetitionData!.number, lastSent.day);
       case Repetition.yearly:
-        var nextYear = DateTime(lastSent.year + repetitionData!.number, lastSent.month, lastSent.day);
-        return nextYear.difference(now);
+        return DateTime(lastSent.year + repetitionData!.number, lastSent.month, lastSent.day);
     }
   }
 

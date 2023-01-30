@@ -193,7 +193,8 @@ class NotificationManager {
     }
 
     while (item.dateTime!.isBefore(now)) {
-      item.dateTime = item.dateTime!.add(item.nextRepeatDuration);
+      // item.dateTime = item.dateTime!.add(item.nextRepeatDuration);
+      item.dateTime = item.nextRepeatDateTime;
     }
 
     await AppManager.instance.editItem(item, deferNotificationManagerCall: true);

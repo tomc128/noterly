@@ -8,6 +8,7 @@ import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/file_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/models/repetition_data.dart';
 import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -168,15 +169,33 @@ class _SettingsPageState extends State<SettingsPage> {
                 for (var i = 0; i < 10; i++) {
                   bool shouldHaveBody = Random().nextBool();
                   bool shouldBeScheduled = Random().nextBool();
+                  bool shouldBeRepeating = Random().nextBool();
 
-                  DateTime? scheduledTime = shouldBeScheduled ? DateTime.now().add(Duration(days: Random().nextInt(10) + 1)) : null;
+                  DateTime? scheduledTime;
+                  RepetitionData? repetitionData;
+
+                  if (shouldBeRepeating) {
+                    scheduledTime = DateTime.now().add(Duration(days: Random().nextInt(10) + 1));
+                    repetitionData = RepetitionData(
+                      number: Random().nextInt(5) + 1,
+                      type: Repetition.values[Random().nextInt(Repetition.values.length)],
+                    );
+                  } else if (shouldBeScheduled) {
+                    scheduledTime = DateTime.now().add(Duration(days: Random().nextInt(10) + 1));
+                    repetitionData = null;
+                  } else {
+                    scheduledTime = null;
+                    repetitionData = null;
+                  }
+
                   Color colour = Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
                   var item = NotificationItem(
                     id: const Uuid().v4(),
                     title: randomString(),
                     body: shouldHaveBody ? randomString() : '',
-                    dateTime: shouldBeScheduled ? scheduledTime : null,
+                    dateTime: scheduledTime,
+                    repetitionData: repetitionData,
                     colour: colour,
                   );
                   AppManager.instance.addItem(item);
@@ -193,9 +212,9 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
-              title: const Text('Print notification items'),
+              title: const Text('Log notification items'),
               trailing: const Icon(Icons.chevron_right),
-              leading: const Icon(Icons.print),
+              leading: const Icon(Icons.document_scanner),
               minVerticalPadding: 12,
               onTap: () {
                 AppManager.instance.printItems();
