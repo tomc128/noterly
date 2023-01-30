@@ -30,6 +30,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
     return ListView.builder(
       controller: scrollController,
       itemCount: items.length,
+      padding: const EdgeInsets.only(bottom: 96), // Allow space for the FAB.
       itemBuilder: (context, index) {
         final item = items[index];
 
@@ -93,7 +94,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
             children: [
               const Icon(Icons.history, size: 16),
               const SizedBox(width: 6),
-              Text('Archived ${item.archivedDateTime!.toRelativeDateTimeString()}', style: Theme.of(context).textTheme.labelLarge),
+              Flexible(child: Text('Archived ${item.archivedDateTime!.toRelativeDateTimeString()}', style: Theme.of(context).textTheme.labelLarge)),
             ],
           ),
         ],

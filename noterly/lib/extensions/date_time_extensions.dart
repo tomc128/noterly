@@ -10,6 +10,8 @@ extension DateTimeExtensions on DateTime {
 
   String toDateTimeString() => DateFormat.MMMMEEEEd().add_jm().format(this);
 
+  String toDateTimeWithYearString() => DateFormat.yMMMMEEEEd().add_jm().format(this);
+
   String toRelativeDateTimeString({bool alwaysShowDay = false}) {
     final now = DateTime.now();
 
@@ -29,7 +31,9 @@ extension DateTimeExtensions on DateTime {
 
     if (isBeforeNextWeek()) return '${DateFormat.EEEE().format(this)}, ${toTimeOnlyString()}';
 
-    return toDateTimeString();
+    if (year == now.year) return toDateTimeString();
+
+    return toDateTimeWithYearString();
   }
 
   DateTime toOnlyDate() => DateTime(year, month, day);
