@@ -131,7 +131,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                       initialDateTime: _dateTime,
                       firstDate: DateTime.now(),
                       lastDate: DateTime.now().add(
-                        const Duration(days: 365),
+                        const Duration(days: 365 * 10),
                       ),
                     ).then((value) {
                       if (value != null) {
