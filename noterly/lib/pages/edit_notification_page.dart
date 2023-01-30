@@ -236,8 +236,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             Navigator.of(context).pop();
           }
         },
-        label: const Text('Save'),
-        icon: const Icon(Icons.save),
+        label: _item.archived ? const Text('Re-activate') : const Text('Save'),
+        icon: _item.archived ? const Icon(Icons.restore) : const Icon(Icons.save),
       ),
     );
   }
