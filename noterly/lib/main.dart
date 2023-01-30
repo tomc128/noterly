@@ -149,10 +149,10 @@ class _MyAppState extends State<MyApp> {
         Log.logger.d('No dynamic color scheme, using fallback.');
 
         lightColorScheme = ColorScheme.fromSeed(
-          seedColor: Colors.red,
+          seedColor: const Color.fromRGBO(153, 0, 228, 1),
         );
         darkColorScheme = ColorScheme.fromSeed(
-          seedColor: Colors.red,
+          seedColor: const Color.fromRGBO(153, 0, 228, 1),
           brightness: Brightness.dark,
         );
       }
