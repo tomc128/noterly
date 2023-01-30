@@ -88,7 +88,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
   Widget _getSubtitle(BuildContext context, NotificationItem item) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (item.body != null && item.body!.isNotEmpty) Text(item.body!),
+          if (item.body.isNotEmpty) Text(item.body),
           Row(
             children: [
               const Icon(Icons.history, size: 16),

@@ -47,7 +47,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
     _isRepeating = _item.isRepeating;
 
     _titleController.text = _item.title;
-    _bodyController.text = _item.body ?? '';
+    _bodyController.text = _item.body;
 
     super.initState();
   }

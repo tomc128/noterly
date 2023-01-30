@@ -191,12 +191,18 @@ class NotificationManager {
       while (item.dateTime!.isBefore(now)) {
         item.dateTime = item.dateTime!.add(item.nextRepeatDuration);
       }
+
+      Log.logger.d('New time is ${item.dateTime}');
+
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
       await _scheduleNotification(item);
     } else {
       // Since this notification has no dateTime, we'll just show it immediately and set the dateTime to now + repeatDuration
       // Which will mean this notification is shown again in repeatDuration seconds
       item.dateTime = now.add(item.nextRepeatDuration);
+
+      Log.logger.d('New time is ${item.dateTime}');
+
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
 
       if (isShown) {

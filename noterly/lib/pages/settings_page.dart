@@ -153,7 +153,7 @@ class SettingsPage extends StatelessWidget {
                   var item = NotificationItem(
                     id: const Uuid().v4(),
                     title: randomString(),
-                    body: shouldHaveBody ? randomString() : null,
+                    body: shouldHaveBody ? randomString() : '',
                     dateTime: shouldBeScheduled ? scheduledTime : null,
                     colour: colour,
                   );

@@ -5,7 +5,7 @@ class NotificationItem {
   String id;
 
   String title;
-  String? body;
+  String body;
 
   Color colour;
 
@@ -21,7 +21,7 @@ class NotificationItem {
   NotificationItem({
     required this.id,
     required this.title,
-    this.body,
+    required this.body,
     this.dateTime,
     this.repetitionData,
     required this.colour,
@@ -76,7 +76,7 @@ class NotificationItem {
         title: json['title'],
         body: json['body'],
         dateTime: json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
-        repetitionData: RepetitionData.fromJson(json['repetitionData']),
+        repetitionData: json['repetitionData'] != null ? RepetitionData.fromJson(json['repetitionData']) : null,
         colour: Color(json['colour']),
         archived: json['archived'] ?? false,
         archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,
