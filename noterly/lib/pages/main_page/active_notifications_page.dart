@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
-import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/navigation_screen.dart';
 import 'package:noterly/models/notification_item.dart';
@@ -36,9 +35,9 @@ class ActiveNotificationsPage extends NavigationScreen {
       }
     });
 
-    var immediateItems = items.where((element) => element.dateTime == null && element.repeatDuration == null).toList();
-    var scheduledItems = items.where((element) => element.dateTime != null && element.repeatDuration == null).toList();
-    var repeatingItems = items.where((element) => element.repeatDuration != null).toList();
+    var immediateItems = items.where((element) => element.dateTime == null && !element.isRepeating).toList();
+    var scheduledItems = items.where((element) => element.dateTime != null && !element.isRepeating).toList();
+    var repeatingItems = items.where((element) => element.isRepeating).toList();
 
     var immediateWidgets = immediateItems.isEmpty
         ? []
@@ -144,7 +143,7 @@ class ActiveNotificationsPage extends NavigationScreen {
         },
         child: ListTile(
           title: Text(item.title),
-          subtitle: _getSubtitle(item),
+          subtitle: _getSubtitle(context, item),
           minVerticalPadding: 12,
           leading: SizedBox(
             width: 32,
@@ -176,25 +175,32 @@ class ActiveNotificationsPage extends NavigationScreen {
         ),
       );
 
-  Widget? _getSubtitle(NotificationItem item) {
-    String text = '';
-    if (item.body != null && item.body!.isNotEmpty) {
-      text += item.body!;
-    }
+  Widget? _getSubtitle(BuildContext context, NotificationItem item) {
+    if (item.body.isEmpty && item.dateTime == null && !item.isRepeating) return null; // No subtitle
 
-    // Add the date/time
-    if (item.dateTime != null) {
-      if (text.isNotEmpty) text += '\n';
-      text += item.dateTime!.toRelativeDateTimeString();
-    }
-
-    // Add the repeat duration
-    if (item.repeatDuration != null) {
-      if (text.isNotEmpty) text += '\n';
-      text += 'Repeats every ${item.repeatDuration!.toRelativeDurationString()}';
-    }
-
-    return text.isEmpty ? null : Text(text);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (item.body.isNotEmpty) Text(item.body),
+        if ((item.dateTime != null || item.isRepeating)) const SizedBox(height: 4),
+        if (item.dateTime != null)
+          Row(
+            children: [
+              const Icon(Icons.access_time, size: 16),
+              const SizedBox(width: 8),
+              Text(item.dateTime!.toRelativeDateTimeString(), style: Theme.of(context).textTheme.labelLarge),
+            ],
+          ),
+        if (item.isRepeating)
+          Row(
+            children: [
+              const Icon(Icons.repeat, size: 16),
+              const SizedBox(width: 8),
+              Text('Repeats ${item.repetitionData!.toReadableString()}', style: Theme.of(context).textTheme.labelLarge),
+            ],
+          ),
+      ],
+    );
   }
 
   void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(

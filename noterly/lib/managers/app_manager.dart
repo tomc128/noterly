@@ -32,7 +32,16 @@ class AppManager {
     _load();
   }
 
-  final Logger _logger = Logger();
+  final Logger _logger = Logger(
+    printer: PrettyPrinter(
+      methodCount: 8,
+      errorMethodCount: 8,
+      lineLength: 120,
+      colors: true,
+      printEmojis: true,
+      printTime: true,
+    ),
+  );
   Logger get logger => _logger;
 
   final notifier = ValueNotifier<List<NotificationItem>>([]);

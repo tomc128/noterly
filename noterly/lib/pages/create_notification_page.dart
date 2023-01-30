@@ -1,13 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
-import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/colour_picker.dart';
 import 'package:noterly/widgets/date_time_picker.dart';
-import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/item_list_decoration.dart';
+import 'package:noterly/widgets/repetition_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateNotificationPage extends StatefulWidget {
@@ -27,7 +27,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   var _isRepeating = false;
 
   late DateTime _dateTime;
-  Duration _duration = const Duration(days: 1);
+  // Duration _duration = const Duration(days: 1);
+  RepetitionData _repetitionData = RepetitionData(number: 1, type: Repetition.daily);
 
   late Color _colour;
 
@@ -111,11 +112,13 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 value: _isScheduled,
                 title: const Text('Schedule'),
                 secondary: const Icon(Icons.calendar_today),
-                onChanged: (value) {
-                  setState(() {
-                    _isScheduled = value;
-                  });
-                },
+                onChanged: _isRepeating
+                    ? null
+                    : (value) {
+                        setState(() {
+                          _isScheduled = value;
+                        });
+                      },
               ),
               if (_isScheduled)
                 ListTile(
@@ -146,22 +149,26 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 onChanged: (value) {
                   setState(() {
                     _isRepeating = value;
+                    // if we are repeating, we must also be scheduled
+                    if (_isRepeating) {
+                      _isScheduled = true;
+                    }
                   });
                 },
               ),
               if (_isRepeating)
                 ListTile(
                   title: const Text('Repeat'),
-                  subtitle: Text('every ${_duration.toRelativeDurationString()}'),
+                  subtitle: Text(_repetitionData.toReadableString()),
                   minVerticalPadding: 12,
                   onTap: () {
-                    showDurationPicker(
-                      initialDuration: _duration,
+                    showRepetitionPicker(
+                      initialRepetitionData: _repetitionData,
                       context: context,
                     ).then((value) {
                       if (value != null) {
                         setState(() {
-                          _duration = value;
+                          _repetitionData = value;
                         });
                       }
                     });
@@ -172,7 +179,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               _getSpacer(),
               const ListTile(
                 leading: Icon(Icons.info),
-                subtitle: Text('Repeating notifications will repeat once they are marked as done from the notification.'),
+                subtitle: Text('Repeating notifications will only repeat once they are marked as done from the notification.'),
               ),
             ],
           ],
@@ -188,7 +195,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: _titleController.text,
               body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
-              repeatDuration: _isRepeating ? _duration : null,
+              // repeatDuration: _isRepeating ? _duration : null,
+              repetitionData: _isRepeating ? _repetitionData : null,
               colour: _colour,
             ),
           );

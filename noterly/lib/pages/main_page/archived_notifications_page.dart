@@ -52,7 +52,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
           },
           child: ListTile(
             title: Text(item.title),
-            subtitle: _getSubtitle(item),
+            subtitle: _getSubtitle(context, item),
             minVerticalPadding: 12,
             leading: SizedBox(
               width: 32,
@@ -85,20 +85,19 @@ class ArchivedNotificationsPage extends NavigationScreen {
         ),
       );
 
-  Widget? _getSubtitle(NotificationItem item) {
-    String text = '';
-    if (item.body != null && item.body!.isNotEmpty) {
-      text += item.body!;
-    }
-
-    if (text.isNotEmpty) {
-      text += '\n';
-    }
-
-    text += 'Archived ${item.archivedDateTime!.toRelativeDateTimeString()}';
-
-    return text.isEmpty ? null : Text(text);
-  }
+  Widget _getSubtitle(BuildContext context, NotificationItem item) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (item.body.isNotEmpty) Text(item.body),
+          Row(
+            children: [
+              const Icon(Icons.history, size: 16),
+              const SizedBox(width: 6),
+              Text('Archived ${item.archivedDateTime!.toRelativeDateTimeString()}', style: Theme.of(context).textTheme.labelLarge),
+            ],
+          ),
+        ],
+      );
 
   void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(
         MaterialPageRoute(

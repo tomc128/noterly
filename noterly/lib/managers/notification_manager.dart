@@ -63,7 +63,7 @@ class NotificationManager {
     await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
 
     if (response.actionId == 'done') {
-      if (item.repeatDuration != null) {
+      if (item.isRepeating) {
         Log.logger.d('Snoozing notification "${item.title}"');
         await NotificationManager.instance.updateRepeatingNotification(item);
         await FirebaseAnalytics.instance.logEvent(name: 'mark_repeating_notification_done');
@@ -122,7 +122,7 @@ class NotificationManager {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
-      if (item.repeatDuration != null) {
+      if (item.isRepeating) {
         await updateRepeatingNotification(item);
       } else {
         await updateNotification(item);
@@ -136,7 +136,7 @@ class NotificationManager {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
-      if (item.repeatDuration != null) {
+      if (item.isRepeating) {
         await updateRepeatingNotification(item); // Need to do some calculations before, so call update instead of show/schedule
       } else {
         await _showOrScheduleNotification(item);
@@ -164,7 +164,7 @@ class NotificationManager {
   Future updateAllRepeatingNotifications() async {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
-      if (item.repeatDuration != null) continue;
+      if (!item.isRepeating) continue;
 
       await updateRepeatingNotification(item);
     }
@@ -172,41 +172,33 @@ class NotificationManager {
 
   Future updateRepeatingNotification(NotificationItem item) async {
     if (item.archived) return;
-    if (item.repeatDuration == null) return;
+    if (!item.isRepeating) return;
 
     var isShown = await _notificationIsShown(item);
     var now = DateTime.now();
 
-    if (item.dateTime != null) {
-      if (isShown) {
-        // Notification is already shown, don't update it (until the user marks it as done)
-        Log.logger.d('Repeating & scheduled notification "${item.title}" is already shown, no need to update');
-        return;
-      }
+    bool dirty = false;
 
-      Log.logger.d('Repeating & scheduled notification "${item.title}" needs to be updated');
-
-      // Repeat duration has passed, update the dateTime and schedule the notification
-      // calculate next time as dateTime + repeatDuration as many times as needed to get to the future
-      while (item.dateTime!.isBefore(now)) {
-        item.dateTime = item.dateTime!.add(item.repeatDuration!);
-      }
-      await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
-      await _scheduleNotification(item);
-    } else {
-      // Since this notification has no dateTime, we'll just show it immediately and set the dateTime to now + repeatDuration
-      // Which will mean this notification is shown again in repeatDuration seconds
-      item.dateTime = now.add(item.repeatDuration!);
-      await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
-
-      if (isShown) {
-        Log.logger.d('Repeating & unscheduled notification "${item.title}" is already shown, no need to update');
-        return;
-      }
-
-      Log.logger.d('Repeating & unscheduled notification "${item.title}" needs to be updated');
-      await _scheduleNotification(item);
+    if (item.dateTime == null) {
+      // For some reason, the notification has no dateTime, so set it to now
+      Log.logger.d('Repeating notification "${item.title}" has no dateTime, setting it to now');
+      item.dateTime = now;
+      dirty = true;
     }
+
+    if (isShown) {
+      Log.logger.d('Repeating notification "${item.title}" is already shown, no need to update');
+      if (dirty) await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
+      return;
+    }
+
+    while (item.dateTime!.isBefore(now)) {
+      // item.dateTime = item.dateTime!.add(item.nextRepeatDuration);
+      item.dateTime = item.nextRepeatDateTime;
+    }
+
+    await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
+    await _scheduleNotification(item);
   }
 
   Future _showOrScheduleNotification(NotificationItem item) async {

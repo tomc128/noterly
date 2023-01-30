@@ -5,8 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
+import 'package:noterly/managers/file_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/models/repetition_data.dart';
 import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -157,6 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text('Generate 10 random items'),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
+              leading: const Icon(Icons.generating_tokens),
               onTap: () {
                 String randomString() {
                   const chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -166,15 +169,33 @@ class _SettingsPageState extends State<SettingsPage> {
                 for (var i = 0; i < 10; i++) {
                   bool shouldHaveBody = Random().nextBool();
                   bool shouldBeScheduled = Random().nextBool();
+                  bool shouldBeRepeating = Random().nextBool();
 
-                  DateTime? scheduledTime = shouldBeScheduled ? DateTime.now().add(Duration(days: Random().nextInt(10) + 1)) : null;
+                  DateTime? scheduledTime;
+                  RepetitionData? repetitionData;
+
+                  if (shouldBeRepeating) {
+                    scheduledTime = DateTime.now().add(Duration(days: Random().nextInt(10) + 1));
+                    repetitionData = RepetitionData(
+                      number: Random().nextInt(5) + 1,
+                      type: Repetition.values[Random().nextInt(Repetition.values.length)],
+                    );
+                  } else if (shouldBeScheduled) {
+                    scheduledTime = DateTime.now().add(Duration(days: Random().nextInt(10) + 1));
+                    repetitionData = null;
+                  } else {
+                    scheduledTime = null;
+                    repetitionData = null;
+                  }
+
                   Color colour = Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
                   var item = NotificationItem(
                     id: const Uuid().v4(),
                     title: randomString(),
-                    body: shouldHaveBody ? randomString() : null,
-                    dateTime: shouldBeScheduled ? scheduledTime : null,
+                    body: shouldHaveBody ? randomString() : '',
+                    dateTime: scheduledTime,
+                    repetitionData: repetitionData,
                     colour: colour,
                   );
                   AppManager.instance.addItem(item);
@@ -184,9 +205,37 @@ class _SettingsPageState extends State<SettingsPage> {
             ListTile(
               title: const Text('Force update all notifications'),
               trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.notification_important),
               minVerticalPadding: 12,
               onTap: () {
                 NotificationManager.instance.forceUpdateAllNotifications();
+              },
+            ),
+            ListTile(
+              title: const Text('Log notification items'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.document_scanner),
+              minVerticalPadding: 12,
+              onTap: () {
+                AppManager.instance.printItems();
+              },
+            ),
+            ListTile(
+              title: const Text('Delete app data'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.delete_forever),
+              minVerticalPadding: 12,
+              onTap: () {
+                FileManager.delete().then((value) => AppManager.instance.fullUpdate());
+              },
+            ),
+            ListTile(
+              title: const Text('Send test analytics event'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.analytics),
+              minVerticalPadding: 12,
+              onTap: () {
+                FirebaseAnalytics.instance.logEvent(name: 'test');
               },
             ),
           ],
