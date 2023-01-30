@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
@@ -12,10 +11,21 @@ import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({
     super.key,
   });
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final int _millisBeforeReset = 1000;
+  int _easterEggCount = 0;
+  int _lastTapTime = 0;
+
+  bool _debugOptions = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +35,7 @@ class SettingsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          if (kDebugMode) ..._getDebugOptions(context),
+          if (kDebugMode || _debugOptions) ..._getDebugOptions(context),
           _getHeader('System'),
           _getCard(context, [
             ListTile(
@@ -45,36 +55,48 @@ class SettingsPage extends StatelessWidget {
           _getSpacer(),
           _getHeader('About'),
           _getCard(context, [
-            RawGestureDetector(
-              gestures: {
-                SerialTapGestureRecognizer: GestureRecognizerFactoryWithHandlers<SerialTapGestureRecognizer>(
-                  () => SerialTapGestureRecognizer(),
-                  (instance) {
-                    instance.onSerialTapDown = (details) async {
-                      if (details.count == 7) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text('Easter egg!'),
-                            content: Text('You found the easter egg! That\'s it... there\'s nothing else here.'),
-                          ),
-                        );
+            ListTile(
+              title: const Text('Version'),
+              subtitle: const Text(BuildInfo.appVersion),
+              leading: const Icon(Icons.info),
+              minVerticalPadding: 12,
+              onTap: () async {
+                _easterEggCount++;
 
-                        await FirebaseAnalytics.instance.logEvent(
-                          name: 'easter_egg',
-                        );
-                      }
-                    };
-                  },
-                ),
+                var newTime = DateTime.now().millisecondsSinceEpoch;
+                if (newTime - _lastTapTime > _millisBeforeReset) {
+                  _easterEggCount = 0;
+                }
+                _lastTapTime = newTime;
+
+                if (_easterEggCount == 7) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Easter egg!'),
+                      content: const Text("Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues."),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() => _debugOptions = true);
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Show debug options'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Close'),
+                        ),
+                      ],
+                    ),
+                    barrierDismissible: false,
+                  );
+
+                  await FirebaseAnalytics.instance.logEvent(
+                    name: 'easter_egg',
+                  );
+                }
               },
-              child: ListTile(
-                title: const Text('Version'),
-                subtitle: const Text(BuildInfo.appVersion),
-                leading: const Icon(Icons.info),
-                minVerticalPadding: 12,
-                onTap: () {}, // allow for ripple effect
-              ),
             ),
             ListTile(
               title: const Text('Copyright'),
