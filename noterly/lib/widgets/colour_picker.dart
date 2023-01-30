@@ -66,70 +66,72 @@ class _ColourPickerState extends State<ColourPicker> {
     final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
     return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-              color: primarySurfaceColor,
-            ),
-            child: Text(
-              'Select colour',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
-            ),
-          ),
-          GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 64,
-              childAspectRatio: 1,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-            ),
-            padding: const EdgeInsets.all(16),
-            shrinkWrap: true,
-            itemCount: colours.length,
-            itemBuilder: (context, index) {
-              var colour = colours.values.elementAt(index);
-
-              return InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {
-                  setState(() {
-                    _colour = colour;
-                    Navigator.of(context).pop(colour);
-                  });
-                },
-                child: Ink(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: colour,
-                    border: Border.all(
-                      color: _colour == colour ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                      width: 2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(color: colour.withOpacity(0.5), blurRadius: 2, offset: const Offset(0, 2)),
-                      BoxShadow(color: colour.withOpacity(0.25), blurRadius: 5, offset: const Offset(0, 5)),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-          ButtonBar(
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                color: primarySurfaceColor,
               ),
-            ],
-          ),
-        ],
+              child: Text(
+                'Select colour',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+              ),
+            ),
+            GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 64,
+                childAspectRatio: 1,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
+              padding: const EdgeInsets.all(16),
+              shrinkWrap: true,
+              itemCount: colours.length,
+              itemBuilder: (context, index) {
+                var colour = colours.values.elementAt(index);
+
+                return InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    setState(() {
+                      _colour = colour;
+                      Navigator.of(context).pop(colour);
+                    });
+                  },
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: colour,
+                      border: Border.all(
+                        color: _colour == colour ? Theme.of(context).colorScheme.primary : Colors.transparent,
+                        width: 2,
+                      ),
+                      boxShadow: [
+                        BoxShadow(color: colour.withOpacity(0.5), blurRadius: 2, offset: const Offset(0, 2)),
+                        BoxShadow(color: colour.withOpacity(0.25), blurRadius: 5, offset: const Offset(0, 5)),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+            ButtonBar(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
