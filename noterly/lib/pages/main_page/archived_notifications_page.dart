@@ -29,9 +29,33 @@ class ArchivedNotificationsPage extends NavigationScreen {
     // TODO: rework to allow for card design
     return ListView.builder(
       controller: scrollController,
-      itemCount: items.length,
-      padding: const EdgeInsets.only(bottom: 96), // Allow space for the FAB.
+      itemCount: items.length + (items.length > 1 ? 1 : 0),
+      padding: const EdgeInsets.only(bottom: 72), // Allow space for the FAB.
       itemBuilder: (context, index) {
+        if (index == items.length) {
+          // button to delete all archived notifications
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: ElevatedButton(
+              onPressed: () {
+                AppManager.instance.deleteAllArchivedItems();
+
+                ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('All archived notifications deleted.'),
+                    action: SnackBarAction(
+                      label: 'Undo',
+                      onPressed: () => AppManager.instance.restoreLastDeletedItems(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Delete all archived notifications'),
+            ),
+          );
+        }
+
         final item = items[index];
 
         return Dismissible(
@@ -40,13 +64,13 @@ class ArchivedNotificationsPage extends NavigationScreen {
           secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
           onDismissed: (direction) {
             AppManager.instance.deleteItem(item.id);
-            ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
+            ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars to prevent buildup
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('Notification deleted.'),
+                content: Text('Notification "${item.title}" deleted.'),
                 action: SnackBarAction(
                   label: 'Undo',
-                  onPressed: () => AppManager.instance.restoreLastDeletedItem(),
+                  onPressed: () => AppManager.instance.restoreLastDeletedItems(),
                 ),
               ),
             );

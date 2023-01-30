@@ -45,7 +45,8 @@ class AppManager {
   Logger get logger => _logger;
 
   final notifier = ValueNotifier<List<NotificationItem>>([]);
-  NotificationItem? lastDeletedItem;
+
+  List<NotificationItem?> deletedItems = [];
 
   var isInitialised = false;
   Future? _loadingFuture;
@@ -122,7 +123,7 @@ class AppManager {
       return;
     }
 
-    lastDeletedItem = found.first;
+    deletedItems = [found.first];
     notifier.value.remove(found.first);
 
     await _save();
@@ -131,6 +132,25 @@ class AppManager {
     if (!deferNotificationManagerCall) {
       await NotificationManager.instance.cancelNotification(id);
     }
+  }
+
+  Future deleteAllArchivedItems({bool deferNotificationManagerCall = false}) async {
+    var archivedItems = notifier.value.where((element) => element.archived).toList();
+    if (archivedItems.isEmpty) {
+      return;
+    }
+
+    deletedItems = archivedItems;
+
+    for (var element in archivedItems) {
+      notifier.value.remove(element);
+      if (!deferNotificationManagerCall) {
+        await NotificationManager.instance.cancelNotification(element.id);
+      }
+    }
+
+    await _save();
+    _updateNotifier();
   }
 
   Future archiveItem(String id, {bool deferNotificationManagerCall = false}) async {
@@ -167,13 +187,16 @@ class AppManager {
     }
   }
 
-  Future restoreLastDeletedItem({bool deferNotificationManagerCall = false}) async {
-    if (lastDeletedItem == null) {
+  Future restoreLastDeletedItems({bool deferNotificationManagerCall = false}) async {
+    if (deletedItems.isEmpty) {
       return;
     }
 
-    await addItem(lastDeletedItem!, deferNotificationManagerCall: deferNotificationManagerCall);
-    lastDeletedItem = null;
+    for (var item in deletedItems) {
+      await addItem(item!, deferNotificationManagerCall: deferNotificationManagerCall);
+    }
+
+    deletedItems = [];
   }
   // #endregion
 

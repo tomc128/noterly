@@ -76,7 +76,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   content: const Text('Notification deleted.'),
                   action: SnackBarAction(
                     label: 'Undo',
-                    onPressed: () => AppManager.instance.restoreLastDeletedItem(),
+                    onPressed: () => AppManager.instance.restoreLastDeletedItems(),
                   ),
                 ),
               );
