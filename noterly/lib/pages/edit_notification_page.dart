@@ -76,11 +76,18 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   content: const Text('Notification deleted.'),
                   action: SnackBarAction(
                     label: 'Undo',
-                    onPressed: () => AppManager.instance.restoreLastDeletedItems(),
+                    onPressed: () {
+                      AppManager.instance.restoreLastDeletedItems();
+                      FirebaseAnalytics.instance.logEvent(name: 'restore_deleted_item');
+                    },
                   ),
                 ),
               );
               Navigator.of(context).pop();
+              FirebaseAnalytics.instance.logEvent(
+                name: 'delete_item',
+                parameters: {'from': 'edit_notification_page'},
+              );
             },
           ),
         ],

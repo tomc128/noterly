@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
@@ -46,10 +47,15 @@ class ArchivedNotificationsPage extends NavigationScreen {
                     content: const Text('All archived notifications deleted.'),
                     action: SnackBarAction(
                       label: 'Undo',
-                      onPressed: () => AppManager.instance.restoreLastDeletedItems(),
+                      onPressed: () {
+                        AppManager.instance.restoreLastDeletedItems();
+                        FirebaseAnalytics.instance.logEvent(name: 'restore_all_deleted_items');
+                      },
                     ),
                   ),
                 );
+
+                FirebaseAnalytics.instance.logEvent(name: 'delete_all_archived_items');
               },
               child: const Text('Delete all archived notifications'),
             ),
@@ -70,9 +76,17 @@ class ArchivedNotificationsPage extends NavigationScreen {
                 content: Text('Notification "${item.title}" deleted.'),
                 action: SnackBarAction(
                   label: 'Undo',
-                  onPressed: () => AppManager.instance.restoreLastDeletedItems(),
+                  onPressed: () {
+                    AppManager.instance.restoreLastDeletedItems();
+                    FirebaseAnalytics.instance.logEvent(name: 'restore_deleted_item');
+                  },
                 ),
               ),
+            );
+
+            FirebaseAnalytics.instance.logEvent(
+              name: 'delete_item',
+              parameters: {'from': 'archived_notifications_page'},
             );
           },
           child: ListTile(
