@@ -116,12 +116,24 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                   labelText: 'Number',
                 ),
                 controller: _intervalController,
-                onSubmitted: (value) {
+                onChanged: (value) {
+                  if (value.isEmpty) return;
+                  var number = int.tryParse(value);
+                  if (number == null) return;
+
                   setState(() {
-                    // TODO: Also make this update when the user changes the value (as if you click OK without submitting, it doesn't update)
-                    _repetitionData.number = int.parse(value);
+                    _repetitionData.number = number;
                   });
                 },
+                onSubmitted: (value) {
+                  var number = int.tryParse(value) ?? 1;
+
+                  setState(() {
+                    _repetitionData.number = number;
+                    _intervalController.text = number.toString();
+                  });
+                },
+                onEditingComplete: () {},
               ),
             ),
             const SizedBox(width: 16),
