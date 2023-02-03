@@ -37,7 +37,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
-          if (kDebugMode || _debugOptions) ..._getDebugOptions(context),
           _getHeader('System'),
           _getCard(context, [
             ListTile(
@@ -159,6 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ],
           ),
+          if (kDebugMode || _debugOptions) ..._getDebugOptions(context),
         ],
       ),
     );
@@ -171,6 +171,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   List<Widget> _getDebugOptions(BuildContext context) => [
+        _getSpacer(),
         _getHeader(
           'Debug options',
           subtitle: 'These options are not supported and may cause issues. Use at your own risk.',
@@ -226,7 +227,7 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
-              title: const Text('Force update all notifications'),
+              title: const Text('Force update notifications'),
               trailing: const Icon(Icons.chevron_right),
               leading: const Icon(Icons.notification_important),
               minVerticalPadding: 12,
@@ -235,21 +236,12 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
-              title: const Text('Log notification items'),
+              title: const Text('Log items to console'),
               trailing: const Icon(Icons.chevron_right),
               leading: const Icon(Icons.document_scanner),
               minVerticalPadding: 12,
               onTap: () {
                 AppManager.instance.printItems();
-              },
-            ),
-            ListTile(
-              title: const Text('Delete app data'),
-              trailing: const Icon(Icons.chevron_right),
-              leading: const Icon(Icons.delete_forever),
-              minVerticalPadding: 12,
-              onTap: () {
-                FileManager.delete().then((value) => AppManager.instance.fullUpdate());
               },
             ),
             ListTile(
@@ -261,9 +253,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 FirebaseAnalytics.instance.logEvent(name: 'test');
               },
             ),
+            ListTile(
+              title: const Text('Delete all app data'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.delete_forever),
+              minVerticalPadding: 12,
+              onTap: () {
+                FileManager.delete().then((value) => AppManager.instance.fullUpdate());
+              },
+            ),
           ],
         ),
-        _getSpacer(),
       ];
 
   Widget _getCard(BuildContext context, List<Widget> children) => Card(
