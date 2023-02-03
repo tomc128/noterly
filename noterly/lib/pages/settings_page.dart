@@ -108,20 +108,6 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {}, // allow for ripple effect
             ),
             ListTile(
-              title: const Text('Privacy policy'),
-              leading: const Icon(Icons.privacy_tip),
-              trailing: const Icon(Icons.open_in_new),
-              minVerticalPadding: 12,
-              onTap: () async {
-                var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
-                await _launchUrl(uri);
-
-                await FirebaseAnalytics.instance.logEvent(
-                  name: 'open_privacy_policy',
-                );
-              },
-            ),
-            ListTile(
               title: const Text('Licenses'),
               leading: const Icon(Icons.article),
               trailing: const Icon(Icons.chevron_right),
@@ -139,6 +125,40 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
           ]),
+          _getSpacer(),
+          _getCard(
+            context,
+            [
+              ListTile(
+                title: const Text('Privacy policy'),
+                leading: const Icon(Icons.privacy_tip),
+                trailing: const Icon(Icons.open_in_new),
+                minVerticalPadding: 12,
+                onTap: () async {
+                  var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
+                  await _launchUrl(uri);
+
+                  await FirebaseAnalytics.instance.logEvent(
+                    name: 'open_privacy_policy',
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('Send feedback'),
+                leading: const Icon(Icons.comment),
+                trailing: const Icon(Icons.open_in_new),
+                minVerticalPadding: 12,
+                onTap: () async {
+                  var uri = Uri.parse('https://forms.gle/5HZNjmr5wF1t4r8q6');
+                  await _launchUrl(uri);
+
+                  await FirebaseAnalytics.instance.logEvent(
+                    name: 'open_feedback_form',
+                  );
+                },
+              ),
+            ],
+          ),
         ],
       ),
     );
