@@ -8,6 +8,8 @@
     border-radius: $border-radius;
     z-index: 10;
 
+    box-shadow: $large-shadow;
+
     .content {
         display: flex;
         flex-direction: column;
@@ -30,8 +32,6 @@
             color: $text-primary;
             font-size: 1.2rem;
         }
-
-
     }
 
 

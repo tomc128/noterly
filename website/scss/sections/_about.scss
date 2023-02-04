@@ -1,9 +1,9 @@
 section#about {
     background: linear-gradient(135deg, #BB00FD, #5B00B6);
-    min-height: 100vh;
     margin-top: -$wave-height;
     z-index: 10;
-    padding-top: $wave-height;
+    padding-top: calc($wave-height + 5rem);
+    padding-bottom: 5rem;
     width: 100%;
 
     .content {

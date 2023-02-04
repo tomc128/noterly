@@ -1,10 +1,9 @@
 #hero {
-    #background {
+    #hero-background {
         z-index: 10;
         width: 100vw;
         height: 100vh + $wave-height;
         filter: $large-shadow-drop-shadow;
-        // filter: drop-shadow(10px 10px 1px rgba(0, 0, 0, 1));
     }
 
     z-index: 20;
