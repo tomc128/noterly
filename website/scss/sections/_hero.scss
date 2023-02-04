@@ -2,7 +2,7 @@
     #background {
         z-index: 10;
         width: 100vw;
-        height: 100vh;
+        height: 100vh + $wave-height;
         filter: $large-shadow-drop-shadow;
         // filter: drop-shadow(10px 10px 1px rgba(0, 0, 0, 1));
     }
@@ -14,7 +14,7 @@
         position: absolute;
         top: 0;
         width: 100%;
-        height: 100%;
+        height: calc(100% - $wave-height);
 
         display: flex;
         justify-content: center;
@@ -29,7 +29,7 @@
 
         h2 {
             color: $text-primary;
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 400;
         }
 
@@ -39,15 +39,19 @@
             height: 8rem;
             margin-bottom: 1rem;
 
-            border-radius: 2rem;
+            border-radius: $logo-border-radius;
             box-shadow: $large-shadow;
 
             .foreground,
             .background {
                 width: 100%;
                 position: absolute;
-                border-radius: 2rem;
+                border-radius: $logo-border-radius;
             }
+        }
+
+        .buttons {
+            margin-top: 1rem;
         }
 
         .screenshot {
@@ -56,7 +60,7 @@
 
             img {
                 height: 60vh;
-                border-radius: 1rem;
+                border-radius: $border-radius;
                 box-shadow: $large-shadow;
             }
         }

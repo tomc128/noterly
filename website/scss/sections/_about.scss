@@ -4,4 +4,11 @@ section#about {
     margin-top: -$wave-height;
     z-index: 10;
     padding-top: $wave-height;
+    width: 100%;
+
+    .content {
+        .card-grid {
+            width: 100%;
+        }
+    }
 }

@@ -1,0 +1,38 @@
+// generate a card component, fitting in with the rest of the site
+// should have the dark gradient background
+
+.card {
+    background: $dark-gradient;
+    padding: 4rem 2rem;
+    min-height: 20rem;
+    border-radius: $border-radius;
+    z-index: 10;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        gap: 1rem;
+
+        iconify-icon {
+            color: $text-primary-title;
+            font-size: 3rem;
+        }
+
+        h2 {
+            color: $text-primary-title;
+            text-shadow: $large-shadow;
+            font-size: 2rem;
+        }
+
+        p {
+            color: $text-primary;
+            font-size: 1.2rem;
+        }
+
+
+    }
+
+
+}

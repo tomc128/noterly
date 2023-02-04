@@ -8,6 +8,8 @@
     <title>Noterly: simple reminders</title>
 
     <link rel="stylesheet" href="css/app.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.3/dist/iconify-icon.min.js"></script>
 </head>
 
 <body>
@@ -32,6 +34,12 @@
             <h1>Noterly</h1>
             <h2>Simple notification reminders</h2>
 
+            <div class="buttons">
+                <a href="https://play.google.com/store/apps/details?id=uk.co.tdsstudios.noterly" target="_blank" rel="noopener">
+                    <img src="./img/google_play_badge.svg" alt="Get it on Google Play">
+                </a>
+            </div>
+
             <div class="screenshot">
                 <img src="./img/screenshots/noterly_app_main_page.png" alt="">
             </div>
@@ -41,14 +49,35 @@
 
     <section id="about">
         <div class="content">
-            <div class="card">
-                <div class="content">
-                    <h3>Notifications</h3>
-                    <p>Get notified when you need to do something.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="content">
+                        <iconify-icon icon="fluent:fast-acceleration-20-filled"></iconify-icon>
+                        <h2>Fast</h2>
+                        <p>It takes seconds to create a new notification. It's super easy to create reminders and notes.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="content">
+                        <iconify-icon icon="fluent:sparkle-20-filled"></iconify-icon>
+                        <h2>Beautiful</h2>
+                        <p>Noterly utilises Material 3 and adapts to your device's colour theme.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="content">
+                        <h2>Notifications</h2>
+                        <p>Get notified when you need to do something.</p>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </section>
+
+    <footer>
+        <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    </footer>
 
 
 </body>
