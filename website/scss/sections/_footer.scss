@@ -18,7 +18,7 @@ footer {
         }
 
         .background-waves {
-            height: 20rem;
+            height: $wave-height;
             clip-path: url(#waves-bottom-clip);
         }
 
@@ -34,7 +34,7 @@ footer {
     .content {
         z-index: 100;
         position: absolute;
-        top: $wave-height;
+        top: $wave-height - 5rem;
         width: 100vw;
 
         h1 {
@@ -47,22 +47,42 @@ footer {
             font-weight: 400;
         }
 
-        .adaptive-grid {
+        .footer-grid {
             width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            gap: 1rem;
+
             .column {
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
 
-                a {
-                    display: inline-flex;
-                    align-items: center;
+                hr {
+                    width: 100%;
+                    border-top: 1px solid $divider;
+                    border-right: none;
+                    border-bottom: none;
+                    border-left: none;
+                }
+
+                &.text {
                     gap: 0.5rem;
-                    color: $text-primary;
-                    text-decoration: none;
+                }
 
-                    &:hover {
-                        text-decoration: underline;
+                &.links {
+                    gap: 1rem;
+
+                    a {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        color: $text-primary;
+                        text-decoration: none;
+    
+                        &:hover {
+                            text-decoration: underline;
+                        }
                     }
                 }
             }

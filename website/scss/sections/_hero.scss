@@ -14,7 +14,7 @@
         }
 
         .background-waves {
-            height: 20rem;
+            height: $wave-height;
             clip-path: url(#waves-top-clip);
         }
     }
