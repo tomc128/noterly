@@ -6,6 +6,26 @@
         filter: $large-shadow-drop-shadow;
     }
 
+    .background {
+        width: 100vw;
+        filter: $large-shadow-drop-shadow;
+
+        >* {
+            width: 100%;
+            background: $dark-gradient;
+            background-attachment: fixed;
+        }
+
+        .background-fill {
+            height: 100vh;
+        }
+
+        .background-waves {
+            height: 20rem;
+            clip-path: url(#waves-top-clip);
+        }
+    }
+
     z-index: 20;
 
     .content {

@@ -4,7 +4,9 @@ $text-primary: #e2b3ff;
 $primary: #aa00f1;
 $on-primary: #ffffff;
 
-$dark-gradient: linear-gradient(135deg, #1A131F, #0F041B);
+$dark-one: #1A131F;
+$dark-two: #0F041B;
+$dark-gradient: linear-gradient(135deg, $dark-one, $dark-two);
 
 $large-shadow: 0px 5.1px 4.3px rgba(0, 0, 0, 0.042), 0px 14.1px 11.8px rgba(0, 0, 0, 0.06),
     0px 34.1px 28.3px rgba(0, 0, 0, 0.078), 0px 113px 94px rgba(0, 0, 0, 0.12);
