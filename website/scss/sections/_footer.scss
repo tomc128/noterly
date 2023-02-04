@@ -6,6 +6,27 @@ footer {
         filter: $large-shadow-drop-shadow;
     }
 
+    
+    .background {
+        width: 100vw;
+        filter: $large-shadow-drop-shadow;
+
+        >* {
+            width: 100%;
+            background: $dark-gradient;
+            background-attachment: fixed;
+        }
+
+        .background-waves {
+            height: 20rem;
+            clip-path: url(#waves-bottom-clip);
+        }
+
+        .background-fill {
+            height: 20rem;
+        }
+    }
+
     position: relative;
     margin-top: -$wave-height;
     z-index: 20;
@@ -13,10 +34,8 @@ footer {
     .content {
         z-index: 100;
         position: absolute;
-        top: 0;
+        top: $wave-height;
         width: 100vw;
-        height: $footer-height;
-        padding: 12rem 3rem 0 3rem;
 
         h1 {
             color: $text-primary-title;
