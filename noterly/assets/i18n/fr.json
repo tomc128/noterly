@@ -1,9 +1,1 @@
-{
-    "main": {
-        "action": {
-            "create": "Cr\u00c3\u00a9er",
-            "save": "Sauvegarder",
-            "reactivate": "R\u00c3\u00a9activer"
-        }
-    }
-}
+{"main.action.create": "Cr\u00e9er", "main.action.save": "Sauvegarder", "main.action.reactivate": "R\u00e9activer", "page.active_notifications.label": "Actif"}

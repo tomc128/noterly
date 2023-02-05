@@ -24,7 +24,8 @@
     },
     "page.active_notifications.label": {
       "en_GB": "Active",
-      "en_US": "Active"
+      "en_US": "Active",
+      "fr": "Actif"
     },
     "page.active_notifications.header.immediate": {
       "en_GB": "Shown immediately",
@@ -53,10 +54,6 @@
     "page.archived_notifications.delete_all_button": {
       "en_GB": "Delete all archived notifications",
       "en_US": "Delete all archived notifications"
-    },
-    "snackbar.undo": {
-      "en_GB": "Undo",
-      "en_US": "Undo"
     },
     "snackbar.archived_notification": {
       "en_GB": "Notification \"{{notification.title}}\" deleted.",
@@ -209,6 +206,54 @@
     "notification.mark_as_done": {
       "en_GB": "Mark as done",
       "en_US": "Mark as done"
+    },
+    "dialog.datetime.title": {
+      "en_GB": "Select date and time",
+      "en_US": "Select date and time"
+    },
+    "dialog.datetime.header.date": {
+      "en_GB": "Date",
+      "en_US": "Date"
+    },
+    "dialog.datetime.header.time": {
+      "en_GB": "Time",
+      "en_US": "Time"
+    },
+    "dialog.datetime.select_date": {
+      "en_GB": "Select date",
+      "en_US": "Select date"
+    },
+    "dialog.datetime.select_time": {
+      "en_GB": "Select time",
+      "en_US": "Select time"
+    },
+    "dialog.repetition.title": {
+      "en_GB": "Select repeat duration",
+      "en_US": "Select repeat duration"
+    },
+    "dialog.repetition.subtitle": {
+      "en_GB": "repeats {{duration}}",
+      "en_US": "repeats {{duration}}"
+    },
+    "dialog.repetition.number": {
+      "en_GB": "Number",
+      "en_US": "Number"
+    },
+    "dialog.repetition.period": {
+      "en_GB": "Period",
+      "en_US": "Period"
+    },
+    "general.ok": {
+      "en_GB": "OK",
+      "en_US": "OK"
+    },
+    "general.cancel": {
+      "en_GB": "Cancel",
+      "en_US": "Cancel"
+    },
+    "general.undo": {
+      "en_GB": "Undo",
+      "en_US": "Undo"
     }
   }
 }

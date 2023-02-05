@@ -129,7 +129,6 @@ class _MainPageState extends State<MainPage> {
                   count: activeNotifications.length,
                   child: Icon(activeNotifications.isNotEmpty ? Icons.notifications : Icons.notifications_none),
                 ),
-                // label: 'Active',
                 label: translate('page.active_notifications.label'),
               ),
               NavigationDestination(

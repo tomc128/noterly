@@ -1,1 +1,1 @@
-{"main": {"action": {"create": "Crear", "save": "Ahorrar", "reactivate": "Reactivar"}}}
+{"main.action.create": "Crear", "main.action.save": "Ahorrar", "main.action.reactivate": "Reactivar"}
