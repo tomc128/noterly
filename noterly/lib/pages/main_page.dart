@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/main_page/active_notifications_page.dart';
@@ -128,7 +129,8 @@ class _MainPageState extends State<MainPage> {
                   count: activeNotifications.length,
                   child: Icon(activeNotifications.isNotEmpty ? Icons.notifications : Icons.notifications_none),
                 ),
-                label: 'Active',
+                // label: 'Active',
+                label: translate('page.active_notifications.label'),
               ),
               const NavigationDestination(
                 icon: Icon(Icons.history),
