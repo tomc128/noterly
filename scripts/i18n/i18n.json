@@ -43,6 +43,9 @@
       "en_GB": "No active notifications.",
       "en_US": "No active notifications."
     },
+    "page.active_notifications.item.repeats": {
+      "en_GB": "Repeats {duration}"
+    },
     "page.archived_notifications.label": {
       "en_GB": "Archive",
       "en_US": "Archive"
