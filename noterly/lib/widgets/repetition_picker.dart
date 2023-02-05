@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/models/repetition_data.dart';
 
 Future<RepetitionData?> showRepetitionPicker({
@@ -72,11 +73,11 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Select repeat duration',
+                  translate('dialog.repetition.title'),
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  'repeats ${_repetitionData.toReadableString()}',
+                  translate('dialog.repetition.subtitle', args: {'duration': _repetitionData.toReadableString()}),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
@@ -89,13 +90,13 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Cancel'),
+                child: Text(translate('general.cancel')),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(_repetitionData);
                 },
-                child: const Text('OK'),
+                child: Text(translate('general.ok')),
               ),
             ],
           ),
@@ -111,9 +112,9 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
             Flexible(
               flex: 1,
               child: TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Number',
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: translate('dialog.repetition.number'),
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -140,9 +141,9 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
             Flexible(
               flex: 2,
               child: DropdownButtonFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Period',
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: translate('dialog.repetition.period'),
                 ),
                 items: [
                   DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.number == 1 ? '' : 's'}')),

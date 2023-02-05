@@ -59,7 +59,7 @@
       "en_GB": "Notification deleted."
     },
     "snackbar.archived_notification": {
-      "en_GB": "Notification \"{{notification.title}}\" deleted.",
+      "en_GB": "Notification \"{notification.title}\" deleted.",
       "en_US": "Notification \"{{notification.title}}\" deleted."
     },
     "snackbar.archived_all_notifications": {
@@ -266,8 +266,8 @@
       "en_US": "Select repeat duration"
     },
     "dialog.repetition.subtitle": {
-      "en_GB": "repeats {{duration}}",
-      "en_US": "repeats {{duration}}"
+      "en_GB": "repeats {duration}",
+      "en_US": "repeats {duration}"
     },
     "dialog.repetition.number": {
       "en_GB": "Number",
