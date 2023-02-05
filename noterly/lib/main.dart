@@ -6,6 +6,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
@@ -60,7 +62,8 @@ Future<void> main() async {
     return true;
   };
 
-  runApp(const MyApp());
+  var delegate = await LocalizationDelegate.create(fallbackLocale: 'en_GB', supportedLocales: ['en_GB', 'es', 'fa']);
+  runApp(LocalizedApp(delegate, const MyApp()));
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
@@ -136,49 +139,61 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-      ColorScheme lightColorScheme;
-      ColorScheme darkColorScheme;
+    var localizationDelegate = LocalizedApp.of(context).delegate;
 
-      if (lightDynamic != null && darkDynamic != null) {
-        Log.logger.d('Using dynamic color scheme.');
+    return LocalizationProvider(
+      state: LocalizationProvider.of(context).state,
+      child: DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        ColorScheme lightColorScheme;
+        ColorScheme darkColorScheme;
 
-        lightColorScheme = lightDynamic.harmonized();
-        darkColorScheme = darkDynamic.harmonized();
-      } else {
-        Log.logger.d('No dynamic color scheme, using fallback.');
+        if (lightDynamic != null && darkDynamic != null) {
+          Log.logger.d('Using dynamic color scheme.');
 
-        lightColorScheme = ColorScheme.fromSeed(
-          seedColor: const Color.fromRGBO(153, 0, 228, 1),
-        );
-        darkColorScheme = ColorScheme.fromSeed(
-          seedColor: const Color.fromRGBO(153, 0, 228, 1),
-          brightness: Brightness.dark,
-        );
-      }
+          lightColorScheme = lightDynamic.harmonized();
+          darkColorScheme = darkDynamic.harmonized();
+        } else {
+          Log.logger.d('No dynamic color scheme, using fallback.');
 
-      return MaterialApp(
-        title: 'Noterly',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: lightColorScheme,
-          fontFamily: GoogleFonts.dmSans().fontFamily,
-          textTheme: GoogleFonts.dmSansTextTheme().copyWith(
-            labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
+          lightColorScheme = ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(153, 0, 228, 1),
+          );
+          darkColorScheme = ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(153, 0, 228, 1),
+            brightness: Brightness.dark,
+          );
+        }
+
+        return MaterialApp(
+          title: 'Noterly',
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            localizationDelegate,
+          ],
+          supportedLocales: localizationDelegate.supportedLocales,
+          locale: localizationDelegate.currentLocale,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: lightColorScheme,
+            fontFamily: GoogleFonts.dmSans().fontFamily,
+            textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+              labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
+            ),
           ),
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: true,
-          colorScheme: darkColorScheme,
-          fontFamily: GoogleFonts.dmSans().fontFamily,
-          textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
-            labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            colorScheme: darkColorScheme,
+            fontFamily: GoogleFonts.dmSans().fontFamily,
+            textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
+              labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
+            ),
           ),
-        ),
-        themeMode: ThemeMode.system,
-        home: const MainPage(),
-        debugShowCheckedModeBanner: false,
-      );
-    });
+          themeMode: ThemeMode.system,
+          home: const MainPage(),
+          debugShowCheckedModeBanner: false,
+        );
+      }),
+    );
   }
 }
