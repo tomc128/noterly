@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/file_manager.dart';
@@ -33,14 +34,14 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(translate('page.settings.title')),
       ),
       body: ListView(
         children: [
-          _getHeader('System'),
+          _getHeader(translate('page.settings.header.system')),
           _getCard(context, [
             ListTile(
-              title: const Text('Notification settings'),
+              title: Text(translate('page.settings.system.notification_settings')),
               leading: const Icon(Icons.notifications),
               trailing: const Icon(Icons.open_in_new),
               minVerticalPadding: 12,
@@ -54,10 +55,10 @@ class _SettingsPageState extends State<SettingsPage> {
             )
           ]),
           _getSpacer(),
-          _getHeader('About'),
+          _getHeader(translate('page.settings.header.about')),
           _getCard(context, [
             ListTile(
-              title: const Text('Version'),
+              title: Text(translate('page.settings.about.version.title')),
               subtitle: const Text(BuildInfo.appVersion),
               leading: const Icon(Icons.info),
               minVerticalPadding: 12,
@@ -100,21 +101,21 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
-              title: const Text('Copyright'),
-              subtitle: const Text('2023 Tom Chapman, TDS Studios.'),
+              title: Text(translate('page.settings.about.copyright.title')),
+              subtitle: Text(translate('page.settings.about.copyright.text')),
               leading: const Icon(Icons.copyright),
               minVerticalPadding: 12,
               onTap: () {}, // allow for ripple effect
             ),
             ListTile(
-              title: const Text('Licenses'),
+              title: Text(translate('page.settings.about.licenses.title')),
               leading: const Icon(Icons.article),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
               onTap: () {
                 showLicensePage(
                   context: context,
-                  applicationLegalese: 'Copyright © 2023 Tom Chapman, TDS Studios.',
+                  applicationLegalese: translate('page.settings.about.licenses.page.legalese'),
                   applicationVersion: BuildInfo.appVersion,
                 );
 
@@ -129,7 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
             context,
             [
               ListTile(
-                title: const Text('Privacy policy'),
+                title: Text(translate('page.settings.about.privacy_policy.title')),
                 leading: const Icon(Icons.privacy_tip),
                 trailing: const Icon(Icons.open_in_new),
                 minVerticalPadding: 12,
@@ -143,7 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
-                title: const Text('Send feedback'),
+                title: Text(translate('page.settings.about.feedback.title')),
                 leading: const Icon(Icons.comment),
                 trailing: const Icon(Icons.open_in_new),
                 minVerticalPadding: 12,
@@ -173,8 +174,8 @@ class _SettingsPageState extends State<SettingsPage> {
   List<Widget> _getDebugOptions(BuildContext context) => [
         _getSpacer(),
         _getHeader(
-          'Debug options',
-          subtitle: 'These options are not supported and may cause issues. Use at your own risk.',
+          translate('page.settings.header.debug'),
+          subtitle: translate('page.settings.header.debug.disclaimer'),
         ),
         _getCard(
           context,

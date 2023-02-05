@@ -72,6 +72,9 @@
       "en_GB": "All archived notifications deleted.",
       "en_US": "All archived notifications deleted."
     },
+    "page.settings.title": {
+      "en_GB": "Settings"
+    },
     "page.settings.header.system": {
       "en_GB": "System",
       "en_US": "System"
@@ -108,6 +111,7 @@
       "en_GB": "Licenses",
       "en_US": "Licenses"
     },
+    "page.settings.about.licenses.page.legalese": {},
     "page.settings.about.privacy_policy.title": {
       "en_GB": "Privacy policy",
       "en_US": "Privacy policy"
@@ -115,26 +119,6 @@
     "page.settings.about.feedback.title": {
       "en_GB": "Send feedback",
       "en_US": "Send feedback"
-    },
-    "page.settings.debug.generate_random_items": {
-      "en_GB": "Generate 10 random items",
-      "en_US": "Generate 10 random items"
-    },
-    "page.settings.debug.force_update_notifications": {
-      "en_GB": "Force update notifications",
-      "en_US": "Force update notifications"
-    },
-    "page.settings.debug.log_items_to_console": {
-      "en_GB": "Log items to console",
-      "en_US": "Log items to console"
-    },
-    "page.settings.debug.analytics_test": {
-      "en_GB": "Send test analytics event",
-      "en_US": "Send test analytics event"
-    },
-    "page.settings.debug.delete_app_data": {
-      "en_GB": "Delete all app data",
-      "en_US": "Delete all app data"
     },
     "page.create_notification.title": {
       "en_GB": "Create Notification",
