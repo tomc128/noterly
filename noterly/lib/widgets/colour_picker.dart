@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 Future<Color?> showColourPicker({
   required BuildContext context,
@@ -78,7 +79,7 @@ class _ColourPickerState extends State<ColourPicker> {
                 color: primarySurfaceColor,
               ),
               child: Text(
-                'Select colour',
+                translate('dialog.colour.title'),
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
               ),
             ),
@@ -126,7 +127,7 @@ class _ColourPickerState extends State<ColourPicker> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Cancel'),
+                  child: Text(translate('general.cancel')),
                 ),
               ],
             ),

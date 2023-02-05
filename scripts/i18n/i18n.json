@@ -277,6 +277,9 @@
       "en_GB": "Period",
       "en_US": "Period"
     },
+    "dialog.colour.title": {
+      "en_GB": "Select colour"
+    },
     "general.ok": {
       "en_GB": "OK",
       "en_US": "OK"
