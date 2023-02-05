@@ -74,7 +74,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(translate('snackbar.deleted_notification')),
+                  content: Text(translate('snackbar.notification_deleted', args: {'title': _item.title})),
                   action: SnackBarAction(
                     label: translate('general.undo'),
                     onPressed: () {

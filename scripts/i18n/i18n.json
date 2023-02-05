@@ -39,7 +39,7 @@
       "en_GB": "Repeating",
       "en_US": "Repeating"
     },
-    "page.active_notifications.empty_text": {
+    "page.active_notifications.empty": {
       "en_GB": "No active notifications.",
       "en_US": "No active notifications."
     },
@@ -47,22 +47,25 @@
       "en_GB": "Archive",
       "en_US": "Archive"
     },
-    "page.archived_notifications.empty_text": {
+    "page.archived_notifications.empty": {
       "en_GB": "Archived notifications will appear here.",
       "en_US": "Archived notifications will appear here."
     },
-    "page.archived_notifications.delete_all_button": {
+    "page.archived_notifications.button.delete_all": {
       "en_GB": "Delete all archived notifications",
       "en_US": "Delete all archived notifications"
     },
-    "snackbar.deleted_notification": {
-      "en_GB": "Notification deleted."
+    "page.archived_notifications.item.archived": {
+      "en_GB": "Archived {date_time}"
     },
-    "snackbar.archived_notification": {
-      "en_GB": "Notification \"{notification.title}\" deleted.",
+    "snackbar.notification_deleted": {
+      "en_GB": "Notification \"{title}\" deleted."
+    },
+    "snackbar.notification_archived": {
+      "en_GB": "Notification \"{title}\" archived.",
       "en_US": "Notification \"{{notification.title}}\" deleted."
     },
-    "snackbar.archived_all_notifications": {
+    "snackbar.all_archived_notifications_deleted": {
       "en_GB": "All archived notifications deleted.",
       "en_US": "All archived notifications deleted."
     },
