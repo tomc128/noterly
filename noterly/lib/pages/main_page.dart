@@ -118,7 +118,7 @@ class _MainPageState extends State<MainPage> {
 
               setState(() {});
             },
-            label: const Text('Create'),
+            label: Text(translate('main.action.create')),
             icon: const Icon(Icons.add),
           ),
           bottomNavigationBar: NavigationBar(
@@ -132,9 +132,9 @@ class _MainPageState extends State<MainPage> {
                 // label: 'Active',
                 label: translate('page.active_notifications.label'),
               ),
-              const NavigationDestination(
-                icon: Icon(Icons.history),
-                label: 'Archive',
+              NavigationDestination(
+                icon: const Icon(Icons.history),
+                label: translate('page.archived_notifications.label'),
               ),
             ],
             onDestinationSelected: (value) {

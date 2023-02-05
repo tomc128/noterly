@@ -1,0 +1,9 @@
+{
+    "main": {
+        "action": {
+            "create": "Cr\u00c3\u00a9er",
+            "save": "Sauvegarder",
+            "reactivate": "R\u00c3\u00a9activer"
+        }
+    }
+}

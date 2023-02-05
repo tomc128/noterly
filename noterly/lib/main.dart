@@ -62,7 +62,10 @@ Future<void> main() async {
     return true;
   };
 
-  var delegate = await LocalizationDelegate.create(fallbackLocale: 'en_GB', supportedLocales: ['en_GB', 'es', 'fa']);
+  var delegate = await LocalizationDelegate.create(
+    fallbackLocale: 'en_GB',
+    supportedLocales: ['en_GB', 'en_US', 'es', 'fr', 'de'],
+  );
   runApp(LocalizedApp(delegate, const MyApp()));
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
@@ -167,7 +170,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           title: 'Noterly',
           localizationsDelegates: [
-            GlobalMaterialLocalizations.delegate,
+            ...GlobalMaterialLocalizations.delegates,
             GlobalWidgetsLocalizations.delegate,
             localizationDelegate,
           ],
