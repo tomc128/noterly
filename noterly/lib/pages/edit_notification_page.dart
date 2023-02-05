@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
@@ -64,7 +65,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Notification'),
+        title: Text(translate('page.edit_notification.title')),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
@@ -73,9 +74,9 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text('Notification deleted.'),
+                  content: Text(translate('snackbar.deleted_notification')),
                   action: SnackBarAction(
-                    label: 'Undo',
+                    label: translate('general.undo'),
                     onPressed: () {
                       AppManager.instance.restoreLastDeletedItems();
                       FirebaseAnalytics.instance.logEvent(name: 'restore_deleted_item');
@@ -97,7 +98,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
         child: ListView(
           padding: const EdgeInsets.only(bottom: 128),
           children: [
-            _getHeader('Notification details'),
+            _getHeader(translate('page.edit_notification.header.details')),
             _getCard([
               ListTile(
                 title: TextFormField(
@@ -105,11 +106,11 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   autocorrect: true,
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Title',
+                  decoration: InputDecoration(
+                    labelText: translate('page.edit_notification.details.field.title.label'),
                     border: InputBorder.none,
                   ),
-                  validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
+                  validator: (value) => value!.isEmpty ? translate('page.edit_notification.details.field.title.error') : null,
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
@@ -119,15 +120,15 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   autocorrect: true,
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Body',
+                  decoration: InputDecoration(
+                    labelText: translate('page.edit_notification.details.field.body.label'),
                     border: InputBorder.none,
                   ),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
               ListTile(
-                title: const Text('Colour'),
+                title: Text(translate('page.edit_notification.details.field.colour.label')),
                 leading: ItemListDecoration(colour: _item.colour),
                 onTap: () {
                   showColourPicker(context: context, initialColour: _item.colour).then((value) {
@@ -141,11 +142,11 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ),
             ]),
             _getSpacer(),
-            _getHeader('Timing'),
+            _getHeader(translate('page.edit_notification.header.timing')),
             _getCard([
               SwitchListTile(
                 value: _isScheduled,
-                title: const Text('Schedule'),
+                title: Text(translate('page.edit_notification.timing.schedule.title')),
                 secondary: const Icon(Icons.calendar_today),
                 onChanged: _isRepeating
                     ? null
@@ -157,7 +158,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ),
               if (_isScheduled)
                 ListTile(
-                  title: const Text('Send'),
+                  title: Text(translate('page.edit_notification.timing.schedule.subtitle')),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
                   minVerticalPadding: 12,
                   onTap: () {
@@ -179,7 +180,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                 ),
               SwitchListTile(
                 value: _isRepeating,
-                title: const Text('Repeating'),
+                title: Text(translate('page.edit_notification.timing.repeat.title')),
                 secondary: const Icon(Icons.repeat),
                 onChanged: (value) {
                   setState(() {
@@ -193,7 +194,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ),
               if (_isRepeating)
                 ListTile(
-                  title: const Text('Repeat'),
+                  title: Text(translate('page.edit_notification.timing.repeat.subtitle')),
                   subtitle: Text(_repetitionData.toReadableString()),
                   minVerticalPadding: 12,
                   onTap: () {
@@ -212,9 +213,9 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             ]),
             if (_isRepeating) ...[
               _getSpacer(),
-              const ListTile(
-                leading: Icon(Icons.info),
-                subtitle: Text('Repeating notifications will only repeat once they are marked as done from the notification.'),
+              ListTile(
+                leading: const Icon(Icons.info),
+                subtitle: Text(translate('page.edit_notification.timing.repeat.info')),
               ),
             ],
           ],
@@ -245,7 +246,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             Navigator.of(context).pop();
           }
         },
-        label: _item.archived ? const Text('Reactivate') : const Text('Save'),
+        label: _item.archived ? Text(translate('main.action.reactivate')) : Text(translate('main.action.save')),
         icon: _item.archived ? const Icon(Icons.restore) : const Icon(Icons.save),
       ),
     );
