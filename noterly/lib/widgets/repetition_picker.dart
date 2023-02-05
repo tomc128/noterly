@@ -73,11 +73,11 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  translate('dialog.repetition.title'),
+                  translate('dialog.picker.repetition.title'),
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  translate('dialog.repetition.subtitle', args: {'duration': _repetitionData.toReadableString()}),
+                  translate('dialog.picker.repetition.subtitle', args: {'duration': _repetitionData.toReadableString()}),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
@@ -114,7 +114,7 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.repetition.number'),
+                  labelText: translate('dialog.picker.repetition.field.number.label'),
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -143,7 +143,7 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.repetition.period'),
+                  labelText: translate('dialog.picker.repetition.field.period.label'),
                 ),
                 items: [
                   DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.number == 1 ? '' : 's'}')),

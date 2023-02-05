@@ -79,7 +79,7 @@ class _ColourPickerState extends State<ColourPicker> {
                 color: primarySurfaceColor,
               ),
               child: Text(
-                translate('dialog.colour.title'),
+                translate('dialog.picker.colour.title'),
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
               ),
             ),

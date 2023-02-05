@@ -85,18 +85,18 @@ class _DateTimePickerState extends State<DateTimePicker> {
               color: primarySurfaceColor,
             ),
             child: Text(
-              translate('dialog.datetime.title'),
+              translate('dialog.picker.date_time.title'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(translate('dialog.datetime.header.date'), style: Theme.of(context).textTheme.titleMedium),
+            child: Text(translate('dialog.picker.date_time.header.date'), style: Theme.of(context).textTheme.titleMedium),
           ),
           _getDatePicker(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(translate('dialog.datetime.header.time'), style: Theme.of(context).textTheme.titleMedium),
+            child: Text(translate('dialog.picker.date_time.header.time'), style: Theme.of(context).textTheme.titleMedium),
           ),
           _getTimePicker(),
           ButtonBar(
@@ -166,7 +166,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               });
             },
             icon: const Icon(Icons.calendar_month),
-            label: Text(translate('dialog.datetime.select_date')),
+            label: Text(translate('dialog.picker.date_time.button.select_date')),
           ),
         ],
       );
@@ -226,7 +226,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               });
             },
             icon: const Icon(Icons.timer),
-            label: Text(translate('dialog.datetime.select_time')),
+            label: Text(translate('dialog.picker.date_time.button.select_time')),
           ),
         ],
       );

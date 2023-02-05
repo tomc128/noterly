@@ -241,43 +241,43 @@
       "en_GB": "Mark as done",
       "en_US": "Mark as done"
     },
-    "dialog.datetime.title": {
+    "dialog.picker.date_time.title": {
       "en_GB": "Select date and time",
       "en_US": "Select date and time"
     },
-    "dialog.datetime.header.date": {
+    "dialog.picker.date_time.header.date": {
       "en_GB": "Date",
       "en_US": "Date"
     },
-    "dialog.datetime.header.time": {
+    "dialog.picker.date_time.header.time": {
       "en_GB": "Time",
       "en_US": "Time"
     },
-    "dialog.datetime.select_date": {
+    "dialog.picker.date_time.button.select_date": {
       "en_GB": "Select date",
       "en_US": "Select date"
     },
-    "dialog.datetime.select_time": {
+    "dialog.picker.date_time.button.select_time": {
       "en_GB": "Select time",
       "en_US": "Select time"
     },
-    "dialog.repetition.title": {
+    "dialog.picker.repetition.title": {
       "en_GB": "Select repeat duration",
       "en_US": "Select repeat duration"
     },
-    "dialog.repetition.subtitle": {
+    "dialog.picker.repetition.subtitle": {
       "en_GB": "repeats {duration}",
       "en_US": "repeats {duration}"
     },
-    "dialog.repetition.number": {
+    "dialog.picker.repetition.field.number.label": {
       "en_GB": "Number",
       "en_US": "Number"
     },
-    "dialog.repetition.period": {
+    "dialog.picker.repetition.field.period.label": {
       "en_GB": "Period",
       "en_US": "Period"
     },
-    "dialog.colour.title": {
+    "dialog.picker.colour.title": {
       "en_GB": "Select colour"
     },
     "general.ok": {
