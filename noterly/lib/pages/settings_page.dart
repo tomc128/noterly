@@ -75,19 +75,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text('Easter egg!'),
-                      content: const Text("Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues."),
+                      title: Text(translate('dialog.easter_egg.title')),
+                      content: Text(translate('dialog.easter_egg.text')),
                       actions: [
                         TextButton(
                           onPressed: () {
                             setState(() => _debugOptions = true);
                             Navigator.of(context).pop();
                           },
-                          child: const Text('Show debug options'),
+                          child: Text(translate('dialog_easter_egg.action.show_debug_options')),
                         ),
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Close'),
+                          child: Text(translate('general.close')),
                         ),
                       ],
                     ),

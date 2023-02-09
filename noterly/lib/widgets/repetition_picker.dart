@@ -146,11 +146,11 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                   labelText: translate('dialog.picker.repetition.field.period.label'),
                 ),
                 items: [
-                  DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.daily, child: Text('Day${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.weekly, child: Text('Week${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.monthly, child: Text('Month${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.yearly, child: Text('Year${_repetitionData.number == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.hourly, child: Text(translate('time.hour${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.daily, child: Text(translate('time.day${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.weekly, child: Text(translate('time.week${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.monthly, child: Text(translate('time.month${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.yearly, child: Text(translate('time.year${_repetitionData.number == 1 ? '' : 's'}'))),
                 ],
                 value: _repetitionData.type,
                 onChanged: (value) {
