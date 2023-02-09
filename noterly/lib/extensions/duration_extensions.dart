@@ -1,3 +1,5 @@
+import 'package:flutter_translate/flutter_translate.dart';
+
 extension DurationExtensions on Duration {
   String toRelativeDurationString() {
     final days = inDays;
@@ -7,18 +9,18 @@ extension DurationExtensions on Duration {
     final daysString = days == 0
         ? ''
         : days == 1
-            ? '1 day'
-            : '$days days';
+            ? '1 ${translate('time.day')}'
+            : translate('time.days.value', args: {'value': days});
     final hoursString = hours == 0
         ? ''
         : hours == 1
-            ? '1 hour'
-            : '$hours hours';
+            ? '1 ${translate('time.hour')}'
+            : translate('time.hours.value', args: {'value': hours});
     final minutesString = minutes == 0
         ? ''
         : minutes == 1
-            ? '1 minute'
-            : '$minutes minutes';
+            ? '1 ${translate('time.minute')}'
+            : translate('time.minutes.value', args: {'value': minutes});
 
     final combined = '$daysString, $hoursString, $minutesString'.trim();
     return combined.replaceAll(RegExp(r', ,'), ',').replaceAll(RegExp(r',$'), '').replaceAll(RegExp(r'^,\s*'), ''); // Remove trailing, leading or double commas
