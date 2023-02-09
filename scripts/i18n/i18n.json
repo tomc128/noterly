@@ -117,9 +117,9 @@
       "fr": "Version"
     },
     "page.settings.about.copyright.title": {
-      "en_GB": "Copyright",
-      "en_US": "Copyright",
-      "fr": "Droits d'auteur"
+      "en_GB": "Copyright & credits",
+      "en_US": "Copyright & credits",
+      "fr": "Droits d'auteur et crédits"
     },
     "page.settings.about.copyright.text": {
       "en_GB": "2023 Tom Chapman, TDS Studios.",
@@ -355,6 +355,16 @@
       "en_GB": "Show debug options",
       "en_US": "Show debug options",
       "fr": "Afficher les options de débogage"
+    },
+    "dialog.copyright.translations.title": {
+      "en_GB": "Translations",
+      "en_US": "Translations",
+      "fr": "Traductions"
+    },
+    "dialog.copyright.translations.text": {
+      "en_GB": "Credit to: Google Translate",
+      "en_US": "Credit to: Google Translate",
+      "fr": "Crédit à : Google Translate"
     },
     "general.ok": {
       "en_GB": "OK",

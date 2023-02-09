@@ -104,8 +104,34 @@ class _SettingsPageState extends State<SettingsPage> {
               title: Text(translate('page.settings.about.copyright.title')),
               subtitle: Text(translate('page.settings.about.copyright.text')),
               leading: const Icon(Icons.copyright),
+              trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
-              onTap: () {}, // allow for ripple effect
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Noterly', style: Theme.of(context).textTheme.titleLarge),
+                      content: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(translate('page.settings.about.licenses.page.legalese')),
+                            const SizedBox(height: 16),
+                            Text(translate('dialog.copyright.translations.title'), style: Theme.of(context).textTheme.titleMedium),
+                            Text(translate('dialog.copyright.translations.text')),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+
+                FirebaseAnalytics.instance.logEvent(
+                  name: 'open_about_dialog',
+                );
+              },
             ),
             ListTile(
               title: Text(translate('page.settings.about.licenses.title')),
