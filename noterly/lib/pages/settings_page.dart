@@ -157,6 +157,20 @@ class _SettingsPageState extends State<SettingsPage> {
                   );
                 },
               ),
+              ListTile(
+                title: Text(translate('page.settings.about.translate.title')),
+                leading: const Icon(Icons.translate),
+                trailing: const Icon(Icons.open_in_new),
+                minVerticalPadding: 12,
+                onTap: () async {
+                  var uri = Uri.parse('https://forms.gle/qzaLRZk7JTbjqsq86');
+                  await _launchUrl(uri);
+
+                  await FirebaseAnalytics.instance.logEvent(
+                    name: 'open_translate_form',
+                  );
+                },
+              )
             ],
           ),
           if (kDebugMode || _debugOptions) ..._getDebugOptions(context),

@@ -65,7 +65,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(translate('page.edit_notification.title')),
+        title: Text(translate('page.edit_notification.title'), overflow: TextOverflow.fade),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),

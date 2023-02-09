@@ -29,7 +29,7 @@ with open('i18n.json', 'r', encoding='utf-8') as f:
 
 lang_data = {}
 
-for key, value in i18n['text'].items():
+for key, value in i18n['Translations'].items():
     for lang, text in value.items():
         if lang not in lang_data:
             lang_data[lang] = {}

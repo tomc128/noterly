@@ -55,7 +55,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(translate('page.create_notification.title')),
+        title: Text(translate('page.create_notification.title'), overflow: TextOverflow.fade),
       ),
       body: Form(
         key: _formKey,
