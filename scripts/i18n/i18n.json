@@ -4,23 +4,17 @@
     "main.action.create": {
       "en_GB": "Create",
       "en_US": "Create",
-      "fr": "Créer",
-      "es": "Crear",
-      "de": "Erstellen"
+      "fr": "Créer"
     },
     "main.action.save": {
       "en_GB": "Save",
       "en_US": "Save",
-      "fr": "Sauvegarder",
-      "es": "Ahorrar",
-      "de": "Speichern"
+      "fr": "Sauvegarder"
     },
     "main.action.reactivate": {
       "en_GB": "Reactivate",
       "en_US": "Reactivate",
-      "fr": "Réactiver",
-      "es": "Reactivar",
-      "de": "Reaktivieren"
+      "fr": "Réactiver"
     },
     "page.active_notifications.label": {
       "en_GB": "Active",
@@ -44,7 +38,8 @@
       "en_US": "No active notifications."
     },
     "page.active_notifications.item.repeats": {
-      "en_GB": "Repeats {duration}"
+      "en_GB": "Repeats {duration}",
+      "en_US": "Repeats {duration}"
     },
     "page.archived_notifications.label": {
       "en_GB": "Archive",
@@ -59,21 +54,24 @@
       "en_US": "Delete all archived notifications"
     },
     "page.archived_notifications.item.archived": {
-      "en_GB": "Archived {date_time}"
+      "en_GB": "Archived {date_time}",
+      "en_US": "Archived {date_time}"
     },
     "snackbar.notification_deleted": {
-      "en_GB": "Notification \"{title}\" deleted."
+      "en_GB": "Notification \"{title}\" deleted.",
+      "en_US": "Notification \"{title}\" deleted."
     },
     "snackbar.notification_archived": {
       "en_GB": "Notification \"{title}\" archived.",
-      "en_US": "Notification \"{{notification.title}}\" deleted."
+      "en_US": "Notification \"{title}\" archived."
     },
     "snackbar.all_archived_notifications_deleted": {
       "en_GB": "All archived notifications deleted.",
       "en_US": "All archived notifications deleted."
     },
     "page.settings.title": {
-      "en_GB": "Settings"
+      "en_GB": "Settings",
+      "en_US": "Settings"
     },
     "page.settings.header.system": {
       "en_GB": "System",
@@ -104,14 +102,17 @@
       "en_US": "Copyright"
     },
     "page.settings.about.copyright.text": {
-      "en_GB": "2023 Tom Chapman. TDS Studios.",
-      "en_US": "2023 Tom Chapman. TDS Studios."
+      "en_GB": "2023 Tom Chapman, TDS Studios.",
+      "en_US": "2023 Tom Chapman, TDS Studios."
     },
     "page.settings.about.licenses.title": {
       "en_GB": "Licenses",
       "en_US": "Licenses"
     },
-    "page.settings.about.licenses.page.legalese": {},
+    "page.settings.about.licenses.page.legalese": {
+      "en_GB": "Copyright © 2023 Tom Chapman, TDS Studios.",
+      "en_US": "Copyright © 2023 Tom Chapman, TDS Studios."
+    },
     "page.settings.about.privacy_policy.title": {
       "en_GB": "Privacy policy",
       "en_US": "Privacy policy"
@@ -213,7 +214,8 @@
       "en_US": "Body"
     },
     "page.edit_notification.details.field.colour.label": {
-      "en_GB": "Colour"
+      "en_GB": "Colour",
+      "en_US": "Color"
     },
     "item.title": {
       "en_GB": "Title",
@@ -268,7 +270,20 @@
       "en_US": "Period"
     },
     "dialog.picker.colour.title": {
-      "en_GB": "Select colour"
+      "en_GB": "Select colour",
+      "en_US": "Select color"
+    },
+    "dialog.easter_egg.title": {
+      "en_GB": "Easter egg!",
+      "en_US": "Easter egg!"
+    },
+    "dialog.easter_egg.text": {
+      "en_GB": "Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
+      "en_US": "Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues."
+    },
+    "dialog_easter_egg.action.show_debug_options": {
+      "en_GB": "Show debug options",
+      "en_US": "Show debug options"
     },
     "general.ok": {
       "en_GB": "OK",
@@ -281,6 +296,134 @@
     "general.undo": {
       "en_GB": "Undo",
       "en_US": "Undo"
+    },
+    "general.close": {
+      "en_GB": "Close",
+      "en_US": "Close"
+    },
+    "time.second": {
+      "en_GB": "second",
+      "en_US": "second"
+    },
+    "time.seconds": {
+      "en_GB": "seconds",
+      "en_US": "seconds"
+    },
+    "time.minute": {
+      "en_GB": "minute",
+      "en_US": "minute"
+    },
+    "time.minutes": {
+      "en_GB": "minutes",
+      "en_US": "minutes"
+    },
+    "time.hour": {
+      "en_GB": "hour",
+      "en_US": "hour"
+    },
+    "time.hours": {
+      "en_GB": "hours",
+      "en_US": "hours"
+    },
+    "time.day": {
+      "en_GB": "day",
+      "en_US": "day"
+    },
+    "time.days": {
+      "en_GB": "days",
+      "en_US": "days"
+    },
+    "time.week": {
+      "en_GB": "week",
+      "en_US": "week"
+    },
+    "time.weeks": {
+      "en_GB": "weeks",
+      "en_US": "weeks"
+    },
+    "time.month": {
+      "en_GB": "month",
+      "en_US": "month"
+    },
+    "time.months": {
+      "en_GB": "months",
+      "en_US": "months"
+    },
+    "time.year": {
+      "en_GB": "year",
+      "en_US": "year"
+    },
+    "time.years": {
+      "en_GB": "years",
+      "en_US": "years"
+    },
+    "time.seconds.value": {
+      "en_GB": "{value} seconds",
+      "en_US": "{value} seconds"
+    },
+    "time.minutes.value": {
+      "en_GB": "{value} minutes",
+      "en_US": "{value} minutes"
+    },
+    "time.hours.value": {
+      "en_GB": "{value} hours",
+      "en_US": "{value} hours"
+    },
+    "time.days.value": {
+      "en_GB": "{value} days",
+      "en_US": "{value} days"
+    },
+    "time.weeks.value": {
+      "en_GB": "{value} weeks",
+      "en_US": "{value} weeks"
+    },
+    "time.months.value": {
+      "en_GB": "{value} months",
+      "en_US": "{value} months"
+    },
+    "time.years.value": {
+      "en_GB": "{value} years",
+      "en_US": "{value} years"
+    },
+    "time.hourly": {
+      "en_GB": "hourly",
+      "en_US": "hourly"
+    },
+    "time.daily": {
+      "en_GB": "daily",
+      "en_US": "daily"
+    },
+    "time.weekly": {
+      "en_GB": "weekly",
+      "en_US": "weekly"
+    },
+    "time.monthly": {
+      "en_GB": "monthly",
+      "en_US": "monthly"
+    },
+    "time.yearly": {
+      "en_GB": "yearly",
+      "en_US": "yearly"
+    },
+    "time.repetition.every.value": {
+      "en_GB": "every {number} {type}",
+      "en_US": "every {number} {type}"
+    },
+    "time.today_and_time": {
+      "en_GB": "Today, {time}",
+      "en_US": "Today, {time}"
+    },
+    "time.yesterday_and_time": {
+      "en_GB": "Yesterday, {time}",
+      "en_US": "Yesterday, {time}"
+    },
+    "time.tomorrow_and_time": {
+      "en_GB": "Tomorrow, {time}",
+      "en_US": "Tomorrow, {time}"
+    },
+    "time.date_and_time": {
+      "en_GB": "{date}, {time}",
+      "en_US": "{date}, {time}"
     }
   }
 }

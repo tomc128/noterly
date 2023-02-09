@@ -8,6 +8,10 @@ import json
 # implementation is found.
 USE_NESTING = False
 
+# If set to True, the output will be also saved into the Flutter
+# project directory.
+SAVE_TO_FLUTTER = True
+
 
 def create_nested_dict(key_parts, value, d):
     if type(d) != dict:
@@ -39,3 +43,7 @@ for key, value in i18n['text'].items():
 for lang, data in lang_data.items():
     with open(f'out/{lang}.json', 'w', encoding='utf-8') as f:
         json.dump(data, f)
+    
+    if SAVE_TO_FLUTTER:
+        with open(f'../../noterly/assets/i18n/{lang}.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f)
