@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/extensions/time_of_day_extensions.dart';
 
@@ -84,18 +85,18 @@ class _DateTimePickerState extends State<DateTimePicker> {
               color: primarySurfaceColor,
             ),
             child: Text(
-              'Select date and time',
+              translate('dialog.picker.date_time.title'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text('Date', style: Theme.of(context).textTheme.titleMedium),
+            child: Text(translate('dialog.picker.date_time.header.date'), style: Theme.of(context).textTheme.titleMedium),
           ),
           _getDatePicker(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text('Time', style: Theme.of(context).textTheme.titleMedium),
+            child: Text(translate('dialog.picker.date_time.header.time'), style: Theme.of(context).textTheme.titleMedium),
           ),
           _getTimePicker(),
           ButtonBar(
@@ -104,13 +105,13 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Cancel'),
+                child: Text(translate('general.cancel')),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(_dateTime);
                 },
-                child: const Text('OK'),
+                child: Text(translate('general.ok')),
               ),
             ],
           ),
@@ -165,7 +166,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               });
             },
             icon: const Icon(Icons.calendar_month),
-            label: const Text('Select date'),
+            label: Text(translate('dialog.picker.date_time.button.select_date')),
           ),
         ],
       );
@@ -225,7 +226,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               });
             },
             icon: const Icon(Icons.timer),
-            label: const Text('Select time'),
+            label: Text(translate('dialog.picker.date_time.button.select_time')),
           ),
         ],
       );

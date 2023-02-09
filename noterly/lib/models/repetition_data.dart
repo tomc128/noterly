@@ -1,12 +1,16 @@
-enum Repetition {
-  hourly('hours'),
-  daily('days'),
-  weekly('weeks'),
-  monthly('months'),
-  yearly('years');
+import 'package:flutter_translate/flutter_translate.dart';
 
-  final String pluralName;
-  const Repetition(this.pluralName);
+enum Repetition {
+  hourly('time.hourly', 'time.hours'),
+  daily('time.daily', 'time.days'),
+  weekly('time.weekly', 'time.weeks'),
+  monthly('time.monthly', 'time.months'),
+  yearly('time.yearly', 'time.years');
+
+  final String lyTranslationKey;
+  final String sTranslationKey;
+
+  const Repetition(this.lyTranslationKey, this.sTranslationKey);
 }
 
 class RepetitionData {
@@ -35,9 +39,9 @@ class RepetitionData {
 
   String toReadableString() {
     if (number == 1) {
-      return type.name;
+      return translate(type.lyTranslationKey); // i.e. 'hourly'
     } else {
-      return 'every $number ${type.pluralName}';
+      return translate('time.repetition.every.value', args: {'number': number, 'type': translate(type.sTranslationKey)}); // i.e. 'every 2 hours'
     }
   }
 }

@@ -28,6 +28,9 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_analytics: ^10.1.0
   firebase_crashlytics: ^3.0.11
+  flutter_translate: ^4.0.3
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +39,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/i18n/
 
 
 # IconKitchen

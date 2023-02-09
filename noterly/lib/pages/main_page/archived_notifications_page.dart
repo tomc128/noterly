@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/navigation_screen.dart';
@@ -20,8 +21,8 @@ class ArchivedNotificationsPage extends NavigationScreen {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
-      return const Center(
-        child: Text('Archived notifications will appear here.'),
+      return Center(
+        child: Text(translate('page.archived_notifications.empty')),
       );
     }
 
@@ -44,9 +45,9 @@ class ArchivedNotificationsPage extends NavigationScreen {
                 ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text('All archived notifications deleted.'),
+                    content: Text(translate('snackbar.all_archived_notifications_deleted')),
                     action: SnackBarAction(
-                      label: 'Undo',
+                      label: translate('general.undo'),
                       onPressed: () {
                         AppManager.instance.restoreLastDeletedItems();
                         FirebaseAnalytics.instance.logEvent(name: 'restore_all_deleted_items');
@@ -57,7 +58,7 @@ class ArchivedNotificationsPage extends NavigationScreen {
 
                 FirebaseAnalytics.instance.logEvent(name: 'delete_all_archived_items');
               },
-              child: const Text('Delete all archived notifications'),
+              child: Text(translate('page.archived_notifications.button.delete_all')),
             ),
           );
         }
@@ -73,9 +74,9 @@ class ArchivedNotificationsPage extends NavigationScreen {
             ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars to prevent buildup
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Notification "${item.title}" deleted.'),
+                content: Text(translate('snackbar.notification_deleted', args: {'title': item.title})),
                 action: SnackBarAction(
-                  label: 'Undo',
+                  label: translate('general.undo'),
                   onPressed: () {
                     AppManager.instance.restoreLastDeletedItems();
                     FirebaseAnalytics.instance.logEvent(name: 'restore_deleted_item');
@@ -132,7 +133,12 @@ class ArchivedNotificationsPage extends NavigationScreen {
             children: [
               const Icon(Icons.history, size: 16),
               const SizedBox(width: 6),
-              Flexible(child: Text('Archived ${item.archivedDateTime!.toRelativeDateTimeString()}', style: Theme.of(context).textTheme.labelLarge)),
+              Flexible(
+                child: Text(
+                  translate('page.archived_notifications.item.archived', args: {'date_time': item.archivedDateTime!.toRelativeDateTimeString()}),
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
             ],
           ),
         ],

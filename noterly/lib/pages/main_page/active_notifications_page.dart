@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/navigation_screen.dart';
@@ -18,8 +19,8 @@ class ActiveNotificationsPage extends NavigationScreen {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
-      return const Center(
-        child: Text('No active notifications.'),
+      return Center(
+        child: Text(translate('page.active_notifications.empty')),
       );
     }
 
@@ -42,28 +43,28 @@ class ActiveNotificationsPage extends NavigationScreen {
     var immediateWidgets = immediateItems.isEmpty
         ? []
         : [
-            _getListHeader(context, 'Shown immediately'),
+            _getListHeader(context, translate('page.active_notifications.header.immediate')),
             _getCard(context, immediateItems),
           ];
 
     var scheduledWidgets = scheduledItems.isEmpty
         ? []
         : [
-            _getListHeader(context, 'Scheduled'),
+            _getListHeader(context, translate('page.active_notifications.header.scheduled')),
             _getCard(context, scheduledItems),
           ];
 
     var repeatingWidgets = repeatingItems.isEmpty
         ? []
         : [
-            _getListHeader(context, 'Repeating'),
+            _getListHeader(context, translate('page.active_notifications.header.repeating')),
             _getCard(context, repeatingItems),
           ];
 
     var emptyWidgets = [
-      const SliverToBoxAdapter(
+      SliverToBoxAdapter(
         child: Center(
-          child: Text('No active notifications.'),
+          child: Text(translate('page.active_notifications.empty')),
         ),
       ),
     ];
@@ -133,9 +134,9 @@ class ActiveNotificationsPage extends NavigationScreen {
           ScaffoldMessenger.of(context).clearSnackBars(); // Prevents multiple snackbars from building up
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('Notification archived.'),
+              content: Text(translate('snackbar.notification_archived', args: {'title': item.title})),
               action: SnackBarAction(
-                label: 'Undo',
+                label: translate('general.undo'),
                 onPressed: () => AppManager.instance.restoreArchivedItem(item.id),
               ),
             ),
@@ -196,7 +197,12 @@ class ActiveNotificationsPage extends NavigationScreen {
             children: [
               const Icon(Icons.repeat, size: 16),
               const SizedBox(width: 8),
-              Flexible(child: Text('Repeats ${item.repetitionData!.toReadableString()}', style: Theme.of(context).textTheme.labelLarge)),
+              Flexible(
+                child: Text(
+                  translate('page.active_notifications.item.repeats', args: {'duration': item.repetitionData!.toReadableString()}),
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
             ],
           ),
       ],

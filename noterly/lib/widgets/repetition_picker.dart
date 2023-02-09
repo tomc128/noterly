@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/models/repetition_data.dart';
 
 Future<RepetitionData?> showRepetitionPicker({
@@ -72,11 +73,11 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Select repeat duration',
+                  translate('dialog.picker.repetition.title'),
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  'repeats ${_repetitionData.toReadableString()}',
+                  translate('dialog.picker.repetition.subtitle', args: {'duration': _repetitionData.toReadableString()}),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
@@ -89,13 +90,13 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Cancel'),
+                child: Text(translate('general.cancel')),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(_repetitionData);
                 },
-                child: const Text('OK'),
+                child: Text(translate('general.ok')),
               ),
             ],
           ),
@@ -111,9 +112,9 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
             Flexible(
               flex: 1,
               child: TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Number',
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: translate('dialog.picker.repetition.field.number.label'),
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -140,16 +141,16 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
             Flexible(
               flex: 2,
               child: DropdownButtonFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Period',
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: translate('dialog.picker.repetition.field.period.label'),
                 ),
                 items: [
-                  DropdownMenuItem(value: Repetition.hourly, child: Text('Hour${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.daily, child: Text('Day${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.weekly, child: Text('Week${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.monthly, child: Text('Month${_repetitionData.number == 1 ? '' : 's'}')),
-                  DropdownMenuItem(value: Repetition.yearly, child: Text('Year${_repetitionData.number == 1 ? '' : 's'}')),
+                  DropdownMenuItem(value: Repetition.hourly, child: Text(translate('time.hour${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.daily, child: Text(translate('time.day${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.weekly, child: Text(translate('time.week${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.monthly, child: Text(translate('time.month${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: Repetition.yearly, child: Text(translate('time.year${_repetitionData.number == 1 ? '' : 's'}'))),
                 ],
                 value: _repetitionData.type,
                 onChanged: (value) {

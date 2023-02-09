@@ -1,3 +1,4 @@
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 
@@ -23,13 +24,13 @@ extension DateTimeExtensions on DateTime {
 
     bool isBeforeNextWeek() => isBefore(now.add(const Duration(days: 7)));
 
-    if (isToday()) return alwaysShowDay ? 'Today, ${toTimeOnlyString()}' : Jiffy(this).fromNow();
+    if (isToday()) return alwaysShowDay ? translate('time.today_and_time', args: {'time': toTimeOnlyString()}) : Jiffy(this).fromNow();
 
-    if (isYesterday()) return 'Yesterday, ${toTimeOnlyString()}';
+    if (isYesterday()) return translate('time.yesterday_and_time', args: {'time': toTimeOnlyString()});
 
-    if (isTomorrow()) return 'Tomorrow, ${toTimeOnlyString()}';
+    if (isTomorrow()) return translate('time.tomorrow_and_time', args: {'time': toTimeOnlyString()});
 
-    if (isBeforeNextWeek()) return '${DateFormat.EEEE().format(this)}, ${toTimeOnlyString()}';
+    if (isBeforeNextWeek()) return translate('time.date_and_time', args: {'date': DateFormat.EEEE().format(this), 'time': toTimeOnlyString()});
 
     if (year == now.year) return toDateTimeString();
 
