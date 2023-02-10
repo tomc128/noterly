@@ -4,10 +4,10 @@ footer>.content {
     width: 100%;
 
     @include display-small {
-        padding: 0 1rem;
+        padding: 0 $small-side-padding;
     }
 
-    padding: 0 2rem;
+    padding: 0 $side-padding;
 
 }
 

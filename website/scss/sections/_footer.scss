@@ -6,7 +6,7 @@ footer {
         filter: $large-shadow-drop-shadow;
     }
 
-    
+
     .background {
         width: 100vw;
         filter: $large-shadow-drop-shadow;
@@ -19,14 +19,16 @@ footer {
 
         .background-waves {
             height: $wave-height;
-            clip-path: url(#waves-bottom-clip-mobile);
+            clip-path: url(#waves-bottom-clip);
+
             @include display-medium {
-                clip-path: url(#waves-bottom-clip);
+                clip-path: url(#waves-bottom-clip-mobile);
             }
         }
 
         .background-fill {
-            height: 20rem;
+
+            height: 25rem;
         }
     }
 
@@ -89,7 +91,7 @@ footer {
                         gap: 0.5rem;
                         color: $text-primary;
                         text-decoration: none;
-    
+
                         &:hover {
                             text-decoration: underline;
                         }

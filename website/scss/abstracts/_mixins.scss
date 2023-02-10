@@ -8,10 +8,7 @@ $bp-xxlarge: 160em; // 2560px
 
 // Media Queries
 $mq-small: "(max-width: #{$bp-small})";
-$mq-medium: "(min-width: #{$bp-medium})";
-$mq-large: "(min-width: #{$bp-large})";
-$mq-xlarge: "(min-width: #{$bp-xlarge})";
-$mq-xxlarge: "(min-width: #{$bp-xxlarge})";
+$mq-medium: "(max-width: #{$bp-medium})";
 
 @mixin display-small {
     @media #{$mq-small} {
@@ -20,21 +17,6 @@ $mq-xxlarge: "(min-width: #{$bp-xxlarge})";
 }
 @mixin display-medium {
     @media #{$mq-medium} {
-        @content;
-    }
-}
-@mixin display-large {
-    @media #{$mq-large} {
-        @content;
-    }
-}
-@mixin display-xlarge {
-    @media #{$mq-xlarge} {
-        @content;
-    }
-}
-@mixin display-xxlarge {
-    @media #{$mq-xxlarge} {
         @content;
     }
 }

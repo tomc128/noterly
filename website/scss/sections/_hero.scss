@@ -1,4 +1,6 @@
 #hero {
+    min-height: 100vh;
+
     .background {
         width: 100vw;
         filter: $large-shadow-drop-shadow;
@@ -10,14 +12,14 @@
         }
 
         .background-fill {
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .background-waves {
             height: $wave-height;
-            clip-path: url(#waves-top-clip-mobile);
+            clip-path: url(#waves-top-clip);
             @include display-medium {
-                clip-path: url(#waves-top-clip);
+                clip-path: url(#waves-top-clip-mobile);
             }
         }
     }
@@ -35,6 +37,15 @@
         justify-content: center;
         gap: 1rem;
         flex-direction: column;
+
+        // On small to medium screens, the screenshot is below the text
+        @include display-medium {
+            align-items: center;
+
+            h1, h2 {
+                text-align: center;
+            }
+        }
 
         h1 {
             color: $text-primary-title;
@@ -71,12 +82,22 @@
 
         .screenshot {
             position: absolute;
-            right: 0;
+            right: $side-padding;
+
+            @include display-medium {
+                position: relative;
+                right: 0;
+                margin-top: 3rem;
+            }
 
             img {
                 height: 60vh;
                 border-radius: $border-radius;
                 box-shadow: $large-shadow;
+
+                @include display-medium {
+                    height: 40vh;
+                }
             }
         }
     }
