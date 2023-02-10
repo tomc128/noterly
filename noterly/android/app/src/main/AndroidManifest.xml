@@ -3,6 +3,8 @@
     package="uk.co.tdsstudios.noterly">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Android 13+. Used instead of SCHEDULE_EXACT_ALARM. This is because Noterly's main use is notifications. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/> 
     <application
         tools:replace="android:label" 
         android:label="Noterly"
