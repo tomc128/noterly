@@ -19,7 +19,10 @@ footer {
 
         .background-waves {
             height: $wave-height;
-            clip-path: url(#waves-bottom-clip);
+            clip-path: url(#waves-bottom-clip-mobile);
+            @include display-medium {
+                clip-path: url(#waves-bottom-clip);
+            }
         }
 
         .background-fill {
