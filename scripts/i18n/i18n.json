@@ -1,545 +1,868 @@
 {
+  "Information": {
+    "": {}
+  },
   "Translations": {
+    "_STATUS": {
+      "en_GB": "Complete",
+      "en_US": "Complete",
+      "fr": "Google Translate (probably incorrect)",
+      "es": null,
+      "de": null
+    },
+    "_MAIN": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
+    },
     "main.action.create": {
       "en_GB": "Create",
       "en_US": "Create",
-      "fr": "Créer"
+      "fr": "Créer",
+      "es": null,
+      "de": null
     },
     "main.action.save": {
       "en_GB": "Save",
       "en_US": "Save",
-      "fr": "Sauvegarder"
+      "fr": "Sauvegarder",
+      "es": null,
+      "de": null
     },
     "main.action.reactivate": {
       "en_GB": "Reactivate",
       "en_US": "Reactivate",
-      "fr": "Réactiver"
+      "fr": "Réactiver",
+      "es": null,
+      "de": null
     },
-    "": {},
+    "": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
+    },
+    "_ACTIVE NOTIFICATIONS PAGE": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
+    },
     "page.active_notifications.label": {
       "en_GB": "Active",
       "en_US": "Active",
-      "fr": "Actif"
+      "fr": "Actif",
+      "es": null,
+      "de": null
     },
     "page.active_notifications.header.immediate": {
       "en_GB": "Shown immediately",
       "en_US": "Shown immediately",
-      "fr": "Montré immédiatement"
+      "fr": "Montré immédiatement",
+      "es": null,
+      "de": null
     },
     "page.active_notifications.header.scheduled": {
       "en_GB": "Scheduled",
       "en_US": "Scheduled",
-      "fr": "Programmé"
+      "fr": "Programmé",
+      "es": null,
+      "de": null
     },
     "page.active_notifications.header.repeating": {
       "en_GB": "Repeating",
       "en_US": "Repeating",
-      "fr": "Répétitif"
+      "fr": "Répétitif",
+      "es": null,
+      "de": null
     },
     "page.active_notifications.empty": {
       "en_GB": "No active notifications.",
       "en_US": "No active notifications.",
-      "fr": "Pas de notifications actives."
+      "fr": "Pas de notifications actives.",
+      "es": null,
+      "de": null
     },
     "page.active_notifications.item.repeats": {
       "en_GB": "Repeats {duration}",
       "en_US": "Repeats {duration}",
-      "fr": "Répète {duration}"
+      "fr": "Répète {duration}",
+      "es": null,
+      "de": null
+    },
+    "_ARCHIVED NOTIFICATIONS PAGE": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "page.archived_notifications.label": {
       "en_GB": "Archive",
       "en_US": "Archive",
-      "fr": "Archive"
+      "fr": "Archive",
+      "es": null,
+      "de": null
     },
     "page.archived_notifications.empty": {
       "en_GB": "Archived notifications will appear here.",
       "en_US": "Archived notifications will appear here.",
-      "fr": "Les notifications archivées apparaîtront ici."
+      "fr": "Les notifications archivées apparaîtront ici.",
+      "es": null,
+      "de": null
     },
     "page.archived_notifications.button.delete_all": {
       "en_GB": "Delete all archived notifications",
       "en_US": "Delete all archived notifications",
-      "fr": "Supprimer toutes les notifications archivées"
+      "fr": "Supprimer toutes les notifications archivées",
+      "es": null,
+      "de": null
     },
     "page.archived_notifications.item.archived": {
       "en_GB": "Archived {date_time}",
       "en_US": "Archived {date_time}",
-      "fr": "Archivé {date_time}"
+      "fr": "Archivé {date_time}",
+      "es": null,
+      "de": null
+    },
+    "_SNACKBARS": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "snackbar.notification_deleted": {
       "en_GB": "Notification \"{title}\" deleted.",
       "en_US": "Notification \"{title}\" deleted.",
-      "fr": "Notification \"{title}\" supprimé."
+      "fr": "Notification \"{title}\" supprimé.",
+      "es": null,
+      "de": null
     },
     "snackbar.notification_archived": {
       "en_GB": "Notification \"{title}\" archived.",
       "en_US": "Notification \"{title}\" archived.",
-      "fr": "Notification \"{title}\" archivé."
+      "fr": "Notification \"{title}\" archivé.",
+      "es": null,
+      "de": null
     },
     "snackbar.all_archived_notifications_deleted": {
       "en_GB": "All archived notifications deleted.",
       "en_US": "All archived notifications deleted.",
-      "fr": "Toutes les notifications archivées supprimées."
+      "fr": "Toutes les notifications archivées supprimées.",
+      "es": null,
+      "de": null
+    },
+    "_SETTINGS PAGE": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "page.settings.title": {
       "en_GB": "Settings",
       "en_US": "Settings",
-      "fr": "Paramètres"
+      "fr": "Paramètres",
+      "es": null,
+      "de": null
     },
     "page.settings.header.system": {
       "en_GB": "System",
       "en_US": "System",
-      "fr": "Système"
+      "fr": "Système",
+      "es": null,
+      "de": null
     },
     "page.settings.header.about": {
       "en_GB": "About",
       "en_US": "About",
-      "fr": "À propos"
+      "fr": "À propos",
+      "es": null,
+      "de": null
     },
     "page.settings.header.debug": {
       "en_GB": "Debug options",
       "en_US": "Debug options",
-      "fr": "Options de débogage"
+      "fr": "Options de débogage",
+      "es": null,
+      "de": null
     },
     "page.settings.header.debug.disclaimer": {
       "en_GB": "These options are not supported and may cause issues. Use at your own risk.",
       "en_US": "These options are not supported and may cause issues. Use at your own risk.",
-      "fr": "Ces options ne sont pas prises en charge et peuvent causer des problèmes. À utiliser à vos risques et périls."
+      "fr": "Ces options ne sont pas prises en charge et peuvent causer des problèmes. À utiliser à vos risques et périls.",
+      "es": null,
+      "de": null
     },
     "page.settings.system.notification_settings": {
       "en_GB": "Notification settings",
       "en_US": "Notification settings",
-      "fr": "Paramètres de notification"
+      "fr": "Paramètres de notification",
+      "es": null,
+      "de": null
     },
     "page.settings.about.version.title": {
       "en_GB": "Version",
       "en_US": "Version",
-      "fr": "Version"
+      "fr": "Version",
+      "es": null,
+      "de": null
     },
     "page.settings.about.copyright.title": {
       "en_GB": "Copyright & credits",
       "en_US": "Copyright & credits",
-      "fr": "Droits d'auteur et crédits"
+      "fr": "Droits d'auteur et crédits",
+      "es": null,
+      "de": null
     },
     "page.settings.about.copyright.text": {
       "en_GB": "2023 Tom Chapman, TDS Studios.",
       "en_US": "2023 Tom Chapman, TDS Studios.",
-      "fr": "2023 Tom Chapman, TDS Studios."
+      "fr": "2023 Tom Chapman, TDS Studios.",
+      "es": null,
+      "de": null
     },
     "page.settings.about.licenses.title": {
       "en_GB": "Licenses",
       "en_US": "Licenses",
-      "fr": "Licence"
+      "fr": "Licence",
+      "es": null,
+      "de": null
     },
     "page.settings.about.licenses.page.legalese": {
       "en_GB": "Copyright © 2023 Tom Chapman, TDS Studios.",
       "en_US": "Copyright © 2023 Tom Chapman, TDS Studios.",
-      "fr": "Droits d'auteur © 2023 Tom Chapman, TDS Studios."
+      "fr": "Droits d'auteur © 2023 Tom Chapman, TDS Studios.",
+      "es": null,
+      "de": null
     },
     "page.settings.about.privacy_policy.title": {
       "en_GB": "Privacy policy",
       "en_US": "Privacy policy",
-      "fr": "Politique de confidentialité"
+      "fr": "Politique de confidentialité",
+      "es": null,
+      "de": null
     },
     "page.settings.about.feedback.title": {
       "en_GB": "Send feedback",
       "en_US": "Send feedback",
-      "fr": "Envoyer des commentaires"
+      "fr": "Envoyer des commentaires",
+      "es": null,
+      "de": null
     },
     "page.settings.about.translate.title": {
       "en_GB": "Help translate Noterly",
       "en_US": "Help translate Noterly",
-      "fr": "Aider à traduire Noterly"
+      "fr": "Aider à traduire Noterly",
+      "es": null,
+      "de": null
+    },
+    "_CREATE PAGE": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "page.create_notification.title": {
       "en_GB": "Create Notification",
       "en_US": "Create Notification",
-      "fr": "Créer une notification"
+      "fr": "Créer une notification",
+      "es": null,
+      "de": null
     },
     "page.create_notification.header.details": {
       "en_GB": "Notification details",
       "en_US": "Notification details",
-      "fr": "Détails de notification"
+      "fr": "Détails de notification",
+      "es": null,
+      "de": null
     },
     "page.create_notification.header.timing": {
       "en_GB": "Timing",
       "en_US": "Timing",
-      "fr": "Horaire"
+      "fr": "Horaire",
+      "es": null,
+      "de": null
     },
     "page.create_notification.timing.schedule.title": {
       "en_GB": "Schedule",
       "en_US": "Schedule",
-      "fr": "Calendrier"
+      "fr": "Calendrier",
+      "es": null,
+      "de": null
     },
     "page.create_notification.timing.schedule.subtitle": {
       "en_GB": "Send",
       "en_US": "Send",
-      "fr": "Envoyer"
+      "fr": "Envoyer",
+      "es": null,
+      "de": null
     },
     "page.create_notification.timing.repeat.title": {
       "en_GB": "Repeating",
       "en_US": "Repeating",
-      "fr": "Répétitif"
+      "fr": "Répétitif",
+      "es": null,
+      "de": null
     },
     "page.create_notification.timing.repeat.subtitle": {
       "en_GB": "Repeat",
       "en_US": "Repeat",
-      "fr": "Répéter"
+      "fr": "Répéter",
+      "es": null,
+      "de": null
     },
     "page.create_notification.timing.repeat.info": {
       "en_GB": "Repeating notifications will only repeat once they are marked as done from the notification.",
       "en_US": "Repeating notifications will only repeat once they are marked as done from the notification.",
-      "fr": "Les notifications répétitives ne se répéteront qu'une fois qu'elles seront marquées comme le fait à partir de la notification."
+      "fr": "Les notifications répétitives ne se répéteront qu'une fois qu'elles seront marquées comme le fait à partir de la notification.",
+      "es": null,
+      "de": null
     },
     "page.create_notification.details.field.title.label": {
       "en_GB": "Title",
       "en_US": "Title",
-      "fr": "Titre"
+      "fr": "Titre",
+      "es": null,
+      "de": null
     },
     "page.create_notification.details.field.title.error": {
       "en_GB": "Please enter a title",
       "en_US": "Please enter a title",
-      "fr": "Veuillez saisir un titre"
+      "fr": "Veuillez saisir un titre",
+      "es": null,
+      "de": null
     },
     "page.create_notification.details.field.body.label": {
       "en_GB": "Body",
       "en_US": "Body",
-      "fr": "Corps"
+      "fr": "Corps",
+      "es": null,
+      "de": null
     },
     "page.create_notification.details.field.colour.label": {
       "en_GB": "Colour",
       "en_US": "Color",
-      "fr": "Couleur"
+      "fr": "Couleur",
+      "es": null,
+      "de": null
+    },
+    "_EDIT PAGE": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "page.edit_notification.title": {
       "en_GB": "Edit Notification",
       "en_US": "Edit Notification",
-      "fr": "Modifier la notification"
+      "fr": "Modifier la notification",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.header.details": {
       "en_GB": "Notification details",
       "en_US": "Notification details",
-      "fr": "Détails de notification"
+      "fr": "Détails de notification",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.header.timing": {
       "en_GB": "Timing",
       "en_US": "Timing",
-      "fr": "Horaire"
+      "fr": "Horaire",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.timing.schedule.title": {
       "en_GB": "Schedule",
       "en_US": "Schedule",
-      "fr": "Calendrier"
+      "fr": "Calendrier",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.timing.schedule.subtitle": {
       "en_GB": "Send",
       "en_US": "Send",
-      "fr": "Envoyer"
+      "fr": "Envoyer",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.timing.repeat.title": {
       "en_GB": "Repeating",
       "en_US": "Repeating",
-      "fr": "Répétitif"
+      "fr": "Répétitif",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.timing.repeat.subtitle": {
       "en_GB": "Repeat",
       "en_US": "Repeat",
-      "fr": "Répéter"
+      "fr": "Répéter",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.timing.repeat.info": {
       "en_GB": "Repeating notifications will only repeat once they are marked as done from the notification.",
       "en_US": "Repeating notifications will only repeat once they are marked as done from the notification.",
-      "fr": "Les notifications répétitives ne se répéteront qu'une fois qu'elles seront marquées comme le fait à partir de la notification."
+      "fr": "Les notifications répétitives ne se répéteront qu'une fois qu'elles seront marquées comme le fait à partir de la notification.",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.details.field.title.label": {
       "en_GB": "Title",
       "en_US": "Title",
-      "fr": "Titre"
+      "fr": "Titre",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.details.field.title.error": {
       "en_GB": "Please enter a title",
       "en_US": "Please enter a title",
-      "fr": "Veuillez saisir un titre"
+      "fr": "Veuillez saisir un titre",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.details.field.body.label": {
       "en_GB": "Body",
       "en_US": "Body",
-      "fr": "Corps"
+      "fr": "Corps",
+      "es": null,
+      "de": null
     },
     "page.edit_notification.details.field.colour.label": {
       "en_GB": "Colour",
       "en_US": "Color",
-      "fr": "Couleur"
+      "fr": "Couleur",
+      "es": null,
+      "de": null
+    },
+    "_NOTIFICATION ITEMS": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "item.title": {
       "en_GB": "Title",
       "en_US": "Title",
-      "fr": "Titre"
+      "fr": "Titre",
+      "es": null,
+      "de": null
     },
     "item.body": {
       "en_GB": "Body",
       "en_US": "Body",
-      "fr": "Corps"
+      "fr": "Corps",
+      "es": null,
+      "de": null
     },
     "item.colour": {
       "en_GB": "Colour",
       "en_US": "Color",
-      "fr": "Couleur"
+      "fr": "Couleur",
+      "es": null,
+      "de": null
+    },
+    "_NOTIFCATIONS": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "notification.action.mark_as_done": {
       "en_GB": "Mark as done",
       "en_US": "Mark as done",
-      "fr": "Marque comme Terminé"
+      "fr": "Marque comme Terminé",
+      "es": null,
+      "de": null
+    },
+    "_DIALOGS": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "dialog.picker.date_time.title": {
       "en_GB": "Select date and time",
       "en_US": "Select date and time",
-      "fr": "Sélectionnez la date et l'heure"
+      "fr": "Sélectionnez la date et l'heure",
+      "es": null,
+      "de": null
     },
     "dialog.picker.date_time.header.date": {
       "en_GB": "Date",
       "en_US": "Date",
-      "fr": "Date"
+      "fr": "Date",
+      "es": null,
+      "de": null
     },
     "dialog.picker.date_time.header.time": {
       "en_GB": "Time",
       "en_US": "Time",
-      "fr": "Temps"
+      "fr": "Temps",
+      "es": null,
+      "de": null
     },
     "dialog.picker.date_time.button.select_date": {
       "en_GB": "Select date",
       "en_US": "Select date",
-      "fr": "Sélectionner une date"
+      "fr": "Sélectionner une date",
+      "es": null,
+      "de": null
     },
     "dialog.picker.date_time.button.select_time": {
       "en_GB": "Select time",
       "en_US": "Select time",
-      "fr": "Sélectionner l'heure"
+      "fr": "Sélectionner l'heure",
+      "es": null,
+      "de": null
     },
     "dialog.picker.repetition.title": {
       "en_GB": "Select repeat duration",
       "en_US": "Select repeat duration",
-      "fr": "Sélectionnez la durée de répétition"
+      "fr": "Sélectionnez la durée de répétition",
+      "es": null,
+      "de": null
     },
     "dialog.picker.repetition.subtitle": {
       "en_GB": "repeats {duration}",
       "en_US": "repeats {duration}",
-      "fr": "répète {duration}"
+      "fr": "répète {duration}",
+      "es": null,
+      "de": null
     },
     "dialog.picker.repetition.field.number.label": {
       "en_GB": "Number",
       "en_US": "Number",
-      "fr": "Nombre"
+      "fr": "Nombre",
+      "es": null,
+      "de": null
     },
     "dialog.picker.repetition.field.period.label": {
       "en_GB": "Period",
       "en_US": "Period",
-      "fr": "Période"
+      "fr": "Période",
+      "es": null,
+      "de": null
     },
     "dialog.picker.colour.title": {
       "en_GB": "Select colour",
       "en_US": "Select color",
-      "fr": "Sélectionner la couleur"
+      "fr": "Sélectionner la couleur",
+      "es": null,
+      "de": null
     },
     "dialog.easter_egg.title": {
       "en_GB": "Easter egg!",
       "en_US": "Easter egg!",
-      "fr": "Œuf de Pâques!"
+      "fr": "Œuf de Pâques!",
+      "es": null,
+      "de": null
     },
     "dialog.easter_egg.text": {
       "en_GB": "Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
       "en_US": "Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
-      "fr": "Félicitations, vous avez trouvé l'œuf de Pâques! Vous pouvez désormais activer les options de débogage. Veuillez noter que ces options ne sont pas prises en charge et peuvent causer des problèmes."
+      "fr": "Félicitations, vous avez trouvé l'œuf de Pâques! Vous pouvez désormais activer les options de débogage. Veuillez noter que ces options ne sont pas prises en charge et peuvent causer des problèmes.",
+      "es": null,
+      "de": null
     },
     "dialog_easter_egg.action.show_debug_options": {
       "en_GB": "Show debug options",
       "en_US": "Show debug options",
-      "fr": "Afficher les options de débogage"
+      "fr": "Afficher les options de débogage",
+      "es": null,
+      "de": null
     },
-    "dialog.copyright.translations.title": {
+    "dialog.about.translations.title": {
       "en_GB": "Translations",
       "en_US": "Translations",
-      "fr": "Traductions"
+      "fr": "Traductions",
+      "es": null,
+      "de": null
     },
-    "dialog.copyright.translations.text": {
+    "dialog.about.translations.text": {
       "en_GB": "Credit to: Google Translate",
       "en_US": "Credit to: Google Translate",
-      "fr": "Crédit à : Google Translate"
+      "fr": "Crédit à : Google Translate",
+      "es": null,
+      "de": null
+    },
+    "dialog.about.action.show_licenses": {
+      "en_GB": "Licenses",
+      "en_US": "Licenses",
+      "fr": "Licences",
+      "es": null,
+      "de": null
+    },
+    "_GENERAL": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "general.ok": {
       "en_GB": "OK",
       "en_US": "OK",
-      "fr": "D'accord"
+      "fr": "D'accord",
+      "es": null,
+      "de": null
     },
     "general.cancel": {
       "en_GB": "Cancel",
       "en_US": "Cancel",
-      "fr": "Annuler"
+      "fr": "Annuler",
+      "es": null,
+      "de": null
     },
     "general.undo": {
       "en_GB": "Undo",
       "en_US": "Undo",
-      "fr": "Annuler"
+      "fr": "Annuler",
+      "es": null,
+      "de": null
     },
     "general.close": {
       "en_GB": "Close",
       "en_US": "Close",
-      "fr": "Fermer"
+      "fr": "Fermer",
+      "es": null,
+      "de": null
+    },
+    "_TIME": {
+      "en_GB": null,
+      "en_US": null,
+      "fr": null,
+      "es": null,
+      "de": null
     },
     "time.second": {
       "en_GB": "second",
       "en_US": "second",
-      "fr": "seconde"
+      "fr": "seconde",
+      "es": null,
+      "de": null
     },
     "time.seconds": {
       "en_GB": "seconds",
       "en_US": "seconds",
-      "fr": "secondes"
+      "fr": "secondes",
+      "es": null,
+      "de": null
     },
     "time.minute": {
       "en_GB": "minute",
       "en_US": "minute",
-      "fr": "minute"
+      "fr": "minute",
+      "es": null,
+      "de": null
     },
     "time.minutes": {
       "en_GB": "minutes",
       "en_US": "minutes",
-      "fr": "minutes"
+      "fr": "minutes",
+      "es": null,
+      "de": null
     },
     "time.hour": {
       "en_GB": "hour",
       "en_US": "hour",
-      "fr": "heure"
+      "fr": "heure",
+      "es": null,
+      "de": null
     },
     "time.hours": {
       "en_GB": "hours",
       "en_US": "hours",
-      "fr": "heures"
+      "fr": "heures",
+      "es": null,
+      "de": null
     },
     "time.day": {
       "en_GB": "day",
       "en_US": "day",
-      "fr": "jour"
+      "fr": "jour",
+      "es": null,
+      "de": null
     },
     "time.days": {
       "en_GB": "days",
       "en_US": "days",
-      "fr": "jours"
+      "fr": "jours",
+      "es": null,
+      "de": null
     },
     "time.week": {
       "en_GB": "week",
       "en_US": "week",
-      "fr": "semaine"
+      "fr": "semaine",
+      "es": null,
+      "de": null
     },
     "time.weeks": {
       "en_GB": "weeks",
       "en_US": "weeks",
-      "fr": "semaines"
+      "fr": "semaines",
+      "es": null,
+      "de": null
     },
     "time.month": {
       "en_GB": "month",
       "en_US": "month",
-      "fr": "mois"
+      "fr": "mois",
+      "es": null,
+      "de": null
     },
     "time.months": {
       "en_GB": "months",
       "en_US": "months",
-      "fr": "mois"
+      "fr": "mois",
+      "es": null,
+      "de": null
     },
     "time.year": {
       "en_GB": "year",
       "en_US": "year",
-      "fr": "année"
+      "fr": "année",
+      "es": null,
+      "de": null
     },
     "time.years": {
       "en_GB": "years",
       "en_US": "years",
-      "fr": "années"
+      "fr": "années",
+      "es": null,
+      "de": null
     },
     "time.seconds.value": {
       "en_GB": "{value} seconds",
       "en_US": "{value} seconds",
-      "fr": "{value} secondes"
+      "fr": "{value} secondes",
+      "es": null,
+      "de": null
     },
     "time.minutes.value": {
       "en_GB": "{value} minutes",
       "en_US": "{value} minutes",
-      "fr": "{value} minutes"
+      "fr": "{value} minutes",
+      "es": null,
+      "de": null
     },
     "time.hours.value": {
       "en_GB": "{value} hours",
       "en_US": "{value} hours",
-      "fr": "{value} heures"
+      "fr": "{value} heures",
+      "es": null,
+      "de": null
     },
     "time.days.value": {
       "en_GB": "{value} days",
       "en_US": "{value} days",
-      "fr": "{value} jours"
+      "fr": "{value} jours",
+      "es": null,
+      "de": null
     },
     "time.weeks.value": {
       "en_GB": "{value} weeks",
       "en_US": "{value} weeks",
-      "fr": "{value} semaines"
+      "fr": "{value} semaines",
+      "es": null,
+      "de": null
     },
     "time.months.value": {
       "en_GB": "{value} months",
       "en_US": "{value} months",
-      "fr": "{value} mois"
+      "fr": "{value} mois",
+      "es": null,
+      "de": null
     },
     "time.years.value": {
       "en_GB": "{value} years",
       "en_US": "{value} years",
-      "fr": "{value} années"
+      "fr": "{value} années",
+      "es": null,
+      "de": null
     },
     "time.hourly": {
       "en_GB": "hourly",
       "en_US": "hourly",
-      "fr": "de temps"
+      "fr": "de temps",
+      "es": null,
+      "de": null
     },
     "time.daily": {
       "en_GB": "daily",
       "en_US": "daily",
-      "fr": "quotidien"
+      "fr": "quotidien",
+      "es": null,
+      "de": null
     },
     "time.weekly": {
       "en_GB": "weekly",
       "en_US": "weekly",
-      "fr": "hebdomadaire"
+      "fr": "hebdomadaire",
+      "es": null,
+      "de": null
     },
     "time.monthly": {
       "en_GB": "monthly",
       "en_US": "monthly",
-      "fr": "mensuel"
+      "fr": "mensuel",
+      "es": null,
+      "de": null
     },
     "time.yearly": {
       "en_GB": "yearly",
       "en_US": "yearly",
-      "fr": "annuel"
+      "fr": "annuel",
+      "es": null,
+      "de": null
     },
     "time.repetition.every.value": {
       "en_GB": "every {number} {type}",
       "en_US": "every {number} {type}",
-      "fr": "chaque {number} {type}"
+      "fr": "chaque {number} {type}",
+      "es": null,
+      "de": null
     },
     "time.today_and_time": {
       "en_GB": "Today, {time}",
       "en_US": "Today, {time}",
-      "fr": "Aujourd'hui, {time}"
+      "fr": "Aujourd'hui, {time}",
+      "es": null,
+      "de": null
     },
     "time.yesterday_and_time": {
       "en_GB": "Yesterday, {time}",
       "en_US": "Yesterday, {time}",
-      "fr": "Hier, {time}"
+      "fr": "Hier, {time}",
+      "es": null,
+      "de": null
     },
     "time.tomorrow_and_time": {
       "en_GB": "Tomorrow, {time}",
       "en_US": "Tomorrow, {time}",
-      "fr": "Demain, {time}"
+      "fr": "Demain, {time}",
+      "es": null,
+      "de": null
     },
     "time.date_and_time": {
       "en_GB": "{date}, {time}",
       "en_US": "{date}, {time}",
-      "fr": "{date}, {time}"
+      "fr": "{date}, {time}",
+      "es": null,
+      "de": null
     }
   }
 }

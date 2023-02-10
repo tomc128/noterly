@@ -111,7 +111,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Noterly', style: Theme.of(context).textTheme.titleLarge),
+                      title: Column(
+                        children: [
+                          Text('Noterly', style: Theme.of(context).textTheme.titleLarge),
+                          Text(BuildInfo.appVersion, style: Theme.of(context).textTheme.titleMedium),
+                        ],
+                      ),
                       content: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,8 +124,32 @@ class _SettingsPageState extends State<SettingsPage> {
                           children: [
                             Text(translate('page.settings.about.licenses.page.legalese')),
                             const SizedBox(height: 16),
-                            Text(translate('dialog.copyright.translations.title'), style: Theme.of(context).textTheme.titleMedium),
-                            Text(translate('dialog.copyright.translations.text')),
+                            Text(translate('dialog.about.translations.title'), style: Theme.of(context).textTheme.titleMedium),
+                            Text(translate('dialog.about.translations.text')),
+                            const SizedBox(height: 16),
+                            ButtonBar(
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    showLicensePage(
+                                      context: context,
+                                      applicationLegalese: translate('page.settings.about.licenses.page.legalese'),
+                                      applicationVersion: BuildInfo.appVersion,
+                                    );
+
+                                    FirebaseAnalytics.instance.logEvent(
+                                      name: 'open_licenses',
+                                    );
+                                  },
+                                  child: Text(translate('dialog.about.action.show_licenses')),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text(translate('general.close')),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -130,23 +159,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
                 FirebaseAnalytics.instance.logEvent(
                   name: 'open_about_dialog',
-                );
-              },
-            ),
-            ListTile(
-              title: Text(translate('page.settings.about.licenses.title')),
-              leading: const Icon(Icons.article),
-              trailing: const Icon(Icons.chevron_right),
-              minVerticalPadding: 12,
-              onTap: () {
-                showLicensePage(
-                  context: context,
-                  applicationLegalese: translate('page.settings.about.licenses.page.legalese'),
-                  applicationVersion: BuildInfo.appVersion,
-                );
-
-                FirebaseAnalytics.instance.logEvent(
-                  name: 'open_licenses',
                 );
               },
             ),
