@@ -1,0 +1,12 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Upload files to web server",
+            "type": "shell",
+            "command": "scp -P 222 -r ${workspaceFolder}/* tomc128@5.198.125.182:/opt/docker/caddy/sites/noterly/"
+        }
+    ]
+}
