@@ -14,7 +14,12 @@ footer {
         >* {
             width: 100%;
             background: $dark-gradient;
+
+            // TODO: Adding the transform line greatly improves performance,...
+            // but also breaks the background attachment. Need to fix this as
+            // the gradient is not fixed to the viewport.
             background-attachment: fixed;
+            transform: translateZ(0); //
         }
 
         .background-waves {
