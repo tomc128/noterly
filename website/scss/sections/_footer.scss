@@ -54,11 +54,18 @@ footer {
             margin-top: 1rem;
             gap: 1rem;
 
+            flex-direction: row;
+
+            @include display-small {
+                flex-direction: column;
+            }
+
             .column {
                 display: flex;
                 flex-direction: column;
 
                 hr {
+                    max-width: 100px;
                     width: 100%;
                     border-top: 1px solid $divider;
                     border-right: none;
