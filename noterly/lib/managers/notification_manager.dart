@@ -2,11 +2,14 @@ import 'dart:ui';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:noterly/main.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
 import 'package:noterly/managers/log.dart';
 import 'package:noterly/models/notification_item.dart';
+import 'package:noterly/pages/edit_notification_page.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -86,7 +89,10 @@ class NotificationManager {
     }
 
     if (!isBackground) {
-      // TODO: Open the item
+      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => EditNotificationPage(item: item!)),
+        (route) => route.isFirst,
+      );
       Log.logger.d('Opening notification "${item.title}"');
     }
   }
@@ -273,5 +279,6 @@ class NotificationManager {
         color: item.colour,
         ongoing: true,
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
+        // autoCancel: false, // TODO: Change this to false. However, when the notification is edited I will need to manually update the notification if its already shown, only if it changed. Need some big changes for this.
       );
 }

@@ -72,13 +72,14 @@ Future<void> main() async {
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
-  // TODO: implement quick actions
   const quickActions = QuickActions();
   quickActions.initialize((shortcutType) {
     if (shortcutType == 'action_new') {
-      _MyAppState.navigatorKey.currentState!.push(MaterialPageRoute(builder: (context) => const CreateNotificationPage()));
+      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+        (route) => route.isFirst,
+      );
     }
-    // More handling code...
   });
 
   quickActions.setShortcutItems(<ShortcutItem>[
@@ -87,6 +88,8 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
+
   const MyApp({super.key});
 
   @override
@@ -94,8 +97,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
-
   @override
   void initState() {
     super.initState();
@@ -167,7 +168,7 @@ class _MyAppState extends State<MyApp> {
         }
 
         return MaterialApp(
-          navigatorKey: navigatorKey,
+          navigatorKey: MyApp.navigatorKey,
           title: 'Noterly',
           localizationsDelegates: [
             ...GlobalMaterialLocalizations.delegates,
