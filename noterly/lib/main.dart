@@ -14,7 +14,9 @@ import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
 import 'package:noterly/managers/log.dart';
 import 'package:noterly/managers/notification_manager.dart';
+import 'package:noterly/pages/create_notification_page.dart';
 import 'package:noterly/pages/main_page.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
@@ -71,22 +73,17 @@ Future<void> main() async {
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
   // TODO: implement quick actions
-  // const quickActions = QuickActions();
-  // quickActions.initialize((shortcutType) {
-  //   if (shortcutType == 'action_new') {
-  //     print('New note shortcut pressed!');
-  //     // show new note screen
-  //     // get the current context and navigate to the new note screen
-  //     BuildContextProvider().call(
-  //       (context) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNotificationPage())),
-  //     );
-  //   }
-  //   // More handling code...
-  // });
+  const quickActions = QuickActions();
+  quickActions.initialize((shortcutType) {
+    if (shortcutType == 'action_new') {
+      _MyAppState.navigatorKey.currentState!.push(MaterialPageRoute(builder: (context) => const CreateNotificationPage()));
+    }
+    // More handling code...
+  });
 
-  // quickActions.setShortcutItems(<ShortcutItem>[
-  //   const ShortcutItem(type: 'action_new', localizedTitle: 'New note', icon: 'notification_icon_24'),
-  // ]);
+  quickActions.setShortcutItems(<ShortcutItem>[
+    const ShortcutItem(type: 'action_new', localizedTitle: 'New note', icon: 'quick_action_new_note_icon_192'),
+  ]);
 }
 
 class MyApp extends StatefulWidget {
@@ -97,6 +94,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
+
   @override
   void initState() {
     super.initState();
@@ -168,6 +167,7 @@ class _MyAppState extends State<MyApp> {
         }
 
         return MaterialApp(
+          navigatorKey: navigatorKey,
           title: 'Noterly',
           localizationsDelegates: [
             ...GlobalMaterialLocalizations.delegates,
