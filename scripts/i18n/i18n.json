@@ -27,6 +27,18 @@
       "ua": null,
       "ku": null
     },
+    "main.action.new": {
+      "en_GB": "New note",
+      "en_US": "New note",
+      "fr": "Nouvelle note",
+      "es": null,
+      "de": null,
+      "hi": null,
+      "pt": null,
+      "ru": null,
+      "ua": null,
+      "ku": null
+    },
     "main.action.create": {
       "en_GB": "Create",
       "en_US": "Create",

@@ -215,7 +215,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
           }
         },
         label: Text(translate('main.action.create')),
-        icon: const Icon(Icons.add),
+        icon: const Icon(Icons.check),
       ),
     );
   }

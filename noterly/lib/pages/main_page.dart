@@ -118,7 +118,7 @@ class _MainPageState extends State<MainPage> {
 
               setState(() {});
             },
-            label: Text(translate('main.action.create')),
+            label: Text(translate('main.action.new')),
             icon: const Icon(Icons.add),
           ),
           bottomNavigationBar: NavigationBar(
