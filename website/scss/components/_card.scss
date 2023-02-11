@@ -3,7 +3,11 @@
 
 .card {
     background: $dark-gradient;
-    padding: 4rem 2rem;
+    padding: $card-padding;
+    @include display-small {
+        padding: $small-card-padding;
+    }
+
     min-height: 20rem;
     border-radius: $border-radius;
     z-index: 10;

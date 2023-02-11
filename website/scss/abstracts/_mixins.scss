@@ -1,5 +1,6 @@
 
 // Breakpoints
+$bp-xsmall: 24em;
 $bp-small: 48em; // 768px
 $bp-medium: 64em; // 1024px
 $bp-large: 85.375em; // 1366px
@@ -7,9 +8,15 @@ $bp-xlarge: 120em; // 1920px
 $bp-xxlarge: 160em; // 2560px
 
 // Media Queries
+$mq-xsmall: "(max-width: #{$bp-xsmall})";
 $mq-small: "(max-width: #{$bp-small})";
 $mq-medium: "(max-width: #{$bp-medium})";
 
+@mixin display-xsmall {
+    @media #{$mq-xsmall} {
+        @content;
+    }
+}
 @mixin display-small {
     @media #{$mq-small} {
         @content;

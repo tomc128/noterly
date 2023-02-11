@@ -21,7 +21,16 @@ footer {
 
 .adaptive-grid {
     display: grid;
+
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    @include display-xsmall {
+        // On extra small screens, the grid is 100% width so it does not overflow
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+
     gap: 2rem;
+    @include display-small {
+        gap: 1rem;
+    }
     margin: 2rem 0;
 }
