@@ -97,6 +97,9 @@
 
             img {
                 height: 60vh;
+                max-width: 100vw;
+                object-fit: contain;
+
                 border-radius: $border-radius;
                 box-shadow: $large-shadow;
 
@@ -104,9 +107,9 @@
                     height: 40vh;
                 }
 
-                @include display-small {
+                @include display-xxsmall {
                     height: auto;
-                    width: 90vw;
+                    width: 70vw;
                 }
             }
         }
