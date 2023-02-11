@@ -54,13 +54,13 @@
 
         h1 {
             color: $text-primary-title;
-            font-size: 4rem;
+            font-size: $hero-title-size;
             text-shadow: $large-shadow;
         }
 
         h2 {
             color: $text-primary;
-            font-size: 1.75rem;
+            font-size: $hero-subtitle-size;
             font-weight: 400;
         }
 
