@@ -58,6 +58,23 @@ class _SettingsPageState extends State<SettingsPage> {
           _getHeader(translate('page.settings.header.about')),
           _getCard(context, [
             ListTile(
+              title: Text(translate('page.settings.about.donation.title')),
+              leading: const Icon(Icons.coffee),
+              trailing: const Icon(Icons.open_in_new),
+              minVerticalPadding: 12,
+              onTap: () async {
+                var uri = Uri.parse('https://ko-fi.com/tomchapman128');
+                await _launchUrl(uri);
+
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_donation_link',
+                );
+              },
+            )
+          ]),
+          _getSpacer(),
+          _getCard(context, [
+            ListTile(
               title: Text(translate('page.settings.about.version.title')),
               subtitle: const Text(BuildInfo.appVersion),
               leading: const Icon(Icons.info),
