@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -124,6 +125,15 @@ class NotificationManager {
     return notifications.any((n) => n.id == item.id.hashCode);
   }
 
+  Future<NotificationItem> _extractItemFromNotification(String itemId) async {
+    List<ActiveNotification?> notifications = await _plugin.getActiveNotifications();
+    var notification = notifications.firstWhere((n) => n!.id == itemId.hashCode, orElse: () => null);
+    if (notification == null) return Future.error('Notification not found');
+    return NotificationItem.fromJson(jsonDecode(notification.payload!));
+  }
+
+  // #region DEPRECATED
+  @Deprecated('Deprecated, new function coming soon')
   Future updateAllNotifications() async {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
@@ -136,6 +146,7 @@ class NotificationManager {
     }
   }
 
+  @Deprecated('Deprecated, new function coming soon')
   Future forceUpdateAllNotifications() async {
     await _cancelAllNotifications(); // Cancel all existing notifications; faster than checking each one
 
@@ -150,6 +161,7 @@ class NotificationManager {
     }
   }
 
+  @Deprecated('Deprecated, new function coming soon')
   Future updateNotification(NotificationItem item) async {
     if (await _notificationIsShown(item)) {
       return; // Notification is already shown, no need to show another
@@ -159,6 +171,7 @@ class NotificationManager {
     await _showOrScheduleNotification(item);
   }
 
+  @Deprecated('Deprecated, new function coming soon')
   Future forceUpdateNotification(NotificationItem item) async {
     // Cancel the existing notification, if any
     await _plugin.cancel(item.id.hashCode);
@@ -167,6 +180,7 @@ class NotificationManager {
     await _showOrScheduleNotification(item);
   }
 
+  @Deprecated('Deprecated, new function coming soon')
   Future updateAllRepeatingNotifications() async {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
@@ -176,6 +190,7 @@ class NotificationManager {
     }
   }
 
+  @Deprecated('Deprecated, new function coming soon')
   Future updateRepeatingNotification(NotificationItem item) async {
     if (item.archived) return;
     if (!item.isRepeating) return;
@@ -207,6 +222,47 @@ class NotificationManager {
     await _scheduleNotification(item);
   }
 
+  // #endregion
+
+  /// Updates all notifications. Each notification is checked to see if it needs to be updated. If it does, it is updated.
+  Future newUpdateAllNotifications() async {
+    for (var item in AppManager.instance.notifier.value) {
+      if (item.archived) continue;
+
+      await newUpdateNotification(item);
+    }
+  }
+
+  /// Updates a single notification. If the notification is already shown, it is checked to see if it needs to be updated. If it does, it is updated.
+  Future newUpdateNotification(NotificationItem item) async {
+    if (item.archived) return;
+
+    if (await _notificationIsShown(item)) {
+      // The notification is already shown, we need to check if it needs to be updated
+      var shownItem = await _extractItemFromNotification(item.id);
+
+      if (shownItem.title != item.title ||
+          shownItem.body != item.body ||
+          shownItem.dateTime != item.dateTime ||
+          shownItem.colour != item.colour ||
+          shownItem.repetitionData != item.repetitionData ||
+          shownItem.archived != item.archived ||
+          shownItem.isRepeating != item.isRepeating) {
+        // The notification needs to be updated as something has changed
+        await cancelNotification(item.id);
+        await _showOrScheduleNotification(item);
+
+        return;
+      } else {
+        // Nothing has changed, so we don't need to do anything
+        return;
+      }
+    }
+
+    // The notification is not shown, so we can just show it
+    await _showOrScheduleNotification(item);
+  }
+
   Future _showOrScheduleNotification(NotificationItem item) async {
     if (item.dateTime == null) {
       await _showNotification(item);
@@ -231,7 +287,7 @@ class NotificationManager {
       item.title,
       item.body,
       details,
-      payload: item.id,
+      payload: jsonEncode(item),
     );
   }
 
@@ -258,7 +314,7 @@ class NotificationManager {
       details,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      payload: item.id,
+      payload: jsonEncode(item),
     );
   }
 
@@ -279,6 +335,6 @@ class NotificationManager {
         color: item.colour,
         ongoing: true,
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
-        // autoCancel: false, // TODO: Change this to false. However, when the notification is edited I will need to manually update the notification if its already shown, only if it changed. Need some big changes for this.
+        autoCancel: false, // TODO: Change this to false. However, when the notification is edited I will need to manually update the notification if its already shown, only if it changed. Need some big changes for this.
       );
 }
