@@ -42,14 +42,27 @@ class NotificationManager {
   static Future handleResponse(NotificationResponse response, {bool isBackground = false}) async {
     Log.logger.d('Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
 
-    var itemId = response.payload;
-    if (itemId == null) {
+    if (response.payload == null) {
       Log.logger.d('No payload, ignoring');
       return;
     }
 
+    // The old notification system used the item ID as the payload, but the new system uses a JSON string
+    // containing the item JSON. For backwards compatibility, we need to check if the payload is a JSON string
+    // and if so, extract the item ID from it.
+
     if (isBackground) {
       await AppManager.instance.ensureInitialised();
+    }
+
+    String itemId;
+
+    try {
+      var decoded = jsonDecode(response.payload!);
+      itemId = NotificationItem.fromJson(decoded).id;
+    } on FormatException catch (_) {
+      Log.logger.d('Payload is not a JSON string, assuming it is an item ID');
+      itemId = response.payload!;
     }
 
     var item = AppManager.instance.getItem(itemId);
@@ -123,13 +136,6 @@ class NotificationManager {
   Future<bool> _notificationIsShown(NotificationItem item) async {
     var notifications = await _plugin.getActiveNotifications();
     return notifications.any((n) => n.id == item.id.hashCode);
-  }
-
-  Future<NotificationItem> _extractItemFromNotification(String itemId) async {
-    List<ActiveNotification?> notifications = await _plugin.getActiveNotifications();
-    var notification = notifications.firstWhere((n) => n!.id == itemId.hashCode, orElse: () => null);
-    if (notification == null) return Future.error('Notification not found');
-    return NotificationItem.fromJson(jsonDecode(notification.payload!));
   }
 
   // #region DEPRECATED
@@ -224,42 +230,21 @@ class NotificationManager {
 
   // #endregion
 
-  /// Updates all notifications. Each notification is checked to see if it needs to be updated. If it does, it is updated.
-  Future newUpdateAllNotifications() async {
+  /// Force updates all notifications. This should only be used where necessary as every notification is cancelled and recreated.
+  Future newForceUpdateAllNotifications() async {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
-      await newUpdateNotification(item);
+      await showOrUpdateNotification(item);
     }
   }
 
   /// Updates a single notification. If the notification is already shown, it is checked to see if it needs to be updated. If it does, it is updated.
-  Future newUpdateNotification(NotificationItem item) async {
+  Future showOrUpdateNotification(NotificationItem item) async {
     if (item.archived) return;
 
-    if (await _notificationIsShown(item)) {
-      // The notification is already shown, we need to check if it needs to be updated
-      var shownItem = await _extractItemFromNotification(item.id);
+    if (await _notificationIsShown(item)) await cancelNotification(item.id);
 
-      if (shownItem.title != item.title ||
-          shownItem.body != item.body ||
-          shownItem.dateTime != item.dateTime ||
-          shownItem.colour != item.colour ||
-          shownItem.repetitionData != item.repetitionData ||
-          shownItem.archived != item.archived ||
-          shownItem.isRepeating != item.isRepeating) {
-        // The notification needs to be updated as something has changed
-        await cancelNotification(item.id);
-        await _showOrScheduleNotification(item);
-
-        return;
-      } else {
-        // Nothing has changed, so we don't need to do anything
-        return;
-      }
-    }
-
-    // The notification is not shown, so we can just show it
     await _showOrScheduleNotification(item);
   }
 

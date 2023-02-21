@@ -89,6 +89,12 @@ class _MainPageState extends State<MainPage> {
                 },
                 icon: const Icon(Icons.settings),
               ),
+              IconButton(
+                onPressed: () {
+                  NotificationManager.instance.newForceUpdateAllNotifications();
+                },
+                icon: const Icon(Icons.refresh),
+              ),
             ],
           ),
           body: PageView(
