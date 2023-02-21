@@ -47,14 +47,13 @@ class NotificationManager {
       return;
     }
 
-    // The old notification system used the item ID as the payload, but the new system uses a JSON string
-    // containing the item JSON. For backwards compatibility, we need to check if the payload is a JSON string
-    // and if so, extract the item ID from it.
-
     if (isBackground) {
       await AppManager.instance.ensureInitialised();
     }
 
+    // The old notification system used the item ID as the payload, but the new system uses a JSON string
+    // containing the item JSON. For backwards compatibility, we need to check if the payload is a JSON string
+    // and if so, extract the item ID from it.
     String itemId;
 
     try {

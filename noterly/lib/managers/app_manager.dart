@@ -97,7 +97,7 @@ class AppManager {
     _updateNotifier();
 
     if (!deferNotificationManagerCall) {
-      NotificationManager.instance.updateNotification(item);
+      NotificationManager.instance.showOrUpdateNotification(item);
     }
   }
 
@@ -113,7 +113,7 @@ class AppManager {
     _updateNotifier();
 
     if (!deferNotificationManagerCall) {
-      NotificationManager.instance.updateNotification(item);
+      NotificationManager.instance.showOrUpdateNotification(item);
     }
   }
 
@@ -183,7 +183,7 @@ class AppManager {
     _updateNotifier();
 
     if (!deferNotificationManagerCall) {
-      NotificationManager.instance.updateNotification(notifier.value[index]);
+      NotificationManager.instance.showOrUpdateNotification(notifier.value[index]);
     }
   }
 
