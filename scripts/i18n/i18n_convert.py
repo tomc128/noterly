@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 
 # If set to True, keys will be converted to nested dictionaries
 # i.e., a.b.c will be converted to {a: {b: {c: "value"}}}
@@ -8,9 +10,14 @@ import json
 # implementation is found.
 USE_NESTING = False
 
-# If set to True, the output will be also saved into the Flutter
-# project directory.
+# If set to True, the output will be also saved directly into the
+# Flutter project directory.
 SAVE_TO_FLUTTER = True
+
+# If set to True, the output directory will be purged before
+# generating the new files. This helps to remove any old files
+# that are no longer needed.
+PURGE_DIRECTORY = True
 
 
 def create_nested_dict(key_parts, value, d):
@@ -37,8 +44,26 @@ for key, value in i18n['Translations'].items():
         if USE_NESTING:
             key_parts = key.split(".")
             lang_data[lang] = create_nested_dict(key_parts, text, lang_data[lang])
-        else:        
-            lang_data[lang][key] = text
+        else:
+            if text is not None and text.strip() != '':
+                lang_data[lang][key] = text
+            else:
+                # Empty text - no translation so ignore
+                pass
+
+# Remove any empty languages
+lang_data = {lang: data for lang, data in lang_data.items() if len(data) > 0}
+
+if PURGE_DIRECTORY:
+    if os.path.exists('out'):
+        shutil.rmtree('out')
+    os.mkdir('out')
+    
+    if SAVE_TO_FLUTTER:
+        if os.path.exists('../../noterly/assets/i18n'):
+            shutil.rmtree('../../noterly/assets/i18n')
+        os.mkdir('../../noterly/assets/i18n')
+
 
 for lang, data in lang_data.items():
     with open(f'out/{lang}.json', 'w', encoding='utf-8') as f:
