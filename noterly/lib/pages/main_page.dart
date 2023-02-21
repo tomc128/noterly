@@ -91,7 +91,7 @@ class _MainPageState extends State<MainPage> {
               ),
               IconButton(
                 onPressed: () {
-                  NotificationManager.instance.newForceUpdateAllNotifications();
+                  NotificationManager.instance.forceUpdateAllNotifications();
                 },
                 icon: const Icon(Icons.refresh),
               ),
