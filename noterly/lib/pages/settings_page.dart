@@ -82,9 +82,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Beta release', style: TextStyle(color: Colors.amber)),
-                      Text('${BuildInfo.appVersion} (${BuildInfo.branch})'),
+                    children: [
+                      Text('${BuildInfo.releaseType.name} release', style: const TextStyle(color: Colors.amber)),
+                      const Text('${BuildInfo.appVersion} (${BuildInfo.branch})'),
                     ],
                   );
                 },
@@ -143,7 +143,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       title: Column(
                         children: [
                           Text('Noterly', style: Theme.of(context).textTheme.titleLarge),
-                          Text(BuildInfo.appVersion, style: Theme.of(context).textTheme.titleMedium),
+                          if (BuildInfo.releaseType != ReleaseType.stable)
+                            Text('${BuildInfo.releaseType.name} release',
+                                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                      color: Colors.amber,
+                                    )),
+                          Text(
+                            BuildInfo.releaseType == ReleaseType.stable ? BuildInfo.appVersion : '${BuildInfo.appVersion} (${BuildInfo.branch})',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ],
                       ),
                       content: SingleChildScrollView(
