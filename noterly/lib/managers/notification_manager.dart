@@ -283,4 +283,35 @@ class NotificationManager {
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
         autoCancel: false,
       );
+
+  Future showLegacyNotification(NotificationItem item) async {
+    var androidDetails = AndroidNotificationDetails(
+      item.dateTime == null ? 'immediate_notifications' : 'scheduled_notifications',
+      item.dateTime == null ? 'Immediate notifications' : 'Scheduled notifications',
+      channelDescription: item.dateTime == null ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
+      actions: <AndroidNotificationAction>[
+        const AndroidNotificationAction(
+          'done',
+          'Mark as done',
+        ),
+      ],
+      category: AndroidNotificationCategory.reminder,
+      importance: Importance.max,
+      priority: Priority.max,
+      groupKey: 'uk.co.tdsstudios.noterly.ALL_NOTIFICATIONS_GROUP',
+      color: item.colour,
+      ongoing: true,
+      when: null,
+      autoCancel: true,
+    );
+    var details = NotificationDetails(android: androidDetails);
+
+    await _plugin.show(
+      item.id.hashCode,
+      item.title,
+      item.body,
+      details,
+      payload: item.id,
+    );
+  }
 }
