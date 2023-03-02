@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -65,7 +66,11 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(translate('page.edit_notification.title'), overflow: TextOverflow.fade),
+        title: AutoSizeText(
+          translate('page.edit_notification.title'),
+          maxLines: 2,
+          minFontSize: 18,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),

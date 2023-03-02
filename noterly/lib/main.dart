@@ -66,7 +66,7 @@ Future<void> main() async {
 
   var delegate = await LocalizationDelegate.create(
     fallbackLocale: 'en_GB',
-    supportedLocales: ['en_GB', 'en_US', 'fr', 'es'],
+    supportedLocales: ['en_GB', 'en_US', 'fr', 'es', 'de'],
   );
   runApp(LocalizedApp(delegate, const MyApp()));
 
