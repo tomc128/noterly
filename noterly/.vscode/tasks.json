@@ -12,7 +12,7 @@
                 "Out-File ./lib/build_info.dart",
                 "&&",
                 "(Get-Content ./lib/build_info.dart) | ",
-                "Foreach-Object {$_ -replace 'ReleaseType.beta','ReleaseType.${input:releaseType}'}  | ",
+                "Foreach-Object {$_ -replace 'ReleaseType.inDev','ReleaseType.${input:releaseType}'}  | ",
                 "Out-File ./lib/build_info.dart",
                 "&&",
                 "(Get-Content ./lib/build_info.dart) | ",
@@ -30,7 +30,7 @@
                 "Out-File ./lib/build_info.dart",
                 "&&",
                 "(Get-Content ./lib/build_info.dart) | ",
-                "Foreach-Object {$_ -replace 'ReleaseType.${input:releaseType}','ReleaseType.beta'}  | ",
+                "Foreach-Object {$_ -replace 'ReleaseType.${input:releaseType}','ReleaseType.inDev'}  | ",
                 "Out-File ./lib/build_info.dart",
                 "&&",
                 "(Get-Content ./lib/build_info.dart) | ",
@@ -57,6 +57,7 @@
             "options": [
                 "stable",
                 "beta",
+                "personalTest",
             ]
         }
     ]
