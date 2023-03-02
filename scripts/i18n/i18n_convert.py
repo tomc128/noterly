@@ -2,14 +2,6 @@ import json
 import os
 import shutil
 
-# If set to True, keys will be converted to nested dictionaries
-# i.e., a.b.c will be converted to {a: {b: {c: "value"}}}
-# The current implementation of the conversion does not work with
-# keys such as: key.a = "value" and key.a.b = "value". It will
-# ignore the first key. Therefore, this is disabled until a better
-# implementation is found.
-USE_NESTING = False
-
 # If set to True, the output will be also saved directly into the
 # Flutter project directory.
 SAVE_TO_FLUTTER = True
@@ -19,17 +11,9 @@ SAVE_TO_FLUTTER = True
 # that are no longer needed.
 PURGE_DIRECTORY = True
 
-
-def create_nested_dict(key_parts, value, d):
-    if type(d) != dict:
-        d = {}
-    if len(key_parts) == 1:
-        d[key_parts[0]] = value
-        return d
-    if key_parts[0] not in d:
-        d[key_parts[0]] = {}
-    d[key_parts[0]] = create_nested_dict(key_parts[1:], value, d[key_parts[0]])
-    return d
+# If set to True, the "$include" key will be used to determine
+# which languages to include in the output.
+PARSE_INCLUDE = True
 
 with open('i18n.json', 'r', encoding='utf-8') as f:
     i18n = json.load(f)
@@ -41,15 +25,21 @@ for key, value in i18n['Translations'].items():
         if lang not in lang_data:
             lang_data[lang] = {}
 
-        if USE_NESTING:
-            key_parts = key.split(".")
-            lang_data[lang] = create_nested_dict(key_parts, text, lang_data[lang])
+        if key.startswith('$'):
+            # Ignore special keys
+            continue
+
+        if text is not None and text.strip() != '':
+            lang_data[lang][key] = text
         else:
-            if text is not None and text.strip() != '':
-                lang_data[lang][key] = text
-            else:
-                # Empty text - no translation so ignore
-                pass
+            # Empty text - no translation so ignore
+            pass
+
+if PARSE_INCLUDE:
+    for lang, include in i18n['Translations']['$include'].items():
+        if not include:
+            # Remove the language
+            lang_data.pop(lang, None)
 
 # Remove any empty languages
 lang_data = {lang: data for lang, data in lang_data.items() if len(data) > 0}
