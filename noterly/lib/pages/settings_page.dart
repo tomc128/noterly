@@ -76,7 +76,19 @@ class _SettingsPageState extends State<SettingsPage> {
           _getCard(context, [
             ListTile(
               title: Text(translate('page.settings.about.version.title')),
-              subtitle: const Text(BuildInfo.appVersion),
+              subtitle: Builder(
+                builder: (BuildContext context) {
+                  if (BuildInfo.releaseType == ReleaseType.stable) return const Text(BuildInfo.appVersion);
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('Beta release', style: TextStyle(color: Colors.amber)),
+                      Text('${BuildInfo.appVersion} (${BuildInfo.branch})'),
+                    ],
+                  );
+                },
+              ),
               leading: const Icon(Icons.info),
               minVerticalPadding: 12,
               onTap: () async {

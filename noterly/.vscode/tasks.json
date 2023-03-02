@@ -11,6 +11,14 @@
                 "Foreach-Object {$_ -replace 'UNSET_VERSION','${input:versionName}'}  | ",
                 "Out-File ./lib/build_info.dart",
                 "&&",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace 'ReleaseType.beta','ReleaseType.${input:releaseType}'}  | ",
+                "Out-File ./lib/build_info.dart",
+                "&&",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace 'UNSET_BRANCH',(git branch --show-current)}  | ",
+                "Out-File ./lib/build_info.dart",
+                "&&",
                 "flutter",
                 "build",
                 "appbundle",
@@ -20,6 +28,14 @@
                 "(Get-Content ./lib/build_info.dart) | ",
                 "Foreach-Object {$_ -replace '${input:versionName}','UNSET_VERSION'}  | ",
                 "Out-File ./lib/build_info.dart",
+                "&&",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace 'ReleaseType.${input:releaseType}','ReleaseType.beta'}  | ",
+                "Out-File ./lib/build_info.dart",
+                "&&",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace (git branch --show-current),'UNSET_BRANCH'}  | ",
+                "Out-File ./lib/build_info.dart"
             ]
         }
     ],
@@ -33,6 +49,15 @@
             "id": "versionCode",
             "type": "promptString",
             "description": "Set the version code, i.e. '1'",
+        },
+        {
+            "id": "releaseType",
+            "type": "pickString",
+            "description": "Set the release type",
+            "options": [
+                "stable",
+                "beta",
+            ]
         }
     ]
 }
