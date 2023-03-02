@@ -142,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Text(translate('page.settings.about.licenses.page.legalese')),
                             const SizedBox(height: 16),
                             Text(translate('dialog.about.translations.title'), style: Theme.of(context).textTheme.titleMedium),
-                            Text(translate('dialog.about.translations.text')),
+                            const Text('• Tom Chapman (en_GB, en_US)\n• Google Translate (fr)\n• "FBI" (es)\n• Sascha Grebe (de)'),
                             const SizedBox(height: 16),
                             ButtonBar(
                               children: [
