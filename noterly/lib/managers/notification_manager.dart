@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -41,14 +42,26 @@ class NotificationManager {
   static Future handleResponse(NotificationResponse response, {bool isBackground = false}) async {
     Log.logger.d('Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
 
-    var itemId = response.payload;
-    if (itemId == null) {
+    if (response.payload == null) {
       Log.logger.d('No payload, ignoring');
       return;
     }
 
     if (isBackground) {
       await AppManager.instance.ensureInitialised();
+    }
+
+    // The old notification system used the item ID as the payload, but the new system uses a JSON string
+    // containing the item JSON. For backwards compatibility, we need to check if the payload is a JSON string
+    // and if so, extract the item ID from it.
+    String itemId;
+
+    try {
+      var decoded = jsonDecode(response.payload!);
+      itemId = NotificationItem.fromJson(decoded).id;
+    } on FormatException catch (_) {
+      Log.logger.d('Payload is not a JSON string, assuming it is an item ID');
+      itemId = response.payload!;
     }
 
     var item = AppManager.instance.getItem(itemId);
@@ -115,8 +128,6 @@ class NotificationManager {
     }
   }
 
-  Future _cancelAllNotifications() async => await _plugin.cancelAll();
-
   Future cancelNotification(String itemId) async => await _plugin.cancel(itemId.hashCode);
 
   Future<bool> _notificationIsShown(NotificationItem item) async {
@@ -124,58 +135,50 @@ class NotificationManager {
     return notifications.any((n) => n.id == item.id.hashCode);
   }
 
-  Future updateAllNotifications() async {
+  /// Force updates all notifications. This should only be used where necessary as every notification is cancelled and recreated.
+  Future forceUpdateAllNotifications() async {
     for (var item in AppManager.instance.notifier.value) {
       if (item.archived) continue;
 
       if (item.isRepeating) {
         await updateRepeatingNotification(item);
       } else {
-        await updateNotification(item);
+        await showOrUpdateNotification(item);
       }
     }
   }
 
-  Future forceUpdateAllNotifications() async {
-    await _cancelAllNotifications(); // Cancel all existing notifications; faster than checking each one
+  Future updateAllNotifications() async {
+    var notifications = await _plugin.getActiveNotifications();
+    var shownIds = notifications.map((n) => n.id).toList();
 
     for (var item in AppManager.instance.notifier.value) {
+      if (shownIds.contains(item.id.hashCode)) {
+        // Notification is already shown. We don't need to do anything, as the notification will be updated when the item is updated.
+        // This is either done when editing a notification, or when force updating all notifications.
+        continue;
+      }
+
       if (item.archived) continue;
 
       if (item.isRepeating) {
-        await updateRepeatingNotification(item); // Need to do some calculations before, so call update instead of show/schedule
+        await updateRepeatingNotification(item);
       } else {
-        await _showOrScheduleNotification(item);
+        await showOrUpdateNotification(item);
       }
     }
   }
 
-  Future updateNotification(NotificationItem item) async {
-    if (await _notificationIsShown(item)) {
-      return; // Notification is already shown, no need to show another
-    }
-
+  /// Updates a single notification. If the notification is already shown, it is cancelled.
+  Future showOrUpdateNotification(NotificationItem item) async {
     if (item.archived) return;
+
+    if (await _notificationIsShown(item)) await cancelNotification(item.id);
+
     await _showOrScheduleNotification(item);
   }
 
-  Future forceUpdateNotification(NotificationItem item) async {
-    // Cancel the existing notification, if any
-    await _plugin.cancel(item.id.hashCode);
-
-    if (item.archived) return;
-    await _showOrScheduleNotification(item);
-  }
-
-  Future updateAllRepeatingNotifications() async {
-    for (var item in AppManager.instance.notifier.value) {
-      if (item.archived) continue;
-      if (!item.isRepeating) continue;
-
-      await updateRepeatingNotification(item);
-    }
-  }
-
+  /// Updates a repeating notification. This consists of updating its datetime to the next time it should be shown, and then showing it.
   Future updateRepeatingNotification(NotificationItem item) async {
     if (item.archived) return;
     if (!item.isRepeating) return;
@@ -199,8 +202,7 @@ class NotificationManager {
     }
 
     while (item.dateTime!.isBefore(now)) {
-      // item.dateTime = item.dateTime!.add(item.nextRepeatDuration);
-      item.dateTime = item.nextRepeatDateTime;
+      item.dateTime = item.nextRepeatDateTime; // Increment the dateTime until it's in the future
     }
 
     await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
@@ -231,7 +233,7 @@ class NotificationManager {
       item.title,
       item.body,
       details,
-      payload: item.id,
+      payload: jsonEncode(item),
     );
   }
 
@@ -258,7 +260,7 @@ class NotificationManager {
       details,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      payload: item.id,
+      payload: jsonEncode(item),
     );
   }
 
@@ -279,6 +281,37 @@ class NotificationManager {
         color: item.colour,
         ongoing: true,
         when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
-        // autoCancel: false, // TODO: Change this to false. However, when the notification is edited I will need to manually update the notification if its already shown, only if it changed. Need some big changes for this.
+        autoCancel: false,
       );
+
+  Future showLegacyNotification(NotificationItem item) async {
+    var androidDetails = AndroidNotificationDetails(
+      item.dateTime == null ? 'immediate_notifications' : 'scheduled_notifications',
+      item.dateTime == null ? 'Immediate notifications' : 'Scheduled notifications',
+      channelDescription: item.dateTime == null ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
+      actions: <AndroidNotificationAction>[
+        const AndroidNotificationAction(
+          'done',
+          'Mark as done',
+        ),
+      ],
+      category: AndroidNotificationCategory.reminder,
+      importance: Importance.max,
+      priority: Priority.max,
+      groupKey: 'uk.co.tdsstudios.noterly.ALL_NOTIFICATIONS_GROUP',
+      color: item.colour,
+      ongoing: true,
+      when: null,
+      autoCancel: true,
+    );
+    var details = NotificationDetails(android: androidDetails);
+
+    await _plugin.show(
+      item.id.hashCode,
+      item.title,
+      item.body,
+      details,
+      payload: item.id,
+    );
+  }
 }

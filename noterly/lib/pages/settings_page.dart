@@ -352,6 +352,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 FileManager.delete().then((value) => AppManager.instance.fullUpdate());
               },
             ),
+            ListTile(
+              title: const Text('Show legacy notification'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.history_edu),
+              minVerticalPadding: 12,
+              onTap: () {
+                NotificationManager.instance.showLegacyNotification(AppManager.instance.notifier.value[0]);
+              },
+            ),
           ],
         ),
       ];
