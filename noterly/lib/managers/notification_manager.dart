@@ -5,6 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:noterly/main.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
@@ -80,7 +81,7 @@ class NotificationManager {
 
     if (response.actionId == 'done') {
       if (item.isRepeating) {
-        Log.logger.d('Snoozing notification "${item.title}"');
+        Log.logger.d('Marking repeating notification "${item.title}" as done and rescheduling');
         await NotificationManager.instance.updateRepeatingNotification(item);
         await FirebaseAnalytics.instance.logEvent(name: 'mark_repeating_notification_done');
       } else {
@@ -98,6 +99,18 @@ class NotificationManager {
         }
       }
 
+      return;
+    }
+
+    if (response.actionId == 'snooze') {
+      Log.logger.d('Snoozing notification "${item.title}"');
+      await _instance.cancelNotification(item.id);
+      await _instance._scheduleSnoozedNotification(item);
+      Fluttertoast.showToast(
+        msg: 'Notification snoozed for 1 hour',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      await FirebaseAnalytics.instance.logEvent(name: 'snooze_notification');
       return;
     }
 
@@ -209,6 +222,28 @@ class NotificationManager {
     await _scheduleNotification(item);
   }
 
+  Future _scheduleSnoozedNotification(NotificationItem item) async {
+    // 1h from now
+    // TODO: make this configurable
+
+    var now = DateTime.now();
+    var snoozeDateTime = now.add(const Duration(hours: 1));
+
+    var androidDetails = _getNotificationDetails(item);
+    var details = NotificationDetails(android: androidDetails);
+
+    await _plugin.zonedSchedule(
+      item.id.hashCode,
+      item.title,
+      item.body,
+      tz.TZDateTime.from(snoozeDateTime, tz.local),
+      details,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      payload: jsonEncode(item),
+    );
+  }
+
   Future _showOrScheduleNotification(NotificationItem item) async {
     if (item.dateTime == null) {
       await _showNotification(item);
@@ -272,6 +307,10 @@ class NotificationManager {
           const AndroidNotificationAction(
             'done',
             'Mark as done',
+          ),
+          const AndroidNotificationAction(
+            'snooze',
+            'Snooze',
           ),
         ],
         category: AndroidNotificationCategory.reminder,
