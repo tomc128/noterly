@@ -38,6 +38,16 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
+          _getHeader('Notifications'),
+          _getCard(context, [
+            const ListTile(
+              title: Text('Snooze duration (WIP)'),
+              subtitle: Text('1 hour'),
+              leading: Icon(Icons.timelapse),
+              trailing: Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+            )
+          ]),
           _getHeader(translate('page.settings.header.system')),
           _getCard(context, [
             ListTile(
