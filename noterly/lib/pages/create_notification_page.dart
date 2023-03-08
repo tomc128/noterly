@@ -12,7 +12,12 @@ import 'package:noterly/widgets/repetition_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateNotificationPage extends StatefulWidget {
-  const CreateNotificationPage({super.key});
+  final String initialTitle;
+
+  const CreateNotificationPage({
+    super.key,
+    this.initialTitle = '',
+  });
 
   @override
   State<CreateNotificationPage> createState() => _CreateNotificationPageState();
@@ -35,6 +40,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
 
   @override
   void initState() {
+    _titleController.text = widget.initialTitle;
+
     var now = DateTime.now();
     _dateTime = DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
 
