@@ -113,7 +113,7 @@ class _MyAppState extends State<MyApp> {
 
       // Show create notification page with the shared text as the title
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+        MaterialPageRoute(builder: (context) => CreateNotificationPage(initialTitle: text)),
         (route) => route.isFirst,
       );
     }
