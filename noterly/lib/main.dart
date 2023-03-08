@@ -56,9 +56,13 @@ Future<void> main(List<String> args) async {
   IsolateManager.init();
 
   //* IF CHANGING THIS TO DART-ONLY, ALSO CHANGE THIS IN NOTIFICATION_MANAGER
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // Previous method of initialising Firebase
-  await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
-  await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
+  // await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions
+  //         .currentPlatform); // Previous method of initialising Firebase
+  await Firebase
+      .initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
+  await FirebaseAnalytics.instance
+      .setDefaultEventParameters({'version': BuildInfo.appVersion});
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
@@ -72,7 +76,8 @@ Future<void> main(List<String> args) async {
     fallbackLocale: 'en_GB',
     supportedLocales: ['en_GB', 'en_US', 'fr', 'es', 'de'],
   );
-  runApp(LocalizedApp(delegate, MyApp(launchMessage: args.isNotEmpty ? args[0] : null)));
+  runApp(LocalizedApp(
+      delegate, MyApp(launchMessage: args.isNotEmpty ? args[0] : null)));
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
@@ -87,14 +92,17 @@ Future<void> main(List<String> args) async {
   });
 
   quickActions.setShortcutItems(<ShortcutItem>[
-    const ShortcutItem(type: 'action_new', localizedTitle: 'New note', icon: 'quick_action_new_note_icon_192'),
+    const ShortcutItem(
+        type: 'action_new',
+        localizedTitle: 'New note',
+        icon: 'ic_shortcut_add'),
   ]);
 }
 
 class MyApp extends StatefulWidget {
   final String? launchMessage;
-
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey(debugLabel: "Main Navigator");
 
   const MyApp({
     super.key,
@@ -125,7 +133,8 @@ class _MyAppState extends State<MyApp> {
 
       // Show create notification page with the shared text as the title
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => CreateNotificationPage(initialTitle: text)),
+        MaterialPageRoute(
+            builder: (context) => CreateNotificationPage(initialTitle: text)),
         (route) => route.isFirst,
       );
 
@@ -138,10 +147,12 @@ class _MyAppState extends State<MyApp> {
     }
 
     // Share sheet listener, while app is open
-    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(handleSharedText, onError: handleShareError);
+    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream()
+        .listen(handleSharedText, onError: handleShareError);
 
     // Share sheet listener, when app is closed
-    ReceiveSharingIntent.getInitialText().then(handleSharedText, onError: handleShareError);
+    ReceiveSharingIntent.getInitialText()
+        .then(handleSharedText, onError: handleShareError);
   }
 
   @override
@@ -172,7 +183,8 @@ class _MyAppState extends State<MyApp> {
         await AppManager.instance.fullUpdate();
         await NotificationManager.instance.updateAllNotifications();
 
-        BackgroundFetch.finish(taskId); // Signal the task is complete. IMPORTANT
+        BackgroundFetch.finish(
+            taskId); // Signal the task is complete. IMPORTANT
       },
       (String taskId) async {
         // <-- Task timeout handler.
@@ -193,7 +205,8 @@ class _MyAppState extends State<MyApp> {
 
     return LocalizationProvider(
       state: LocalizationProvider.of(context).state,
-      child: DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      child: DynamicColorBuilder(
+          builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
         ColorScheme lightColorScheme;
         ColorScheme darkColorScheme;
 
@@ -236,7 +249,8 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             colorScheme: darkColorScheme,
             fontFamily: GoogleFonts.dmSans().fontFamily,
-            textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
+            textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme)
+                .copyWith(
               labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
             ),
           ),

@@ -1,20 +1,23 @@
 buildscript {
-    // ext.kotlin_version = '1.6.10'
-    ext.kotlin_version = '1.8.0'
+    ext.kotlin_version = '1.8.10' // WAS: 1.7.10
+
     ext {
-        compileSdkVersion = 33 // BACKGROUND_FETCH
-        targetSdkVersion = 33 // BACKGROUND_FETCH
-        appCompatVersion = "1.4.2" // BACKGROUND_FETCH
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+        minSdkVersion = 19 // INFO: Required for Firebase
+        appCompatVersion = "1.4.2" // INFO: Required for background_fetch plugin
     }
+
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.android.tools.build:gradle:7.2.2' // WAS: 7.1.2, 7.2.2; 7.3.0 breaks
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.15' // FIREBASE
+
+        classpath 'com.google.gms:google-services:4.3.15' // INFO: Firebase manual installation
     }
 }
 
@@ -22,8 +25,9 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+
+        // INFO: Required for background_fetch plugin
         maven {
-            // [required] background_fetch
             url "${project(':background_fetch').projectDir}/libs"
         }
     }
