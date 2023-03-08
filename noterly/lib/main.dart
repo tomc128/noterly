@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:background_fetch/background_fetch.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -9,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
@@ -17,6 +20,7 @@ import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/create_notification_page.dart';
 import 'package:noterly/pages/main_page.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
@@ -97,10 +101,37 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  StreamSubscription? _intentDataStreamSubscription;
+
   @override
   void initState() {
     super.initState();
     initPlatformState();
+
+    handleSharedText(String? text) {
+      if (text == null) return;
+
+      // Show create notification page with the shared text as the title
+      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+        (route) => route.isFirst,
+      );
+    }
+
+    // Share sheet listener, while app is open
+    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(
+      handleSharedText,
+      onError: (err) => Log.logger.log(Level.error, "getLinkStream error: $err"),
+    );
+
+    // Share sheet listener, when app is closed
+    ReceiveSharingIntent.getInitialText().then(handleSharedText);
+  }
+
+  @override
+  void dispose() {
+    _intentDataStreamSubscription?.cancel();
+    super.dispose();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
