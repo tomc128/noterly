@@ -190,6 +190,7 @@ class NotificationManager {
 
     if (item.dateTime == null) {
       // For some reason, the notification has no dateTime, so set it to now
+      // This should not happen as we force a notification to be scheduled when it is set to repeating
       Log.logger.d('Repeating notification "${item.title}" has no dateTime, setting it to now');
       item.dateTime = now;
       dirty = true;
