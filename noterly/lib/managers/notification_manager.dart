@@ -5,7 +5,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:noterly/firebase_options.dart';
 import 'package:noterly/main.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
@@ -83,9 +82,10 @@ class NotificationManager {
       }
     }
 
-    // await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase
+        .initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
+    // await Firebase.initializeApp(
+    //     options: DefaultFirebaseOptions.currentPlatform);
     await FirebaseAnalytics.instance
         .setDefaultEventParameters({'version': BuildInfo.appVersion});
 

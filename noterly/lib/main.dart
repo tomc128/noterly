@@ -22,8 +22,6 @@ import 'package:noterly/pages/main_page.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
-import 'firebase_options.dart';
-
 @pragma('vm:entry-point')
 void backgroundFetchHeadlessTask(HeadlessTask task) async {
   String taskId = task.taskId;
@@ -58,10 +56,11 @@ Future<void> main() async {
   IsolateManager.init();
 
   //* IF CHANGING THIS TO DART-ONLY, ALSO CHANGE THIS IN NOTIFICATION_MANAGER
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions
-          .currentPlatform); // Previous method of initialising Firebase
-  // await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
+  // await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions
+  //         .currentPlatform); // Previous method of initialising Firebase
+  await Firebase
+      .initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
   await FirebaseAnalytics.instance
       .setDefaultEventParameters({'version': BuildInfo.appVersion});
 
@@ -95,7 +94,7 @@ Future<void> main() async {
     const ShortcutItem(
         type: 'action_new',
         localizedTitle: 'New note',
-        icon: 'quick_action_new_note_icon_192'),
+        icon: 'ic_shortcut_add'),
   ]);
 }
 

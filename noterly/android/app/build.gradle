@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // INFO: Firebase manual installation
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -37,8 +38,9 @@ android {
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
         // INFO: required for flutter_local_notifications plugin, when minSdkVersion < 20
+        // INFO: required for Firebase
+        coreLibraryDesugaringEnabled true
 
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -54,7 +56,10 @@ android {
 
     defaultConfig {
         applicationId "uk.co.tdsstudios.noterly"
-        multiDexEnabled true // INFO: needed to prevent desugaring error for flutter_local_notifications plugin
+
+        // INFO: needed to prevent desugaring error for flutter_local_notifications plugin
+        // INFO: required for Firebase
+        multiDexEnabled true
 
         minSdkVersion rootProject.ext.minSdkVersion // WAS: flutter.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion // WAS: flutter.targetSdkVersion
@@ -83,6 +88,9 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // INFO: required for Firebase
+    implementation 'com.android.support:multidex:1.0.3'
 
     // INFO: needed to prevent desugaring error for flutter_local_notifications plugin, 1.1.5 is the LAST VERSION that works
     // noinspection GradleDependency
