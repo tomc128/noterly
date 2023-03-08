@@ -5,6 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:noterly/firebase_options.dart';
 import 'package:noterly/main.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
@@ -18,7 +19,9 @@ import '../build_info.dart';
 
 class NotificationManager {
   static final NotificationManager _instance = NotificationManager._internal();
+
   static NotificationManager get instance => _instance;
+
   NotificationManager._internal() {
     init();
   }
@@ -30,8 +33,10 @@ class NotificationManager {
 
     tz.initializeTimeZones();
 
-    const initializationSettingsAndroid = AndroidInitializationSettings('notification_icon_48');
-    const initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+    const initializationSettingsAndroid =
+        AndroidInitializationSettings('notification_icon_48');
+    const initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
     await _plugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: onResponse,
@@ -39,8 +44,10 @@ class NotificationManager {
     );
   }
 
-  static Future handleResponse(NotificationResponse response, {bool isBackground = false}) async {
-    Log.logger.d('Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
+  static Future handleResponse(NotificationResponse response,
+      {bool isBackground = false}) async {
+    Log.logger.d(
+        'Handling notification response. ${isBackground ? 'Background' : 'Foreground'} mode. Action: "${response.actionId}". Payload: "${response.payload}"');
 
     if (response.payload == null) {
       Log.logger.d('No payload, ignoring');
@@ -66,7 +73,8 @@ class NotificationManager {
 
     var item = AppManager.instance.getItem(itemId);
     if (item == null) {
-      Log.logger.d('No item found for payload, requesting a full update and retrying...');
+      Log.logger.d(
+          'No item found for payload, requesting a full update and retrying...');
       await AppManager.instance.fullUpdate();
       item = AppManager.instance.getItem(itemId);
       if (item == null) {
@@ -75,26 +83,34 @@ class NotificationManager {
       }
     }
 
-    await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
-    await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
+    // await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    await FirebaseAnalytics.instance
+        .setDefaultEventParameters({'version': BuildInfo.appVersion});
 
     if (response.actionId == 'done') {
       if (item.isRepeating) {
         Log.logger.d('Snoozing notification "${item.title}"');
         await NotificationManager.instance.updateRepeatingNotification(item);
-        await FirebaseAnalytics.instance.logEvent(name: 'mark_repeating_notification_done');
+        await FirebaseAnalytics.instance
+            .logEvent(name: 'mark_repeating_notification_done');
       } else {
         Log.logger.d('Archiving notification "${item.title}"');
-        await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
-        await FirebaseAnalytics.instance.logEvent(name: 'mark_notification_done');
+        await AppManager.instance
+            .archiveItem(item.id, deferNotificationManagerCall: true);
+        await FirebaseAnalytics.instance
+            .logEvent(name: 'mark_notification_done');
       }
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
       if (isBackground) {
-        var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
+        var sendPort =
+            IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
         if (sendPort == null) {
-          Log.logger.e('Failed to send message to main isolate (port not found).');
+          Log.logger
+              .e('Failed to send message to main isolate (port not found).');
         }
       }
 
@@ -103,21 +119,25 @@ class NotificationManager {
 
     if (!isBackground) {
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => EditNotificationPage(item: item!)),
+        MaterialPageRoute(
+            builder: (context) => EditNotificationPage(item: item!)),
         (route) => route.isFirst,
       );
       Log.logger.d('Opening notification "${item.title}"');
     }
   }
 
-  static Future onResponse(NotificationResponse response) async => handleResponse(response, isBackground: false);
+  static Future onResponse(NotificationResponse response) async =>
+      handleResponse(response, isBackground: false);
 
   @pragma('vm:entry-point')
-  static Future onBackgroundResponse(NotificationResponse response) async => handleResponse(response, isBackground: true);
+  static Future onBackgroundResponse(NotificationResponse response) async =>
+      handleResponse(response, isBackground: true);
 
   Future requestAndroid13Permissions() async {
     try {
-      var android = _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      var android = _plugin.resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>();
 
       if (android != null) {
         var result = await android.requestPermission();
@@ -128,7 +148,8 @@ class NotificationManager {
     }
   }
 
-  Future cancelNotification(String itemId) async => await _plugin.cancel(itemId.hashCode);
+  Future cancelNotification(String itemId) async =>
+      await _plugin.cancel(itemId.hashCode);
 
   Future<bool> _notificationIsShown(NotificationItem item) async {
     var notifications = await _plugin.getActiveNotifications();
@@ -191,22 +212,28 @@ class NotificationManager {
     if (item.dateTime == null) {
       // For some reason, the notification has no dateTime, so set it to now
       // This should not happen as we force a notification to be scheduled when it is set to repeating
-      Log.logger.d('Repeating notification "${item.title}" has no dateTime, setting it to now');
+      Log.logger.d(
+          'Repeating notification "${item.title}" has no dateTime, setting it to now');
       item.dateTime = now;
       dirty = true;
     }
 
     if (isShown) {
-      Log.logger.d('Repeating notification "${item.title}" is already shown, no need to update');
-      if (dirty) await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
+      Log.logger.d(
+          'Repeating notification "${item.title}" is already shown, no need to update');
+      if (dirty)
+        await AppManager.instance
+            .editItem(item, deferNotificationManagerCall: true);
       return;
     }
 
     while (item.dateTime!.isBefore(now)) {
-      item.dateTime = item.nextRepeatDateTime; // Increment the dateTime until it's in the future
+      item.dateTime = item
+          .nextRepeatDateTime; // Increment the dateTime until it's in the future
     }
 
-    await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
+    await AppManager.instance
+        .editItem(item, deferNotificationManagerCall: true);
     await _scheduleNotification(item);
   }
 
@@ -218,7 +245,8 @@ class NotificationManager {
     }
   }
 
-  Future _showNotification(NotificationItem item, {bool ignoreDateTime = false}) async {
+  Future _showNotification(NotificationItem item,
+      {bool ignoreDateTime = false}) async {
     if (!ignoreDateTime) {
       assert(
         item.dateTime == null,
@@ -260,15 +288,23 @@ class NotificationManager {
       tz.TZDateTime.from(item.dateTime!, tz.local),
       details,
       androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
       payload: jsonEncode(item),
     );
   }
 
-  AndroidNotificationDetails _getNotificationDetails(NotificationItem item) => AndroidNotificationDetails(
-        item.dateTime == null ? 'immediate_notifications' : 'scheduled_notifications',
-        item.dateTime == null ? 'Immediate notifications' : 'Scheduled notifications',
-        channelDescription: item.dateTime == null ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
+  AndroidNotificationDetails _getNotificationDetails(NotificationItem item) =>
+      AndroidNotificationDetails(
+        item.dateTime == null
+            ? 'immediate_notifications'
+            : 'scheduled_notifications',
+        item.dateTime == null
+            ? 'Immediate notifications'
+            : 'Scheduled notifications',
+        channelDescription: item.dateTime == null
+            ? 'Notifications that are shown immediately'
+            : 'Notifications that are scheduled for a future time',
         actions: <AndroidNotificationAction>[
           const AndroidNotificationAction(
             'done',
@@ -281,7 +317,9 @@ class NotificationManager {
         groupKey: 'uk.co.tdsstudios.noterly.ALL_NOTIFICATIONS_GROUP',
         color: item.colour,
         ongoing: true,
-        when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
+        when: item.dateTime == null
+            ? null
+            : item.dateTime!.millisecondsSinceEpoch,
         autoCancel: false,
       );
 }

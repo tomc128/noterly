@@ -23,9 +23,9 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services' // FIREBASE
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+// INFO: app signing and keystore
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
@@ -33,13 +33,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    // compileSdkVersion flutter.compileSdkVersion
-    // compileSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
-    compileSdkVersion rootProject.ext.compileSdkVersion // BACKGROUND_FETCH && FLUTTER_LOCAL_NOTIFICATIONS
+    compileSdkVersion rootProject.ext.compileSdkVersion // WAS: flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        coreLibraryDesugaringEnabled true // FLUTTER_LOCAL_NOTIFICATIONS
+        coreLibraryDesugaringEnabled true
+        // INFO: required for flutter_local_notifications plugin, when minSdkVersion < 20
 
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -54,39 +53,28 @@ android {
     }
 
     defaultConfig {
-        multiDexEnabled true // FLUTTER_LOCAL_NOTIFICATIONS
-
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "uk.co.tdsstudios.noterly"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        // minSdkVersion flutter.minSdkVersion
-        minSdkVersion 19 // FIREBASE
-        // targetSdkVersion flutter.targetSdkVersion
-        // targetSdkVersion 33 // FLUTTER_LOCAL_NOTIFICATIONS
-        targetSdkVersion rootProject.ext.targetSdkVersion // BACKGROUND_FETCH && FLUTTER_LOCAL_NOTIFICATIONS
+        multiDexEnabled true // INFO: needed to prevent desugaring error for flutter_local_notifications plugin
+
+        minSdkVersion rootProject.ext.minSdkVersion // WAS: flutter.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion // WAS: flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     signingConfigs {
-       release {
-           keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-           storePassword keystoreProperties['storePassword']
-       }
-   }
-   buildTypes {
-       release {
-           signingConfig signingConfigs.release
-
-            // Added in attempt to fix Crashlytics error (flutter cannot build for x86 32-bit so disabling here) 
-           ndk {
-                abiFilters 'armeabi-v7a','arm64-v8a','x86_64'
-           }
-       }
-   }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 flutter {
@@ -94,12 +82,13 @@ flutter {
 }
 
 dependencies {
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5' // FLUTTER_LOCAL_NOTIFICATIONS
-    implementation 'androidx.window:window:1.0.0' // FLUTTER_LOCAL_NOTIFICATIONS
-    implementation 'androidx.window:window-java:1.0.0' // FLUTTER_LOCAL_NOTIFICATIONS
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // FIREBASE:
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // INFO: needed to prevent desugaring error for flutter_local_notifications plugin, 1.1.5 is the LAST VERSION that works
+    // noinspection GradleDependency
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    // INFO: needed to prevent Android 12L crash for flutter_local_notifications plugin
+    implementation 'androidx.window:window:1.0.0'
+    implementation 'androidx.window:window-java:1.0.0'
 }
