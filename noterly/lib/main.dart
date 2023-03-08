@@ -43,7 +43,7 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   BackgroundFetch.finish(taskId);
 }
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Ensure the app renders behind the system UI.
@@ -72,7 +72,7 @@ Future<void> main() async {
     fallbackLocale: 'en_GB',
     supportedLocales: ['en_GB', 'en_US', 'fr', 'es', 'de'],
   );
-  runApp(LocalizedApp(delegate, const MyApp()));
+  runApp(LocalizedApp(delegate, MyApp(launchMessage: args.isNotEmpty ? args[0] : null)));
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
@@ -92,9 +92,14 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
+  final String? launchMessage;
+
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
 
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    this.launchMessage,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -107,6 +112,13 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+
+    if (widget.launchMessage == 'launchFromQuickTile') {
+      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+        (route) => route.isFirst,
+      );
+    }
 
     handleSharedText(String? text) {
       if (text == null) return;

@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.0.11
-  intl: ^0.17.0
+  intl: any
   uuid: ^3.0.7
   flutter_local_notifications: ^13.0.0
   timezone: ^0.9.1
