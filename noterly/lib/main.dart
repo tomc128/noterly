@@ -116,16 +116,20 @@ class _MyAppState extends State<MyApp> {
         MaterialPageRoute(builder: (context) => CreateNotificationPage(initialTitle: text)),
         (route) => route.isFirst,
       );
+
+      // Analytics event
+      FirebaseAnalytics.instance.logEvent(name: 'share_to_app');
+    }
+
+    handleShareError(Object error) {
+      Log.logger.log(Level.error, "getLinkStream error: $error");
     }
 
     // Share sheet listener, while app is open
-    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(
-      handleSharedText,
-      onError: (err) => Log.logger.log(Level.error, "getLinkStream error: $err"),
-    );
+    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(handleSharedText, onError: handleShareError);
 
     // Share sheet listener, when app is closed
-    ReceiveSharingIntent.getInitialText().then(handleSharedText);
+    ReceiveSharingIntent.getInitialText().then(handleSharedText, onError: handleShareError);
   }
 
   @override
