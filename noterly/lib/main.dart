@@ -91,7 +91,7 @@ Future<void> main(List<String> args) async {
     if (shortcutType == 'action_new') {
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
-        (route) => route.isFirst,
+            (route) => route.isFirst,
       );
     }
   });
@@ -107,7 +107,7 @@ Future<void> main(List<String> args) async {
 class MyApp extends StatefulWidget {
   final String? launchMessage;
   static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey(debugLabel: "Main Navigator");
+  GlobalKey(debugLabel: "Main Navigator");
 
   const MyApp({
     super.key,
@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
         MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
           MaterialPageRoute(
               builder: (context) => const CreateNotificationPage()),
-          (route) => route.isFirst,
+              (route) => route.isFirst,
         );
       });
     }
@@ -145,7 +145,7 @@ class _MyAppState extends State<MyApp> {
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (context) => CreateNotificationPage(initialTitle: text)),
-        (route) => route.isFirst,
+            (route) => route.isFirst,
       );
 
       // Analytics event
@@ -169,14 +169,17 @@ class _MyAppState extends State<MyApp> {
       if (intent == null) return;
       Log.logger.log(Level.debug, "Received intent: $intent");
 
-      // Show create notification page
-      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
-        (route) => route.isFirst,
-      );
+      if (intent.action == 'uk.co.tdsstudios.noterly.ACTION_CREATE_NOTE') {
+        // Show create notification page
+        MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const CreateNotificationPage()),
+              (route) => route.isFirst,
+        );
 
-      // Analytics event
-      FirebaseAnalytics.instance.logEvent(name: 'from_quick_tile');
+        // Analytics event
+        FirebaseAnalytics.instance.logEvent(name: 'from_quick_tile');
+      }
     }
 
     handleIntentError(Object error) {
@@ -213,7 +216,7 @@ class _MyAppState extends State<MyApp> {
           startOnBoot: true,
           forceAlarmManager: false,
           requiredNetworkType: NetworkType.NONE),
-      (String taskId) async {
+          (String taskId) async {
         // <-- Event handler
         Log.logger.d('[BackgroundFetch] Event received $taskId');
 
@@ -224,7 +227,7 @@ class _MyAppState extends State<MyApp> {
         BackgroundFetch.finish(
             taskId); // Signal the task is complete. IMPORTANT
       },
-      (String taskId) async {
+          (String taskId) async {
         // <-- Task timeout handler.
         Log.logger.w('[BackgroundFetch] Task timeout: $taskId');
         BackgroundFetch.finish(taskId);
@@ -239,64 +242,74 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var localizationDelegate = LocalizedApp.of(context).delegate;
+    var localizationDelegate = LocalizedApp
+        .of(context)
+        .delegate;
 
     return LocalizationProvider(
-      state: LocalizationProvider.of(context).state,
+      state: LocalizationProvider
+          .of(context)
+          .state,
       child: DynamicColorBuilder(
           builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        ColorScheme lightColorScheme;
-        ColorScheme darkColorScheme;
+            ColorScheme lightColorScheme;
+            ColorScheme darkColorScheme;
 
-        if (lightDynamic != null && darkDynamic != null) {
-          Log.logger.d('Using dynamic color scheme.');
+            if (lightDynamic != null && darkDynamic != null) {
+              Log.logger.d('Using dynamic color scheme.');
 
-          lightColorScheme = lightDynamic.harmonized();
-          darkColorScheme = darkDynamic.harmonized();
-        } else {
-          Log.logger.d('No dynamic color scheme, using fallback.');
+              lightColorScheme = lightDynamic.harmonized();
+              darkColorScheme = darkDynamic.harmonized();
+            } else {
+              Log.logger.d('No dynamic color scheme, using fallback.');
 
-          lightColorScheme = ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(153, 0, 228, 1),
-          );
-          darkColorScheme = ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(153, 0, 228, 1),
-            brightness: Brightness.dark,
-          );
-        }
+              lightColorScheme = ColorScheme.fromSeed(
+                seedColor: const Color.fromRGBO(153, 0, 228, 1),
+              );
+              darkColorScheme = ColorScheme.fromSeed(
+                seedColor: const Color.fromRGBO(153, 0, 228, 1),
+                brightness: Brightness.dark,
+              );
+            }
 
-        return MaterialApp(
-          navigatorKey: MyApp.navigatorKey,
-          title: 'Noterly',
-          localizationsDelegates: [
-            ...GlobalMaterialLocalizations.delegates,
-            GlobalWidgetsLocalizations.delegate,
-            localizationDelegate,
-          ],
-          supportedLocales: localizationDelegate.supportedLocales,
-          locale: localizationDelegate.currentLocale,
-          theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: lightColorScheme,
-            fontFamily: GoogleFonts.dmSans().fontFamily,
-            textTheme: GoogleFonts.dmSansTextTheme().copyWith(
-              labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
-            ),
-          ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            colorScheme: darkColorScheme,
-            fontFamily: GoogleFonts.dmSans().fontFamily,
-            textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme)
-                .copyWith(
-              labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
-            ),
-          ),
-          themeMode: ThemeMode.system,
-          home: const MainPage(),
-          debugShowCheckedModeBanner: false,
-        );
-      }),
+            return MaterialApp(
+              navigatorKey: MyApp.navigatorKey,
+              title: 'Noterly',
+              localizationsDelegates: [
+                ...GlobalMaterialLocalizations.delegates,
+                GlobalWidgetsLocalizations.delegate,
+                localizationDelegate,
+              ],
+              supportedLocales: localizationDelegate.supportedLocales,
+              locale: localizationDelegate.currentLocale,
+              theme: ThemeData(
+                useMaterial3: true,
+                colorScheme: lightColorScheme,
+                fontFamily: GoogleFonts
+                    .dmSans()
+                    .fontFamily,
+                textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+                  labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
+                ),
+              ),
+              darkTheme: ThemeData(
+                useMaterial3: true,
+                colorScheme: darkColorScheme,
+                fontFamily: GoogleFonts
+                    .dmSans()
+                    .fontFamily,
+                textTheme: GoogleFonts.dmSansTextTheme(ThemeData
+                    .dark()
+                    .textTheme)
+                    .copyWith(
+                  labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
+                ),
+              ),
+              themeMode: ThemeMode.system,
+              home: const MainPage(),
+              debugShowCheckedModeBanner: false,
+            );
+          }),
     );
   }
 }
