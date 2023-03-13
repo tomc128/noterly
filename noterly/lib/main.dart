@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -122,10 +123,13 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
 
     if (widget.launchMessage == 'launchFromQuickTile') {
-      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
-        (route) => route.isFirst,
-      );
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const CreateNotificationPage()),
+          (route) => route.isFirst,
+        );
+      });
     }
 
     handleSharedText(String? text) {
