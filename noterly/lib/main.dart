@@ -21,6 +21,8 @@ import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/create_notification_page.dart';
 import 'package:noterly/pages/main_page.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:receive_intent/receive_intent.dart';
+import 'package:receive_intent/receive_intent.dart' as receive_intent;
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 @pragma('vm:entry-point')
@@ -46,6 +48,8 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Log.logger.log(Level.debug, "Starting app with args: $args");
 
   // Ensure the app renders behind the system UI.
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -115,6 +119,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  StreamSubscription? _shareIntentDataStreamSubscription;
   StreamSubscription? _intentDataStreamSubscription;
 
   @override
@@ -132,6 +137,7 @@ class _MyAppState extends State<MyApp> {
       });
     }
 
+    // SHARING INTENT
     handleSharedText(String? text) {
       if (text == null) return;
 
@@ -151,16 +157,44 @@ class _MyAppState extends State<MyApp> {
     }
 
     // Share sheet listener, while app is open
-    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream()
+    _shareIntentDataStreamSubscription = ReceiveSharingIntent.getTextStream()
         .listen(handleSharedText, onError: handleShareError);
 
     // Share sheet listener, when app is closed
     ReceiveSharingIntent.getInitialText()
         .then(handleSharedText, onError: handleShareError);
+
+    // GENERAL INTENT
+    handleIntent(receive_intent.Intent? intent) {
+      if (intent == null) return;
+      Log.logger.log(Level.debug, "Received intent: $intent");
+
+      // Show create notification page
+      MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+        (route) => route.isFirst,
+      );
+
+      // Analytics event
+      FirebaseAnalytics.instance.logEvent(name: 'from_quick_tile');
+    }
+
+    handleIntentError(Object error) {
+      Log.logger.log(Level.error, "getLinkStream error: $error");
+    }
+
+    // Intent listener, while app is open
+    _intentDataStreamSubscription = ReceiveIntent.receivedIntentStream
+        .listen(handleIntent, onError: handleIntentError);
+
+    // Intent listener, when app is closed
+    ReceiveIntent.getInitialIntent()
+        .then(handleIntent, onError: handleIntentError);
   }
 
   @override
   void dispose() {
+    _shareIntentDataStreamSubscription?.cancel();
     _intentDataStreamSubscription?.cancel();
     super.dispose();
   }
