@@ -40,6 +40,11 @@ INFO: xmlns:tools and tools:replace added for background_fetch plugin
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="uk.co.tdsstudios.noterly.ACTION_CREATE_NOTE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
             <!-- INFO: Intent filter for share intent. -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
