@@ -210,7 +210,7 @@ class ActiveNotificationsPage extends NavigationScreen {
             children: [
               const Icon(Icons.snooze, size: 16),
               const SizedBox(width: 8),
-              Flexible(child: Text('Snoozed until ${item.snoozeDateTime!.toAlmostRelativeDateTimeString()}', style: Theme.of(context).textTheme.labelLarge)),
+              Flexible(child: Text(translate('page.active_notifications.item.snoozed', args: {'date_time': item.snoozeDateTime!.toSnoozedUntilDateTimeString()}), style: Theme.of(context).textTheme.labelLarge)),
             ],
           ),
       ],
