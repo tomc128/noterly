@@ -34,6 +34,7 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
   late bool _isRepeating;
 
   late DateTime _dateTime;
+
   // late Duration _duration;
   late RepetitionData _repetitionData;
 
@@ -236,6 +237,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
           _item.body = _bodyController.text;
           _item.dateTime = _isScheduled ? _dateTime : null;
           _item.archived = false; // Unarchive if we edit an archived item
+          _item.repetitionData = _isRepeating ? _repetitionData : null;
+          _item.snoozeDateTime = null; // Un-snooze if we edit a snoozed item
 
           await AppManager.instance.editItem(_item);
 
