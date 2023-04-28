@@ -27,12 +27,16 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_analytics: ^10.1.0
   firebase_crashlytics: ^3.0.11
-  flutter_translate: ^4.0.3
   flutter_localizations:
     sdk: flutter
   auto_size_text: ^3.0.0
   receive_sharing_intent: ^1.4.5
   receive_intent: ^0.2.3
+  # Use a fork of the original repository which updates intl to 0.18.0
+  flutter_translate:
+    git:
+      url: https://github.com/simplenotezy/Flutter-Translate.git
+      ref: master
 
 dev_dependencies:
   flutter_test:

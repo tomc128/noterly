@@ -4,7 +4,7 @@ buildscript {
     ext {
         compileSdkVersion = 33
         targetSdkVersion = 33
-        minSdkVersion = 19 // INFO: Required for Firebase
+        minSdkVersion = 23 // INFO: 19 for Firebase, 23 is minimum for getActiveNotifications() function
         appCompatVersion = "1.4.2" // INFO: Required for background_fetch plugin
     }
 
@@ -18,7 +18,8 @@ buildscript {
         // 7.3.0 and higher break
         // all 7.x versions cause issues with gradle in IntelliJ
         // therefore downgraded to 4.2.0, 4.2.2
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        // UPDATE: 4.2.2 no longer worked, updating to 7.2.2 fixed it and seems to work (flutter upgrade fixed?)
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath 'com.google.gms:google-services:4.3.15' // INFO: Firebase manual installation
@@ -45,6 +46,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
