@@ -177,7 +177,7 @@ class ActiveNotificationsPage extends NavigationScreen {
       );
 
   Widget? _getSubtitle(BuildContext context, NotificationItem item) {
-    if (item.body.isEmpty && item.dateTime == null && !item.isRepeating) return null; // No subtitle
+    if (item.body.isEmpty && item.dateTime == null && !item.isRepeating && item.snoozeDateTime == null) return null; // No subtitle
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,6 +203,14 @@ class ActiveNotificationsPage extends NavigationScreen {
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
+            ],
+          ),
+        if (item.snoozeDateTime != null)
+          Row(
+            children: [
+              const Icon(Icons.snooze, size: 16),
+              const SizedBox(width: 8),
+              Flexible(child: Text('Snoozed until ${item.snoozeDateTime!.toAlmostRelativeDateTimeString()}', style: Theme.of(context).textTheme.labelLarge)),
             ],
           ),
       ],

@@ -94,8 +94,7 @@ class AppManager {
     return found.isEmpty ? null : found.first;
   }
 
-  Future addItem(NotificationItem item,
-      {bool deferNotificationManagerCall = false}) async {
+  Future addItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     notifier.value.add(item);
     await _save();
     _updateNotifier();
@@ -105,8 +104,7 @@ class AppManager {
     }
   }
 
-  Future editItem(NotificationItem item,
-      {bool deferNotificationManagerCall = false}) async {
+  Future editItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == item.id);
     if (found.isEmpty) {
       return;
@@ -122,8 +120,7 @@ class AppManager {
     }
   }
 
-  Future deleteItem(String id,
-      {bool deferNotificationManagerCall = false}) async {
+  Future deleteItem(String id, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -141,8 +138,7 @@ class AppManager {
   }
 
   Future deleteAllArchivedItems({bool deferNotificationManagerCall = false}) async {
-    var archivedItems =
-    notifier.value.where((element) => element.archived).toList();
+    var archivedItems = notifier.value.where((element) => element.archived).toList();
     if (archivedItems.isEmpty) {
       return;
     }
@@ -160,8 +156,7 @@ class AppManager {
     _updateNotifier();
   }
 
-  Future archiveItem(String id,
-      {bool deferNotificationManagerCall = false}) async {
+  Future archiveItem(String id, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -178,8 +173,7 @@ class AppManager {
     }
   }
 
-  Future restoreArchivedItem(String id,
-      {bool deferNotificationManagerCall = false}) async {
+  Future restoreArchivedItem(String id, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -192,8 +186,7 @@ class AppManager {
     _updateNotifier();
 
     if (!deferNotificationManagerCall) {
-      NotificationManager.instance
-          .showOrUpdateNotification(notifier.value[index]);
+      NotificationManager.instance.showOrUpdateNotification(notifier.value[index]);
     }
   }
 
@@ -203,8 +196,7 @@ class AppManager {
     }
 
     for (var item in deletedItems) {
-      await addItem(item!,
-          deferNotificationManagerCall: deferNotificationManagerCall);
+      await addItem(item!, deferNotificationManagerCall: deferNotificationManagerCall);
     }
 
     deletedItems = [];

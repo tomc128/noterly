@@ -33,6 +33,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   var _isRepeating = false;
 
   late DateTime _dateTime;
+
   // Duration _duration = const Duration(days: 1);
   RepetitionData _repetitionData = RepetitionData(number: 1, type: Repetition.daily);
 
@@ -203,7 +204,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               title: _titleController.text,
               body: _bodyController.text,
               dateTime: _isScheduled ? _dateTime : null,
-              // repeatDuration: _isRepeating ? _duration : null,
               repetitionData: _isRepeating ? _repetitionData : null,
               colour: _colour,
             ),
