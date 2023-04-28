@@ -140,10 +140,9 @@ class AppManager {
     }
   }
 
-  Future deleteAllArchivedItems(
-      {bool deferNotificationManagerCall = false}) async {
+  Future deleteAllArchivedItems({bool deferNotificationManagerCall = false}) async {
     var archivedItems =
-        notifier.value.where((element) => element.archived).toList();
+    notifier.value.where((element) => element.archived).toList();
     if (archivedItems.isEmpty) {
       return;
     }
@@ -198,8 +197,7 @@ class AppManager {
     }
   }
 
-  Future restoreLastDeletedItems(
-      {bool deferNotificationManagerCall = false}) async {
+  Future restoreLastDeletedItems({bool deferNotificationManagerCall = false}) async {
     if (deletedItems.isEmpty) {
       return;
     }
