@@ -3,7 +3,7 @@ import 'package:noterly/models/notification_item.dart';
 class AppData {
   List<NotificationItem> notificationItems;
 
-  Duration snoozeDuration = const Duration(hours: 1);
+  Duration snoozeDuration;
 
   AppData({
     required this.notificationItems,
@@ -17,10 +17,8 @@ class AppData {
     };
   }
 
-  factory AppData.fromJson(Map<String, dynamic> json) {
-    return AppData(
-      notificationItems: (json['notificationItems'] as List<dynamic>).map((e) => NotificationItem.fromJson(e)).toList(),
-      snoozeDuration: json['snoozeDuration'] != null ? Duration(seconds: json['snoozeDuration']) : const Duration(hours: 1),
-    );
-  }
+  factory AppData.fromJson(Map<String, dynamic> json) => AppData(
+        notificationItems: (json['notificationItems'] as List<dynamic>).map((e) => NotificationItem.fromJson(e)).toList(),
+        snoozeDuration: json['snoozeDuration'] != null ? Duration(seconds: json['snoozeDuration']) : const Duration(hours: 1),
+      );
 }
