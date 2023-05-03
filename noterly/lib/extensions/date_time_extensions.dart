@@ -44,20 +44,23 @@ extension DateTimeExtensions on DateTime {
 
     if (isToday()) return translate('time.snooze.until', args: {'date_time': toTimeOnlyString()});
 
-    if (isYesterday())
+    if (isYesterday()) {
       return translate('time.snooze.until', args: {
         'date_time': translate('time.yesterday_and_time', args: {'time': toTimeOnlyString()})
       });
+    }
 
-    if (isTomorrow())
+    if (isTomorrow()) {
       return translate('time.snooze.until', args: {
         'date_time': translate('time.tomorrow_and_time', args: {'time': toTimeOnlyString()})
       });
+    }
 
-    if (isBeforeNextWeek())
+    if (isBeforeNextWeek()) {
       return translate('time.snooze.until', args: {
         'date_time': translate('time.date_and_time', args: {'date': DateFormat.EEEE().format(this), 'time': toTimeOnlyString()})
       });
+    }
 
     if (year == now.year) return translate('time.snooze.until', args: {'date_time': toDateTimeString()});
 

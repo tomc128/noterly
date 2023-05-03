@@ -56,7 +56,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   if (value == null) return;
                   setState(() {
                     AppManager.instance.data.snoozeDuration = value;
-                    print('snooze duration is now ${AppManager.instance.data.snoozeDuration}');
                   });
                   AppManager.instance.saveSettings();
                 });

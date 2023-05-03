@@ -61,9 +61,7 @@ class NotificationManager {
 
     try {
       var decoded = jsonDecode(response.payload!);
-      itemId = NotificationItem
-          .fromJson(decoded)
-          .id;
+      itemId = NotificationItem.fromJson(decoded).id;
     } on FormatException catch (_) {
       Log.logger.d('Payload is not a JSON string, assuming it is an item ID');
       itemId = response.payload!;
@@ -130,6 +128,8 @@ class NotificationManager {
       }
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
+      // TODO: This won't work if the app is closed. Need a way to 'cache' the toast message whenever snooze duration is changed.
+      // This way we can show the toast when the app is closed by showing this cached message.
       if (isBackground) {
         var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
@@ -145,7 +145,7 @@ class NotificationManager {
     if (!isBackground) {
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => EditNotificationPage(item: item!)),
-            (route) => route.isFirst,
+        (route) => route.isFirst,
       );
       Log.logger.d('Opening notification "${item.title}"');
     }
@@ -278,8 +278,8 @@ class NotificationManager {
   Future _showNotification(NotificationItem item, {bool ignoreDateTime = false}) async {
     if (!ignoreDateTime) {
       assert(
-      item.dateTime == null,
-      'Notification must not have a dateTime in order to be shown immediately.',
+        item.dateTime == null,
+        'Notification must not have a dateTime in order to be shown immediately.',
       );
     }
 
@@ -302,8 +302,8 @@ class NotificationManager {
 
   Future _scheduleNotification(NotificationItem item) async {
     assert(
-    item.dateTime != null,
-    'Notification must have a dateTime in order to be scheduled.',
+      item.dateTime != null,
+      'Notification must have a dateTime in order to be scheduled.',
     );
 
     if (item.dateTime!.isBefore(DateTime.now())) {
@@ -332,8 +332,7 @@ class NotificationManager {
     );
   }
 
-  AndroidNotificationDetails _getNotificationDetails(NotificationItem item) =>
-      AndroidNotificationDetails(
+  AndroidNotificationDetails _getNotificationDetails(NotificationItem item) => AndroidNotificationDetails(
         item.dateTime == null ? 'immediate_notifications' : 'scheduled_notifications',
         item.dateTime == null ? 'Immediate notifications' : 'Scheduled notifications',
         channelDescription: item.dateTime == null ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
