@@ -1,7 +1,4 @@
 {
-  "Information": {
-    "": {}
-  },
   "Translations": {
     "$include": {
       "en_GB": true,
@@ -990,6 +987,58 @@
       "mt": "Perijodu",
       "ar": "المدة",
       "pl": "Okres"
+    },
+    "dialog.picker.duration.title": {
+      "en_GB": "Select duration",
+      "en_US": "Select duration",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null
+    },
+    "dialog.picker.duration.subtitle": {
+      "en_GB": "{duration}",
+      "en_US": "{duration}",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null
+    },
+    "dialog.picker.duration.field.number.label": {
+      "en_GB": "Number",
+      "en_US": "Number",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null
+    },
+    "dialog.picker.duration.field.period.label": {
+      "en_GB": "Period",
+      "en_US": "Period",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null
     },
     "dialog.picker.colour.title": {
       "en_GB": "Select colour",

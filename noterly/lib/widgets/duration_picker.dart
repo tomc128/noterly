@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 
 Future<Duration?> showDurationPicker({
   required BuildContext context,
@@ -70,9 +71,18 @@ class _DurationPickerState extends State<DurationPicker> {
               borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
               color: primarySurfaceColor,
             ),
-            child: Text(
-              'Select duration',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  translate('dialog.picker.duration.title'),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+                ),
+                Text(
+                  translate('dialog.picker.duration.subtitle', args: {'duration': _duration.toRelativeDurationString()}),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
+                ),
+              ],
             ),
           ),
           _getMainSection(),
@@ -106,7 +116,7 @@ class _DurationPickerState extends State<DurationPicker> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.repetition.field.number.label'),
+                  labelText: translate('dialog.picker.duration.field.number.label'),
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -137,7 +147,7 @@ class _DurationPickerState extends State<DurationPicker> {
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.repetition.field.period.label'),
+                  labelText: translate('dialog.picker.duration.field.period.label'),
                 ),
                 items: const [
                   DropdownMenuItem(value: 'hour', child: Text('hours')),
