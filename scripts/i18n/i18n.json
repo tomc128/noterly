@@ -260,6 +260,19 @@
       "ar": "تم حذف جميع الاشعارات المُؤَرشفة",
       "pl": "Wszystkie zarchiwizowane powiadomienia usunięte"
     },
+    "toast.notification_snoozed": {
+      "en_GB": "Notification snoozed for {duration}",
+      "en_US": "Notification snoozed for {duration}",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null
+    },
     "page.settings.title": {
       "en_GB": "Settings",
       "en_US": "Settings",
