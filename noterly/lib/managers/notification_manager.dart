@@ -5,7 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/main.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
@@ -109,20 +109,35 @@ class NotificationManager {
     }
 
     if (response.actionId == 'snooze') {
-      Log.logger.d('Snoozing notification "${item.title}"');
-      await _instance.cancelNotification(item.id);
-
-      var snoozeDateTime = DateTime.now().add(const Duration(hours: 1));
+      var snoozeDateTime = DateTime.now().add(AppManager.instance.data.snoozeDuration);
       item.snoozeDateTime = snoozeDateTime;
+
+      Log.logger.d('Snoozing notification "${item.title}" for ${AppManager.instance.data.snoozeDuration.inMinutes} minutes (${snoozeDateTime.toDateTimeString()})');
+
+      await _instance.cancelNotification(item.id);
 
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
 
       await _instance._scheduleSnoozedNotification(item, snoozeDateTime);
 
-      Fluttertoast.showToast(
-        msg: 'Notification snoozed for 1 hour',
-        toastLength: Toast.LENGTH_SHORT,
-      );
+      // We need access to the main isolate for translations to show the toast
+      if (isBackground) {
+        var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
+        sendPort?.send('show_snooze_toast');
+        if (sendPort == null) {
+          Log.logger.e('Failed to send message to main isolate (port not found).');
+        }
+      }
+
+      // If we're in the background, we need to send a message to the main isolate to update the UI
+      if (isBackground) {
+        var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
+        sendPort?.send('update');
+        if (sendPort == null) {
+          Log.logger.e('Failed to send message to main isolate (port not found).');
+        }
+      }
+
       await FirebaseAnalytics.instance.logEvent(name: 'snooze_notification');
       return;
     }
@@ -237,9 +252,6 @@ class NotificationManager {
   }
 
   Future _scheduleSnoozedNotification(NotificationItem item, DateTime snoozeDateTime) async {
-    // 1h from now
-    // TODO: make this configurable
-
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
 
@@ -271,6 +283,11 @@ class NotificationManager {
       );
     }
 
+    if (item.snoozeDateTime != null) {
+      // Ignore snoozed notifications, these are handled separately
+      return;
+    }
+
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
 
@@ -292,6 +309,11 @@ class NotificationManager {
     if (item.dateTime!.isBefore(DateTime.now())) {
       // Show notification immediately if it's in the past
       await _showNotification(item, ignoreDateTime: true);
+      return;
+    }
+
+    if (item.snoozeDateTime != null) {
+      // Ignore snoozed notifications, these are handled separately
       return;
     }
 
