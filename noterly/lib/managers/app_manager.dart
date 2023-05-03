@@ -47,6 +47,11 @@ class AppManager {
 
   Logger get logger => _logger;
 
+  AppData data = AppData(
+    notificationItems: [],
+    snoozeDuration: const Duration(hours: 1),
+  );
+
   final notifier = ValueNotifier<List<NotificationItem>>([]);
 
   List<NotificationItem?> deletedItems = [];
@@ -64,24 +69,26 @@ class AppManager {
 
   Future _load() async {
     _loadingFuture = FileManager.load();
-    var data = await _loadingFuture;
+    var newData = await _loadingFuture;
 
     isInitialised = true;
     _loadingFuture = null;
 
-    if (data == null) {
+    if (newData == null) {
       Log.logger.d('No previous save found.');
       notifier.value = [];
+      data.notificationItems = [];
       return;
     }
 
     notifier.value = data.notificationItems;
+    data = data;
     Log.logger.d('Loaded data from file.');
   }
 
   Future<void> _save() async {
     Log.logger.d('Saving data to file...');
-    var data = AppData(notificationItems: notifier.value);
+    data.notificationItems = notifier.value;
 
     await FileManager.save(data);
   }
@@ -203,6 +210,13 @@ class AppManager {
   }
 
   // #endregion
+
+  Future saveSettings() async {
+    Log.logger.d('Saving data for settings...');
+    await _save();
+    _updateNotifier();
+    Log.logger.d('Data saved.');
+  }
 
   Future fullUpdate() async {
     Log.logger.d('Full update requested, reloading data from file...');

@@ -5,11 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/build_info.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/file_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
+import 'package:noterly/widgets/duration_picker.dart';
 import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -42,11 +44,24 @@ class _SettingsPageState extends State<SettingsPage> {
           _getCard(context, [
             ListTile(
               title: Text(translate('page.settings.notifications.snooze_duration')),
-              subtitle: const Text('1 hour'),
+              subtitle: Text(AppManager.instance.data.snoozeDuration.toRelativeDurationString()),
               leading: const Icon(Icons.timelapse),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
-            )
+              onTap: () {
+                showDurationPicker(
+                  context: context,
+                  initialDuration: AppManager.instance.data.snoozeDuration,
+                ).then((value) {
+                  if (value == null) return;
+                  setState(() {
+                    AppManager.instance.data.snoozeDuration = value;
+                    print('snooze duration is now ${AppManager.instance.data.snoozeDuration}');
+                  });
+                  AppManager.instance.saveSettings();
+                });
+              },
+            ),
           ]),
           _getHeader(translate('page.settings.header.system')),
           _getCard(context, [
