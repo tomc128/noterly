@@ -69,20 +69,22 @@ class AppManager {
 
   Future _load() async {
     _loadingFuture = FileManager.load();
-    var data = await _loadingFuture;
+    var newData = await _loadingFuture;
 
-    isInitialised = true;
     _loadingFuture = null;
 
-    if (data == null) {
+    if (newData == null) {
       Log.logger.d('No previous save found.');
       notifier.value = [];
-      data.notificationItems = [];
+      newData.notificationItems = [];
       return;
     }
 
+    data = newData!;
     notifier.value = data.notificationItems;
     Log.logger.d('Loaded data from file.');
+
+    isInitialised = true;
   }
 
   Future<void> _save() async {
