@@ -1,9 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/log.dart';
 
 import 'app_manager.dart';
@@ -30,12 +27,6 @@ class IsolateManager {
         case 'update':
           Log.logger.d('Forcing a full update...');
           AppManager.instance.fullUpdate();
-          break;
-        case 'show_snooze_toast':
-          Fluttertoast.showToast(
-            msg: translate('toast.notification_snoozed', args: {'duration': AppManager.instance.data.snoozeDuration.toRelativeDurationString()}),
-            toastLength: Toast.LENGTH_SHORT,
-          );
           break;
         default:
           Log.logger.w('Unknown message from background isolate: "$message"');
