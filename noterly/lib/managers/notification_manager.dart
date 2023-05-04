@@ -285,7 +285,7 @@ class NotificationManager {
       item.body,
       tz.TZDateTime.from(dateTime!, tz.local),
       details,
-      androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       payload: jsonEncode(item),
     );

@@ -21,7 +21,7 @@ extension DateTimeExtensions on DateTime {
     bool isTomorrow() => now.year == year && now.month == month && now.day - day == -1;
     bool isBeforeNextWeek() => isBefore(now.add(const Duration(days: 7)));
 
-    if (isToday()) return alwaysShowDay ? translate('time.today_and_time', args: {'time': toTimeOnlyString()}) : Jiffy(this).fromNow();
+    if (isToday()) return alwaysShowDay ? translate('time.today_and_time', args: {'time': toTimeOnlyString()}) : Jiffy.parseFromDateTime(this).fromNow();
 
     if (isYesterday()) return translate('time.yesterday_and_time', args: {'time': toTimeOnlyString()});
 

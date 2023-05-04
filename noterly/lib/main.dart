@@ -65,7 +65,11 @@ Future<void> main(List<String> args) async {
   //     options: DefaultFirebaseOptions
   //         .currentPlatform); // Previous method of initialising Firebase
   await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
-  await FirebaseAnalytics.instance.setDefaultEventParameters({'version': BuildInfo.appVersion});
+  await FirebaseAnalytics.instance.setDefaultEventParameters({
+    'version': BuildInfo.appVersion,
+    'branch': BuildInfo.branch,
+    'release_type': BuildInfo.releaseType,
+  });
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
