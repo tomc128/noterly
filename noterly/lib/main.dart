@@ -68,7 +68,7 @@ Future<void> main(List<String> args) async {
   await FirebaseAnalytics.instance.setDefaultEventParameters({
     'version': BuildInfo.appVersion,
     'branch': BuildInfo.branch,
-    'release_type': BuildInfo.releaseType,
+    'release_type': BuildInfo.releaseType.toString(),
   });
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
