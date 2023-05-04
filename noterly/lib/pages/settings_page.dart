@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ListTile(
               title: Text(translate('page.settings.notifications.snooze_duration')),
               subtitle: Text(AppManager.instance.data.snoozeDuration.toRelativeDurationString()),
-              leading: const Icon(Icons.timelapse),
+              leading: const Icon(Icons.snooze),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
               onTap: () {
