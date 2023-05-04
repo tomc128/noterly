@@ -177,7 +177,17 @@ class ActiveNotificationsPage extends NavigationScreen {
       );
 
   Widget? _getSubtitle(BuildContext context, NotificationItem item) {
-    if (item.body.isEmpty && item.dateTime == null && !item.isRepeating && item.snoozeDateTime == null) return null; // No subtitle
+    // Contains a list of conditions, each one of which returns true if it should NOT be shown
+    var subtitleCheck = [
+      item.body.isEmpty,
+      item.isImmediate,
+      item.isNotRepeating,
+      (item.isNotSnoozed || item.isSnoozedPast),
+    ];
+
+    if (subtitleCheck.every((condition) => condition)) {
+      return null; // No subtitle
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +215,7 @@ class ActiveNotificationsPage extends NavigationScreen {
               ),
             ],
           ),
-        if (item.snoozeDateTime != null)
+        if (item.isSnoozed && !item.isSnoozedPast)
           Row(
             children: [
               const Icon(Icons.snooze, size: 16),

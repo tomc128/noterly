@@ -9,19 +9,29 @@ class NotificationItem {
 
   Color colour;
 
-  bool get isImmediate => dateTime == null;
   DateTime? dateTime;
   RepetitionData? repetitionData;
-
-  bool get isRepeating => repetitionData != null;
 
   bool archived;
   DateTime? archivedDateTime;
 
+  DateTime? snoozeDateTime;
+
+  bool get isImmediate => dateTime == null;
+
+  bool get isScheduled => dateTime != null;
+
+  bool get isRepeating => repetitionData != null;
+
+  bool get isNotRepeating => repetitionData == null;
+
   bool get isSnoozed => snoozeDateTime != null;
 
+  bool get isNotSnoozed => snoozeDateTime == null;
+
   bool get isSnoozedPast => snoozeDateTime != null && snoozeDateTime!.isBefore(DateTime.now());
-  DateTime? snoozeDateTime;
+
+  bool get isSnoozedFuture => snoozeDateTime != null && snoozeDateTime!.isAfter(DateTime.now());
 
   NotificationItem({
     required this.id,
