@@ -72,13 +72,12 @@ class AppManager {
 
     if (newData == null) {
       Log.logger.d('No previous save found.');
-      notifier.value = [];
-      newData.notificationItems = [];
       return;
     }
 
-    data = newData!;
+    if (newData != null) data = newData;
     notifier.value = data.notificationItems;
+
     Log.logger.d('Loaded data from file.');
 
     isInitialised = true;
