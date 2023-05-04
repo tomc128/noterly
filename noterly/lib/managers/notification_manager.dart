@@ -112,11 +112,8 @@ class NotificationManager {
 
       Log.logger.d('Snoozing notification "${item.title}" for ${AppManager.instance.data.snoozeDuration.inMinutes} minutes (${snoozeDateTime.toDateTimeString()})');
 
-      await _instance.cancelNotification(item.id);
-
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
-
-      await _instance._scheduleSnoozedNotification(item, snoozeDateTime);
+      await _instance.showOrUpdateNotification(item);
 
       // We need access to the main isolate for translations to show the toast
       if (isBackground) {
@@ -251,43 +248,15 @@ class NotificationManager {
     await _scheduleNotification(item);
   }
 
-  Future _scheduleSnoozedNotification(NotificationItem item, DateTime snoozeDateTime) async {
-    var androidDetails = _getNotificationDetails(item);
-    var details = NotificationDetails(android: androidDetails);
-
-    await _plugin.zonedSchedule(
-      item.id.hashCode,
-      item.title,
-      item.body,
-      tz.TZDateTime.from(snoozeDateTime, tz.local),
-      details,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      payload: jsonEncode(item),
-    );
-  }
-
   Future _showOrScheduleNotification(NotificationItem item) async {
-    if (item.dateTime == null) {
+    if (item.isImmediate && !item.isSnoozed) {
       await _showNotification(item);
     } else {
       await _scheduleNotification(item);
     }
   }
 
-  Future _showNotification(NotificationItem item, {bool ignoreDateTime = false}) async {
-    if (!ignoreDateTime) {
-      assert(
-        item.dateTime == null,
-        'Notification must not have a dateTime in order to be shown immediately.',
-      );
-    }
-
-    if (item.snoozeDateTime != null) {
-      // Ignore snoozed notifications, these are handled separately
-      return;
-    }
-
+  Future _showNotification(NotificationItem item) async {
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
 
@@ -301,19 +270,12 @@ class NotificationManager {
   }
 
   Future _scheduleNotification(NotificationItem item) async {
-    assert(
-      item.dateTime != null,
-      'Notification must have a dateTime in order to be scheduled.',
-    );
+    // send the notification either at its datetime or if its snoozed, at its snooze datetime
+    var dateTime = item.isSnoozed ? item.snoozeDateTime : item.dateTime;
 
-    if (item.dateTime!.isBefore(DateTime.now())) {
+    if (item.isImmediate || dateTime!.isBefore(DateTime.now())) {
       // Show notification immediately if it's in the past
-      await _showNotification(item, ignoreDateTime: true);
-      return;
-    }
-
-    if (item.snoozeDateTime != null) {
-      // Ignore snoozed notifications, these are handled separately
+      await _showNotification(item);
       return;
     }
 
@@ -324,7 +286,7 @@ class NotificationManager {
       item.id.hashCode,
       item.title,
       item.body,
-      tz.TZDateTime.from(item.dateTime!, tz.local),
+      tz.TZDateTime.from(dateTime!, tz.local),
       details,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
@@ -333,18 +295,12 @@ class NotificationManager {
   }
 
   AndroidNotificationDetails _getNotificationDetails(NotificationItem item) => AndroidNotificationDetails(
-        item.dateTime == null ? 'immediate_notifications' : 'scheduled_notifications',
-        item.dateTime == null ? 'Immediate notifications' : 'Scheduled notifications',
-        channelDescription: item.dateTime == null ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
+        item.isImmediate ? 'immediate_notifications' : 'scheduled_notifications',
+        item.isImmediate ? 'Immediate notifications' : 'Scheduled notifications',
+        channelDescription: item.isImmediate ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
         actions: <AndroidNotificationAction>[
-          const AndroidNotificationAction(
-            'done',
-            'Mark as done',
-          ),
-          const AndroidNotificationAction(
-            'snooze',
-            'Snooze',
-          ),
+          const AndroidNotificationAction('done', 'Mark as done'),
+          const AndroidNotificationAction('snooze', 'Snooze'),
         ],
         category: AndroidNotificationCategory.reminder,
         importance: Importance.max,
@@ -352,7 +308,7 @@ class NotificationManager {
         groupKey: 'uk.co.tdsstudios.noterly.ALL_NOTIFICATIONS_GROUP',
         color: item.colour,
         ongoing: true,
-        when: item.dateTime == null ? null : item.dateTime!.millisecondsSinceEpoch,
+        when: item.isImmediate ? null : item.dateTime!.millisecondsSinceEpoch,
         autoCancel: false,
       );
 }

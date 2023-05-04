@@ -9,6 +9,7 @@ class NotificationItem {
 
   Color colour;
 
+  bool get isImmediate => dateTime == null;
   DateTime? dateTime;
   RepetitionData? repetitionData;
 
@@ -17,6 +18,9 @@ class NotificationItem {
   bool archived;
   DateTime? archivedDateTime;
 
+  bool get isSnoozed => snoozeDateTime != null;
+
+  bool get isSnoozedPast => snoozeDateTime != null && snoozeDateTime!.isBefore(DateTime.now());
   DateTime? snoozeDateTime;
 
   NotificationItem({
