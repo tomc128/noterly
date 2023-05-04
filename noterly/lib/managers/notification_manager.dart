@@ -5,6 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
 import 'package:noterly/main.dart';
 import 'package:noterly/managers/app_manager.dart';
@@ -115,18 +116,14 @@ class NotificationManager {
       await AppManager.instance.editItem(item, deferNotificationManagerCall: true);
       await _instance.showOrUpdateNotification(item);
 
-      // We need access to the main isolate for translations to show the toast
-      if (isBackground) {
-        var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
-        sendPort?.send('show_snooze_toast');
-        if (sendPort == null) {
-          Log.logger.e('Failed to send message to main isolate (port not found).');
-        }
-      }
+      // Show the toast
+      await Fluttertoast.showToast(
+        msg: AppManager.instance.data.snoozeToastText,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
 
       // If we're in the background, we need to send a message to the main isolate to update the UI
-      // TODO: This won't work if the app is closed. Need a way to 'cache' the toast message whenever snooze duration is changed.
-      // This way we can show the toast when the app is closed by showing this cached message.
       if (isBackground) {
         var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
@@ -273,7 +270,7 @@ class NotificationManager {
     // send the notification either at its datetime or if its snoozed, at its snooze datetime
     var dateTime = item.isSnoozed ? item.snoozeDateTime : item.dateTime;
 
-    if (item.isImmediate || dateTime!.isBefore(DateTime.now())) {
+    if (dateTime?.isBefore(DateTime.now()) ?? false) {
       // Show notification immediately if it's in the past
       await _showNotification(item);
       return;
