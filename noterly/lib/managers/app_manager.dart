@@ -47,10 +47,7 @@ class AppManager {
 
   Logger get logger => _logger;
 
-  AppData data = AppData(
-    notificationItems: [],
-    snoozeDuration: const Duration(hours: 1),
-  );
+  AppData data = AppData.defaults();
 
   final notifier = ValueNotifier<List<NotificationItem>>([]);
 
