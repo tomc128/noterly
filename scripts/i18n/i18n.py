@@ -25,6 +25,10 @@ PURGE_DIRECTORY = True
 # which languages to include in the output.
 PARSE_INCLUDE = True
 
+# If set to True, any missing translations will be filled with
+# the English translation.
+FILL_MISSING_TRANSLATIONS = False
+
 
 print('[blue]Loading spreadsheet...[/blue]', end='')
 gc = gspread.service_account(filename='./credentials.json')
@@ -55,7 +59,8 @@ if PURGE_DIRECTORY:
             shutil.rmtree(FLUTTER_OUTPUT_DIRECTORY)
         os.mkdir(FLUTTER_OUTPUT_DIRECTORY)
 
-print()
+english_dict = {}
+
 for lang in languages:
     if PARSE_INCLUDE:
         included = data[1][languages.index(lang)+1].strip() == 'TRUE'
@@ -73,6 +78,17 @@ for lang in languages:
                 if translation:
                     lang_dict[key] = translation
 
+    if lang == 'en_GB':
+        english_dict = lang_dict
+
+    num_translations = len(lang_dict)
+    missing_translations = num_total_translations - num_translations
+
+    if FILL_MISSING_TRANSLATIONS:
+        for key in translation_keys:
+            if key not in lang_dict:
+                lang_dict[key] = english_dict[key]
+
     with open(f'{OUTPUT_DIRECTORY}/{lang}.json', 'w', encoding='utf-8') as f:
         json.dump(lang_dict, f)
 
@@ -82,12 +98,13 @@ for lang in languages:
 
     print(' [green bold]Done![/green bold]', end='')
 
-    num_translations = len(lang_dict)
     print(f' [cyan]({num_translations}/{num_total_translations} translations)[/cyan]', end='')
 
-    missing = num_total_translations - num_translations
-    if missing > 0:
-        print(f' [red]({missing} missing)[/red]', end='')
+    if missing_translations > 0:
+        print(f' [red]({missing_translations} missing)[/red]', end='')
+    
+    if FILL_MISSING_TRANSLATIONS and missing_translations > 0:
+        print(f' [yellow]({missing_translations} filled from en_GB)[/yellow]', end='')
 
     print()
 
