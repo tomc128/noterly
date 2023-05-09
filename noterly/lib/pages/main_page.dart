@@ -193,6 +193,11 @@ class _MainPageState extends State<MainPage> {
       shouldShowFirstLaunchDialog = false;
     }
 
+    if (BuildInfo.releaseType == ReleaseType.inDev) {
+      // The app is running in development mode (i.e. in IDE) so do not show the dialog
+      shouldShowFirstLaunchDialog = false;
+    }
+
     if (shouldShowFirstLaunchDialog) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showDialog(

@@ -20,9 +20,6 @@ class FileManager {
   static Future save(AppData data) async {
     final file = await _localFile;
 
-    Log.logger.d(data);
-    Log.logger.d(data.toJson());
-
     file.writeAsString(jsonEncode(data.toJson()));
   }
 

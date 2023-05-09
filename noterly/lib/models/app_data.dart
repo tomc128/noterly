@@ -20,7 +20,7 @@ class AppData {
       'notificationItems': notificationItems.map((e) => e.toJson()).toList(),
       'snoozeDuration': snoozeDuration.inSeconds,
       'snoozeToastText': snoozeToastText,
-      'firstLaunchDialogLastShown': -1,
+      'firstLaunchDialogLastShown': firstLaunchDialogLastShown,
     };
   }
 
@@ -32,6 +32,9 @@ class AppData {
         snoozeToastText: AppDataJsonParser<String>('snoozeToastText', 'Notification snoozed').parse(json),
         firstLaunchDialogLastShown: AppDataJsonParser<int>('firstLaunchDialogLastShown', -1).parse(json),
       );
+
+  @override
+  String toString() => 'AppData(notificationItems: $notificationItems, snoozeDuration: $snoozeDuration, snoozeToastText: $snoozeToastText, firstLaunchDialogLastShown: $firstLaunchDialogLastShown)';
 }
 
 class AppDataJsonParser<T> {
