@@ -30,6 +30,16 @@ PARSE_INCLUDE = True
 FILL_MISSING_TRANSLATIONS = False
 
 
+print('[bold]i18n script[/bold]')
+print(f'OUTPUT_DIRECTORY: [italic]{OUTPUT_DIRECTORY}[/italic]')
+print(f'FLUTTER_OUTPUT_DIRECTORY: [italic]{FLUTTER_OUTPUT_DIRECTORY}[/italic]')
+print(f'SAVE_TO_FLUTTER: [italic]{SAVE_TO_FLUTTER}[/italic]')
+print(f'PURGE_DIRECTORY: [italic]{PURGE_DIRECTORY}[/italic]')
+print(f'PARSE_INCLUDE: [italic]{PARSE_INCLUDE}[/italic]')
+print(f'FILL_MISSING_TRANSLATIONS: [italic]{FILL_MISSING_TRANSLATIONS}[/italic]')
+print()
+
+
 print('[blue]Loading spreadsheet...[/blue]', end='')
 gc = gspread.service_account(filename='./credentials.json')
 sheet = gc.open_by_key('1c0I6lARH-S2x8sxpA2nQ1gZZm4Q6b5OyuPjVvjuvF94').worksheet('Translations')
@@ -38,6 +48,7 @@ print(' [bold green]Done![/bold green]')
 print('[blue]Loading data...[/blue]', end='')
 data = sheet.get_values()
 print(' [bold green]Done![/bold green]')
+
 
 languages = [lang for lang in data[0][1:] if lang.strip() != '']
 
