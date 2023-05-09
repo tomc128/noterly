@@ -64,10 +64,12 @@ Future<void> main(List<String> args) async {
   // await Firebase.initializeApp(
   //     options: DefaultFirebaseOptions
   //         .currentPlatform); // Previous method of initialising Firebase
-  await Firebase
-      .initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
-  await FirebaseAnalytics.instance
-      .setDefaultEventParameters({'version': BuildInfo.appVersion});
+  await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
+  await FirebaseAnalytics.instance.setDefaultEventParameters({
+    'version': BuildInfo.appVersion,
+    'branch': BuildInfo.branch,
+    'release_type': BuildInfo.releaseType.toString(),
+  });
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
@@ -79,10 +81,25 @@ Future<void> main(List<String> args) async {
 
   var delegate = await LocalizationDelegate.create(
     fallbackLocale: 'en_GB',
-    supportedLocales: ['en_GB', 'en_US', 'fr', 'es', 'de'],
+    supportedLocales: [
+      'en_GB',
+      'en_US',
+      'fr',
+      'es',
+      'de',
+      'ru',
+      'ua',
+      // TODO: decide which languages to support for next release
+      // 'ar',
+      // 'hu',
+      // 'mt',
+      // 'pl',
+    ],
   );
   runApp(LocalizedApp(
-      delegate, MyApp(launchMessage: args.isNotEmpty ? args[0] : null)));
+    delegate,
+    MyApp(launchMessage: args.isNotEmpty ? args[0] : null),
+  ));
 
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
@@ -91,23 +108,19 @@ Future<void> main(List<String> args) async {
     if (shortcutType == 'action_new') {
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
-            (route) => route.isFirst,
+        (route) => route.isFirst,
       );
     }
   });
 
   quickActions.setShortcutItems(<ShortcutItem>[
-    const ShortcutItem(
-        type: 'action_new',
-        localizedTitle: 'New note',
-        icon: 'ic_shortcut_add'),
+    const ShortcutItem(type: 'action_new', localizedTitle: 'New note', icon: 'ic_shortcut_add'),
   ]);
 }
 
 class MyApp extends StatefulWidget {
   final String? launchMessage;
-  static final GlobalKey<NavigatorState> navigatorKey =
-  GlobalKey(debugLabel: "Main Navigator");
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
 
   const MyApp({
     super.key,
@@ -130,9 +143,8 @@ class _MyAppState extends State<MyApp> {
     if (widget.launchMessage == 'launchFromQuickTile') {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const CreateNotificationPage()),
-              (route) => route.isFirst,
+          MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+          (route) => route.isFirst,
         );
       });
     }
@@ -143,9 +155,8 @@ class _MyAppState extends State<MyApp> {
 
       // Show create notification page with the shared text as the title
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (context) => CreateNotificationPage(initialTitle: text)),
-            (route) => route.isFirst,
+        MaterialPageRoute(builder: (context) => CreateNotificationPage(initialTitle: text)),
+        (route) => route.isFirst,
       );
 
       // Analytics event
@@ -157,12 +168,10 @@ class _MyAppState extends State<MyApp> {
     }
 
     // Share sheet listener, while app is open
-    _shareIntentDataStreamSubscription = ReceiveSharingIntent.getTextStream()
-        .listen(handleSharedText, onError: handleShareError);
+    _shareIntentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(handleSharedText, onError: handleShareError);
 
     // Share sheet listener, when app is closed
-    ReceiveSharingIntent.getInitialText()
-        .then(handleSharedText, onError: handleShareError);
+    ReceiveSharingIntent.getInitialText().then(handleSharedText, onError: handleShareError);
 
     // GENERAL INTENT
     handleIntent(receive_intent.Intent? intent) {
@@ -172,9 +181,8 @@ class _MyAppState extends State<MyApp> {
       if (intent.action == 'uk.co.tdsstudios.noterly.ACTION_CREATE_NOTE') {
         // Show create notification page
         MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const CreateNotificationPage()),
-              (route) => route.isFirst,
+          MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+          (route) => route.isFirst,
         );
 
         // Analytics event
@@ -187,12 +195,10 @@ class _MyAppState extends State<MyApp> {
     }
 
     // Intent listener, while app is open
-    _intentDataStreamSubscription = ReceiveIntent.receivedIntentStream
-        .listen(handleIntent, onError: handleIntentError);
+    _intentDataStreamSubscription = ReceiveIntent.receivedIntentStream.listen(handleIntent, onError: handleIntentError);
 
     // Intent listener, when app is closed
-    ReceiveIntent.getInitialIntent()
-        .then(handleIntent, onError: handleIntentError);
+    ReceiveIntent.getInitialIntent().then(handleIntent, onError: handleIntentError);
   }
 
   @override
@@ -216,7 +222,7 @@ class _MyAppState extends State<MyApp> {
           startOnBoot: true,
           forceAlarmManager: false,
           requiredNetworkType: NetworkType.NONE),
-          (String taskId) async {
+      (String taskId) async {
         // <-- Event handler
         Log.logger.d('[BackgroundFetch] Event received $taskId');
 
@@ -224,10 +230,9 @@ class _MyAppState extends State<MyApp> {
         await AppManager.instance.fullUpdate();
         await NotificationManager.instance.updateAllNotifications();
 
-        BackgroundFetch.finish(
-            taskId); // Signal the task is complete. IMPORTANT
+        BackgroundFetch.finish(taskId); // Signal the task is complete. IMPORTANT
       },
-          (String taskId) async {
+      (String taskId) async {
         // <-- Task timeout handler.
         Log.logger.w('[BackgroundFetch] Task timeout: $taskId');
         BackgroundFetch.finish(taskId);
@@ -242,74 +247,62 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var localizationDelegate = LocalizedApp
-        .of(context)
-        .delegate;
+    var localizationDelegate = LocalizedApp.of(context).delegate;
 
     return LocalizationProvider(
-      state: LocalizationProvider
-          .of(context)
-          .state,
-      child: DynamicColorBuilder(
-          builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-            ColorScheme lightColorScheme;
-            ColorScheme darkColorScheme;
+      state: LocalizationProvider.of(context).state,
+      child: DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        ColorScheme lightColorScheme;
+        ColorScheme darkColorScheme;
 
-            if (lightDynamic != null && darkDynamic != null) {
-              Log.logger.d('Using dynamic color scheme.');
+        if (lightDynamic != null && darkDynamic != null) {
+          Log.logger.d('Using dynamic color scheme.');
 
-              lightColorScheme = lightDynamic.harmonized();
-              darkColorScheme = darkDynamic.harmonized();
-            } else {
-              Log.logger.d('No dynamic color scheme, using fallback.');
+          lightColorScheme = lightDynamic.harmonized();
+          darkColorScheme = darkDynamic.harmonized();
+        } else {
+          Log.logger.d('No dynamic color scheme, using fallback.');
 
-              lightColorScheme = ColorScheme.fromSeed(
-                seedColor: const Color.fromRGBO(153, 0, 228, 1),
-              );
-              darkColorScheme = ColorScheme.fromSeed(
-                seedColor: const Color.fromRGBO(153, 0, 228, 1),
-                brightness: Brightness.dark,
-              );
-            }
+          lightColorScheme = ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(153, 0, 228, 1),
+          );
+          darkColorScheme = ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(153, 0, 228, 1),
+            brightness: Brightness.dark,
+          );
+        }
 
-            return MaterialApp(
-              navigatorKey: MyApp.navigatorKey,
-              title: 'Noterly',
-              localizationsDelegates: [
-                ...GlobalMaterialLocalizations.delegates,
-                GlobalWidgetsLocalizations.delegate,
-                localizationDelegate,
-              ],
-              supportedLocales: localizationDelegate.supportedLocales,
-              locale: localizationDelegate.currentLocale,
-              theme: ThemeData(
-                useMaterial3: true,
-                colorScheme: lightColorScheme,
-                fontFamily: GoogleFonts
-                    .dmSans()
-                    .fontFamily,
-                textTheme: GoogleFonts.dmSansTextTheme().copyWith(
-                  labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
-                ),
-              ),
-              darkTheme: ThemeData(
-                useMaterial3: true,
-                colorScheme: darkColorScheme,
-                fontFamily: GoogleFonts
-                    .dmSans()
-                    .fontFamily,
-                textTheme: GoogleFonts.dmSansTextTheme(ThemeData
-                    .dark()
-                    .textTheme)
-                    .copyWith(
-                  labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
-                ),
-              ),
-              themeMode: ThemeMode.system,
-              home: const MainPage(),
-              debugShowCheckedModeBanner: false,
-            );
-          }),
+        return MaterialApp(
+          navigatorKey: MyApp.navigatorKey,
+          title: 'Noterly',
+          localizationsDelegates: [
+            ...GlobalMaterialLocalizations.delegates,
+            GlobalWidgetsLocalizations.delegate,
+            localizationDelegate,
+          ],
+          supportedLocales: localizationDelegate.supportedLocales,
+          locale: localizationDelegate.currentLocale,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: lightColorScheme,
+            fontFamily: GoogleFonts.dmSans().fontFamily,
+            textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+              labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
+            ),
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            colorScheme: darkColorScheme,
+            fontFamily: GoogleFonts.dmSans().fontFamily,
+            textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
+              labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
+            ),
+          ),
+          themeMode: ThemeMode.system,
+          home: const MainPage(),
+          debugShowCheckedModeBanner: false,
+        );
+      }),
     );
   }
 }

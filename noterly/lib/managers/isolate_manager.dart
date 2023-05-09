@@ -23,11 +23,13 @@ class IsolateManager {
 
     // Listen for messages from the background isolate
     mainRecievePort.listen((message) {
-      if (message == 'update') {
-        Log.logger.d('Forcing a full update...');
-        AppManager.instance.fullUpdate();
-      } else {
-        Log.logger.w('Unknown message from background isolate: "$message"');
+      switch (message) {
+        case 'update':
+          Log.logger.d('Forcing a full update...');
+          AppManager.instance.fullUpdate();
+          break;
+        default:
+          Log.logger.w('Unknown message from background isolate: "$message"');
       }
     });
   }

@@ -36,7 +36,7 @@ class AppManager {
 
   final Logger _logger = Logger(
     printer: PrettyPrinter(
-      methodCount: 8,
+      methodCount: 0,
       errorMethodCount: 8,
       lineLength: 120,
       colors: true,
@@ -46,6 +46,8 @@ class AppManager {
   );
 
   Logger get logger => _logger;
+
+  AppData data = AppData.defaults();
 
   final notifier = ValueNotifier<List<NotificationItem>>([]);
 
@@ -64,24 +66,26 @@ class AppManager {
 
   Future _load() async {
     _loadingFuture = FileManager.load();
-    var data = await _loadingFuture;
+    var newData = await _loadingFuture;
 
-    isInitialised = true;
     _loadingFuture = null;
 
-    if (data == null) {
+    if (newData == null) {
       Log.logger.d('No previous save found.');
-      notifier.value = [];
       return;
     }
 
+    if (newData != null) data = newData;
     notifier.value = data.notificationItems;
+
     Log.logger.d('Loaded data from file.');
+
+    isInitialised = true;
   }
 
   Future<void> _save() async {
     Log.logger.d('Saving data to file...');
-    var data = AppData(notificationItems: notifier.value);
+    data.notificationItems = notifier.value;
 
     await FileManager.save(data);
   }
@@ -94,8 +98,7 @@ class AppManager {
     return found.isEmpty ? null : found.first;
   }
 
-  Future addItem(NotificationItem item,
-      {bool deferNotificationManagerCall = false}) async {
+  Future addItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     notifier.value.add(item);
     await _save();
     _updateNotifier();
@@ -105,8 +108,7 @@ class AppManager {
     }
   }
 
-  Future editItem(NotificationItem item,
-      {bool deferNotificationManagerCall = false}) async {
+  Future editItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == item.id);
     if (found.isEmpty) {
       return;
@@ -122,8 +124,7 @@ class AppManager {
     }
   }
 
-  Future deleteItem(String id,
-      {bool deferNotificationManagerCall = false}) async {
+  Future deleteItem(String id, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -140,10 +141,8 @@ class AppManager {
     }
   }
 
-  Future deleteAllArchivedItems(
-      {bool deferNotificationManagerCall = false}) async {
-    var archivedItems =
-        notifier.value.where((element) => element.archived).toList();
+  Future deleteAllArchivedItems({bool deferNotificationManagerCall = false}) async {
+    var archivedItems = notifier.value.where((element) => element.archived).toList();
     if (archivedItems.isEmpty) {
       return;
     }
@@ -161,8 +160,7 @@ class AppManager {
     _updateNotifier();
   }
 
-  Future archiveItem(String id,
-      {bool deferNotificationManagerCall = false}) async {
+  Future archiveItem(String id, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -179,8 +177,7 @@ class AppManager {
     }
   }
 
-  Future restoreArchivedItem(String id,
-      {bool deferNotificationManagerCall = false}) async {
+  Future restoreArchivedItem(String id, {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -193,26 +190,30 @@ class AppManager {
     _updateNotifier();
 
     if (!deferNotificationManagerCall) {
-      NotificationManager.instance
-          .showOrUpdateNotification(notifier.value[index]);
+      NotificationManager.instance.showOrUpdateNotification(notifier.value[index]);
     }
   }
 
-  Future restoreLastDeletedItems(
-      {bool deferNotificationManagerCall = false}) async {
+  Future restoreLastDeletedItems({bool deferNotificationManagerCall = false}) async {
     if (deletedItems.isEmpty) {
       return;
     }
 
     for (var item in deletedItems) {
-      await addItem(item!,
-          deferNotificationManagerCall: deferNotificationManagerCall);
+      await addItem(item!, deferNotificationManagerCall: deferNotificationManagerCall);
     }
 
     deletedItems = [];
   }
 
   // #endregion
+
+  Future saveSettings() async {
+    Log.logger.d('Saving data for settings...');
+    await _save();
+    _updateNotifier();
+    Log.logger.d('Data saved.');
+  }
 
   Future fullUpdate() async {
     Log.logger.d('Full update requested, reloading data from file...');

@@ -10,13 +10,28 @@ class NotificationItem {
   Color colour;
 
   DateTime? dateTime;
-  // Duration? repeatDuration;
   RepetitionData? repetitionData;
-
-  bool get isRepeating => repetitionData != null;
 
   bool archived;
   DateTime? archivedDateTime;
+
+  DateTime? snoozeDateTime;
+
+  bool get isImmediate => dateTime == null;
+
+  bool get isScheduled => dateTime != null;
+
+  bool get isRepeating => repetitionData != null;
+
+  bool get isNotRepeating => repetitionData == null;
+
+  bool get isSnoozed => snoozeDateTime != null;
+
+  bool get isNotSnoozed => snoozeDateTime == null;
+
+  bool get isSnoozedPast => snoozeDateTime != null && snoozeDateTime!.isBefore(DateTime.now());
+
+  bool get isSnoozedFuture => snoozeDateTime != null && snoozeDateTime!.isAfter(DateTime.now());
 
   NotificationItem({
     required this.id,
@@ -27,11 +42,12 @@ class NotificationItem {
     required this.colour,
     this.archived = false,
     this.archivedDateTime,
+    this.snoozeDateTime,
   });
 
   @override
   String toString() {
-    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, repetitionData: $repetitionData, colour: $colour, archived: $archived)';
+    return 'NotificationItem(id: $id, title: $title, body: $body, dateTime: $dateTime, repetitionData: $repetitionData, colour: $colour, archived: $archived, archivedDateTime: $archivedDateTime, snoozeDateTime: $snoozeDateTime)';
   }
 
   DateTime get nextRepeatDateTime {
@@ -65,6 +81,7 @@ class NotificationItem {
         'colour': colour.value,
         'archived': archived,
         'archivedDateTime': archivedDateTime?.toIso8601String(),
+        'snoozeDateTime': snoozeDateTime?.toIso8601String(),
       };
 
   factory NotificationItem.fromJson(Map<String, dynamic> json) => NotificationItem(
@@ -76,5 +93,6 @@ class NotificationItem {
         colour: Color(json['colour']),
         archived: json['archived'] ?? false,
         archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,
+        snoozeDateTime: json['snoozeDateTime'] != null ? DateTime.parse(json['snoozeDateTime']) : null,
       );
 }

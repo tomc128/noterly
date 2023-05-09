@@ -17,14 +17,11 @@ extension DateTimeExtensions on DateTime {
     final now = DateTime.now();
 
     bool isToday() => now.year == year && now.month == month && now.day == day;
-
     bool isYesterday() => now.year == year && now.month == month && now.day - day == 1;
-
     bool isTomorrow() => now.year == year && now.month == month && now.day - day == -1;
-
     bool isBeforeNextWeek() => isBefore(now.add(const Duration(days: 7)));
 
-    if (isToday()) return alwaysShowDay ? translate('time.today_and_time', args: {'time': toTimeOnlyString()}) : Jiffy(this).fromNow();
+    if (isToday()) return alwaysShowDay ? translate('time.today_and_time', args: {'time': toTimeOnlyString()}) : Jiffy.parseFromDateTime(this).fromNow();
 
     if (isYesterday()) return translate('time.yesterday_and_time', args: {'time': toTimeOnlyString()});
 
@@ -33,6 +30,39 @@ extension DateTimeExtensions on DateTime {
     if (isBeforeNextWeek()) return translate('time.date_and_time', args: {'date': DateFormat.EEEE().format(this), 'time': toTimeOnlyString()});
 
     if (year == now.year) return toDateTimeString();
+
+    return toDateTimeWithYearString();
+  }
+
+  String toSnoozedUntilDateTimeString() {
+    final now = DateTime.now();
+
+    bool isToday() => now.year == year && now.month == month && now.day == day;
+    bool isYesterday() => now.year == year && now.month == month && now.day - day == 1;
+    bool isTomorrow() => now.year == year && now.month == month && now.day - day == -1;
+    bool isBeforeNextWeek() => isBefore(now.add(const Duration(days: 7)));
+
+    if (isToday()) return translate('time.snooze.until', args: {'date_time': toTimeOnlyString()});
+
+    if (isYesterday()) {
+      return translate('time.snooze.until', args: {
+        'date_time': translate('time.yesterday_and_time', args: {'time': toTimeOnlyString()})
+      });
+    }
+
+    if (isTomorrow()) {
+      return translate('time.snooze.until', args: {
+        'date_time': translate('time.tomorrow_and_time', args: {'time': toTimeOnlyString()})
+      });
+    }
+
+    if (isBeforeNextWeek()) {
+      return translate('time.snooze.until', args: {
+        'date_time': translate('time.date_and_time', args: {'date': DateFormat.EEEE().format(this), 'time': toTimeOnlyString()})
+      });
+    }
+
+    if (year == now.year) return translate('time.snooze.until', args: {'date_time': toDateTimeString()});
 
     return toDateTimeWithYearString();
   }

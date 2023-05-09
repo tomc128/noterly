@@ -5,11 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/build_info.dart';
+import 'package:noterly/extensions/duration_extensions.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/file_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
+import 'package:noterly/widgets/duration_picker.dart';
+import 'package:noterly/widgets/first_launch_dialog.dart';
 import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -38,6 +41,29 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
+          _getHeader(translate('page.settings.header.notifications')),
+          _getCard(context, [
+            ListTile(
+              title: Text(translate('page.settings.notifications.snooze_duration')),
+              subtitle: Text(AppManager.instance.data.snoozeDuration.toRelativeDurationString()),
+              leading: const Icon(Icons.snooze),
+              trailing: const Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+              onTap: () {
+                showDurationPicker(
+                  context: context,
+                  initialDuration: AppManager.instance.data.snoozeDuration,
+                ).then((value) {
+                  if (value == null) return;
+                  setState(() {
+                    AppManager.instance.data.snoozeDuration = value;
+                    AppManager.instance.data.snoozeToastText = translate('toast.notification_snoozed', args: {'duration': value.toRelativeDurationString()});
+                  });
+                  AppManager.instance.saveSettings();
+                });
+              },
+            ),
+          ]),
           _getHeader(translate('page.settings.header.system')),
           _getCard(context, [
             ListTile(
@@ -162,7 +188,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Text(translate('page.settings.about.licenses.page.legalese')),
                             const SizedBox(height: 16),
                             Text(translate('dialog.about.translations.title'), style: Theme.of(context).textTheme.titleMedium),
-                            const Text('• Tom Chapman (en_GB, en_US)\n• Google Translate (fr)\n• "FBI" (es)\n• Sascha Grebe (de)'),
+                            const Text('• Tom Chapman (en_GB, en_US)\n• FBI (es)\n• Sascha Grebe (de)\n• Bluefy (de)\n• Mr.Spok (ru, ua)'),
                             const SizedBox(height: 16),
                             ButtonBar(
                               children: [
@@ -196,6 +222,21 @@ class _SettingsPageState extends State<SettingsPage> {
 
                 FirebaseAnalytics.instance.logEvent(
                   name: 'open_about_dialog',
+                );
+              },
+            ),
+            ListTile(
+              title: Text(translate('page.settings.about.tutorial.title')),
+              leading: const Icon(Icons.school),
+              trailing: const Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+              onTap: () async {
+                showDialog(
+                  context: context,
+                  builder: (context) => FirstLaunchDialog(
+                    onComplete: () {},
+                  ),
+                  barrierDismissible: false,
                 );
               },
             ),

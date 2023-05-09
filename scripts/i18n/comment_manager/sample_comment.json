@@ -1,5 +1,0 @@
-{'id': 'AAAArqeX9AY', 'kind': 'drive#comment', 'createdTime': '2023-03-12T14: 40: 40.705Z', 'modifiedTime': '2023-03-12T14: 40: 40.705Z', 'resolved': False, 'anchor': '{
-        "type": "workbook-range",
-        "uid": 0,
-        "range": "2000483758"
-    }', 'replies': [], 'author': {'displayName': 'Izabella Tóth', 'kind': 'drive#user', 'me': False, 'photoLink': ' //lh3.googleusercontent.com/a-/ACB-R5QuM9VCTMAVGLy49SiWG5RQxt-6ImezBMNZTF2I-A=s50-c-k-no'}, 'deleted': False, 'htmlContent': '{date}, {time}', 'content': '{date}, {time}'}
