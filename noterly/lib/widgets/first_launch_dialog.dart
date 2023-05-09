@@ -14,20 +14,31 @@ class FirstLaunchDialog extends Dialog {
     var pages = <_LaunchDialogPage>[
       _LaunchDialogPage(
         title: 'Welcome to Noterly',
-        content: 'Noterly is a simple app for creating and managing notifications.',
+        subtitle: 'Simple notification reminders',
+        content: "Here's some basic information to get you started.",
+      ),
+      _LaunchDialogPage(
+        title: 'Reminders',
+        content: 'Noterly is designed for quick, simple reminders. You may find a to-do list or calendar app more suitable for more complex tasks.',
+        icon: Icons.notifications_active,
       ),
       _LaunchDialogPage(
         title: 'Create a notification',
         content: 'Tap the floating button to create a new notification.',
         child: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            const messages = ["That's right!", 'Well done!', "You've got it!", 'Great job!', 'Great success!'];
+            var message = messages[DateTime.now().second % messages.length];
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+          },
           label: Text(translate('main.action.new')),
           icon: const Icon(Icons.add),
         ),
       ),
       _LaunchDialogPage(
         title: 'Manage notifications',
-        content: 'Swipe a notification in the app to mark it as done. Go to the archive page to swipe to delete notifications.',
+        content: 'Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.',
         child: Column(
           children: [
             Material(
@@ -59,21 +70,41 @@ class FirstLaunchDialog extends Dialog {
           ],
         ),
       ),
+      _LaunchDialogPage(
+        title: 'Snoozing reminders',
+        content: 'You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.',
+      ),
+      _LaunchDialogPage(
+        title: "That's it!",
+        content: "You're ready to start using Noterly. You can always come back to this page in settings.",
+      ),
     ];
     var currentPage = 0;
 
     return Dialog(
       child: StatefulBuilder(
         builder: (context, setState) {
-          var title = Text(pages[currentPage].title, style: Theme.of(context).textTheme.titleLarge);
-          var content = Text(pages[currentPage].content);
+          var hasSubtitle = pages[currentPage].subtitle != null;
+          Widget subtitle = hasSubtitle ? Text(pages[currentPage].subtitle!, style: Theme.of(context).textTheme.titleMedium) : const SizedBox();
 
           var hasChild = !(pages[currentPage].child == null && pages[currentPage].image == null);
-
-          Widget widget = Padding(
+          Widget child = Padding(
             padding: EdgeInsets.symmetric(vertical: hasChild ? 16 : 8),
-            child: pages[currentPage].child ?? SizedBox(),
+            child: pages[currentPage].child ?? const SizedBox(),
           );
+
+          var hasIcon = pages[currentPage].icon != null;
+
+          var title = hasIcon
+              ? Row(
+                  children: [
+                    Icon(pages[currentPage].icon),
+                    const SizedBox(width: 16),
+                    Text(pages[currentPage].title, style: Theme.of(context).textTheme.titleLarge),
+                  ],
+                )
+              : Text(pages[currentPage].title, style: Theme.of(context).textTheme.titleLarge);
+          var content = Text(pages[currentPage].content);
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +117,8 @@ class FirstLaunchDialog extends Dialog {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     title,
-                    widget,
+                    subtitle,
+                    child,
                     content,
                   ],
                 ),
@@ -130,15 +162,30 @@ class FirstLaunchDialog extends Dialog {
 }
 
 class _LaunchDialogPage {
+  /// The title of the page
   String title;
+
+  /// A subtitle to show directly below the title
+  String? subtitle;
+
+  /// The main text content of the page
   String content;
+
+  /// An image to show on the page
   Image? image;
+
+  /// A widget to show on the page
   Widget? child;
+
+  /// An icon to show before the title
+  IconData? icon;
 
   _LaunchDialogPage({
     required this.title,
+    this.subtitle,
     required this.content,
     this.image,
     this.child,
+    this.icon,
   });
 }
