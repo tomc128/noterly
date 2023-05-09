@@ -6,14 +6,14 @@ import gspread
 from rich import print
 
 # The directory to save the parsed language files to.
-OUTPUT_DIRECTORY = './new_out'
+OUTPUT_DIRECTORY = './out'
 
 # The directory to save the parsed language files to in the Flutter project,
 # if SAVE_TO_FLUTTER is set to True.
 FLUTTER_OUTPUT_DIRECTORY = '../../noterly/assets/i18n'
 
-# If set to True, the output will be also saved directly into the
-# Flutter project directory as well as the output directory.
+# If set to True, the output will be also saved directly to
+# FLUTTER_OUTPUT_DIRECTORY as well as OUTPUT_DIRECTORY.
 SAVE_TO_FLUTTER = True
 
 # If set to True, the output directory will be purged before
@@ -24,6 +24,7 @@ PURGE_DIRECTORY = True
 # If set to True, the "$include" key will be used to determine
 # which languages to include in the output.
 PARSE_INCLUDE = True
+
 
 print('[blue]Loading spreadsheet...[/blue]', end='')
 gc = gspread.service_account(filename='./credentials.json')
@@ -41,6 +42,9 @@ translation_keys = [key[0] for key in data[1:] if
                         not key[0].strip().startswith('_') and
                         not key[0].strip().startswith('$')]
 
+num_total_translations = len(translation_keys)
+
+
 if PURGE_DIRECTORY:
     if os.path.exists(OUTPUT_DIRECTORY):
         shutil.rmtree(OUTPUT_DIRECTORY)
@@ -51,8 +55,7 @@ if PURGE_DIRECTORY:
             shutil.rmtree(FLUTTER_OUTPUT_DIRECTORY)
         os.mkdir(FLUTTER_OUTPUT_DIRECTORY)
 
-
-# Create a dictionary for each language
+print()
 for lang in languages:
     if PARSE_INCLUDE:
         included = data[1][languages.index(lang)+1].strip() == 'TRUE'
@@ -72,9 +75,20 @@ for lang in languages:
 
     with open(f'{OUTPUT_DIRECTORY}/{lang}.json', 'w', encoding='utf-8') as f:
         json.dump(lang_dict, f)
-    
+
     if SAVE_TO_FLUTTER:
         with open(f'{FLUTTER_OUTPUT_DIRECTORY}/{lang}.json', 'w', encoding='utf-8') as f:
             json.dump(lang_dict, f)
 
-    print(' [green bold]Done![/green bold]')
+    print(' [green bold]Done![/green bold]', end='')
+
+    num_translations = len(lang_dict)
+    print(f' [cyan]({num_translations}/{num_total_translations} translations)[/cyan]', end='')
+
+    missing = num_total_translations - num_translations
+    if missing > 0:
+        print(f' [red]({missing} missing)[/red]', end='')
+
+    print()
+
+print('\n[green bold]All done![/green bold]')
