@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
@@ -107,7 +108,7 @@ class FirstLaunchDialog extends Dialog {
           var content = Text(pages[currentPage].content);
 
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
@@ -122,6 +123,11 @@ class FirstLaunchDialog extends Dialog {
                     content,
                   ],
                 ),
+              ),
+              DotsIndicator(
+                dotsCount: pages.length,
+                position: currentPage,
+                mainAxisAlignment: MainAxisAlignment.center,
               ),
               ButtonBar(
                 children: [
