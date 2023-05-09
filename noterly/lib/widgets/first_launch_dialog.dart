@@ -7,10 +7,12 @@ class FirstLaunchDialog extends Dialog {
   static const int lastUpdatedBuildNumber = 11;
 
   final Function onComplete;
+  final bool isShownAfterUpdate;
 
   FirstLaunchDialog({
     Key? key,
     required this.onComplete,
+    this.isShownAfterUpdate = false,
   }) : super(key: key);
 
   @override
@@ -124,6 +126,10 @@ class FirstLaunchDialog extends Dialog {
                     subtitle,
                     child,
                     content,
+                    if (isShownAfterUpdate && currentPage == 0) ...[
+                      const SizedBox(height: 16),
+                      Text("You're seeing this because this first launch experience has been updated.", style: Theme.of(context).textTheme.labelSmall),
+                    ],
                   ],
                 ),
               ),

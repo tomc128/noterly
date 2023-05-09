@@ -9,7 +9,6 @@ import 'package:noterly/pages/main_page/active_notifications_page.dart';
 import 'package:noterly/pages/main_page/archived_notifications_page.dart';
 
 import '../build_info.dart';
-import '../managers/log.dart';
 import '../widgets/first_launch_dialog.dart';
 import 'create_notification_page.dart';
 import 'settings_page.dart';
@@ -177,10 +176,7 @@ class _MainPageState extends State<MainPage> {
 
   void _handleFirstLaunch(BuildContext context) {
     var shouldShowFirstLaunchDialog = false;
-
-    Log.logger.d('Current build number: ${BuildInfo.buildNumber}');
-    Log.logger.d('Last first launch version: ${AppManager.instance.data.firstLaunchDialogLastShown}');
-    Log.logger.d('FLD last updated build number: ${FirstLaunchDialog.lastUpdatedBuildNumber}');
+    var isShownAfterUpdate = false;
 
     if (AppManager.instance.data.firstLaunchDialogLastShown == -1) {
       // Show the dialog because it has never been shown before
@@ -188,6 +184,7 @@ class _MainPageState extends State<MainPage> {
     } else if (AppManager.instance.data.firstLaunchDialogLastShown < FirstLaunchDialog.lastUpdatedBuildNumber) {
       // Show the dialog because the app has been updated since the dialog was last shown
       shouldShowFirstLaunchDialog = true;
+      isShownAfterUpdate = true;
     } else {
       // Do not show the dialog because it has already been shown in a more recent version
       shouldShowFirstLaunchDialog = false;
@@ -207,6 +204,7 @@ class _MainPageState extends State<MainPage> {
               AppManager.instance.data.firstLaunchDialogLastShown = BuildInfo.buildNumber;
               await AppManager.instance.saveSettings();
             },
+            isShownAfterUpdate: isShownAfterUpdate,
           ),
         );
       });
