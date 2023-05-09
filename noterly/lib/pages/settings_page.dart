@@ -17,6 +17,8 @@ import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
+import '../managers/log.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
     super.key,
@@ -296,8 +298,12 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _launchUrl(Uri uri) async {
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      throw Exception('Could not launch $uri');
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        throw Exception('Failed to launch URL: $uri');
+      }
+    } on Exception catch (e) {
+      Log.logger.e('Failed to launch URL: $uri [$e]');
     }
   }
 
