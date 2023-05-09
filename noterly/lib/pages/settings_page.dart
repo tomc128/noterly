@@ -12,6 +12,7 @@ import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/duration_picker.dart';
+import 'package:noterly/widgets/first_launch_dialog.dart';
 import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -377,6 +378,19 @@ class _SettingsPageState extends State<SettingsPage> {
                 FileManager.delete().then((value) => AppManager.instance.fullUpdate());
               },
             ),
+            ListTile(
+              title: const Text('Show first launch dialog'),
+              trailing: const Icon(Icons.chevron_right),
+              leading: const Icon(Icons.window),
+              minVerticalPadding: 12,
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => FirstLaunchDialog(onComplete: () {}),
+                );
+              },
+            )
           ],
         ),
       ];
