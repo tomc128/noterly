@@ -19,6 +19,10 @@
                 "Foreach-Object {$_ -replace 'UNSET_BRANCH',(git branch --show-current)}  | ",
                 "Out-File ./lib/build_info.dart",
                 "&&",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace '-80085','${input:versionCode}'}  | ",
+                "Out-File ./lib/build_info.dart",
+                "&&",
                 "flutter",
                 "build",
                 "appbundle",
@@ -35,7 +39,11 @@
                 "&&",
                 "(Get-Content ./lib/build_info.dart) | ",
                 "Foreach-Object {$_ -replace (git branch --show-current),'UNSET_BRANCH'}  | ",
-                "Out-File ./lib/build_info.dart"
+                "Out-File ./lib/build_info.dart",
+                "&&",
+                "(Get-Content ./lib/build_info.dart) | ",
+                "Foreach-Object {$_ -replace '${input:versionCode}','-80085'}  | ",
+                "Out-File ./lib/build_info.dart",
             ]
         }
     ],
