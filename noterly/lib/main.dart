@@ -87,13 +87,13 @@ Future<void> main(List<String> args) async {
       'fr',
       'es',
       'de',
+      'ru',
+      'ua',
       // TODO: decide which languages to support for next release
       // 'ar',
       // 'hu',
       // 'mt',
       // 'pl',
-      // 'ru',
-      // 'ua',
     ],
   );
   runApp(LocalizedApp(
