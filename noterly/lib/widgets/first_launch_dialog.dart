@@ -19,21 +19,27 @@ class FirstLaunchDialog extends Dialog {
   Widget build(BuildContext context) {
     var pages = <_LaunchDialogPage>[
       _LaunchDialogPage(
-        title: 'Welcome to Noterly',
-        subtitle: 'Simple notification reminders',
-        content: "Here's some basic information to get you started.",
+        title: translate('tutorial.page.0.title'),
+        subtitle: translate('tutorial.page.0.subtitle'),
+        content: translate('tutorial.page.0.content'),
       ),
       _LaunchDialogPage(
-        title: 'Reminders',
-        content: 'Noterly is designed for quick, simple reminders. You may find a to-do list or calendar app more suitable for more complex tasks.',
+        title: translate('tutorial.page.1.title'),
+        content: translate('tutorial.page.1.content'),
         icon: Icons.notifications_active,
       ),
       _LaunchDialogPage(
-        title: 'Create a notification',
-        content: 'Tap the floating button to create a new notification.',
+        title: translate('tutorial.page.2.title'),
+        content: translate('tutorial.page.2.content'),
         child: FloatingActionButton.extended(
           onPressed: () {
-            const messages = ["That's right!", 'Well done!', "You've got it!", 'Great job!', 'Great success!'];
+            var messages = [
+              translate('tutorial.page.2.confirmation.0'),
+              translate('tutorial.page.2.confirmation.1'),
+              translate('tutorial.page.2.confirmation.2'),
+              translate('tutorial.page.2.confirmation.3'),
+              translate('tutorial.page.2.confirmation.4'),
+            ];
             var message = messages[DateTime.now().second % messages.length];
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
@@ -43,8 +49,8 @@ class FirstLaunchDialog extends Dialog {
         ),
       ),
       _LaunchDialogPage(
-        title: 'Manage notifications',
-        content: 'Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.',
+        title: translate('tutorial.page.3.title'),
+        content: translate('tutorial.page.3.content'),
         child: Column(
           children: [
             Material(
@@ -67,13 +73,13 @@ class FirstLaunchDialog extends Dialog {
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Material(
                       elevation: 1,
                       shadowColor: Colors.transparent,
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text('Swipe to archive or delete'),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(translate('tutorial.page.3.example')),
                       ),
                     ),
                   ),
@@ -84,12 +90,12 @@ class FirstLaunchDialog extends Dialog {
         ),
       ),
       _LaunchDialogPage(
-        title: 'Snoozing reminders',
-        content: 'You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.',
+        title: translate('tutorial.page.4.title'),
+        content: translate('tutorial.page.4.content'),
       ),
       _LaunchDialogPage(
-        title: "That's it!",
-        content: "You're ready to start using Noterly. You can always come back to this page in settings.",
+        title: translate('tutorial.page.5.title'),
+        content: translate('tutorial.page.5.content'),
       ),
     ];
     var currentPage = 0;
@@ -135,7 +141,7 @@ class FirstLaunchDialog extends Dialog {
                     content,
                     if (isShownAfterUpdate && currentPage == 0) ...[
                       const SizedBox(height: 16),
-                      Text("You're seeing this because this first launch experience has been updated.", style: Theme.of(context).textTheme.labelSmall),
+                      Text(translate('tutorial.updated_experience_text'), style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ],
                 ),
@@ -158,7 +164,7 @@ class FirstLaunchDialog extends Dialog {
                         });
                       }
                     },
-                    child: Text(currentPage == 0 ? 'Skip' : 'Back'),
+                    child: Text(translate(currentPage == 0 ? 'tutorial.action.skip' : 'tutorial.action.back')),
                   ),
                   TextButton(
                     onPressed: () {
@@ -171,7 +177,7 @@ class FirstLaunchDialog extends Dialog {
                         });
                       }
                     },
-                    child: Text(currentPage == pages.length - 1 ? 'Done' : 'Next'),
+                    child: Text(translate(currentPage == pages.length - 1 ? 'tutorial.action.done' : 'tutorial.action.next')),
                   ),
                 ],
               ),

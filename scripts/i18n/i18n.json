@@ -1,4 +1,7 @@
 {
+  "Information": {
+    "": {}
+  },
   "Translations": {
     "$include": {
       "en_GB": true,
@@ -11,7 +14,8 @@
       "hu": false,
       "mt": false,
       "ar": false,
-      "pl": false
+      "pl": false,
+      "id": false
     },
     "main.action.new": {
       "en_GB": "New note",
@@ -24,7 +28,8 @@
       "hu": "Új jegyzet",
       "mt": "Nota ġdida",
       "ar": "ملاجظة جديدة",
-      "pl": "Nowa notatka"
+      "pl": "Nowa notatka",
+      "id": "Catatan baru"
     },
     "main.action.create": {
       "en_GB": "Create",
@@ -37,7 +42,8 @@
       "hu": "Létrehozás",
       "mt": "Oħloq",
       "ar": "إنشاء",
-      "pl": "Utwórz"
+      "pl": "Utwórz",
+      "id": "Buat"
     },
     "main.action.save": {
       "en_GB": "Save",
@@ -50,7 +56,8 @@
       "hu": "Mentés",
       "mt": "Issevja",
       "ar": "حفظ",
-      "pl": "Zapisz"
+      "pl": "Zapisz",
+      "id": "Simpan"
     },
     "main.action.reactivate": {
       "en_GB": "Reactivate",
@@ -63,7 +70,8 @@
       "hu": "Aktívvá tétel",
       "mt": "Rijattiva",
       "ar": "إعادة التفعيل",
-      "pl": "Reaktywuj"
+      "pl": "Reaktywuj",
+      "id": "Aktifkan kembali"
     },
     "": {
       "en_GB": null,
@@ -76,7 +84,8 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": null,
+      "id": null
     },
     "page.active_notifications.label": {
       "en_GB": "Active",
@@ -89,7 +98,8 @@
       "hu": "Aktív",
       "mt": "Attiv",
       "ar": "نشط",
-      "pl": "Aktywna"
+      "pl": "Aktywna",
+      "id": "Aktif"
     },
     "page.active_notifications.header.immediate": {
       "en_GB": "Shown immediately",
@@ -102,7 +112,8 @@
       "hu": "Azonnal látható",
       "mt": "Uri mall-ewwel",
       "ar": "يُعرض فورا",
-      "pl": "Pokaż natychmiast"
+      "pl": "Pokaż natychmiast",
+      "id": "Tampilkan segera"
     },
     "page.active_notifications.header.scheduled": {
       "en_GB": "Scheduled",
@@ -115,7 +126,8 @@
       "hu": "Időzített",
       "mt": "Skedat",
       "ar": "مُبَرمَج",
-      "pl": "Zaplanowana"
+      "pl": "Zaplanowana",
+      "id": "Dijadwalkan"
     },
     "page.active_notifications.header.repeating": {
       "en_GB": "Repeating",
@@ -128,7 +140,8 @@
       "hu": "Ismétlődő",
       "mt": "Jirrepeti",
       "ar": "تكرار",
-      "pl": "Powtarzanie"
+      "pl": "Powtarzanie",
+      "id": "Berulang"
     },
     "page.active_notifications.empty": {
       "en_GB": "No active notifications.",
@@ -141,7 +154,8 @@
       "hu": "Nincsenek aktív értesítések.",
       "mt": "M'hemmx notifikazzjonijiet attivi",
       "ar": "لا يوجد إشعارات نشطة",
-      "pl": "Brak aktywnych powiadomień"
+      "pl": "Brak aktywnych powiadomień",
+      "id": "Tidak ada notifikasi aktif"
     },
     "page.active_notifications.item.repeats": {
       "en_GB": "Repeats {duration}",
@@ -154,20 +168,22 @@
       "hu": "Ismétlések {duration}",
       "mt": "Jirrepeti {duration}",
       "ar": "تكرار",
-      "pl": "Powtórzenia"
+      "pl": "Powtórzenia",
+      "id": "Ulangi {duration}"
     },
     "page.active_notifications.item.snoozed": {
       "en_GB": "Snoozed {date_time}",
       "en_US": "Snoozed {date_time}",
-      "fr": null,
-      "es": null,
-      "de": null,
-      "ru": null,
-      "ua": null,
+      "fr": "En attente {duration}",
+      "es": "Pospuesto {date_time}",
+      "de": "Zurückgestellt {date_time}",
+      "ru": "Отложено {date_time}",
+      "ua": "Відкладено {date_time}",
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Uśpione {date_time}",
+      "id": "Ditunda {date_time}"
     },
     "page.archived_notifications.label": {
       "en_GB": "Archive",
@@ -180,7 +196,8 @@
       "hu": "Archívum",
       "mt": "Arkivja",
       "ar": "أرشيف",
-      "pl": "Archiwum"
+      "pl": "Archiwum",
+      "id": "Arsip"
     },
     "page.archived_notifications.empty": {
       "en_GB": "Archived notifications will appear here.",
@@ -193,7 +210,8 @@
       "hu": "Az archivált értesítések itt fognak megjelenni.",
       "mt": "Notifikazzjonijiet arkivjati jidhru hawn.",
       "ar": "هنا ستظهر الإشعارت المؤرشفة",
-      "pl": "Zarchiwizowane powiadomienia pojawią się tutaj"
+      "pl": "Zarchiwizowane powiadomienia pojawią się tutaj",
+      "id": "Notifikasi terarsipkan akan muncul di sini."
     },
     "page.archived_notifications.button.delete_all": {
       "en_GB": "Delete all archived notifications",
@@ -206,7 +224,8 @@
       "hu": "Az összes archivált értesítés törlése",
       "mt": "Ħassar in-notifikazzjonijiet arkivjati kollha.",
       "ar": "حذف جميع الإشعارات المؤرشفة",
-      "pl": "Usuń wszystkie zarchiwizowane powiadomienia"
+      "pl": "Usuń wszystkie zarchiwizowane powiadomienia",
+      "id": "Hapus semua notifikasi terarsipkan"
     },
     "page.archived_notifications.item.archived": {
       "en_GB": "Archived {date_time}",
@@ -219,7 +238,8 @@
       "hu": "Archiválva {date_time}",
       "mt": "Arkivjat {date_time}",
       "ar": "مُؤَرشف {date_time}",
-      "pl": "Zarchiwizowano {date_time}"
+      "pl": "Zarchiwizowano {date_time}",
+      "id": "Diarsipkan {date_time}"
     },
     "snackbar.notification_deleted": {
       "en_GB": "Notification \"{title}\" deleted.",
@@ -232,7 +252,8 @@
       "hu": "Az \"{title}\" értesítés törölve.",
       "mt": "In-notifikazzjoni \"{title}\" ġiet imħassra.",
       "ar": "إشعار \"{title}\" تم الحذف",
-      "pl": "Powiadomienie \"{title}\" usunięte."
+      "pl": "Powiadomienie \"{title}\" usunięte.",
+      "id": "Notifikasi \"{title}\" dihapus."
     },
     "snackbar.notification_archived": {
       "en_GB": "Notification \"{title}\" archived.",
@@ -245,7 +266,8 @@
       "hu": "Az \"{title}\" értesítés archiválva.",
       "mt": "In-notifikazzjoni \"{title}\" ġiet arkivjata.",
       "ar": "إشعار \"{title}\" مُؤَرشف",
-      "pl": "Powiadomienie \"{title}\" zarchiwizowane."
+      "pl": "Powiadomienie \"{title}\" zarchiwizowane.",
+      "id": "Notifikasi \"{title}\" diarsipkan."
     },
     "snackbar.all_archived_notifications_deleted": {
       "en_GB": "All archived notifications deleted.",
@@ -258,12 +280,13 @@
       "hu": "Minden archivált értesítés törlésre került.",
       "mt": "Tħassru in-notifikazzjonijiet arkivjati kollha.",
       "ar": "تم حذف جميع الاشعارات المُؤَرشفة",
-      "pl": "Wszystkie zarchiwizowane powiadomienia usunięte"
+      "pl": "Wszystkie zarchiwizowane powiadomienia usunięte",
+      "id": "Semua notifikasi terarsipkan dihapus."
     },
     "toast.notification_snoozed": {
       "en_GB": "Notification snoozed for {duration}",
       "en_US": "Notification snoozed for {duration}",
-      "fr": null,
+      "fr": "Notification mise en attente pour {duration}",
       "es": null,
       "de": null,
       "ru": null,
@@ -271,7 +294,8 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Powiadomienie uśpione na {duration}",
+      "id": "Notifikasi ditunda selama {duration}"
     },
     "page.settings.title": {
       "en_GB": "Settings",
@@ -284,12 +308,13 @@
       "hu": "Beállítások",
       "mt": "Settings",
       "ar": "الإعدادات",
-      "pl": "Ustawienia"
+      "pl": "Ustawienia",
+      "id": "Pengaturan"
     },
     "page.settings.header.notifications": {
       "en_GB": "Notifications",
       "en_US": "Notifications",
-      "fr": null,
+      "fr": "Notifications",
       "es": null,
       "de": null,
       "ru": null,
@@ -297,7 +322,8 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Powiadomienia",
+      "id": "Notifikasi"
     },
     "page.settings.header.system": {
       "en_GB": "System",
@@ -310,7 +336,8 @@
       "hu": "Rendszer",
       "mt": "Sistema",
       "ar": "النظام",
-      "pl": "System"
+      "pl": "System",
+      "id": "Sistem"
     },
     "page.settings.header.about": {
       "en_GB": "About",
@@ -323,7 +350,8 @@
       "hu": "Az alkalmazásról",
       "mt": "Dwar Noterly",
       "ar": "حول",
-      "pl": "O"
+      "pl": "O",
+      "id": "Tentang"
     },
     "page.settings.header.debug": {
       "en_GB": "Debug options",
@@ -336,7 +364,8 @@
       "hu": "Hibakeresési lehetőségek",
       "mt": "Għażliet għad-debugging",
       "ar": "خيارات معالجة الأخطاء",
-      "pl": "Opcje debugowania"
+      "pl": "Opcje debugowania",
+      "id": "Opsi debug"
     },
     "page.settings.header.debug.disclaimer": {
       "en_GB": "These options are not supported and may cause issues. Use at your own risk.",
@@ -349,12 +378,13 @@
       "hu": "Ezek a beállítások nem támogatottak és problémákat okozhatnak. Csak saját felelősségre használd.",
       "mt": "Dawn l-għażliet m'humiex issapportjati, u jistgħu joħolqu xi problemi.  Użahom b'riskju tiegħek.",
       "ar": "هذه الخيارات غير مدعومة وقد تسبب المشاكل.  تَحَمّل مسؤولية استخدامها",
-      "pl": "Te opcje nie są wspierane i mogą powodować błędy. Używaj na własne ryzyko."
+      "pl": "Te opcje nie są wspierane i mogą powodować błędy. Używaj na własne ryzyko.",
+      "id": "Opsi ini tidak didukung dan dapat menyebabkan masalah. Gunakan dengan risiko pada anda."
     },
     "page.settings.notifications.snooze_duration": {
       "en_GB": "Snooze duration",
       "en_US": "Snooze duration",
-      "fr": null,
+      "fr": "Durée de sommeil",
       "es": null,
       "de": null,
       "ru": null,
@@ -362,7 +392,8 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Czas trwania uśpienia",
+      "id": "Durasi penundaan"
     },
     "page.settings.system.notification_settings": {
       "en_GB": "Notification settings",
@@ -375,7 +406,8 @@
       "hu": "Értesítési beállítások",
       "mt": "Settings tan-notifikazzjonijiet",
       "ar": "إعدادات الإشعارات",
-      "pl": "Ustawienia powiadomień"
+      "pl": "Ustawienia powiadomień",
+      "id": "Pengaturan notifikasi"
     },
     "page.settings.about.version.title": {
       "en_GB": "Version",
@@ -388,7 +420,8 @@
       "hu": "Verzió",
       "mt": "Verżjoni",
       "ar": "إصدار",
-      "pl": "Wersja"
+      "pl": "Wersja",
+      "id": "Versi"
     },
     "page.settings.about.copyright.title": {
       "en_GB": "Copyright & credits",
@@ -401,7 +434,8 @@
       "hu": "Copyright és jogi információk",
       "mt": "Kopiright u Krediti",
       "ar": "حقوق الطبع والنشر والإئتمانات",
-      "pl": "Prawa autorskie & wyrazy uznania"
+      "pl": "Prawa autorskie & wyrazy uznania",
+      "id": "Copyright & credits"
     },
     "page.settings.about.copyright.text": {
       "en_GB": "2023 Tom Chapman, TDS Studios.",
@@ -414,7 +448,22 @@
       "hu": "2023 Tom Chapman, TDS Studios.",
       "mt": "2023 Tom Chapman, TDS Studios.",
       "ar": "2023 توم شابمان، استوديوهات TDS.",
-      "pl": "2023 Tom Chapman, TDS Studios."
+      "pl": "2023 Tom Chapman, TDS Studios.",
+      "id": "2023 Tom Chapman, TDS Studios."
+    },
+    "page.settings.about.tutorial.title": {
+      "en_GB": "Tutorial",
+      "en_US": "Tutorial",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
     },
     "page.settings.about.licenses.title": {
       "en_GB": "Licenses",
@@ -427,7 +476,8 @@
       "hu": "Licenszek",
       "mt": "Liċenzji",
       "ar": "رُخص",
-      "pl": "Licencje"
+      "pl": "Licencje",
+      "id": "Lisensi"
     },
     "page.settings.about.licenses.page.legalese": {
       "en_GB": "Copyright © 2023 Tom Chapman, TDS Studios.",
@@ -440,7 +490,8 @@
       "hu": "Copyright © 2023 Tom Chapman, TDS Studios.",
       "mt": "Kopiright © 2023 Tom Chapman, TDS Studios.",
       "ar": "حقوق الطبع والنشر والإئتمانات © 2023 توم شابمان، استوديوهات TDS.",
-      "pl": "Copyright © 2023 Tom Chapman, TDS Studios."
+      "pl": "Copyright © 2023 Tom Chapman, TDS Studios.",
+      "id": "Copyright © 2023 Tom Chapman, TDS Studios."
     },
     "page.settings.about.privacy_policy.title": {
       "en_GB": "Privacy policy",
@@ -453,7 +504,8 @@
       "hu": "Adatvédelmi irányelvek",
       "mt": "Regoli tal-privatezza",
       "ar": "سياسة الخصوصية",
-      "pl": "Polityka prywatności"
+      "pl": "Polityka prywatności",
+      "id": "Kebijakan privasi"
     },
     "page.settings.about.feedback.title": {
       "en_GB": "Send feedback",
@@ -466,7 +518,8 @@
       "hu": "Visszajelzés küldése",
       "mt": "Ibgħat feedback",
       "ar": "إرسال مُلاحظات",
-      "pl": "Wyślij opinię"
+      "pl": "Wyślij opinię",
+      "id": "Kirim umpan balik"
     },
     "page.settings.about.translate.title": {
       "en_GB": "Help translate Noterly",
@@ -479,7 +532,8 @@
       "hu": "Segíts a Noterly forsításában",
       "mt": "Għin biex tiddraduċi Noterly",
       "ar": "ساعد على ترجمة Noterly",
-      "pl": "Pomóż tłumaczyć Noterly"
+      "pl": "Pomóż tłumaczyć Noterly",
+      "id": "Bantu menterjemahkan Noterly"
     },
     "page.settings.about.donation.title": {
       "en_GB": "Buy me a coffee",
@@ -492,7 +546,8 @@
       "hu": "Vásárolj nekem egy kávét",
       "mt": "Ixtrili kafè",
       "ar": "اشتر لي كوبا من القهوة",
-      "pl": "Kup mi kawę"
+      "pl": "Kup mi kawę",
+      "id": "Belikan saya kopi"
     },
     "page.create_notification.title": {
       "en_GB": "Create Notification",
@@ -505,7 +560,8 @@
       "hu": "Értesítés létrehozása",
       "mt": "Oħloq notifikazzjoni",
       "ar": "إنشاء إشعار",
-      "pl": "Utwórz powiadmienie"
+      "pl": "Utwórz powiadmienie",
+      "id": "Buat notifikasi"
     },
     "page.create_notification.header.details": {
       "en_GB": "Notification details",
@@ -518,7 +574,8 @@
       "hu": "Az értesítés részletei",
       "mt": "Dettalji dwar in-notifikazzjoni",
       "ar": "تفاصيل الإشعار",
-      "pl": "Szczegóły powiadomienia"
+      "pl": "Szczegóły powiadomienia",
+      "id": "Detail notifikasi"
     },
     "page.create_notification.header.timing": {
       "en_GB": "Timing",
@@ -531,7 +588,8 @@
       "hu": "Időzítés",
       "mt": "Timing",
       "ar": "التوقيت",
-      "pl": "Czas"
+      "pl": "Czas",
+      "id": "Pengaturan waktu"
     },
     "page.create_notification.timing.schedule.title": {
       "en_GB": "Schedule",
@@ -544,7 +602,8 @@
       "hu": "Ütemezés",
       "mt": "Skeda",
       "ar": "الجدول الزمني",
-      "pl": "Harmonogram"
+      "pl": "Harmonogram",
+      "id": "Jadwal"
     },
     "page.create_notification.timing.schedule.subtitle": {
       "en_GB": "Send",
@@ -557,7 +616,8 @@
       "hu": "Küldés",
       "mt": "Ibgħat",
       "ar": "إرسال",
-      "pl": "Wyślij"
+      "pl": "Wyślij",
+      "id": "Kirim"
     },
     "page.create_notification.timing.repeat.title": {
       "en_GB": "Repeating",
@@ -570,7 +630,8 @@
       "hu": "Ismétlődés",
       "mt": "Jirrepeti",
       "ar": "تكرار",
-      "pl": "Powtarzanie"
+      "pl": "Powtarzanie",
+      "id": "Berulang"
     },
     "page.create_notification.timing.repeat.subtitle": {
       "en_GB": "Repeat",
@@ -583,7 +644,8 @@
       "hu": "Ismétlés",
       "mt": "Irrepeti",
       "ar": "يتكرر",
-      "pl": "Powtórz"
+      "pl": "Powtórz",
+      "id": "Ulangi"
     },
     "page.create_notification.timing.repeat.info": {
       "en_GB": "Repeating notifications will only repeat once they are marked as done from the notification.",
@@ -596,7 +658,8 @@
       "hu": "Az ismétlődő értesítések csak akkor ismétlődnek, ha az értesítésben készként jelölték meg őket.",
       "mt": "Dawk in-notifikazzjonijiet li jirrepetu rwiehhom, jirrepetu dment li jkunu immarkati li saru, minn-notifikazzjoni.",
       "ar": "ستكرر الإشعارات المُتَكرّرة حينما يتم وضع علامة تم عليها في مكان الإشعارات",
-      "pl": "Powtarzające powiadomienia będą powtarzane tylko raz, gdy zostaną odznaczone jako wykonane z poziomu powiadomienia."
+      "pl": "Powtarzające powiadomienia będą powtarzane tylko raz, gdy zostaną odznaczone jako wykonane z poziomu powiadomienia.",
+      "id": "Notifikasi berulang hanya akan diulang setelah ditandai sebagai selesai dari notifikasi."
     },
     "page.create_notification.details.field.title.label": {
       "en_GB": "Title",
@@ -609,7 +672,8 @@
       "hu": "Cím",
       "mt": "Titlu",
       "ar": "العنوان",
-      "pl": "Tytuł"
+      "pl": "Tytuł",
+      "id": "Judul"
     },
     "page.create_notification.details.field.title.error": {
       "en_GB": "Please enter a title",
@@ -622,7 +686,8 @@
       "hu": "Kérlek adj meg egy címet",
       "mt": "Jekk jogħbok, daħħal titlu",
       "ar": "المرجو إدخال العنوان",
-      "pl": "Proszę wprowadź tytuł"
+      "pl": "Proszę wprowadź tytuł",
+      "id": "Harap masukkan judul"
     },
     "page.create_notification.details.field.body.label": {
       "en_GB": "Body",
@@ -635,7 +700,8 @@
       "hu": "Szövegtörzs",
       "mt": "Parti principali",
       "ar": "المحتوى",
-      "pl": "Treść"
+      "pl": "Treść",
+      "id": "Isi"
     },
     "page.create_notification.details.field.colour.label": {
       "en_GB": "Colour",
@@ -648,7 +714,8 @@
       "hu": "Szín",
       "mt": "Kulur",
       "ar": "اللون",
-      "pl": "Kolor"
+      "pl": "Kolor",
+      "id": "Warna"
     },
     "page.edit_notification.title": {
       "en_GB": "Edit Notification",
@@ -661,7 +728,8 @@
       "hu": "Értesítés szerkesztése",
       "mt": "Edittja notifikazzjoni",
       "ar": "عدّل الإشعار",
-      "pl": "Edytuj powiadomienie"
+      "pl": "Edytuj powiadomienie",
+      "id": "Ubah notifikasi"
     },
     "page.edit_notification.header.details": {
       "en_GB": "Notification details",
@@ -674,7 +742,8 @@
       "hu": "Az értesítés adatai",
       "mt": "Dettalji dwar in-notifikazzjoni",
       "ar": "تفاصيل الإشعار",
-      "pl": "Szczegóły powiadomienia"
+      "pl": "Szczegóły powiadomienia",
+      "id": "Detail notifikasi"
     },
     "page.edit_notification.header.timing": {
       "en_GB": "Timing",
@@ -687,7 +756,8 @@
       "hu": "Időzítés",
       "mt": "Kejl tal-ħin",
       "ar": "التوقيت",
-      "pl": "Czas"
+      "pl": "Czas",
+      "id": "Pengaturan waktu"
     },
     "page.edit_notification.timing.schedule.title": {
       "en_GB": "Schedule",
@@ -700,7 +770,8 @@
       "hu": "Ütemezés",
       "mt": "Skeda",
       "ar": "الجدول الزمني",
-      "pl": "Harmonogram"
+      "pl": "Harmonogram",
+      "id": "Jadwal"
     },
     "page.edit_notification.timing.schedule.subtitle": {
       "en_GB": "Send",
@@ -713,7 +784,8 @@
       "hu": "Küldés",
       "mt": "Ibgħat",
       "ar": "إرسال",
-      "pl": "Wyślij"
+      "pl": "Wyślij",
+      "id": "Kirim"
     },
     "page.edit_notification.timing.repeat.title": {
       "en_GB": "Repeating",
@@ -726,7 +798,8 @@
       "hu": "Ismétlődés",
       "mt": "Repetittiv",
       "ar": "تكرار",
-      "pl": "Powtarzanie"
+      "pl": "Powtarzanie",
+      "id": "Berulang"
     },
     "page.edit_notification.timing.repeat.subtitle": {
       "en_GB": "Repeat",
@@ -739,7 +812,8 @@
       "hu": "Ismétlés",
       "mt": "Irrepeti",
       "ar": "يتكرر",
-      "pl": "Powtórz"
+      "pl": "Powtórz",
+      "id": "Ulangi"
     },
     "page.edit_notification.timing.repeat.info": {
       "en_GB": "Repeating notifications will only repeat once they are marked as done from the notification.",
@@ -752,7 +826,8 @@
       "hu": "Az ismétlődő értesítések csak akkor ismétlődnek, ha az értesítésben készként jelölted meg őket.",
       "mt": "Dawk in-notifikazzjonijiet li jirrepetu rwiehhom, jirrepetu dment li jkunu immarkati li saru, minn-notifikazzjoni.",
       "ar": "ستتكرر الاشعارات المتكررة حينما يتم وضع علامة تم في مكان الاشعارات",
-      "pl": "Powtarzające powiadomienia będą powtarzane tylko raz, gdy zostaną odznaczone jako wykonane z poziomu powiadomienia."
+      "pl": "Powtarzające powiadomienia będą powtarzane tylko raz, gdy zostaną odznaczone jako wykonane z poziomu powiadomienia.",
+      "id": "Notifikasi berulang hanya akan diulang setelah ditandai sebagai selesai dari notifikasi."
     },
     "page.edit_notification.details.field.title.label": {
       "en_GB": "Title",
@@ -765,7 +840,8 @@
       "hu": "Cím",
       "mt": "Titlu",
       "ar": "العنوان",
-      "pl": "Tytuł"
+      "pl": "Tytuł",
+      "id": "Judul"
     },
     "page.edit_notification.details.field.title.error": {
       "en_GB": "Please enter a title",
@@ -778,7 +854,8 @@
       "hu": "Kérlek adj meg egy címet",
       "mt": "Jekk jogħbok, daħħal titlu",
       "ar": "المرجو ادخال العنوان",
-      "pl": "Proszę wprowadź tytuł"
+      "pl": "Proszę wprowadź tytuł",
+      "id": "Harap masukkan judul"
     },
     "page.edit_notification.details.field.body.label": {
       "en_GB": "Body",
@@ -791,7 +868,8 @@
       "hu": "Szövegtörzs",
       "mt": "Parti principali",
       "ar": "المحتوى",
-      "pl": "Treść"
+      "pl": "Treść",
+      "id": "Isi"
     },
     "page.edit_notification.details.field.colour.label": {
       "en_GB": "Colour",
@@ -804,7 +882,8 @@
       "hu": "Szín",
       "mt": "Kulur",
       "ar": "اللون",
-      "pl": "Kolor"
+      "pl": "Kolor",
+      "id": "Warna"
     },
     "item.title": {
       "en_GB": "Title",
@@ -817,7 +896,8 @@
       "hu": "Cím",
       "mt": "Titlu",
       "ar": "العنوان",
-      "pl": "Tytuł"
+      "pl": "Tytuł",
+      "id": "Judul"
     },
     "item.body": {
       "en_GB": "Body",
@@ -830,7 +910,8 @@
       "hu": "Szövegtörzs",
       "mt": "Parti principali",
       "ar": "المحتوى",
-      "pl": "Treść"
+      "pl": "Treść",
+      "id": "Isi"
     },
     "item.colour": {
       "en_GB": "Colour",
@@ -843,7 +924,8 @@
       "hu": "Szín",
       "mt": "Kulur",
       "ar": "اللون",
-      "pl": "Kolor"
+      "pl": "Kolor",
+      "id": "Warna"
     },
     "notification.action.mark_as_done": {
       "en_GB": "Mark as done",
@@ -856,12 +938,13 @@
       "hu": "Megjelölés készként",
       "mt": "Immarka li lest",
       "ar": "تم الإنتهاء",
-      "pl": "Odznacz jako wykonane"
+      "pl": "Odznacz jako wykonane",
+      "id": "Tandai telah selesai"
     },
     "notification.action.snooze": {
       "en_GB": "Snooze",
       "en_US": "Snooze",
-      "fr": null,
+      "fr": "Faire la sieste",
       "es": null,
       "de": null,
       "ru": null,
@@ -869,12 +952,13 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Uśpij",
+      "id": "Ditunda"
     },
     "notification.action.snooze_for": {
       "en_GB": "Snooze for {duration}",
       "en_US": "Snooze for {duration}",
-      "fr": null,
+      "fr": "Sommeil pour {duration}",
       "es": null,
       "de": null,
       "ru": null,
@@ -882,7 +966,8 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Uśpij na {duration}",
+      "id": "Ditunda selama {duration}"
     },
     "dialog.picker.date_time.title": {
       "en_GB": "Select date and time",
@@ -895,7 +980,8 @@
       "hu": "Dátum és idő kiválasztása",
       "mt": "Agħżel data u ħin",
       "ar": "اختر التاريخ والوقت",
-      "pl": "Wybierz datę i czas"
+      "pl": "Wybierz datę i czas",
+      "id": "Pilih tanggal dan waktu"
     },
     "dialog.picker.date_time.header.date": {
       "en_GB": "Date",
@@ -908,7 +994,8 @@
       "hu": "Dátum",
       "mt": "Data",
       "ar": "التاريخ",
-      "pl": "Data"
+      "pl": "Data",
+      "id": "Tanggal"
     },
     "dialog.picker.date_time.header.time": {
       "en_GB": "Time",
@@ -921,7 +1008,8 @@
       "hu": "Idő",
       "mt": "Ħin",
       "ar": "الوقت",
-      "pl": "Czas"
+      "pl": "Czas",
+      "id": "Waktu"
     },
     "dialog.picker.date_time.button.select_date": {
       "en_GB": "Select date",
@@ -934,7 +1022,8 @@
       "hu": "Dátum kiválasztása",
       "mt": "Agħżel id-data",
       "ar": "اختر التاريخ",
-      "pl": "Wybierz datę"
+      "pl": "Wybierz datę",
+      "id": "Pilih tanggal"
     },
     "dialog.picker.date_time.button.select_time": {
       "en_GB": "Select time",
@@ -947,7 +1036,8 @@
       "hu": "Idő kiválasztása",
       "mt": "Agħżel il-ħin",
       "ar": "اختر الوقت",
-      "pl": "Wybierz czas"
+      "pl": "Wybierz czas",
+      "id": "Pilih waktu"
     },
     "dialog.picker.repetition.title": {
       "en_GB": "Select repeat duration",
@@ -960,7 +1050,8 @@
       "hu": "Az ismétlés időtartamának kiválasztása",
       "mt": "Agħżel kemm idum biex jirrepeti",
       "ar": "اختر مدة الإعادة",
-      "pl": "Wybierz czas trwania powtarzania"
+      "pl": "Wybierz czas trwania powtarzania",
+      "id": "Pilih durasi pengulangan"
     },
     "dialog.picker.repetition.subtitle": {
       "en_GB": "repeats {duration}",
@@ -973,7 +1064,8 @@
       "hu": "ismétlések {duration}",
       "mt": "Jirrepeti {duration}",
       "ar": "اعادات",
-      "pl": "powtórzenia {duration}"
+      "pl": "powtórzenia {duration}",
+      "id": "Diulangi {duration}"
     },
     "dialog.picker.repetition.field.number.label": {
       "en_GB": "Number",
@@ -986,7 +1078,8 @@
       "hu": "Szám",
       "mt": "Numru",
       "ar": "العدد",
-      "pl": "Numer"
+      "pl": "Numer",
+      "id": "Jumlah"
     },
     "dialog.picker.repetition.field.period.label": {
       "en_GB": "Period",
@@ -999,51 +1092,55 @@
       "hu": "Időtartam",
       "mt": "Perijodu",
       "ar": "المدة",
-      "pl": "Okres"
+      "pl": "Okres",
+      "id": "Periode"
     },
     "dialog.picker.duration.title": {
       "en_GB": "Select duration",
       "en_US": "Select duration",
-      "fr": null,
+      "fr": "Sélectionnez la durée",
       "es": null,
-      "de": null,
+      "de": "Dauer auswählen",
       "ru": null,
       "ua": null,
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Wybierz czas trwania",
+      "id": "Pilih durasi"
     },
     "dialog.picker.duration.subtitle": {
       "en_GB": "{duration}",
       "en_US": "{duration}",
-      "fr": null,
-      "es": null,
-      "de": null,
+      "fr": "{duration}",
+      "es": "{duration}",
+      "de": "{duration}",
       "ru": null,
       "ua": null,
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "{duration}",
+      "id": "{duration}"
     },
     "dialog.picker.duration.field.number.label": {
       "en_GB": "Number",
       "en_US": "Number",
-      "fr": null,
+      "fr": "Nombre",
       "es": null,
-      "de": null,
+      "de": "Nummer",
       "ru": null,
       "ua": null,
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Numer",
+      "id": "Jumlah"
     },
     "dialog.picker.duration.field.period.label": {
       "en_GB": "Period",
       "en_US": "Period",
-      "fr": null,
+      "fr": "Période",
       "es": null,
       "de": null,
       "ru": null,
@@ -1051,7 +1148,8 @@
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "Okres",
+      "id": "Periode"
     },
     "dialog.picker.colour.title": {
       "en_GB": "Select colour",
@@ -1064,7 +1162,8 @@
       "hu": "Szín kiválasztása",
       "mt": "Agħżel il-kulur",
       "ar": "اختر اللون",
-      "pl": "Wybierz kolor"
+      "pl": "Wybierz kolor",
+      "id": "Pilih warna"
     },
     "dialog.easter_egg.title": {
       "en_GB": "Easter egg!",
@@ -1077,7 +1176,8 @@
       "hu": "Easter egg",
       "mt": "Bajda tal-Għid!",
       "ar": "البيضة المفاجأة",
-      "pl": "Jajko wielkanocne!"
+      "pl": "Jajko wielkanocne!",
+      "id": "Fitur rahasia!"
     },
     "dialog.easter_egg.text": {
       "en_GB": "Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
@@ -1090,7 +1190,8 @@
       "hu": "Gratulálunk, megtaláltad az easter egg-et! Mostmár engedélyezheted a hibakeresési beállításokat. Kérjük, vedd figyelembe, hogy ezek a beállítások nem támogatottak, és problémákat okozhatnak.",
       "mt": "Proset, sibt il-bajda tal-Għid!  Issa tista' tixgħel l-għażliet għad-debugging.  Jekk jogħġbok innota li dawn l-għażliet m'humiex issaportjati, u jistgħu joħolqu xi problemi.",
       "ar": "تهانينا، لقد وجدت البيضة المفاجأة! يمكنك الآن تفعيل خيارات التصحيح. يرجى الملاحظة أن هذه الخيارات غير مدعومة ويمكن أن تسبب مشاكل",
-      "pl": "Gratulacje, znalazłeś jajko wielkanocne! Możesz teraz włączyć opcje debugowania. Pamiętaj, że te opcje nie są obsługiwane i mogą powodować problemy."
+      "pl": "Gratulacje, znalazłeś jajko wielkanocne! Możesz teraz włączyć opcje debugowania. Pamiętaj, że te opcje nie są obsługiwane i mogą powodować problemy.",
+      "id": "Selamat, anda telah menemukan fitur rahasia! Anda sekarang bisa menggunakan opsi debug. Mohon diingat bahwa opsi ini tidak didukung dan dapat menyebabkan masalah."
     },
     "dialog_easter_egg.action.show_debug_options": {
       "en_GB": "Show debug options",
@@ -1103,7 +1204,8 @@
       "hu": "Hibakeresési beállítások megjelenítése",
       "mt": "Uri l-għażliet għad-debugging",
       "ar": "أظهرخيارات معالجة الأخطاء",
-      "pl": "Pokaż opcje debugowania"
+      "pl": "Pokaż opcje debugowania",
+      "id": "Tunjukkan opsi debug"
     },
     "dialog.about.translations.title": {
       "en_GB": "Translations",
@@ -1116,7 +1218,8 @@
       "hu": "Fordítások",
       "mt": "Traduzzjonijiet",
       "ar": "الترجمات",
-      "pl": "Tłumaczenia"
+      "pl": "Tłumaczenia",
+      "id": "Terjemahan"
     },
     "dialog.about.action.show_licenses": {
       "en_GB": "Licenses",
@@ -1129,7 +1232,344 @@
       "hu": "Licenszek",
       "mt": "Liċenzji",
       "ar": "الرخص",
-      "pl": "Licencje"
+      "pl": "Licencje",
+      "id": "Lisensi"
+    },
+    "tutorial.page.0.title": {
+      "en_GB": "Welcome to Noterly",
+      "en_US": "Welcome to Noterly",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.0.subtitle": {
+      "en_GB": "Simple notification reminders",
+      "en_US": "Simple notification reminders",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.0.content": {
+      "en_GB": "Here's some basic information to get you started.",
+      "en_US": "Here's some basic information to get you started.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.1.title": {
+      "en_GB": "Reminders",
+      "en_US": "Reminders",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.1.content": {
+      "en_GB": "Noterly is designed for quick, simple reminders. You may find a to-do list or calendar app more suitable for more complex tasks.",
+      "en_US": "Noterly is designed for quick, simple reminders. You may find a to-do list or calendar app more suitable for more complex tasks.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.title": {
+      "en_GB": "Create a notification",
+      "en_US": "Create a notification",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.content": {
+      "en_GB": "Tap the floating button to create a new notification.",
+      "en_US": "Tap the floating button to create a new notification.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.confirmation.0": {
+      "en_GB": "That's right!",
+      "en_US": "That's right!",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.confirmation.1": {
+      "en_GB": "Well done!",
+      "en_US": "Well done!",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.confirmation.2": {
+      "en_GB": "You've got it!",
+      "en_US": "You've got it!",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.confirmation.3": {
+      "en_GB": "Great job!",
+      "en_US": "Great job!",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.2.confirmation.4": {
+      "en_GB": "Great success!",
+      "en_US": "Great success!",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.3.title": {
+      "en_GB": "Manage notifications",
+      "en_US": "Manage notifications",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.3.content": {
+      "en_GB": "Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.",
+      "en_US": "Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.3.example": {
+      "en_GB": "Swipe to archive or delete",
+      "en_US": "Swipe to archive or delete",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.4.title": {
+      "en_GB": "Snoozing reminders",
+      "en_US": "Snoozing reminders",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.4.content": {
+      "en_GB": "You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.",
+      "en_US": "You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.5.title": {
+      "en_GB": "That's it!",
+      "en_US": "That's it!",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.page.5.content": {
+      "en_GB": "You're ready to start using Noterly. You can always come back to this tutorial in settings.",
+      "en_US": "You're ready to start using Noterly. You can always come back to this tutorial in settings.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.updated_experience_text": {
+      "en_GB": "You're seeing this because this tutorial experience has been updated.",
+      "en_US": "You're seeing this because this tutorial experience has been updated.",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.action.back": {
+      "en_GB": "Back",
+      "en_US": "Back",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.action.next": {
+      "en_GB": "Next",
+      "en_US": "Next",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.action.done": {
+      "en_GB": "Done",
+      "en_US": "Done",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
+    },
+    "tutorial.action.skip": {
+      "en_GB": "Skip",
+      "en_US": "Skip",
+      "fr": null,
+      "es": null,
+      "de": null,
+      "ru": null,
+      "ua": null,
+      "hu": null,
+      "mt": null,
+      "ar": null,
+      "pl": null,
+      "id": null
     },
     "general.ok": {
       "en_GB": "OK",
@@ -1142,7 +1582,8 @@
       "hu": "OK",
       "mt": "OK",
       "ar": "موافق",
-      "pl": "OK"
+      "pl": "OK",
+      "id": "OK"
     },
     "general.cancel": {
       "en_GB": "Cancel",
@@ -1155,7 +1596,8 @@
       "hu": "Mégsem",
       "mt": "Ikkanċella",
       "ar": "إلغاء",
-      "pl": "Anuluj"
+      "pl": "Anuluj",
+      "id": "Batalkan"
     },
     "general.undo": {
       "en_GB": "Undo",
@@ -1168,7 +1610,8 @@
       "hu": "Visszavonás",
       "mt": "Ħassar",
       "ar": "استرجاع",
-      "pl": "Cofnij"
+      "pl": "Cofnij",
+      "id": "Batal"
     },
     "general.close": {
       "en_GB": "Close",
@@ -1181,7 +1624,8 @@
       "hu": "Bezárás",
       "mt": "Għalaq",
       "ar": "إغلاق",
-      "pl": "Zamknij"
+      "pl": "Zamknij",
+      "id": "Tutup"
     },
     "time.second": {
       "en_GB": "second",
@@ -1194,7 +1638,8 @@
       "hu": "Másodperc",
       "mt": "sekonda",
       "ar": "ثانية",
-      "pl": "sekunda"
+      "pl": "sekunda",
+      "id": "detik"
     },
     "time.seconds": {
       "en_GB": "seconds",
@@ -1207,7 +1652,8 @@
       "hu": "Másodpercek",
       "mt": "sekondi",
       "ar": "ثواني",
-      "pl": "sekundy"
+      "pl": "sekundy",
+      "id": "detik"
     },
     "time.seconds.value": {
       "en_GB": "{value} seconds",
@@ -1220,7 +1666,8 @@
       "hu": "{value} másodperc",
       "mt": "{value} sekondi",
       "ar": "{value} ثواني",
-      "pl": "{value} sekund"
+      "pl": "{value} sekund",
+      "id": "{value} detik"
     },
     "time.minute": {
       "en_GB": "minute",
@@ -1233,7 +1680,8 @@
       "hu": "perc",
       "mt": "minuta",
       "ar": "دقيقة",
-      "pl": "minuta"
+      "pl": "minuta",
+      "id": "menit"
     },
     "time.minutes": {
       "en_GB": "minutes",
@@ -1246,7 +1694,8 @@
       "hu": "percek",
       "mt": "minuti",
       "ar": "دقائق",
-      "pl": "minuty"
+      "pl": "minuty",
+      "id": "menit"
     },
     "time.minutes.value": {
       "en_GB": "{value} minutes",
@@ -1259,7 +1708,8 @@
       "hu": "{value} perc",
       "mt": "{value} minuti",
       "ar": "{value} دقائق",
-      "pl": "{value} minut"
+      "pl": "{value} minut",
+      "id": "{value} menit"
     },
     "time.hour": {
       "en_GB": "hour",
@@ -1272,7 +1722,8 @@
       "hu": "óra",
       "mt": "siegħa",
       "ar": "ساعة",
-      "pl": "godzina"
+      "pl": "godzina",
+      "id": "jam"
     },
     "time.hours": {
       "en_GB": "hours",
@@ -1285,7 +1736,8 @@
       "hu": "Órák",
       "mt": "sigħat",
       "ar": "ساعات",
-      "pl": "godziny"
+      "pl": "godziny",
+      "id": "jam"
     },
     "time.hours.value": {
       "en_GB": "{value} hours",
@@ -1298,7 +1750,8 @@
       "hu": "{value} óra",
       "mt": "{value} sigħat",
       "ar": "{value} ساعات",
-      "pl": "{value} godzin"
+      "pl": "{value} godzin",
+      "id": "{value} jam"
     },
     "time.day": {
       "en_GB": "day",
@@ -1311,7 +1764,8 @@
       "hu": "nap",
       "mt": "ġurnata",
       "ar": "يوم",
-      "pl": "day"
+      "pl": "day",
+      "id": "hari"
     },
     "time.days": {
       "en_GB": "days",
@@ -1324,7 +1778,8 @@
       "hu": "napok",
       "mt": "ġranet",
       "ar": "أيام",
-      "pl": "days"
+      "pl": "days",
+      "id": "hari"
     },
     "time.days.value": {
       "en_GB": "{value} days",
@@ -1337,7 +1792,8 @@
       "hu": "{value} nap",
       "mt": "{value} ġranet",
       "ar": "{value} أيام",
-      "pl": "{value} days"
+      "pl": "{value} days",
+      "id": "{value} hari"
     },
     "time.week": {
       "en_GB": "week",
@@ -1350,7 +1806,8 @@
       "hu": "hét",
       "mt": "Ġimgħa",
       "ar": "أسبوع",
-      "pl": "tydzień"
+      "pl": "tydzień",
+      "id": "minggu"
     },
     "time.weeks": {
       "en_GB": "weeks",
@@ -1363,7 +1820,8 @@
       "hu": "hetek",
       "mt": "Ġimgħat",
       "ar": "أسابيع",
-      "pl": "tygodnie"
+      "pl": "tygodnie",
+      "id": "minggu"
     },
     "time.weeks.value": {
       "en_GB": "{value} weeks",
@@ -1376,7 +1834,8 @@
       "hu": "{value} hét",
       "mt": "{value} ġimgħat",
       "ar": "{value} أسابيع",
-      "pl": "{value} tygodni"
+      "pl": "{value} tygodni",
+      "id": "{value} minggu"
     },
     "time.month": {
       "en_GB": "month",
@@ -1389,7 +1848,8 @@
       "hu": "hónap",
       "mt": "Xahar",
       "ar": "شهر",
-      "pl": "miesiąc"
+      "pl": "miesiąc",
+      "id": "bulan"
     },
     "time.months": {
       "en_GB": "months",
@@ -1402,7 +1862,8 @@
       "hu": "hónapok",
       "mt": "Xhur",
       "ar": "أشهر",
-      "pl": "miesiące"
+      "pl": "miesiące",
+      "id": "bulan"
     },
     "time.months.value": {
       "en_GB": "{value} months",
@@ -1415,7 +1876,8 @@
       "hu": "{value} hónap",
       "mt": "{value} xhar",
       "ar": "{value} أشهر",
-      "pl": "{value} miesięcy"
+      "pl": "{value} miesięcy",
+      "id": "{value} bulan"
     },
     "time.year": {
       "en_GB": "year",
@@ -1428,7 +1890,8 @@
       "hu": "év",
       "mt": "Sena",
       "ar": "سنة",
-      "pl": "rok"
+      "pl": "rok",
+      "id": "tahun"
     },
     "time.years": {
       "en_GB": "years",
@@ -1441,7 +1904,8 @@
       "hu": "évek",
       "mt": "Snin",
       "ar": "سنوات",
-      "pl": "lata"
+      "pl": "lata",
+      "id": "tahun"
     },
     "time.years.value": {
       "en_GB": "{value} years",
@@ -1454,7 +1918,8 @@
       "hu": "{value} év",
       "mt": "{value} snin",
       "ar": "{value} سنوات",
-      "pl": "{value} lat"
+      "pl": "{value} lat",
+      "id": "{value} tahun"
     },
     "time.hourly": {
       "en_GB": "hourly",
@@ -1467,7 +1932,8 @@
       "hu": "óránként",
       "mt": "Kull siegħa",
       "ar": "كل ساعة",
-      "pl": "cogodzinny"
+      "pl": "cogodzinny",
+      "id": "Tiap jam"
     },
     "time.daily": {
       "en_GB": "daily",
@@ -1480,7 +1946,8 @@
       "hu": "naponta",
       "mt": "Kuljum",
       "ar": "يومي",
-      "pl": "codzienny"
+      "pl": "codzienny",
+      "id": "Tiap hari"
     },
     "time.weekly": {
       "en_GB": "weekly",
@@ -1493,7 +1960,8 @@
       "hu": "hetente",
       "mt": "Kull ġimgħa",
       "ar": "أسبوعي",
-      "pl": "cotygodniowy"
+      "pl": "cotygodniowy",
+      "id": "Tiap minggu"
     },
     "time.monthly": {
       "en_GB": "monthly",
@@ -1506,7 +1974,8 @@
       "hu": "havonta",
       "mt": "Kull xahar",
       "ar": "شهري",
-      "pl": "miesięczny"
+      "pl": "miesięczny",
+      "id": "Tiap bulan"
     },
     "time.yearly": {
       "en_GB": "yearly",
@@ -1519,7 +1988,8 @@
       "hu": "évente",
       "mt": "Kull sena",
       "ar": "سنوي",
-      "pl": "roczny"
+      "pl": "roczny",
+      "id": "Tiap tahun"
     },
     "time.repetition.every.value": {
       "en_GB": "every {number} {type}",
@@ -1532,20 +2002,22 @@
       "hu": "minden {number} {type}",
       "mt": "Kull {number} {type}",
       "ar": "كل {number} {type}",
-      "pl": "każdy {number} {type}"
+      "pl": "każdy {number} {type}",
+      "id": "Setiap {number} {type}"
     },
     "time.snooze.until": {
       "en_GB": "until {date_time}",
       "en_US": "until {date_time}",
-      "fr": null,
+      "fr": "jusqu'à {date_time}",
       "es": null,
-      "de": null,
+      "de": "bis {date_time}",
       "ru": null,
       "ua": null,
       "hu": null,
       "mt": null,
       "ar": null,
-      "pl": null
+      "pl": "dopóki {date_time}",
+      "id": "hingga (date_time}"
     },
     "time.today_and_time": {
       "en_GB": "Today, {time}",
@@ -1558,7 +2030,8 @@
       "hu": "Ma, {time}",
       "mt": "Illum, {time}",
       "ar": "اليوم، {time}",
-      "pl": "Dzisiaj, {time}"
+      "pl": "Dzisiaj, {time}",
+      "id": "Hari ini, {time}"
     },
     "time.yesterday_and_time": {
       "en_GB": "Yesterday, {time}",
@@ -1571,7 +2044,8 @@
       "hu": "Tegnap, {time}",
       "mt": "Ilbieraħ, {time}",
       "ar": "الأمس، {time}",
-      "pl": "Wczoraj, {time}"
+      "pl": "Wczoraj, {time}",
+      "id": "Kemarin, {time}"
     },
     "time.tomorrow_and_time": {
       "en_GB": "Tomorrow, {time}",
@@ -1584,7 +2058,8 @@
       "hu": "Holnap, {time}",
       "mt": "Għada, {time}",
       "ar": "غدا، {time}",
-      "pl": "Jutro, {time}"
+      "pl": "Jutro, {time}",
+      "id": "Besok, {time}"
     },
     "time.date_and_time": {
       "en_GB": "{date}, {time}",
@@ -1597,7 +2072,8 @@
       "hu": "{date}, {time}",
       "mt": "{date}, {time}",
       "ar": "{date}، {time}",
-      "pl": "{date}, {time}"
+      "pl": "{date}, {time}",
+      "id": "{date}, {time}"
     }
   }
 }
