@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class FirstLaunchDialog extends Dialog {
+  /// The most recent build number in which this dialog was updated.
+  static const int lastUpdatedBuildNumber = 11;
+
   final Function onComplete;
 
   FirstLaunchDialog({
