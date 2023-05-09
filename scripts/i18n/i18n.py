@@ -61,6 +61,7 @@ if PURGE_DIRECTORY:
 
 english_dict = {}
 
+print()
 for lang in languages:
     if PARSE_INCLUDE:
         included = data[1][languages.index(lang)+1].strip() == 'TRUE'
