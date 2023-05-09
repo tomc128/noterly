@@ -48,8 +48,9 @@ class FirstLaunchDialog extends Dialog {
         child: Column(
           children: [
             Material(
-              elevation: 1,
+              elevation: 0,
               shadowColor: Colors.transparent,
+              color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.0),
               ),
@@ -66,9 +67,15 @@ class FirstLaunchDialog extends Dialog {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('Swipe to archive'),
+                  const Expanded(
+                    child: Material(
+                      elevation: 1,
+                      shadowColor: Colors.transparent,
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text('Swipe to archive or delete'),
+                      ),
+                    ),
                   ),
                 ],
               ),

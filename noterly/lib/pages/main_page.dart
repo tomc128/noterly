@@ -206,6 +206,7 @@ class _MainPageState extends State<MainPage> {
             },
             isShownAfterUpdate: isShownAfterUpdate,
           ),
+          barrierDismissible: false,
         );
       });
     }
