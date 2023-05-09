@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/pages/main_page/active_notifications_page.dart';
 import 'package:noterly/pages/main_page/archived_notifications_page.dart';
 
+import '../build_info.dart';
+import '../widgets/first_launch_dialog.dart';
 import 'create_notification_page.dart';
 import 'settings_page.dart';
 
@@ -29,6 +32,8 @@ class _MainPageState extends State<MainPage> {
   final ScrollController _archivedNotificationsPageScrollController = ScrollController();
 
   late final List<ScrollController> _scrollControllers;
+
+  bool _isHandlingFirstLaunch = false;
 
   late final Timer _timer;
 
@@ -68,6 +73,11 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isHandlingFirstLaunch) {
+      _isHandlingFirstLaunch = true;
+      _handleFirstLaunch(context);
+    }
+
     return ValueListenableBuilder(
       valueListenable: AppManager.instance.notifier,
       builder: (context, value, child) {
@@ -162,5 +172,43 @@ class _MainPageState extends State<MainPage> {
         );
       },
     );
+  }
+
+  void _handleFirstLaunch(BuildContext context) {
+    var shouldShowFirstLaunchDialog = false;
+    var isShownAfterUpdate = false;
+
+    if (AppManager.instance.data.firstLaunchDialogLastShown == -1) {
+      // Show the dialog because it has never been shown before
+      shouldShowFirstLaunchDialog = true;
+    } else if (AppManager.instance.data.firstLaunchDialogLastShown < FirstLaunchDialog.lastUpdatedBuildNumber) {
+      // Show the dialog because the app has been updated since the dialog was last shown
+      shouldShowFirstLaunchDialog = true;
+      isShownAfterUpdate = true;
+    } else {
+      // Do not show the dialog because it has already been shown in a more recent version
+      shouldShowFirstLaunchDialog = false;
+    }
+
+    if (BuildInfo.releaseType == ReleaseType.inDev) {
+      // The app is running in development mode (i.e. in IDE) so do not show the dialog
+      shouldShowFirstLaunchDialog = false;
+    }
+
+    if (shouldShowFirstLaunchDialog) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (context) => FirstLaunchDialog(
+            onComplete: () async {
+              AppManager.instance.data.firstLaunchDialogLastShown = BuildInfo.buildNumber;
+              await AppManager.instance.saveSettings();
+            },
+            isShownAfterUpdate: isShownAfterUpdate,
+          ),
+          barrierDismissible: false,
+        );
+      });
+    }
   }
 }

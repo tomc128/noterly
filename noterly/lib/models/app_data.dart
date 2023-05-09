@@ -6,10 +6,13 @@ class AppData {
   Duration snoozeDuration;
   String snoozeToastText;
 
+  int firstLaunchDialogLastShown;
+
   AppData({
     required this.notificationItems,
     required this.snoozeDuration,
     required this.snoozeToastText,
+    required this.firstLaunchDialogLastShown,
   });
 
   Map<String, dynamic> toJson() {
@@ -17,6 +20,7 @@ class AppData {
       'notificationItems': notificationItems.map((e) => e.toJson()).toList(),
       'snoozeDuration': snoozeDuration.inSeconds,
       'snoozeToastText': snoozeToastText,
+      'firstLaunchDialogLastShown': firstLaunchDialogLastShown,
     };
   }
 
@@ -26,7 +30,11 @@ class AppData {
         notificationItems: AppDataJsonParser<List<NotificationItem>>('notificationItems', [], parser: (value) => (value as List).map((item) => NotificationItem.fromJson(item)).toList()).parse(json),
         snoozeDuration: AppDataJsonParser<Duration>('snoozeDuration', const Duration(hours: 1), parser: (value) => Duration(seconds: value)).parse(json),
         snoozeToastText: AppDataJsonParser<String>('snoozeToastText', 'Notification snoozed').parse(json),
+        firstLaunchDialogLastShown: AppDataJsonParser<int>('firstLaunchDialogLastShown', -1).parse(json),
       );
+
+  @override
+  String toString() => 'AppData(notificationItems: $notificationItems, snoozeDuration: $snoozeDuration, snoozeToastText: $snoozeToastText, firstLaunchDialogLastShown: $firstLaunchDialogLastShown)';
 }
 
 class AppDataJsonParser<T> {

@@ -28,7 +28,7 @@ for key, value in i18n['Translations'].items():
         if key.startswith('$'):
             # Ignore special keys
             continue
-
+        
         if text is not None and text.strip() != '':
             lang_data[lang][key] = text
         else:

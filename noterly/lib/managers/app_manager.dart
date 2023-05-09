@@ -36,7 +36,7 @@ class AppManager {
 
   final Logger _logger = Logger(
     printer: PrettyPrinter(
-      methodCount: 8,
+      methodCount: 0,
       errorMethodCount: 8,
       lineLength: 120,
       colors: true,
