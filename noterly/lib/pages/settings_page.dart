@@ -12,6 +12,7 @@ import 'package:noterly/managers/notification_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/duration_picker.dart';
+import 'package:noterly/widgets/first_launch_dialog.dart';
 import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -221,6 +222,21 @@ class _SettingsPageState extends State<SettingsPage> {
 
                 FirebaseAnalytics.instance.logEvent(
                   name: 'open_about_dialog',
+                );
+              },
+            ),
+            ListTile(
+              title: Text(translate('page.settings.about.tutorial.title')),
+              leading: const Icon(Icons.school),
+              trailing: const Icon(Icons.chevron_right),
+              minVerticalPadding: 12,
+              onTap: () async {
+                showDialog(
+                  context: context,
+                  builder: (context) => FirstLaunchDialog(
+                    onComplete: () {},
+                  ),
+                  barrierDismissible: false,
                 );
               },
             ),
