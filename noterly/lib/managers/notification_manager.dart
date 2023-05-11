@@ -137,6 +137,11 @@ class NotificationManager {
     }
 
     if (!isBackground) {
+      if (MyApp.navigatorKey.currentState == null) {
+        Log.logger.e('Failed to open notification "${item.title}": navigator key is null');
+        return;
+      }
+
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => EditNotificationPage(item: item!)),
         (route) => route.isFirst,
