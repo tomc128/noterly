@@ -49,6 +49,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/i18n/
+    - assets/google_fonts/
 
 
 # IconKitchen

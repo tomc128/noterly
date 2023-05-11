@@ -79,6 +79,11 @@ Future<void> main(List<String> args) async {
     return true;
   };
 
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['assets/google_fonts'], license);
+  });
+
   var delegate = await LocalizationDelegate.create(
     fallbackLocale: 'en_GB',
     supportedLocales: [
@@ -96,6 +101,7 @@ Future<void> main(List<String> args) async {
       // 'pl',
     ],
   );
+
   runApp(LocalizedApp(
     delegate,
     MyApp(launchMessage: args.isNotEmpty ? args[0] : null),
