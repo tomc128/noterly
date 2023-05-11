@@ -257,13 +257,22 @@ class NotificationManager {
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
 
-    await _plugin.show(
-      item.id.hashCode,
-      item.title,
-      item.body,
-      details,
-      payload: jsonEncode(item),
-    );
+    try {
+      await _plugin.show(
+        item.id.hashCode,
+        item.title,
+        item.body,
+        details,
+        payload: jsonEncode(item),
+      );
+    } on Exception catch (e) {
+      Log.logger.e('Failed to show notification "${item.title}" at ${item.dateTime}', e);
+      try {
+        Fluttertoast.showToast(msg: 'Failed to send notification, check notification permissions');
+      } catch (e) {
+        Log.logger.w('Failed to show toast', e);
+      }
+    }
   }
 
   Future _scheduleNotification(NotificationItem item) async {
@@ -279,16 +288,25 @@ class NotificationManager {
     var androidDetails = _getNotificationDetails(item);
     var details = NotificationDetails(android: androidDetails);
 
-    await _plugin.zonedSchedule(
-      item.id.hashCode,
-      item.title,
-      item.body,
-      tz.TZDateTime.from(dateTime!, tz.local),
-      details,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      payload: jsonEncode(item),
-    );
+    try {
+      await _plugin.zonedSchedule(
+        item.id.hashCode,
+        item.title,
+        item.body,
+        tz.TZDateTime.from(dateTime!, tz.local),
+        details,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        payload: jsonEncode(item),
+      );
+    } on Exception catch (e) {
+      Log.logger.e('Failed to schedule notification "${item.title}" at ${item.dateTime}', e);
+      try {
+        Fluttertoast.showToast(msg: 'Failed to send notification, check notification permissions');
+      } catch (e) {
+        Log.logger.w('Failed to show toast', e);
+      }
+    }
   }
 
   AndroidNotificationDetails _getNotificationDetails(NotificationItem item) => AndroidNotificationDetails(
