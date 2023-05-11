@@ -74,7 +74,15 @@ class _SettingsPageState extends State<SettingsPage> {
               trailing: const Icon(Icons.open_in_new),
               minVerticalPadding: 12,
               onTap: () async {
-                SystemSettings.appNotifications();
+                try {
+                  SystemSettings.appNotifications();
+                } catch (_) {
+                  try {
+                    SystemSettings.app();
+                  } catch (_) {
+                    Log.logger.e('Failed to open system settings');
+                  }
+                }
 
                 await FirebaseAnalytics.instance.logEvent(
                   name: 'open_notification_settings',
