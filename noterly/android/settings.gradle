@@ -9,3 +9,12 @@ localPropertiesFile.withReader("UTF-8") { reader -> properties.load(reader) }
 def flutterSdkPath = properties.getProperty("flutter.sdk")
 assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
 apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+
+// INFO: Workaround for 'libflutter.so' crash. This makes non-ARM devices emulate ARM, instead of trying
+// to run directly and fail. Unsure if this will work but it's worth a try.
+gradle.beforeProject({ project ->
+    if (project.hasProperty("target-platform") &&
+            !project.getProperty("target-platform").split(",").contains("android-arm")) {
+        project.setProperty("target-platform", "android-arm,android-arm64")
+    }
+})
