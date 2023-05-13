@@ -5,7 +5,7 @@ buildscript {
         compileSdkVersion = 33
         targetSdkVersion = 33
         minSdkVersion = 23 // INFO: 19 for Firebase, 23 is minimum for getActiveNotifications() function
-        appCompatVersion = "1.4.2" // INFO: Required for background_fetch plugin
+        appCompatVersion = "1.6.1" // INFO: Required for background_fetch plugin, was 1.4.2
     }
 
     repositories {
