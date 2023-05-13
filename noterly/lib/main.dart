@@ -117,10 +117,12 @@ Future<void> main(List<String> args) async {
   );
 
   // Run the app
-  runApp(LocalizedApp(
-    delegate,
-    MyApp(launchMessage: args.isNotEmpty ? args[0] : null),
-  ));
+  runApp(
+    LocalizedApp(
+      delegate,
+      MyApp(launchMessage: args.isNotEmpty ? args[0] : null),
+    ),
+  );
 
   // Register the background task
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
@@ -187,7 +189,8 @@ class _MyAppState extends State<MyApp> {
     }
 
     handleShareError(Object error) {
-      Log.logger.log(Level.error, "getLinkStream error: $error");
+      Log.logger.e("getLinkStream error: $error");
+      FirebaseCrashlytics.instance.recordError(error, StackTrace.current, reason: 'getLinkStream error');
     }
 
     // Share sheet listener, while app is open
@@ -214,7 +217,8 @@ class _MyAppState extends State<MyApp> {
     }
 
     handleIntentError(Object error) {
-      Log.logger.log(Level.error, "getLinkStream error: $error");
+      Log.logger.e("getLinkStream error: $error");
+      FirebaseCrashlytics.instance.recordError(error, StackTrace.current, reason: 'getLinkStream error');
     }
 
     // Intent listener, while app is open
