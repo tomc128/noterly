@@ -149,9 +149,9 @@ class _DurationPickerState extends State<DurationPicker> {
                   border: const OutlineInputBorder(),
                   labelText: translate('dialog.picker.duration.field.period.label'),
                 ),
-                items: const [
-                  DropdownMenuItem(value: 'hour', child: Text('hours')),
-                  DropdownMenuItem(value: 'minute', child: Text('minutes')),
+                items: [
+                  DropdownMenuItem(value: 'hour', child: Text(translate('time.hour${_value == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: 'minute', child: Text(translate('time.minute${_value == 1 ? '' : 's'}'))),
                 ],
                 value: _duration.inHours > 0 ? 'hour' : 'minute',
                 onChanged: (value) {
