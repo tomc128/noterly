@@ -48,10 +48,10 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 }
 
 Future<void> main(List<String> args) async {
-  Log.logger.d("Starting app with args: $args");
-
   // Allow async initialisation to complete before running the app
   WidgetsFlutterBinding.ensureInitialized();
+
+  Log.logger.d("Starting app with args: $args");
 
   // Initialise Firebase analytics
   //* IF CHANGING THIS TO DART-ONLY, ALSO CHANGE THIS IN NOTIFICATION_MANAGER
@@ -279,8 +279,7 @@ class _MyAppState extends State<MyApp> {
     return LocalizationProvider(
       state: LocalizationProvider.of(context).state,
       child: DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        ColorScheme lightColorScheme;
-        ColorScheme darkColorScheme;
+        ColorScheme lightColorScheme, darkColorScheme;
 
         if (lightDynamic != null && darkDynamic != null) {
           Log.logger.d('Using dynamic color scheme.');

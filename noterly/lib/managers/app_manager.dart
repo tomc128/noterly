@@ -71,7 +71,8 @@ class AppManager {
     _loadingFuture = null;
 
     if (newData == null) {
-      Log.logger.d('No previous save found.');
+      Log.logger.d('No (valid) previous save found.');
+      notifier.value = [];
       return;
     }
 
