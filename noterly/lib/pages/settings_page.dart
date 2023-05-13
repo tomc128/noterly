@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -81,6 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     SystemSettings.app();
                   } catch (_) {
                     Log.logger.e('Failed to open system settings');
+                    await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to open system settings');
                   }
                 }
 
@@ -312,6 +314,7 @@ class _SettingsPageState extends State<SettingsPage> {
       }
     } on Exception catch (e) {
       Log.logger.e('Failed to launch URL: $uri [$e]');
+      await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to launch URL: $uri');
     }
   }
 

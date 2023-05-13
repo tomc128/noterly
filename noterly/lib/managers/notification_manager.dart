@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -100,7 +101,7 @@ class NotificationManager {
         var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
         if (sendPort == null) {
-          Log.logger.e('Failed to send message to main isolate (port not found).');
+          Log.logger.w('Failed to send message to main isolate (port not found).');
         }
       }
 
@@ -128,7 +129,7 @@ class NotificationManager {
         var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
         sendPort?.send('update');
         if (sendPort == null) {
-          Log.logger.e('Failed to send message to main isolate (port not found).');
+          Log.logger.w('Failed to send message to main isolate (port not found).');
         }
       }
 
@@ -138,7 +139,7 @@ class NotificationManager {
 
     if (!isBackground) {
       if (MyApp.navigatorKey.currentState == null) {
-        Log.logger.e('Failed to open notification "${item.title}": navigator key is null');
+        Log.logger.w('Failed to open notification "${item.title}": navigator key is null');
         return;
       }
 
@@ -165,6 +166,7 @@ class NotificationManager {
       }
     } catch (e) {
       Log.logger.e('Failed to request A13 notification permission, $e');
+      await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to request A13 notification permission');
     }
   }
 
@@ -272,6 +274,7 @@ class NotificationManager {
       );
     } on Exception catch (e) {
       Log.logger.e('Failed to show notification "${item.title}" at ${item.dateTime}', e);
+      await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to show notification');
       try {
         Fluttertoast.showToast(msg: 'Failed to send notification, check notification permissions');
       } catch (e) {
@@ -306,6 +309,7 @@ class NotificationManager {
       );
     } on Exception catch (e) {
       Log.logger.e('Failed to schedule notification "${item.title}" at ${item.dateTime}', e);
+      await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to schedule notification');
       try {
         Fluttertoast.showToast(msg: 'Failed to send notification, check notification permissions');
       } catch (e) {

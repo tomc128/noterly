@@ -17,7 +17,7 @@ class IsolateManager {
       registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, mainPortName);
 
       if (!registerResult) {
-        throw Exception('Failed to register port with main isolate (x2)');
+        throw IsolateSpawnException('Failed to register port with main isolate (x2)');
       }
     }
 

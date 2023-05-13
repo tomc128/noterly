@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:isolate';
 
 import 'package:background_fetch/background_fetch.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -47,19 +48,12 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 }
 
 Future<void> main(List<String> args) async {
+  Log.logger.d("Starting app with args: $args");
+
+  // Allow async initialisation to complete before running the app
   WidgetsFlutterBinding.ensureInitialized();
 
-  Log.logger.log(Level.debug, "Starting app with args: $args");
-
-  // Ensure the app renders behind the system UI.
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.transparent,
-  ));
-
-  IsolateManager.init();
-
+  // Initialise Firebase analytics
   //* IF CHANGING THIS TO DART-ONLY, ALSO CHANGE THIS IN NOTIFICATION_MANAGER
   // await Firebase.initializeApp(
   //     options: DefaultFirebaseOptions
@@ -72,18 +66,38 @@ Future<void> main(List<String> args) async {
   });
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  FlutterError.onError = (details) {
+    // INFO: change to recordFlutterFatalError if we only want to record fatal errors
+    FirebaseCrashlytics.instance.recordFlutterError(details);
+  };
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
 
+  // Ensure the app renders behind the system UI.
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+  ));
+
+  // Initialise the isolate manager, which handles messages sent from a background task to the main UI isolate
+  try {
+    IsolateManager.init();
+  } on IsolateSpawnException catch (e) {
+    Log.logger.e('Failed to initialise isolate manager: $e');
+    await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to initialise isolate manager');
+  }
+
+  // Add the Google Fonts license to the license registry
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['assets/google_fonts'], license);
   });
 
+  // Initialise a localisation delegate containing all supported languages
   var delegate = await LocalizationDelegate.create(
     fallbackLocale: 'en_GB',
     supportedLocales: [
@@ -102,13 +116,16 @@ Future<void> main(List<String> args) async {
     ],
   );
 
+  // Run the app
   runApp(LocalizedApp(
     delegate,
     MyApp(launchMessage: args.isNotEmpty ? args[0] : null),
   ));
 
+  // Register the background task
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 
+  // Set up quick actions
   const quickActions = QuickActions();
   quickActions.initialize((shortcutType) {
     if (shortcutType == 'action_new') {
