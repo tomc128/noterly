@@ -46,7 +46,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
     var now = DateTime.now();
     _dateTime = DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
 
-    _colour = Colors.blue;
+    _colour = ColourPicker.colours.values.elementAt(DateTime.now().second % ColourPicker.colours.length);
 
     super.initState();
   }

@@ -31,6 +31,21 @@ Map<String, Color> colours = {
 };
 
 class ColourPicker extends StatefulWidget {
+  static const Map<String, Color> colours = {
+    'red': Colors.red,
+    'green': Colors.green,
+    'blue': Colors.blue,
+    'purple': Colors.purple,
+    'pink': Colors.pink,
+    'orange': Colors.orange,
+    'yellow': Colors.yellow,
+    'teal': Colors.teal,
+    'cyan': Colors.cyan,
+    'indigo': Colors.indigo,
+    'brown': Colors.brown,
+    'grey': Colors.grey,
+  };
+
   final Color initialColour;
 
   const ColourPicker({
