@@ -119,15 +119,18 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
                 controller: _intervalController,
                 onChanged: (value) {
                   if (value.isEmpty) return;
+
                   var number = int.tryParse(value);
                   if (number == null) return;
+                  if (number < 1) number = 1;
 
                   setState(() {
-                    _repetitionData.number = number;
+                    _repetitionData.number = number!;
                   });
                 },
                 onSubmitted: (value) {
                   var number = int.tryParse(value) ?? 1;
+                  if (number < 1) number = 1;
 
                   setState(() {
                     _repetitionData.number = number;
