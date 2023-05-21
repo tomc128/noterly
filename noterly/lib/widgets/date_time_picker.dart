@@ -180,9 +180,10 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 onPressed: () {
                   setState(() {
                     var newDateTime = _dateTime.subtract(const Duration(hours: 1));
-                    if (newDateTime.isAfter(widget.firstDate)) {
-                      _dateTime = newDateTime;
-                    }
+                    if (!newDateTime.isAfter(widget.firstDate)) return;
+                    if (newDateTime.isBefore(DateTime.now())) newDateTime = DateTime.now();
+
+                    _dateTime = newDateTime;
                   });
                 },
                 icon: const Icon(Icons.remove),
@@ -192,9 +193,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 onPressed: () {
                   setState(() {
                     var newDateTime = _dateTime.add(const Duration(hours: 1));
-                    if (newDateTime.isBefore(widget.lastDate)) {
-                      _dateTime = newDateTime;
-                    }
+                    if (!newDateTime.isBefore(widget.lastDate)) return;
+                    _dateTime = newDateTime;
                   });
                 },
                 icon: const Icon(Icons.add),
