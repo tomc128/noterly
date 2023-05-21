@@ -30,6 +30,17 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  static const String _copyrightText = '''
+• Tom Chapman (en_GB, en_US)
+• FBI (es)
+• Sascha Grebe (de)
+• Bluefy (de)
+• DindinYT37 (de)
+• Mr.Spok (ru, ua)
+• SPLESHER (pl)
+• GaetanoEsse (it)
+• Nader Ghr (fr)''';
+
   final int _millisBeforeReset = 1000;
   int _easterEggCount = 0;
   int _lastTapTime = 0;
@@ -200,7 +211,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Text(translate('page.settings.about.licenses.page.legalese')),
                             const SizedBox(height: 16),
                             Text(translate('dialog.about.translations.title'), style: Theme.of(context).textTheme.titleMedium),
-                            const Text('• Tom Chapman (en_GB, en_US)\n• FBI (es)\n• Sascha Grebe (de)\n• Bluefy (de)\n• Mr.Spok (ru, ua)'),
+                            const Text(_copyrightText),
                             const SizedBox(height: 16),
                             ButtonBar(
                               children: [

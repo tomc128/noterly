@@ -108,11 +108,9 @@ Future<void> main(List<String> args) async {
       'de',
       'ru',
       'ua',
+      'pl',
+      'it',
       // TODO: decide which languages to support for next release
-      // 'ar',
-      // 'hu',
-      // 'mt',
-      // 'pl',
     ],
   );
 
