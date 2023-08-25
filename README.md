@@ -7,11 +7,7 @@ Simple notification reminders for Android devices.
 
 ## 📸 Screenshots
 
-<img src="assets/figma/screenshot_1.png" width="200"/>
-<img src="assets/figma/screenshot_2.png" width="200"/>
-<img src="assets/figma/screenshot_3.png" width="200"/>
-<img src="assets/figma/screenshot_4.png" width="200"/>
-<img src="assets/figma/screenshot_5.png" width="200"/>
+![A few screenshots of Noterly](assets/figma/github_readme_showcase.svg)
 
 
 ## 🗞️ Newly Open-Sourced
