@@ -78,6 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
           ]),
+          _getSpacer(),
           _getHeader(translate('page.settings.header.system')),
           _getCard(context, [
             ListTile(

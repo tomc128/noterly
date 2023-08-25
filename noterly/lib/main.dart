@@ -309,16 +309,16 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: lightColorScheme,
-            fontFamily: GoogleFonts.dmSans().fontFamily,
-            textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+            fontFamily: GoogleFonts.inter().fontFamily,
+            textTheme: GoogleFonts.interTextTheme().copyWith(
               labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
             ),
           ),
           darkTheme: ThemeData(
             useMaterial3: true,
             colorScheme: darkColorScheme,
-            fontFamily: GoogleFonts.dmSans().fontFamily,
-            textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
+            fontFamily: GoogleFonts.inter().fontFamily,
+            textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
               labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
             ),
           ),
