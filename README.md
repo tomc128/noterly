@@ -1,5 +1,5 @@
 
-<img src="assets/figma/logo_full_circle.svg" width="50">
+<img src="assets/figma/logo_full_circle.svg" width="100">
 
 # Noterly
 Simple notification reminders for Android devices.
@@ -42,6 +42,7 @@ Alternatively, APKs will soon be available directly on the GitHub releases page 
 - Check out [Noterly's landing page](https://noterly.tdsstudios.co.uk) on the TDS Studios website
 - Watch the [YouTube video](https://youtu.be/7qwUOWT9QbA) on how I created Noterly
 - Visit my [personal website](https://www.tomchapman.dev) to see what else I'm working on
+- If you need, [Noterly's privacy policy](https://www.tdsstudios.co.uk/privacy#noterly) is available on the TDS Studios website
 
 
 ## 🌍 Translations
