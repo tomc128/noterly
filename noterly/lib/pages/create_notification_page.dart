@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
+import 'package:noterly/l10n/localisations_util.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
@@ -63,14 +63,14 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(translate('page.create_notification.title'), overflow: TextOverflow.fade),
+        title: Text(Strings.of(context).page_createNotification_title, overflow: TextOverflow.fade),
       ),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.only(bottom: 128),
           children: [
-            _getHeader(translate('page.create_notification.header.details')),
+            _getHeader(Strings.of(context).page_createNotification_header_details),
             _getCard([
               ListTile(
                 title: TextFormField(
@@ -80,10 +80,10 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
-                    labelText: translate('page.create_notification.details.field.title.label'),
+                    labelText: Strings.of(context).page_createNotification_details_field_title_label,
                     border: InputBorder.none,
                   ),
-                  validator: (value) => value!.isEmpty ? translate('page.create_notification.details.field.title.error') : null,
+                  validator: (value) => value!.isEmpty ? Strings.of(context).page_createNotification_details_field_title_error : null,
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
@@ -94,14 +94,14 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
-                    labelText: translate('page.create_notification.details.field.body.label'),
+                    labelText: Strings.of(context).page_createNotification_details_field_body_label,
                     border: InputBorder.none,
                   ),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
               ListTile(
-                title: Text(translate('page.create_notification.details.field.colour.label')),
+                title: Text(Strings.of(context).page_createNotification_details_field_colour_label),
                 leading: ItemListDecoration(colour: _colour),
                 onTap: () {
                   showColourPicker(context: context, initialColour: _colour).then((value) {
@@ -115,11 +115,11 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ),
             ]),
             _getSpacer(),
-            _getHeader(translate('page.create_notification.header.timing')),
+            _getHeader(Strings.of(context).page_createNotification_header_timing),
             _getCard([
               SwitchListTile(
                 value: _isScheduled,
-                title: Text(translate('page.create_notification.timing.schedule.title')),
+                title: Text(Strings.of(context).page_createNotification_timing_schedule_title),
                 secondary: const Icon(Icons.calendar_today),
                 onChanged: _isRepeating
                     ? null
@@ -131,7 +131,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ),
               if (_isScheduled)
                 ListTile(
-                  title: Text(translate('page.create_notification.timing.schedule.subtitle')),
+                  title: Text(Strings.of(context).page_createNotification_timing_schedule_subtitle),
                   subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
                   minVerticalPadding: 12,
                   onTap: () {
@@ -153,7 +153,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ),
               SwitchListTile(
                 value: _isRepeating,
-                title: Text(translate('page.create_notification.timing.repeat.title')),
+                title: Text(Strings.of(context).page_createNotification_timing_repeat_title),
                 secondary: const Icon(Icons.repeat),
                 onChanged: (value) {
                   setState(() {
@@ -167,7 +167,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ),
               if (_isRepeating)
                 ListTile(
-                  title: Text(translate('page.create_notification.timing.repeat.subtitle')),
+                  title: Text(Strings.of(context).page_createNotification_timing_repeat_subtitle),
                   subtitle: Text(_repetitionData.toReadableString()),
                   minVerticalPadding: 12,
                   onTap: () {
@@ -188,7 +188,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               _getSpacer(),
               ListTile(
                 leading: const Icon(Icons.info),
-                subtitle: Text(translate('page.create_notification.timing.repeat.info')),
+                subtitle: Text(Strings.of(context).page_createNotification_timing_repeat_info),
               ),
             ],
           ],
@@ -221,7 +221,7 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
             Navigator.of(context).pop();
           }
         },
-        label: Text(translate('main.action.create')),
+        label: Text(Strings.of(context).main_action_create),
         icon: const Icon(Icons.check),
       ),
     );
