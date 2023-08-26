@@ -164,7 +164,7 @@
     "dialog_picker_colour_title": "Select colour",
     "dialog_easterEgg_title": "Easter egg!",
     "dialog_easterEgg_text": "Congratulations, you''ve found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
-    "dialogEasterEgg_action_showDebugOptions": "Show debug options",
+    "dialog_easterEgg_action_showDebugOptions": "Show debug options",
     "dialog_about_translations_title": "Translations",
     "dialog_about_action_showLicenses": "Licenses",
     "tutorial_page_0_title": "Welcome to Noterly",
