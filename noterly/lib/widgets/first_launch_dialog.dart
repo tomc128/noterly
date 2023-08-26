@@ -1,6 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_translate/flutter_translate.dart';
+import 'package:noterly/l10n/localisations_util.dart';
 
 class FirstLaunchDialog extends Dialog {
   /// The most recent build number in which this dialog was updated.
@@ -9,7 +9,7 @@ class FirstLaunchDialog extends Dialog {
   final Function onComplete;
   final bool isShownAfterUpdate;
 
-  FirstLaunchDialog({
+  const FirstLaunchDialog({
     Key? key,
     required this.onComplete,
     this.isShownAfterUpdate = false,
@@ -19,38 +19,32 @@ class FirstLaunchDialog extends Dialog {
   Widget build(BuildContext context) {
     var pages = <_LaunchDialogPage>[
       _LaunchDialogPage(
-        title: translate('tutorial.page.0.title'),
-        subtitle: translate('tutorial.page.0.subtitle'),
-        content: translate('tutorial.page.0.content'),
+        title: Strings.of(context).tutorial_page_0_title,
+        subtitle: Strings.of(context).tutorial_page_0_subtitle,
+        content: Strings.of(context).tutorial_page_0_content,
       ),
       _LaunchDialogPage(
-        title: translate('tutorial.page.1.title'),
-        content: translate('tutorial.page.1.content'),
+        title: Strings.of(context).tutorial_page_1_title,
+        content: Strings.of(context).tutorial_page_1_content,
         icon: Icons.notifications_active,
       ),
       _LaunchDialogPage(
-        title: translate('tutorial.page.2.title'),
-        content: translate('tutorial.page.2.content'),
+        title: Strings.of(context).tutorial_page_2_title,
+        content: Strings.of(context).tutorial_page_2_content,
         child: FloatingActionButton.extended(
           onPressed: () {
-            var messages = [
-              translate('tutorial.page.2.confirmation.0'),
-              translate('tutorial.page.2.confirmation.1'),
-              translate('tutorial.page.2.confirmation.2'),
-              translate('tutorial.page.2.confirmation.3'),
-              translate('tutorial.page.2.confirmation.4'),
-            ];
+            var messages = Strings.of(context).tutorial_page_2_confirmations.split('|');
             var message = messages[DateTime.now().second % messages.length];
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
           },
-          label: Text(translate('main.action.new')),
+          label: Text(Strings.of(context).main_action_new),
           icon: const Icon(Icons.add),
         ),
       ),
       _LaunchDialogPage(
-        title: translate('tutorial.page.3.title'),
-        content: translate('tutorial.page.3.content'),
+        title: Strings.of(context).tutorial_page_3_title,
+        content: Strings.of(context).tutorial_page_3_content,
         child: Column(
           children: [
             Material(
@@ -79,7 +73,7 @@ class FirstLaunchDialog extends Dialog {
                       shadowColor: Colors.transparent,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Text(translate('tutorial.page.3.example')),
+                        child: Text(Strings.of(context).tutorial_page_3_example),
                       ),
                     ),
                   ),
@@ -90,12 +84,12 @@ class FirstLaunchDialog extends Dialog {
         ),
       ),
       _LaunchDialogPage(
-        title: translate('tutorial.page.4.title'),
-        content: translate('tutorial.page.4.content'),
+        title: Strings.of(context).tutorial_page_4_title,
+        content: Strings.of(context).tutorial_page_4_content,
       ),
       _LaunchDialogPage(
-        title: translate('tutorial.page.5.title'),
-        content: translate('tutorial.page.5.content'),
+        title: Strings.of(context).tutorial_page_5_title,
+        content: Strings.of(context).tutorial_page_5_content,
       ),
     ];
     var currentPage = 0;
@@ -141,7 +135,7 @@ class FirstLaunchDialog extends Dialog {
                     content,
                     if (isShownAfterUpdate && currentPage == 0) ...[
                       const SizedBox(height: 16),
-                      Text(translate('tutorial.updated_experience_text'), style: Theme.of(context).textTheme.labelSmall),
+                      Text(Strings.of(context).tutorial_updatedExperienceText, style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ],
                 ),
@@ -164,7 +158,7 @@ class FirstLaunchDialog extends Dialog {
                         });
                       }
                     },
-                    child: Text(translate(currentPage == 0 ? 'tutorial.action.skip' : 'tutorial.action.back')),
+                    child: Text(currentPage == 0 ? Strings.of(context).tutorial_action_skip : Strings.of(context).tutorial_action_back),
                   ),
                   TextButton(
                     onPressed: () {
@@ -177,7 +171,7 @@ class FirstLaunchDialog extends Dialog {
                         });
                       }
                     },
-                    child: Text(translate(currentPage == pages.length - 1 ? 'tutorial.action.done' : 'tutorial.action.next')),
+                    child: Text(currentPage == pages.length - 1 ? Strings.of(context).tutorial_action_done : Strings.of(context).tutorial_action_next),
                   ),
                 ],
               ),
@@ -212,7 +206,6 @@ class _LaunchDialogPage {
     required this.title,
     this.subtitle,
     required this.content,
-    this.image,
     this.child,
     this.icon,
   });
