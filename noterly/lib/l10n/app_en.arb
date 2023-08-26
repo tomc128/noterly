@@ -193,7 +193,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -205,7 +205,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -217,7 +217,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -229,7 +229,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -241,7 +241,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -253,7 +253,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -265,7 +265,7 @@
             "value": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             }
         }
     },
@@ -280,7 +280,7 @@
             "number": {
                 "type": "num",
                 "format": "compact",
-                "example": 1
+                "example": "1"
             },
             "type": {
                 "type": "String",
@@ -288,13 +288,12 @@
             }
         }
     },
-    "time_snooze_until": "until {dateTime}",
+    "time_snooze_until": "until {dateTimeString}",
     "@time_snooze_until": {
         "placeholders": {
-            "dateTime": {
-                "type": "DateTime",
-                "format": "yMd",
-                "example": "1st January 2023, 12:00"
+            "dateTimeString": {
+                "type": "String",
+                "example": "tomorrow"
             }
         }
     },
@@ -325,13 +324,16 @@
             }
         }
     },
-    "time_dateAndTime": "{dateTime}",
+    "time_dateAndTime": "{dateTimeString}, {timeString}",
     "@time_dateAndTime": {
         "placeholders": {
-            "dateTime": {
-                "type": "DateTime",
-                "format": "yMd Hm",
-                "example": "1st January 2023, 12:00"
+            "dateTimeString": {
+                "type": "String",
+                "example": "yesterday"
+            },
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
             }
         }
     }
