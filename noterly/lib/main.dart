@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localisations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:noterly/build_info.dart';
@@ -98,30 +96,8 @@ Future<void> main(List<String> args) async {
     yield LicenseEntryWithLineBreaks(['assets/google_fonts'], license);
   });
 
-  // Initialise a localisation delegate containing all supported languages
-  var delegate = await LocalizationDelegate.create(
-    fallbackLocale: 'en_GB',
-    supportedLocales: [
-      'en_GB',
-      'en_US',
-      'fr',
-      'es',
-      'de',
-      'ru',
-      'ua',
-      'pl',
-      'it',
-      // TODO: decide which languages to support for next release
-    ],
-  );
-
   // Run the app
-  runApp(
-    LocalizedApp(
-      delegate,
-      MyApp(launchMessage: args.isNotEmpty ? args[0] : null),
-    ),
-  );
+  runApp(MyApp(launchMessage: args.isNotEmpty ? args[0] : null));
 
   // Register the background task
   await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
@@ -273,65 +249,51 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var localizationDelegate = LocalizedApp.of(context).delegate;
+    return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      ColorScheme lightColorScheme, darkColorScheme;
 
-    return LocalizationProvider(
-      state: LocalizationProvider.of(context).state,
-      child: DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        ColorScheme lightColorScheme, darkColorScheme;
+      if (lightDynamic != null && darkDynamic != null) {
+        Log.logger.d('Using dynamic color scheme.');
 
-        if (lightDynamic != null && darkDynamic != null) {
-          Log.logger.d('Using dynamic color scheme.');
+        lightColorScheme = lightDynamic.harmonized();
+        darkColorScheme = darkDynamic.harmonized();
+      } else {
+        Log.logger.d('No dynamic color scheme, using fallback.');
 
-          lightColorScheme = lightDynamic.harmonized();
-          darkColorScheme = darkDynamic.harmonized();
-        } else {
-          Log.logger.d('No dynamic color scheme, using fallback.');
-
-          lightColorScheme = ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(153, 0, 228, 1),
-          );
-          darkColorScheme = ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(153, 0, 228, 1),
-            brightness: Brightness.dark,
-          );
-        }
-
-        return MaterialApp(
-          navigatorKey: MyApp.navigatorKey,
-          title: 'Noterly',
-          localizationsDelegates: [
-            ...GlobalMaterialLocalizations.delegates,
-            GlobalWidgetsLocalizations.delegate,
-            AppLocalisations.delegate,
-            localizationDelegate,
-          ],
-          supportedLocales: [
-            ...localizationDelegate.supportedLocales,
-            ...AppLocalisations.supportedLocales,
-          ],
-          locale: localizationDelegate.currentLocale,
-          theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: lightColorScheme,
-            fontFamily: GoogleFonts.inter().fontFamily,
-            textTheme: GoogleFonts.interTextTheme().copyWith(
-              labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
-            ),
-          ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            colorScheme: darkColorScheme,
-            fontFamily: GoogleFonts.inter().fontFamily,
-            textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
-              labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
-            ),
-          ),
-          themeMode: ThemeMode.system,
-          home: const MainPage(),
-          debugShowCheckedModeBanner: false,
+        lightColorScheme = ColorScheme.fromSeed(
+          seedColor: const Color.fromRGBO(153, 0, 228, 1),
         );
-      }),
-    );
+        darkColorScheme = ColorScheme.fromSeed(
+          seedColor: const Color.fromRGBO(153, 0, 228, 1),
+          brightness: Brightness.dark,
+        );
+      }
+
+      return MaterialApp(
+        navigatorKey: MyApp.navigatorKey,
+        title: 'Noterly',
+        localizationsDelegates: AppLocalisations.localizationsDelegates,
+        supportedLocales: AppLocalisations.supportedLocales,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+          fontFamily: GoogleFonts.inter().fontFamily,
+          textTheme: GoogleFonts.interTextTheme().copyWith(
+            labelLarge: TextStyle(color: Colors.black.withOpacity(0.5)),
+          ),
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme,
+          fontFamily: GoogleFonts.inter().fontFamily,
+          textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
+            labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
+          ),
+        ),
+        themeMode: ThemeMode.system,
+        home: const MainPage(),
+        debugShowCheckedModeBanner: false,
+      );
+    });
   }
 }

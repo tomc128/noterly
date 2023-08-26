@@ -34,7 +34,6 @@ dependencies:
   receive_sharing_intent: ^1.4.5
   receive_intent: ^0.2.3
   dots_indicator: ^3.0.0
-  flutter_translate: ^4.0.4
 
 dev_dependencies:
   flutter_test:
