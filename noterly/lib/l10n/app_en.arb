@@ -10,8 +10,7 @@
     "page_activeNotifications_empty": "No active notifications.",
     "page_activeNotifications_item_repeats": "Repeats {durationString}",
     "@page_activeNotifications_item_repeats": {
-        "context":"activeNotificationsPage:notificationItem",
-        "description": "A label on an item for repeat duration",
+        "description": "Under a notification item specifying repeat duration.",
         "placeholders": {
             "durationString": {
                 "type": "String",
