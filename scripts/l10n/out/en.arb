@@ -8,64 +8,16 @@
     "page_activeNotifications_header_scheduled": "Scheduled",
     "page_activeNotifications_header_repeating": "Repeating",
     "page_activeNotifications_empty": "No active notifications.",
-    "page_activeNotifications_item_repeats": "Repeats {durationString}",
-    "@page_activeNotifications_item_repeats": {
-        "placeholders": {
-            "durationString": {
-                "type": "String",
-                "example": "every x hour(s)"
-            }
-        }
-    },
-    "page_activeNotifications_item_snoozed": "Snoozed {dateTimeString}",
-    "@page_activeNotifications_item_snoozed": {
-        "placeholders": {
-            "dateTime": {
-                "type": "String",
-                "example": "until 1st January 2023, 12:00"
-            }
-        }
-    },
+    "page_activeNotifications_item_repeats": "Repeats {duration}",
+    "page_activeNotifications_item_snoozed": "Snoozed {date_time}",
     "page_archivedNotifications_label": "Archive",
     "page_archivedNotifications_empty": "Archived notifications will appear here.",
     "page_archivedNotifications_button_deleteAll": "Delete all archived notifications",
-    "page_archivedNotifications_item_archived": "Archived {dateTimeString}",
-    "@page_archivedNotifications_item_archived": {
-        "placeholders": {
-            "dateTime": {
-                "type": "String",
-                "example": "on 1st January 2023, 12:00"
-            }
-        }
-    },
+    "page_archivedNotifications_item_archived": "Archived {date_time}",
     "snackbar_notificationDeleted": "Notification \"{title}\" deleted.",
-    "@snackbar_notificationDeleted": {
-        "placeholders": {
-            "title": {
-                "type": "String",
-                "example": "Example notification title"
-            }
-        }
-    },
     "snackbar_notificationArchived": "Notification \"{title}\" archived.",
-    "@snackbar_notificationArchived": {
-        "placeholders": {
-            "title": {
-                "type": "String",
-                "example": "Example notification title"
-            }
-        }
-    },
     "snackbar_allArchivedNotificationsDeleted": "All archived notifications deleted.",
-    "toast_notificationSnoozed": "Notification snoozed for {durationString}",
-    "@toast_notificationSnoozed": {
-        "placeholders": {
-            "durationString": {
-                "type": "String",
-                "example": "every x hour(s)"
-            }
-        }
-    },
+    "toast_notificationSnoozed": "Notification snoozed for {duration}",
     "page_settings_title": "Settings",
     "page_settings_header_notifications": "Notifications",
     "page_settings_header_system": "System",
@@ -113,42 +65,18 @@
     "item_colour": "Colour",
     "notification_action_markAsDone": "Mark as done",
     "notification_action_snooze": "Snooze",
-    "notification_action_snoozeFor": "Snooze for {durationString}",
-    "@notification_action_snoozeFor": {
-        "placeholders": {
-            "durationString": {
-                "type": "String",
-                "example": "x hour(s)"
-            }
-        }
-    },
+    "notification_action_snoozeFor": "Snooze for {duration}",
     "dialog_picker_dateTime_title": "Select date and time",
     "dialog_picker_dateTime_header_date": "Date",
     "dialog_picker_dateTime_header_time": "Time",
     "dialog_picker_dateTime_button_selectDate": "Select date",
     "dialog_picker_dateTime_button_selectTime": "Select time",
     "dialog_picker_repetition_title": "Select repeat duration",
-    "dialog_picker_repetition_subtitle": "repeats {durationString}",
-    "@dialog_picker_repetition_subtitle": {
-        "placeholders": {
-            "durationString": {
-                "type": "String",
-                "example": "every x hour(s)"
-            }
-        }
-    },
+    "dialog_picker_repetition_subtitle": "repeats {duration}",
     "dialog_picker_repetition_field_number_label": "Number",
     "dialog_picker_repetition_field_period_label": "Period",
     "dialog_picker_duration_title": "Select duration",
-    "dialog_picker_duration_subtitle": "{durationString}",
-    "@dialog_picker_duration_subtitle": {
-        "placeholders": {
-            "durationString": {
-                "type": "String",
-                "example": "every x hour(s)"
-            }
-        }
-    },
+    "dialog_picker_duration_subtitle": "{duration}",
     "dialog_picker_duration_field_number_label": "Number",
     "dialog_picker_duration_field_period_label": "Period",
     "dialog_picker_colour_title": "Select colour",
@@ -187,152 +115,34 @@
     "general_close": "Close",
     "time_second": "second",
     "time_seconds": "seconds",
-    "time_seconds_value": "{value, plural, =0{0 seconds} =1{1 second} other{{value} seconds}}}",
-    "@time_seconds_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_seconds_value": "{value} seconds",
     "time_minute": "minute",
     "time_minutes": "minutes",
-    "time_minutes_value": "{value, plural, =0{0 minutes} =1{1 minute} other{{value} minutes}}",
-    "@time_minutes_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_minutes_value": "{value} minutes",
     "time_hour": "hour",
     "time_hours": "hours",
-    "time_hours_value": "{value, plural, =0{0 hours} =1{1 hour} other{{value} hours}}",
-    "@time_hours_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_hours_value": "{value} hours",
     "time_day": "day",
     "time_days": "days",
-    "time_days_value": "{value, plural, =0{0 days} =1{1 day} other{{value} days}}",
-    "@time_days_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_days_value": "{value} days",
     "time_week": "week",
     "time_weeks": "weeks",
-    "time_weeks_value": "{value, plural, =0{0 weeks} =1{1 week} other{{value} weeks}}",
-    "@time_weeks_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_weeks_value": "{value} weeks",
     "time_month": "month",
     "time_months": "months",
-    "time_months_value": "{value, plural, =0{0 months} =1{1 month} other{{value} months}}",
-    "@time_months_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_months_value": "{value} months",
     "time_year": "year",
     "time_years": "years",
-    "time_years_value": "{value, plural, =0{0 years} =1{1 year} other{{value} years}}",
-    "@time_years_value": {
-        "placeholders": {
-            "value": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            }
-        }
-    },
+    "time_years_value": "{value} years",
     "time_hourly": "hourly",
     "time_daily": "daily",
     "time_weekly": "weekly",
     "time_monthly": "monthly",
     "time_yearly": "yearly",
     "time_repetition_every_value": "every {number} {type}",
-    "@time_repetition_every_value": {
-        "placeholders": {
-            "number": {
-                "type": "num",
-                "format": "compact",
-                "example": 1
-            },
-            "type": {
-                "type": "String",
-                "example": "hour(s)"
-            }
-        }
-    },
-    "time_snooze_until": "until {dateTime}",
-    "@time_snooze_until": {
-        "placeholders": {
-            "dateTime": {
-                "type": "DateTime",
-                "format": "yMd",
-                "example": "1st January 2023, 12:00"
-            }
-        }
-    },
-    "time_todayAndTime": "Today, {timeString}",
-    "@time_todayAndTime": {
-        "placeholders": {
-            "timeString": {
-                "type": "String",
-                "example": "12:00"
-            }
-        }
-    },
-    "time_yesterdayAndTime": "Yesterday, {timeString}",
-    "@time_yesterdayAndTime": {
-        "placeholders": {
-            "timeString": {
-                "type": "String",
-                "example": "12:00"
-            }
-        }
-    },
-    "time_tomorrowAndTime": "Tomorrow, {timeString}",
-    "@time_tomorrowAndTime": {
-        "placeholders": {
-            "timeString": {
-                "type": "String",
-                "example": "12:00"
-            }
-        }
-    },
-    "time_dateAndTime": "{dateTime}",
-    "@time_dateAndTime": {
-        "placeholders": {
-            "dateTime": {
-                "type": "DateTime",
-                "format": "yMd Hm",
-                "example": "1st January 2023, 12:00"
-            }
-        }
-    }
+    "time_snooze_until": "until {date_time}",
+    "time_todayAndTime": "Today, {time}",
+    "time_yesterdayAndTime": "Yesterday, {time}",
+    "time_tomorrowAndTime": "Tomorrow, {time}",
+    "time_dateAndTime": "{date}, {time}"
 }
