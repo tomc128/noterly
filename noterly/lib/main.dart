@@ -10,8 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_gen/gen_l10n/app_localisations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:noterly/build_info.dart';
@@ -250,8 +249,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var localizationDelegate = LocalizedApp.of(context).delegate;
-
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       ColorScheme lightColorScheme, darkColorScheme;
 
@@ -275,15 +272,8 @@ class _MyAppState extends State<MyApp> {
       return MaterialApp(
         navigatorKey: MyApp.navigatorKey,
         title: 'Noterly',
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'),
-          Locale('es'),
-        ],
+        localizationsDelegates: AppLocalisations.localizationsDelegates,
+        supportedLocales: AppLocalisations.supportedLocales,
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: lightColorScheme,
