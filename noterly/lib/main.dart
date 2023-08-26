@@ -281,8 +281,8 @@ class _MyAppState extends State<MyApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [
-          Locale('en_GB'),
-          Locale('en_US'),
+          Locale('en'),
+          Locale('es'),
         ],
         theme: ThemeData(
           useMaterial3: true,

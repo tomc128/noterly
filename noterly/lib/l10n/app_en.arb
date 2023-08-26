@@ -1,0 +1,6 @@
+{
+    "test": "Test! :)",
+    "@test": {
+        "description": "Test key/value"
+    }
+}

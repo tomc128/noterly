@@ -43,6 +43,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/i18n/
     - assets/google_fonts/
