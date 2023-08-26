@@ -1,16 +1,12 @@
-import 'package:flutter_translate/flutter_translate.dart';
+import 'package:noterly/l10n/localisations_util.dart';
+import 'package:noterly/main.dart';
 
 enum Repetition {
-  hourly('time.hourly', 'time.hours'),
-  daily('time.daily', 'time.days'),
-  weekly('time.weekly', 'time.weeks'),
-  monthly('time.monthly', 'time.months'),
-  yearly('time.yearly', 'time.years');
-
-  final String lyTranslationKey;
-  final String sTranslationKey;
-
-  const Repetition(this.lyTranslationKey, this.sTranslationKey);
+  hourly,
+  daily,
+  weekly,
+  monthly,
+  yearly;
 }
 
 class RepetitionData {
@@ -38,10 +34,26 @@ class RepetitionData {
   }
 
   String toReadableString() {
+    final context = MyApp.navigatorKey.currentContext!;
+
     if (number == 1) {
-      return translate(type.lyTranslationKey); // i.e. 'hourly'
-    } else {
-      return translate('time.repetition.every.value', args: {'number': number, 'type': translate(type.sTranslationKey)}); // i.e. 'every 2 hours'
+      return switch (type) {
+        Repetition.hourly => Strings.of(context).time_hourly,
+        Repetition.daily => Strings.of(context).time_daily,
+        Repetition.weekly => Strings.of(context).time_weekly,
+        Repetition.monthly => Strings.of(context).time_monthly,
+        Repetition.yearly => Strings.of(context).time_yearly,
+      };
     }
+
+    return Strings.of(context).time_repetition_every_value(
+        number,
+        switch (type) {
+          Repetition.hourly => Strings.of(context).time_hours(number),
+          Repetition.daily => Strings.of(context).time_days(number),
+          Repetition.weekly => Strings.of(context).time_weeks(number),
+          Repetition.monthly => Strings.of(context).time_months(number),
+          Repetition.yearly => Strings.of(context).time_years(number),
+        });
   }
 }
