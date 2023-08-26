@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/duration_extensions.dart';
+import 'package:noterly/l10n/localisations_util.dart';
 
 Future<Duration?> showDurationPicker({
   required BuildContext context,
@@ -75,11 +75,11 @@ class _DurationPickerState extends State<DurationPicker> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  translate('dialog.picker.duration.title'),
+                  Strings.of(context).dialog_picker_duration_title,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  translate('dialog.picker.duration.subtitle', args: {'duration': _duration.toRelativeDurationString()}),
+                  Strings.of(context).dialog_picker_duration_subtitle(_duration.toRelativeDurationString()),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
@@ -92,13 +92,13 @@ class _DurationPickerState extends State<DurationPicker> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(translate('general.cancel')),
+                child: Text(Strings.of(context).general_cancel),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(_duration);
                 },
-                child: Text(translate('general.ok')),
+                child: Text(Strings.of(context).general_ok),
               ),
             ],
           ),
@@ -116,7 +116,7 @@ class _DurationPickerState extends State<DurationPicker> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.duration.field.number.label'),
+                  labelText: Strings.of(context).dialog_picker_duration_field_number_label,
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -147,11 +147,11 @@ class _DurationPickerState extends State<DurationPicker> {
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.duration.field.period.label'),
+                  labelText: Strings.of(context).dialog_picker_duration_field_period_label,
                 ),
                 items: [
-                  DropdownMenuItem(value: 'hour', child: Text(translate('time.hour${_value == 1 ? '' : 's'}'))),
-                  DropdownMenuItem(value: 'minute', child: Text(translate('time.minute${_value == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(value: 'hour', child: Text(Strings.of(context).time_hours(_value))),
+                  DropdownMenuItem(value: 'minute', child: Text(Strings.of(context).time_minutes(_value))),
                 ],
                 value: _duration.inHours > 0 ? 'hour' : 'minute',
                 onChanged: (value) {
