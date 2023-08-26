@@ -20,6 +20,7 @@
     },
     "page_activeNotifications_item_snoozed": "Snoozed {dateTimeString}",
     "@page_activeNotifications_item_snoozed": {
+        "description": "Under a notification item specifying snooze duration.",
         "placeholders": {
             "dateTimeString": {
                 "type": "String",
@@ -32,6 +33,7 @@
     "page_archivedNotifications_button_deleteAll": "Delete all archived notifications",
     "page_archivedNotifications_item_archived": "Archived {dateTimeString}",
     "@page_archivedNotifications_item_archived": {
+        "description": "Under a notification item specifying when it was archived.",
         "placeholders": {
             "dateTimeString": {
                 "type": "String",
@@ -41,6 +43,7 @@
     },
     "snackbar_notificationDeleted": "Notification \"{title}\" deleted.",
     "@snackbar_notificationDeleted": {
+        "description": "Snackbar message when a notification is deleted.",
         "placeholders": {
             "title": {
                 "type": "String",
@@ -50,6 +53,7 @@
     },
     "snackbar_notificationArchived": "Notification \"{title}\" archived.",
     "@snackbar_notificationArchived": {
+        "description": "Snackbar message when a notification is archived.",
         "placeholders": {
             "title": {
                 "type": "String",
@@ -60,6 +64,7 @@
     "snackbar_allArchivedNotificationsDeleted": "All archived notifications deleted.",
     "toast_notificationSnoozed": "Notification snoozed for {durationString}",
     "@toast_notificationSnoozed": {
+        "description": "Toast message when a notification is snoozed.",
         "placeholders": {
             "durationString": {
                 "type": "String",
@@ -116,6 +121,7 @@
     "notification_action_snooze": "Snooze",
     "notification_action_snoozeFor": "Snooze for {durationString}",
     "@notification_action_snoozeFor": {
+        "description": "Snooze action with duration.",
         "placeholders": {
             "durationString": {
                 "type": "String",
@@ -131,6 +137,7 @@
     "dialog_picker_repetition_title": "Select repeat duration",
     "dialog_picker_repetition_subtitle": "repeats {durationString}",
     "@dialog_picker_repetition_subtitle": {
+        "description": "Subtitle for dialog with repeat duration.",
         "placeholders": {
             "durationString": {
                 "type": "String",
@@ -143,6 +150,7 @@
     "dialog_picker_duration_title": "Select duration",
     "dialog_picker_duration_subtitle": "{durationString}",
     "@dialog_picker_duration_subtitle": {
+        "description": "Subtitle for dialog with duration.",
         "placeholders": {
             "durationString": {
                 "type": "String",
@@ -190,6 +198,7 @@
     "time_seconds": "seconds",
     "time_seconds_value": "{value, plural, =0{0 seconds} =1{1 second} other{{value} seconds}}",
     "@time_seconds_value": {
+        "description": "Used to display a number of seconds.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -202,6 +211,7 @@
     "time_minutes": "minutes",
     "time_minutes_value": "{value, plural, =0{0 minutes} =1{1 minute} other{{value} minutes}}",
     "@time_minutes_value": {
+        "description": "Used to display a number of minutes.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -214,6 +224,7 @@
     "time_hours": "hours",
     "time_hours_value": "{value, plural, =0{0 hours} =1{1 hour} other{{value} hours}}",
     "@time_hours_value": {
+        "description": "Used to display a number of hours.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -226,6 +237,7 @@
     "time_days": "days",
     "time_days_value": "{value, plural, =0{0 days} =1{1 day} other{{value} days}}",
     "@time_days_value": {
+        "description": "Used to display a number of days.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -238,6 +250,7 @@
     "time_weeks": "weeks",
     "time_weeks_value": "{value, plural, =0{0 weeks} =1{1 week} other{{value} weeks}}",
     "@time_weeks_value": {
+        "description": "Used to display a number of weeks.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -250,6 +263,7 @@
     "time_months": "months",
     "time_months_value": "{value, plural, =0{0 months} =1{1 month} other{{value} months}}",
     "@time_months_value": {
+        "description": "Used to display a number of months.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -262,6 +276,7 @@
     "time_years": "years",
     "time_years_value": "{value, plural, =0{0 years} =1{1 year} other{{value} years}}",
     "@time_years_value": {
+        "description": "Used to display a number of years.",
         "placeholders": {
             "value": {
                 "type": "num",
@@ -277,6 +292,7 @@
     "time_yearly": "yearly",
     "time_repetition_every_value": "every {number} {type}",
     "@time_repetition_every_value": {
+        "description": "Used to display a repeat duration.",
         "placeholders": {
             "number": {
                 "type": "num",
@@ -291,6 +307,7 @@
     },
     "time_snooze_until": "until {dateTimeString}",
     "@time_snooze_until": {
+        "description": "Used to display a snooze duration.",
         "placeholders": {
             "dateTimeString": {
                 "type": "String",
@@ -300,6 +317,7 @@
     },
     "time_todayAndTime": "Today, {timeString}",
     "@time_todayAndTime": {
+        "description": "Used to display a time today.",
         "placeholders": {
             "timeString": {
                 "type": "String",
@@ -309,6 +327,7 @@
     },
     "time_yesterdayAndTime": "Yesterday, {timeString}",
     "@time_yesterdayAndTime": {
+        "description": "Used to display a time yesterday.",
         "placeholders": {
             "timeString": {
                 "type": "String",
@@ -318,6 +337,7 @@
     },
     "time_tomorrowAndTime": "Tomorrow, {timeString}",
     "@time_tomorrowAndTime": {
+        "description": "Used to display a time tomorrow.",
         "placeholders": {
             "timeString": {
                 "type": "String",
@@ -327,6 +347,7 @@
     },
     "time_dateAndTime": "{dateTimeString}, {timeString}",
     "@time_dateAndTime": {
+        "description": "Used to display a date and time.",
         "placeholders": {
             "dateTimeString": {
                 "type": "String",
