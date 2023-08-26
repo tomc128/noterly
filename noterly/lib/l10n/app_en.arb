@@ -1,5 +1,5 @@
 {
-    "main_action_new": "New note!",
+    "main_action_new": "New note",
     "main_action_create": "Create",
     "main_action_save": "Save",
     "main_action_reactivate": "Reactivate",
@@ -10,6 +10,8 @@
     "page_activeNotifications_empty": "No active notifications.",
     "page_activeNotifications_item_repeats": "Repeats {durationString}",
     "@page_activeNotifications_item_repeats": {
+        "context":"activeNotificationsPage:notificationItem",
+        "description": "A label on an item for repeat duration",
         "placeholders": {
             "durationString": {
                 "type": "String",
@@ -20,7 +22,7 @@
     "page_activeNotifications_item_snoozed": "Snoozed {dateTimeString}",
     "@page_activeNotifications_item_snoozed": {
         "placeholders": {
-            "dateTime": {
+            "dateTimeString": {
                 "type": "String",
                 "example": "until 1st January 2023, 12:00"
             }
@@ -32,7 +34,7 @@
     "page_archivedNotifications_item_archived": "Archived {dateTimeString}",
     "@page_archivedNotifications_item_archived": {
         "placeholders": {
-            "dateTime": {
+            "dateTimeString": {
                 "type": "String",
                 "example": "on 1st January 2023, 12:00"
             }
@@ -153,20 +155,20 @@
     "dialog_picker_duration_field_period_label": "Period",
     "dialog_picker_colour_title": "Select colour",
     "dialog_easterEgg_title": "Easter egg!",
-    "dialog_easterEgg_text": "Congratulations, you've found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
+    "dialog_easterEgg_text": "Congratulations, you''ve found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
     "dialogEasterEgg_action_showDebugOptions": "Show debug options",
     "dialog_about_translations_title": "Translations",
     "dialog_about_action_showLicenses": "Licenses",
     "tutorial_page_0_title": "Welcome to Noterly",
     "tutorial_page_0_subtitle": "Simple notification reminders",
-    "tutorial_page_0_content": "Here's some basic information to get you started.",
+    "tutorial_page_0_content": "Here''s some basic information to get you started.",
     "tutorial_page_1_title": "Reminders",
     "tutorial_page_1_content": "Noterly is designed for quick, simple reminders. You may find a to-do list or calendar app more suitable for more complex tasks.",
     "tutorial_page_2_title": "Create a notification",
     "tutorial_page_2_content": "Tap the floating button to create a new notification.",
-    "tutorial_page_2_confirmation_0": "That's right!",
+    "tutorial_page_2_confirmation_0": "That''s right!",
     "tutorial_page_2_confirmation_1": "Well done!",
-    "tutorial_page_2_confirmation_2": "You've got it!",
+    "tutorial_page_2_confirmation_2": "You''ve got it!",
     "tutorial_page_2_confirmation_3": "Great job!",
     "tutorial_page_2_confirmation_4": "Great success!",
     "tutorial_page_3_title": "Manage notifications",
@@ -174,9 +176,9 @@
     "tutorial_page_3_example": "Swipe to archive or delete",
     "tutorial_page_4_title": "Snoozing reminders",
     "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.",
-    "tutorial_page_5_title": "That's it!",
-    "tutorial_page_5_content": "You're ready to start using Noterly. You can always come back to this tutorial in settings.",
-    "tutorial_updatedExperienceText": "You're seeing this because this tutorial experience has been updated.",
+    "tutorial_page_5_title": "That''s it!",
+    "tutorial_page_5_content": "You''re ready to start using Noterly. You can always come back to this tutorial in settings.",
+    "tutorial_updatedExperienceText": "You''re seeing this because this tutorial experience has been updated.",
     "tutorial_action_back": "Back",
     "tutorial_action_next": "Next",
     "tutorial_action_done": "Done",
@@ -187,7 +189,7 @@
     "general_close": "Close",
     "time_second": "second",
     "time_seconds": "seconds",
-    "time_seconds_value": "{value, plural, =0{0 seconds} =1{1 second} other{{value} seconds}}}",
+    "time_seconds_value": "{value, plural, =0{0 seconds} =1{1 second} other{{value} seconds}}",
     "@time_seconds_value": {
         "placeholders": {
             "value": {
