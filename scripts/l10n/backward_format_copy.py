@@ -8,12 +8,26 @@ import json
 import os
 import re
 
-SOURCE_ARB_FILE = '../noterly/lib/l10n/app_en.arb'
-GENERATED_ARB_FILE = 'l10n/out/initial_format_conversion/en.arb'
+from rich import print
+
+MISSING_STRING = '**MISSING**'
+
+TRUE_ARB_SOURCE_FILE = '../noterly/lib/l10n/app_en.arb'
+GENERATED_ARB_SOURCE_FILE = 'l10n/out/initial_format_conversion/en.arb'
 
 LANGUAGE_JSON_FOLDER = '../noterly/assets/i18n'
 
 OUTPUT_FOLDER = 'l10n/out/backward_format_copy'
+
+
+print('[bold]l10n backward format copy script[/bold]')
+print(f'TRUE_ARB_SOURCE_FILE: [italic]{TRUE_ARB_SOURCE_FILE}[/italic]')
+print(f'GENERATED_ARB_SOURCE_FILE: [italic]{GENERATED_ARB_SOURCE_FILE}[/italic]')
+print(f'LANGUAGE_JSON_FOLDER: [italic]{LANGUAGE_JSON_FOLDER}[/italic]')
+print(f'OUTPUT_FOLDER: [italic]{OUTPUT_FOLDER}[/italic]')
+print(f'MISSING_STRING: [italic]{MISSING_STRING}[/italic]')
+print()
+
 
 
 def json_to_arb_key(key):
@@ -57,7 +71,7 @@ def load_language_file(language_file):
 def escape_string(content):
     return content.replace("'", "''")
 
-def compare_and_fix_arb_strings(source_string, generated_string, new_string):
+def compare_and_fix_arb_strings(key, source_string, generated_string, new_string):
     # this is if we have changed a placeholder name, i.e.
     # generated_string: 'After {duration}'
     # source_string: 'After {durationString}'
@@ -72,8 +86,8 @@ def compare_and_fix_arb_strings(source_string, generated_string, new_string):
     generated_placeholders = re.findall(pattern, generated_string)
 
     if len(source_placeholders) != len(generated_placeholders):
-        print(f'Placeholder count mismatch. Source: {source_string}, Generated: {generated_string}, New: {new_string}')
-        return new_string
+        print(f'[yellow]Warning: placeholder mismatch for {key}[/yellow]')
+        return MISSING_STRING
     
     for i, source_placeholder in enumerate(source_placeholders):
         generated_placeholder = generated_placeholders[i]
@@ -83,9 +97,9 @@ def compare_and_fix_arb_strings(source_string, generated_string, new_string):
     
     return new_string
     
-
 def convert_format(language_code, language_content):
     new_content = {}
+    num_fixes = 0
 
     for arb_key in arb_content.keys():
         if arb_key.startswith('@'):
@@ -97,12 +111,19 @@ def convert_format(language_code, language_content):
         
         if json_key in language_content:
             string = escape_string(language_content[json_key])
-            string = compare_and_fix_arb_strings(arb_content[arb_key], generated_arb_content[arb_key], string)
+            fixed_string = compare_and_fix_arb_strings(arb_key, arb_content[arb_key], generated_arb_content[arb_key], string)
+
+            if fixed_string != string:
+                num_fixes += 1
+                string = fixed_string
+
             new_content[arb_key] = string
         else:
-            new_content[arb_key] = '**MISSING**'
+            new_content[arb_key] = MISSING_STRING
 
     new_content['@@locale'] = language_code
+
+    print(f'[yellow]Fixed {num_fixes} strings for {language_code}[/yellow]')
 
     return new_content
 
@@ -110,24 +131,30 @@ def convert_format(language_code, language_content):
 language_json_contents = {}
 new_arb_contents = {}
 
-
-with open(SOURCE_ARB_FILE, 'r', encoding='utf-8') as f:
+print('[blue]Loading arb data...[/blue]', end='')
+with open(TRUE_ARB_SOURCE_FILE, 'r', encoding='utf-8') as f:
     arb_content = json.load(f)
 
-with open(GENERATED_ARB_FILE, 'r', encoding='utf-8') as f:
+with open(GENERATED_ARB_SOURCE_FILE, 'r', encoding='utf-8') as f:
     generated_arb_content = json.load(f)
+print('[bold green]Done![/bold green]')
 
 
+print('[blue]Loading JSON data...[/blue]', end='')
 for language_file in os.listdir(LANGUAGE_JSON_FOLDER):
     code, content = load_language_file(language_file)
     language_json_contents[code] = content
+print('[bold green]Done![/bold green]')
     
 
 for language_code, language_content in language_json_contents.items():
-    print(f'Converting {language_code}...')
+    print(f'\n[blue]Converting {language_code}...[/blue]')
     new_arb_contents[language_code] = convert_format(language_code, language_content)
+    print('[bold green]Done![/bold green]')
 
 
 for language_code, language_content in new_arb_contents.items():
     with open(f'{OUTPUT_FOLDER}/{language_code}.arb', 'w', encoding='utf-8') as f:
         json.dump(language_content, f)
+
+print('\n[bold green]All done![/bold green]')
