@@ -10,12 +10,12 @@ import re
 
 from rich import print
 
-MISSING_STRING = '**MISSING**'
+MISSING_STRING = ''
 
 TRUE_ARB_SOURCE_FILE = '../noterly/lib/l10n/app_en.arb'
 GENERATED_ARB_SOURCE_FILE = 'l10n/out/initial_format_conversion/en.arb'
 
-LANGUAGE_JSON_FOLDER = '../noterly/assets/i18n'
+LANGUAGE_JSON_FOLDER = 'i18n/out'
 
 OUTPUT_FOLDER = 'l10n/out/backward_format_copy'
 

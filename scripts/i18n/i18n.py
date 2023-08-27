@@ -14,7 +14,7 @@ FLUTTER_OUTPUT_DIRECTORY = '../../noterly/assets/i18n'
 
 # If set to True, the output will be also saved directly to
 # FLUTTER_OUTPUT_DIRECTORY as well as OUTPUT_DIRECTORY.
-SAVE_TO_FLUTTER = True
+SAVE_TO_FLUTTER = False
 
 # If set to True, the output directory will be purged before
 # generating the new files. This helps to remove any old files
