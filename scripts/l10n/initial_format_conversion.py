@@ -2,7 +2,7 @@ import json
 
 SOURCE_FILE = '../noterly/assets/i18n/en_GB.json'
 
-OUTPUT_DIRECTORY = 'l10n/out'
+OUTPUT_DIRECTORY = 'l10n/out/initial_format_conversion'
 
 with open(SOURCE_FILE, 'r', encoding='utf-8') as f:
     source = json.load(f)
