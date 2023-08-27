@@ -43,7 +43,7 @@ Alternatively, APKs will soon be available directly on the GitHub releases page 
 
 ## 🌍 Translations
 
-> ⏸️ Translations are currently paused whilst I migrate to a new system. Please hang tight, it shouldn't be too long!
+Noterly has now switched to Crowdin to provide translations. You can find the [Crowdin project here](https://crowdin.com/project/noterly). Feel free to contribute!
 
 Noterly is currently available in the following languages:
 
