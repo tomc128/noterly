@@ -4,6 +4,8 @@
 # Noterly
 Simple notification reminders for Android devices.
 
+[![Crowdin](https://badges.crowdin.net/noterly/localized.svg)](https://crowdin.com/project/noterly)
+
 
 ## 📸 Screenshots
 
