@@ -120,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   name: 'open_donation_link',
                 );
               },
-            )
+            ),
           ]),
           _getSpacer(),
           _getCard(context, [
@@ -210,6 +210,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(Strings.of(context).page_settings_about_licenses_page_legalese),
+                            const SizedBox(height: 8),
+                            Text(Strings.of(context).page_settings_about_licenses_page_openSourceSoftware),
                             const SizedBox(height: 16),
                             Text(Strings.of(context).dialog_about_translations_title, style: Theme.of(context).textTheme.titleMedium),
                             const Text(_copyrightText),
@@ -266,53 +268,64 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ]),
           _getSpacer(),
-          _getCard(
-            context,
-            [
-              ListTile(
-                title: Text(Strings.of(context).page_settings_about_privacyPolicy_title),
-                leading: const Icon(Icons.privacy_tip),
-                trailing: const Icon(Icons.open_in_new),
-                minVerticalPadding: 12,
-                onTap: () async {
-                  var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
-                  await _launchUrl(uri);
+          _getCard(context, [
+            ListTile(
+              title: Text(Strings.of(context).page_settings_about_github_title),
+              leading: const Icon(Icons.favorite),
+              trailing: const Icon(Icons.open_in_new),
+              minVerticalPadding: 12,
+              onTap: () async {
+                var uri = Uri.parse('https://github.com/tomc128/noterly');
+                await _launchUrl(uri);
 
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'open_privacy_policy',
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(Strings.of(context).page_settings_about_feedback_title),
-                leading: const Icon(Icons.comment),
-                trailing: const Icon(Icons.open_in_new),
-                minVerticalPadding: 12,
-                onTap: () async {
-                  var uri = Uri.parse('https://forms.gle/5HZNjmr5wF1t4r8q6');
-                  await _launchUrl(uri);
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_github_link',
+                );
+              },
+            ),
+            ListTile(
+              title: Text(Strings.of(context).page_settings_about_privacyPolicy_title),
+              leading: const Icon(Icons.privacy_tip),
+              trailing: const Icon(Icons.open_in_new),
+              minVerticalPadding: 12,
+              onTap: () async {
+                var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
+                await _launchUrl(uri);
 
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'open_feedback_form',
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(Strings.of(context).page_settings_about_translate_title),
-                leading: const Icon(Icons.translate),
-                trailing: const Icon(Icons.open_in_new),
-                minVerticalPadding: 12,
-                onTap: () async {
-                  var uri = Uri.parse('https://forms.gle/qzaLRZk7JTbjqsq86');
-                  await _launchUrl(uri);
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_privacy_policy',
+                );
+              },
+            ),
+            ListTile(
+              title: Text(Strings.of(context).page_settings_about_feedback_title),
+              leading: const Icon(Icons.comment),
+              trailing: const Icon(Icons.open_in_new),
+              minVerticalPadding: 12,
+              onTap: () async {
+                var uri = Uri.parse('https://forms.gle/5HZNjmr5wF1t4r8q6');
+                await _launchUrl(uri);
 
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'open_translate_form',
-                  );
-                },
-              )
-            ],
-          ),
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_feedback_form',
+                );
+              },
+            ),
+            ListTile(
+              title: Text(Strings.of(context).page_settings_about_translate_title),
+              leading: const Icon(Icons.translate),
+              trailing: const Icon(Icons.open_in_new),
+              minVerticalPadding: 12,
+              onTap: () async {
+                var uri = Uri.parse('https://crowdin.com/project/noterly/invite?h=5831212784abb6a4b04739214cb7a1a91820487');
+                await _launchUrl(uri);
+
+                await FirebaseAnalytics.instance.logEvent(
+                  name: 'open_translate_link',
+                );
+              },
+            ),
+          ]),
           if (kDebugMode || _debugOptions) ..._getDebugOptions(context),
         ],
       ),
