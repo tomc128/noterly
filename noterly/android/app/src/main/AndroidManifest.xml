@@ -14,7 +14,7 @@ INFO: xmlns:tools and tools:replace added for background_fetch plugin
     <application
             android:name="${applicationName}"
             android:icon="@mipmap/ic_launcher"
-            android:label="Noterly"
+            android:label="@string/app_name"
             tools:replace="android:label">
 
         <!-- INFO: launchMode changed from singleTop to singleTask for share intent. -->

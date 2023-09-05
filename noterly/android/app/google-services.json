@@ -7,12 +7,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:785359253319:android:36347bef6f0ccd8998a662",
+        "mobilesdk_app_id": "1:785359253319:android:5f2b4bcc833a715698a662",
         "android_client_info": {
-          "package_name": "com.example.noterly"
+          "package_name": "uk.co.tdsstudios.noterly"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "785359253319-r7g7n61qmhiqaf2gupb2dr35jkj0juau.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.co.tdsstudios.noterly",
+            "certificate_hash": "b9594c460bebce5c203204ac5e291aa562b7ac8e"
+          }
+        },
+        {
+          "client_id": "785359253319-vf5qncgvetmck31gidlm0742eql3gn07.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.co.tdsstudios.noterly",
+            "certificate_hash": "79ff8b42993a16829d6c9df2a2c205b5ace0a8e5"
+          }
+        },
         {
           "client_id": "785359253319-loimnkr2h8mc73u9jntcinvontcbdmqh.apps.googleusercontent.com",
           "client_type": 3
@@ -36,28 +52,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:785359253319:android:5f2b4bcc833a715698a662",
+        "mobilesdk_app_id": "1:785359253319:android:4629a930b03994bc98a662",
         "android_client_info": {
-          "package_name": "uk.co.tdsstudios.noterly"
+          "package_name": "uk.co.tdsstudios.noterly.dev"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "785359253319-r7g7n61qmhiqaf2gupb2dr35jkj0juau.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "uk.co.tdsstudios.noterly",
-            "certificate_hash": "b9594c460bebce5c203204ac5e291aa562b7ac8e"
-          }
-        },
-        {
-          "client_id": "785359253319-vf5qncgvetmck31gidlm0742eql3gn07.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "uk.co.tdsstudios.noterly",
-            "certificate_hash": "79ff8b42993a16829d6c9df2a2c205b5ace0a8e5"
-          }
-        },
         {
           "client_id": "785359253319-loimnkr2h8mc73u9jntcinvontcbdmqh.apps.googleusercontent.com",
           "client_type": 3

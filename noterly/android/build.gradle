@@ -8,6 +8,7 @@ buildscript {
         appCompatVersion = "1.6.1" // INFO: Required for background_fetch plugin, was 1.4.2
     }
 
+
     repositories {
         google()
         mavenCentral()
