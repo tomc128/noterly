@@ -91,8 +91,8 @@ class NotificationManager {
         await NotificationManager.instance.updateRepeatingNotification(item);
         await FirebaseAnalytics.instance.logEvent(name: 'mark_repeating_notification_done');
       } else {
-        Log.logger.d('Archiving notification "${item.title}"');
-        await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
+        Log.logger.d('Deleting notification "${item.title}"');
+        await AppManager.instance.deleteItem(item.id, deferNotificationManagerCall: true);
         await FirebaseAnalytics.instance.logEvent(name: 'mark_notification_done');
       }
 
@@ -148,6 +148,21 @@ class NotificationManager {
         (route) => route.isFirst,
       );
       Log.logger.d('Opening notification "${item.title}"');
+    }
+  }
+
+  if (response.actionId === 'archive') {
+    Log.logger.d('Archiving notification "${item.title}"');
+    await AppManager.instance.archiveItem(item.id, deferNotificationManagerCall: true);
+
+    // just stole this code, hopefully nothing breaks 💀💀💀💀
+    // If we're in the background, we need to send a message to the main isolate to update the UI
+    if (isBackground) {
+      var sendPort = IsolateNameServer.lookupPortByName(IsolateManager.mainPortName);
+      sendPort?.send('update');
+      if (sendPort == null) {
+        Log.logger.w('Failed to send message to main isolate (port not found).');
+      }
     }
   }
 
@@ -324,6 +339,7 @@ class NotificationManager {
         channelDescription: item.isImmediate ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
         actions: <AndroidNotificationAction>[
           const AndroidNotificationAction('done', 'Done'),
+          const AndroidNotificationAction('archive', 'Archive'),
           const AndroidNotificationAction('snooze', 'Snooze'),
         ],
         category: AndroidNotificationCategory.reminder,
