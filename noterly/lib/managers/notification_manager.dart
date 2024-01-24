@@ -323,7 +323,7 @@ class NotificationManager {
         item.isImmediate ? 'Immediate notifications' : 'Scheduled notifications',
         channelDescription: item.isImmediate ? 'Notifications that are shown immediately' : 'Notifications that are scheduled for a future time',
         actions: <AndroidNotificationAction>[
-          const AndroidNotificationAction('done', 'Mark as done'),
+          const AndroidNotificationAction('done', 'Done'),
           const AndroidNotificationAction('snooze', 'Snooze'),
         ],
         category: AndroidNotificationCategory.reminder,
