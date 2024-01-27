@@ -1,15 +1,15 @@
 {
-    "@@locale": "en_US",
-    "main_action_new": "New note",
-    "main_action_create": "Create",
-    "main_action_save": "Save",
-    "main_action_reactivate": "Reactivate",
-    "page_activeNotifications_label": "Active",
-    "page_activeNotifications_header_immediate": "Shown immediately",
-    "page_activeNotifications_header_scheduled": "Scheduled",
-    "page_activeNotifications_header_repeating": "Repeating",
-    "page_activeNotifications_empty": "No active notifications.",
-    "page_activeNotifications_item_repeats": "Repeats {durationString}",
+    "@@locale": "zh_CN",
+    "main_action_new": "新建",
+    "main_action_create": "创建",
+    "main_action_save": "保存",
+    "main_action_reactivate": "重新激活",
+    "page_activeNotifications_label": "正在执行",
+    "page_activeNotifications_header_immediate": "立即显示",
+    "page_activeNotifications_header_scheduled": "已安排",
+    "page_activeNotifications_header_repeating": "重复",
+    "page_activeNotifications_empty": "没有正在执行的通知",
+    "page_activeNotifications_item_repeats": "{durationString}重复",
     "@page_activeNotifications_item_repeats": {
         "description": "Under a notification item specifying repeat duration.",
         "placeholders": {
@@ -19,7 +19,7 @@
             }
         }
     },
-    "page_activeNotifications_item_snoozed": "Snoozed {dateTimeString}",
+    "page_activeNotifications_item_snoozed": "已延迟{dateTimeString}",
     "@page_activeNotifications_item_snoozed": {
         "description": "Under a notification item specifying snooze duration.",
         "placeholders": {
@@ -29,10 +29,10 @@
             }
         }
     },
-    "page_archivedNotifications_label": "Archive",
-    "page_archivedNotifications_empty": "Archived notifications will appear here.",
-    "page_archivedNotifications_button_deleteAll": "Delete all archived notifications",
-    "page_archivedNotifications_item_archived": "Archived {dateTimeString}",
+    "page_archivedNotifications_label": "存档",
+    "page_archivedNotifications_empty": "存档的通知将显示在此处",
+    "page_archivedNotifications_button_deleteAll": "删除所有存档的通知",
+    "page_archivedNotifications_item_archived": "{dateTimeString}前存档",
     "@page_archivedNotifications_item_archived": {
         "description": "Under a notification item specifying when it was archived.",
         "placeholders": {
@@ -42,7 +42,7 @@
             }
         }
     },
-    "snackbar_notificationDeleted": "Notification \"{title}\" deleted.",
+    "snackbar_notificationDeleted": "\"{title}\"通知已经删除",
     "@snackbar_notificationDeleted": {
         "description": "Snackbar message when a notification is deleted.",
         "placeholders": {
@@ -52,7 +52,7 @@
             }
         }
     },
-    "snackbar_notificationArchived": "Notification \"{title}\" archived.",
+    "snackbar_notificationArchived": "\"{title}\"通知已经存档",
     "@snackbar_notificationArchived": {
         "description": "Snackbar message when a notification is archived.",
         "placeholders": {
@@ -62,8 +62,8 @@
             }
         }
     },
-    "snackbar_allArchivedNotificationsDeleted": "All archived notifications deleted.",
-    "toast_notificationSnoozed": "Notification snoozed for {durationString}",
+    "snackbar_allArchivedNotificationsDeleted": "所有存档的通知已经删除",
+    "toast_notificationSnoozed": "通知已延迟{durationString}",
     "@toast_notificationSnoozed": {
         "description": "Toast message when a notification is snoozed.",
         "placeholders": {
@@ -73,56 +73,56 @@
             }
         }
     },
-    "page_settings_title": "Settings",
-    "page_settings_header_notifications": "Notifications",
-    "page_settings_header_system": "System",
-    "page_settings_header_about": "About",
-    "page_settings_header_debug": "Debug options",
+    "page_settings_title": "设置",
+    "page_settings_header_notifications": "通知",
+    "page_settings_header_system": "系统",
+    "page_settings_header_about": "关于",
+    "page_settings_header_debug": "调试选项",
     "page_settings_header_debug_disclaimer": "These options are not supported and may cause issues. Use at your own risk.",
-    "page_settings_notifications_snoozeDuration": "Snooze duration",
-    "page_settings_system_notificationSettings": "Notification settings",
-    "page_settings_about_version_title": "Version",
-    "page_settings_about_copyright_title": "Copyright & credits",
+    "page_settings_notifications_snoozeDuration": "编辑时间",
+    "page_settings_system_notificationSettings": "通知设置",
+    "page_settings_about_version_title": "版本",
+    "page_settings_about_copyright_title": "版权和注明",
     "page_settings_about_copyright_text": "2023 Tom Chapman, TDS Studios.",
-    "page_settings_about_tutorial_title": "Tutorial",
-    "page_settings_about_licenses_title": "Licenses",
+    "page_settings_about_tutorial_title": "教学",
+    "page_settings_about_licenses_title": "许可",
     "page_settings_about_licenses_page_legalese": "Copyright © 2023 Tom Chapman, TDS Studios.",
     "page_settings_about_licenses_page_openSourceSoftware": "Noterly is open-source software. The source code is available on GitHub.",
-    "page_settings_about_privacyPolicy_title": "Privacy policy",
-    "page_settings_about_feedback_title": "Send feedback",
-    "page_settings_about_translate_title": "Help translate Noterly",
-    "page_settings_about_donation_title": "Buy me a coffee",
+    "page_settings_about_privacyPolicy_title": "隐私政策",
+    "page_settings_about_feedback_title": "反馈",
+    "page_settings_about_translate_title": "帮忙翻译Noterly",
+    "page_settings_about_donation_title": "捐赠",
     "page_settings_about_github_title": "Open-source on GitHub",
-    "page_createNotification_title": "Create Notification",
-    "page_createNotification_header_details": "Notification details",
-    "page_createNotification_header_timing": "Timing",
-    "page_createNotification_timing_schedule_title": "Schedule",
-    "page_createNotification_timing_schedule_subtitle": "Send",
-    "page_createNotification_timing_repeat_title": "Repeating",
-    "page_createNotification_timing_repeat_subtitle": "Repeat",
-    "page_createNotification_timing_repeat_info": "Repeating notifications will only repeat once they are marked as done from the notification.",
-    "page_createNotification_details_field_title_label": "Title",
-    "page_createNotification_details_field_title_error": "Please enter a title",
-    "page_createNotification_details_field_body_label": "Body",
-    "page_createNotification_details_field_colour_label": "Color",
-    "page_editNotification_title": "Edit Notification",
-    "page_editNotification_header_details": "Notification details",
-    "page_editNotification_header_timing": "Timing",
-    "page_editNotification_timing_schedule_title": "Schedule",
-    "page_editNotification_timing_schedule_subtitle": "Send",
-    "page_editNotification_timing_repeat_title": "Repeating",
-    "page_editNotification_timing_repeat_subtitle": "Repeat",
-    "page_editNotification_timing_repeat_info": "Repeating notifications will only repeat once they are marked as done from the notification.",
-    "page_editNotification_details_field_title_label": "Title",
-    "page_editNotification_details_field_title_error": "Please enter a title",
-    "page_editNotification_details_field_body_label": "Body",
-    "page_editNotification_details_field_colour_label": "Color",
-    "item_title": "Title",
-    "item_body": "Body",
-    "item_colour": "Color",
-    "notification_action_markAsDone": "Mark as done",
-    "notification_action_snooze": "Snooze",
-    "notification_action_snoozeFor": "Snooze for {durationString}",
+    "page_createNotification_title": "创建通知",
+    "page_createNotification_header_details": "通知详细内容",
+    "page_createNotification_header_timing": "定时",
+    "page_createNotification_timing_schedule_title": "工作计划",
+    "page_createNotification_timing_schedule_subtitle": "发送",
+    "page_createNotification_timing_repeat_title": "重复通知",
+    "page_createNotification_timing_repeat_subtitle": "重复",
+    "page_createNotification_timing_repeat_info": "重复通知只有在从通知中标记为完成后才会重复",
+    "page_createNotification_details_field_title_label": "标题",
+    "page_createNotification_details_field_title_error": "请输入标题",
+    "page_createNotification_details_field_body_label": "内容",
+    "page_createNotification_details_field_colour_label": "颜色",
+    "page_editNotification_title": "编辑通知",
+    "page_editNotification_header_details": "通知内容",
+    "page_editNotification_header_timing": "时间",
+    "page_editNotification_timing_schedule_title": "发送时间",
+    "page_editNotification_timing_schedule_subtitle": "发送",
+    "page_editNotification_timing_repeat_title": "重复通知",
+    "page_editNotification_timing_repeat_subtitle": "重复",
+    "page_editNotification_timing_repeat_info": "重复通知只有在从通知中标记为完成后才会重复",
+    "page_editNotification_details_field_title_label": "标题",
+    "page_editNotification_details_field_title_error": "请输入标题",
+    "page_editNotification_details_field_body_label": "内容",
+    "page_editNotification_details_field_colour_label": "颜色",
+    "item_title": "标题",
+    "item_body": "内容",
+    "item_colour": "颜色",
+    "notification_action_markAsDone": "标记为已完成",
+    "notification_action_snooze": "延迟",
+    "notification_action_snoozeFor": "延迟{durationString}",
     "@notification_action_snoozeFor": {
         "description": "Snooze action with duration.",
         "placeholders": {
@@ -132,13 +132,13 @@
             }
         }
     },
-    "dialog_picker_dateTime_title": "Select date and time",
-    "dialog_picker_dateTime_header_date": "Date",
-    "dialog_picker_dateTime_header_time": "Time",
-    "dialog_picker_dateTime_button_selectDate": "Select date",
-    "dialog_picker_dateTime_button_selectTime": "Select time",
-    "dialog_picker_repetition_title": "Select repeat duration",
-    "dialog_picker_repetition_subtitle": "repeats {durationString}",
+    "dialog_picker_dateTime_title": "选择日期与时间",
+    "dialog_picker_dateTime_header_date": "日期",
+    "dialog_picker_dateTime_header_time": "时间",
+    "dialog_picker_dateTime_button_selectDate": "选择日期",
+    "dialog_picker_dateTime_button_selectTime": "选择时间",
+    "dialog_picker_repetition_title": "选择重复次数",
+    "dialog_picker_repetition_subtitle": "{durationString}重复",
     "@dialog_picker_repetition_subtitle": {
         "description": "Subtitle for dialog with repeat duration.",
         "placeholders": {
@@ -148,9 +148,9 @@
             }
         }
     },
-    "dialog_picker_repetition_field_number_label": "Number",
-    "dialog_picker_repetition_field_period_label": "Period",
-    "dialog_picker_duration_title": "Select duration",
+    "dialog_picker_repetition_field_number_label": "次数",
+    "dialog_picker_repetition_field_period_label": "时间",
+    "dialog_picker_duration_title": "选择时间",
     "dialog_picker_duration_subtitle": "{durationString}",
     "@dialog_picker_duration_subtitle": {
         "description": "Subtitle for dialog with duration.",
@@ -161,38 +161,38 @@
             }
         }
     },
-    "dialog_picker_duration_field_number_label": "Number",
-    "dialog_picker_duration_field_period_label": "Period",
-    "dialog_picker_colour_title": "Select color",
-    "dialog_easterEgg_title": "Easter egg!",
+    "dialog_picker_duration_field_number_label": "数字",
+    "dialog_picker_duration_field_period_label": "时段",
+    "dialog_picker_colour_title": "选择颜色",
+    "dialog_easterEgg_title": "彩蛋！！",
     "dialog_easterEgg_text": "Congratulations, you''ve found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
     "dialog_easterEgg_action_showDebugOptions": "Show debug options",
-    "dialog_about_translations_title": "Translations",
-    "dialog_about_action_showLicenses": "Licenses",
-    "tutorial_page_0_title": "Welcome to Noterly",
-    "tutorial_page_0_subtitle": "Simple notification reminders",
-    "tutorial_page_0_content": "Here''s some basic information to get you started.",
-    "tutorial_page_1_title": "Reminders",
+    "dialog_about_translations_title": "翻译",
+    "dialog_about_action_showLicenses": "授权",
+    "tutorial_page_0_title": "欢迎使用Noterly",
+    "tutorial_page_0_subtitle": "简单的通知提醒",
+    "tutorial_page_0_content": "以下是一些基本教学帮助你开始使用",
+    "tutorial_page_1_title": "提醒",
     "tutorial_page_1_content": "Noterly is designed for quick, simple reminders. You may find a to-do list or calendar app more suitable for more complex tasks.",
-    "tutorial_page_2_title": "Create a notification",
-    "tutorial_page_2_content": "Tap the floating button to create a new notification.",
+    "tutorial_page_2_title": "创建通知",
+    "tutorial_page_2_content": "点击浮动按钮创建新的",
     "tutorial_page_2_confirmations": "That''s right!|Well done!|You''ve got it!|Great job!|Great success!",
-    "tutorial_page_3_title": "Manage notifications",
+    "tutorial_page_3_title": "管理通知",
     "tutorial_page_3_content": "Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.",
-    "tutorial_page_3_example": "Swipe to archive or delete",
-    "tutorial_page_4_title": "Snoozing reminders",
-    "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customize the snooze duration in settings.",
-    "tutorial_page_5_title": "That''s it!",
+    "tutorial_page_3_example": "左右滑动存档或删除",
+    "tutorial_page_4_title": "延迟提醒",
+    "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.",
+    "tutorial_page_5_title": "就是这样！",
     "tutorial_page_5_content": "You''re ready to start using Noterly. You can always come back to this tutorial in settings.",
-    "tutorial_updatedExperienceText": "You''re seeing this because this tutorial experience has been updated.",
-    "tutorial_action_back": "Back",
-    "tutorial_action_next": "Next",
-    "tutorial_action_done": "Done",
-    "tutorial_action_skip": "Skip",
-    "general_ok": "OK",
-    "general_cancel": "Cancel",
-    "general_undo": "Undo",
-    "general_close": "Close",
+    "tutorial_updatedExperienceText": "您之所以看到这个消息，是因为本教程的体验已经更新。",
+    "tutorial_action_back": "上一步",
+    "tutorial_action_next": "下一步",
+    "tutorial_action_done": "完成",
+    "tutorial_action_skip": "跳过",
+    "general_ok": "好",
+    "general_cancel": "取消",
+    "general_undo": "撤消",
+    "general_close": "关闭",
     "time_seconds": "{value, plural, =0{seconds} =1{second} other{seconds}}",
     "@time_seconds": {
         "description": "Used to pluralise second.",
@@ -204,7 +204,7 @@
             }
         }
     },
-    "time_seconds_value": "{value} seconds",
+    "time_seconds_value": "{value}秒",
     "@time_seconds_value": {
         "description": "Used to display a number of seconds.",
         "placeholders": {
@@ -226,7 +226,7 @@
             }
         }
     },
-    "time_minutes_value": "{value} minutes",
+    "time_minutes_value": "{value}分钟",
     "@time_minutes_value": {
         "description": "Used to display a number of minutes.",
         "placeholders": {
@@ -248,7 +248,7 @@
             }
         }
     },
-    "time_hours_value": "{value} hours",
+    "time_hours_value": "{value}小时",
     "@time_hours_value": {
         "description": "Used to display a number of hours.",
         "placeholders": {
@@ -270,7 +270,7 @@
             }
         }
     },
-    "time_days_value": "{value} days",
+    "time_days_value": "{value}天",
     "@time_days_value": {
         "description": "Used to display a number of days.",
         "placeholders": {
@@ -292,7 +292,7 @@
             }
         }
     },
-    "time_weeks_value": "{value} weeks",
+    "time_weeks_value": "{value}周",
     "@time_weeks_value": {
         "description": "Used to display a number of weeks.",
         "placeholders": {
@@ -314,7 +314,7 @@
             }
         }
     },
-    "time_months_value": "{value} months",
+    "time_months_value": "{value}月",
     "@time_months_value": {
         "description": "Used to display a number of months.",
         "placeholders": {
@@ -336,7 +336,7 @@
             }
         }
     },
-    "time_years_value": "{value, plural, =0{0 years} =1{1 year} other{{value} years}}",
+    "time_years_value": "{value}年",
     "@time_years_value": {
         "description": "Used to display a number of years.",
         "placeholders": {
@@ -347,12 +347,12 @@
             }
         }
     },
-    "time_hourly": "hourly",
-    "time_daily": "daily",
-    "time_weekly": "weekly",
-    "time_monthly": "monthly",
-    "time_yearly": "yearly",
-    "time_repetition_every_value": "every {number} {type}",
+    "time_hourly": "每小时",
+    "time_daily": "每天",
+    "time_weekly": "每周",
+    "time_monthly": "每月",
+    "time_yearly": "每年",
+    "time_repetition_every_value": "每{number} {type}",
     "@time_repetition_every_value": {
         "description": "Used to display a repeat duration.",
         "placeholders": {
@@ -367,7 +367,7 @@
             }
         }
     },
-    "time_snooze_until": "until {dateTimeString}",
+    "time_snooze_until": "到{dateTimeString}",
     "@time_snooze_until": {
         "description": "Used to display a snooze duration.",
         "placeholders": {
@@ -377,7 +377,7 @@
             }
         }
     },
-    "time_todayAndTime": "Today, {timeString}",
+    "time_todayAndTime": "今天，{timeString}",
     "@time_todayAndTime": {
         "description": "Used to display a time today.",
         "placeholders": {
@@ -387,7 +387,7 @@
             }
         }
     },
-    "time_yesterdayAndTime": "Yesterday, {timeString}",
+    "time_yesterdayAndTime": "昨天，{timeString}",
     "@time_yesterdayAndTime": {
         "description": "Used to display a time yesterday.",
         "placeholders": {
@@ -397,7 +397,7 @@
             }
         }
     },
-    "time_tomorrowAndTime": "Tomorrow, {timeString}",
+    "time_tomorrowAndTime": "明天，{timeString}",
     "@time_tomorrowAndTime": {
         "description": "Used to display a time tomorrow.",
         "placeholders": {

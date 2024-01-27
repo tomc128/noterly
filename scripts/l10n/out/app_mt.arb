@@ -1,15 +1,15 @@
 {
-    "@@locale": "en_US",
-    "main_action_new": "New note",
-    "main_action_create": "Create",
-    "main_action_save": "Save",
-    "main_action_reactivate": "Reactivate",
-    "page_activeNotifications_label": "Active",
-    "page_activeNotifications_header_immediate": "Shown immediately",
-    "page_activeNotifications_header_scheduled": "Scheduled",
-    "page_activeNotifications_header_repeating": "Repeating",
-    "page_activeNotifications_empty": "No active notifications.",
-    "page_activeNotifications_item_repeats": "Repeats {durationString}",
+    "@@locale": "mt",
+    "main_action_new": "Nota ġdida",
+    "main_action_create": "Oħloq",
+    "main_action_save": "Issevja",
+    "main_action_reactivate": "Rijattiva",
+    "page_activeNotifications_label": "Attiv",
+    "page_activeNotifications_header_immediate": "Uri mall-ewwel",
+    "page_activeNotifications_header_scheduled": "Skedat",
+    "page_activeNotifications_header_repeating": "Jirrepeti",
+    "page_activeNotifications_empty": "M''hemmx notifikazzjonijiet attivi",
+    "page_activeNotifications_item_repeats": "Jirrepeti {durationString}",
     "@page_activeNotifications_item_repeats": {
         "description": "Under a notification item specifying repeat duration.",
         "placeholders": {
@@ -29,10 +29,10 @@
             }
         }
     },
-    "page_archivedNotifications_label": "Archive",
-    "page_archivedNotifications_empty": "Archived notifications will appear here.",
-    "page_archivedNotifications_button_deleteAll": "Delete all archived notifications",
-    "page_archivedNotifications_item_archived": "Archived {dateTimeString}",
+    "page_archivedNotifications_label": "Arkivja",
+    "page_archivedNotifications_empty": "Notifikazzjonijiet arkivjati jidhru hawn.",
+    "page_archivedNotifications_button_deleteAll": "Ħassar in-notifikazzjonijiet arkivjati kollha.",
+    "page_archivedNotifications_item_archived": "Arkivjat {dateTimeString}",
     "@page_archivedNotifications_item_archived": {
         "description": "Under a notification item specifying when it was archived.",
         "placeholders": {
@@ -42,7 +42,7 @@
             }
         }
     },
-    "snackbar_notificationDeleted": "Notification \"{title}\" deleted.",
+    "snackbar_notificationDeleted": "In-notifikazzjoni \"{title}\" ġiet imħassra.",
     "@snackbar_notificationDeleted": {
         "description": "Snackbar message when a notification is deleted.",
         "placeholders": {
@@ -52,7 +52,7 @@
             }
         }
     },
-    "snackbar_notificationArchived": "Notification \"{title}\" archived.",
+    "snackbar_notificationArchived": "In-notifikazzjoni \"{title}\" ġiet arkivjata.",
     "@snackbar_notificationArchived": {
         "description": "Snackbar message when a notification is archived.",
         "placeholders": {
@@ -62,7 +62,7 @@
             }
         }
     },
-    "snackbar_allArchivedNotificationsDeleted": "All archived notifications deleted.",
+    "snackbar_allArchivedNotificationsDeleted": "Tħassru in-notifikazzjonijiet arkivjati kollha.",
     "toast_notificationSnoozed": "Notification snoozed for {durationString}",
     "@toast_notificationSnoozed": {
         "description": "Toast message when a notification is snoozed.",
@@ -75,52 +75,52 @@
     },
     "page_settings_title": "Settings",
     "page_settings_header_notifications": "Notifications",
-    "page_settings_header_system": "System",
-    "page_settings_header_about": "About",
-    "page_settings_header_debug": "Debug options",
+    "page_settings_header_system": "Sistema",
+    "page_settings_header_about": "Dwar Noterly",
+    "page_settings_header_debug": "Għażliet għad-debugging",
     "page_settings_header_debug_disclaimer": "These options are not supported and may cause issues. Use at your own risk.",
     "page_settings_notifications_snoozeDuration": "Snooze duration",
-    "page_settings_system_notificationSettings": "Notification settings",
-    "page_settings_about_version_title": "Version",
-    "page_settings_about_copyright_title": "Copyright & credits",
+    "page_settings_system_notificationSettings": "Settings tan-notifikazzjonijiet",
+    "page_settings_about_version_title": "Verżjoni",
+    "page_settings_about_copyright_title": "Kopiright u Krediti",
     "page_settings_about_copyright_text": "2023 Tom Chapman, TDS Studios.",
     "page_settings_about_tutorial_title": "Tutorial",
-    "page_settings_about_licenses_title": "Licenses",
-    "page_settings_about_licenses_page_legalese": "Copyright © 2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_licenses_title": "Liċenzji",
+    "page_settings_about_licenses_page_legalese": "Kopiright © 2023 Tom Chapman, TDS Studios.",
     "page_settings_about_licenses_page_openSourceSoftware": "Noterly is open-source software. The source code is available on GitHub.",
-    "page_settings_about_privacyPolicy_title": "Privacy policy",
-    "page_settings_about_feedback_title": "Send feedback",
-    "page_settings_about_translate_title": "Help translate Noterly",
-    "page_settings_about_donation_title": "Buy me a coffee",
+    "page_settings_about_privacyPolicy_title": "Regoli tal-privatezza",
+    "page_settings_about_feedback_title": "Ibgħat feedback",
+    "page_settings_about_translate_title": "Għin biex tiddraduċi Noterly",
+    "page_settings_about_donation_title": "Ixtrili kafè",
     "page_settings_about_github_title": "Open-source on GitHub",
-    "page_createNotification_title": "Create Notification",
-    "page_createNotification_header_details": "Notification details",
+    "page_createNotification_title": "Oħloq notifikazzjoni",
+    "page_createNotification_header_details": "Dettalji dwar in-notifikazzjoni",
     "page_createNotification_header_timing": "Timing",
-    "page_createNotification_timing_schedule_title": "Schedule",
-    "page_createNotification_timing_schedule_subtitle": "Send",
-    "page_createNotification_timing_repeat_title": "Repeating",
-    "page_createNotification_timing_repeat_subtitle": "Repeat",
-    "page_createNotification_timing_repeat_info": "Repeating notifications will only repeat once they are marked as done from the notification.",
-    "page_createNotification_details_field_title_label": "Title",
-    "page_createNotification_details_field_title_error": "Please enter a title",
-    "page_createNotification_details_field_body_label": "Body",
-    "page_createNotification_details_field_colour_label": "Color",
-    "page_editNotification_title": "Edit Notification",
-    "page_editNotification_header_details": "Notification details",
-    "page_editNotification_header_timing": "Timing",
-    "page_editNotification_timing_schedule_title": "Schedule",
-    "page_editNotification_timing_schedule_subtitle": "Send",
-    "page_editNotification_timing_repeat_title": "Repeating",
-    "page_editNotification_timing_repeat_subtitle": "Repeat",
-    "page_editNotification_timing_repeat_info": "Repeating notifications will only repeat once they are marked as done from the notification.",
-    "page_editNotification_details_field_title_label": "Title",
-    "page_editNotification_details_field_title_error": "Please enter a title",
-    "page_editNotification_details_field_body_label": "Body",
-    "page_editNotification_details_field_colour_label": "Color",
-    "item_title": "Title",
-    "item_body": "Body",
-    "item_colour": "Color",
-    "notification_action_markAsDone": "Mark as done",
+    "page_createNotification_timing_schedule_title": "Skeda",
+    "page_createNotification_timing_schedule_subtitle": "Ibgħat",
+    "page_createNotification_timing_repeat_title": "Jirrepeti",
+    "page_createNotification_timing_repeat_subtitle": "Irrepeti",
+    "page_createNotification_timing_repeat_info": "Dawk in-notifikazzjonijiet li jirrepetu rwiehhom, jirrepetu dment li jkunu immarkati li saru, minn-notifikazzjoni.",
+    "page_createNotification_details_field_title_label": "Titlu",
+    "page_createNotification_details_field_title_error": "Jekk jogħbok, daħħal titlu",
+    "page_createNotification_details_field_body_label": "Parti principali",
+    "page_createNotification_details_field_colour_label": "Kulur",
+    "page_editNotification_title": "Edittja notifikazzjoni",
+    "page_editNotification_header_details": "Dettalji dwar in-notifikazzjoni",
+    "page_editNotification_header_timing": "Kejl tal-ħin",
+    "page_editNotification_timing_schedule_title": "Skeda",
+    "page_editNotification_timing_schedule_subtitle": "Ibgħat",
+    "page_editNotification_timing_repeat_title": "Repetittiv",
+    "page_editNotification_timing_repeat_subtitle": "Irrepeti",
+    "page_editNotification_timing_repeat_info": "Dawk in-notifikazzjonijiet li jirrepetu rwiehhom, jirrepetu dment li jkunu immarkati li saru, minn-notifikazzjoni.",
+    "page_editNotification_details_field_title_label": "Titlu",
+    "page_editNotification_details_field_title_error": "Jekk jogħbok, daħħal titlu",
+    "page_editNotification_details_field_body_label": "Parti principali",
+    "page_editNotification_details_field_colour_label": "Kulur",
+    "item_title": "Titlu",
+    "item_body": "Parti principali",
+    "item_colour": "Kulur",
+    "notification_action_markAsDone": "Immarka li lest",
     "notification_action_snooze": "Snooze",
     "notification_action_snoozeFor": "Snooze for {durationString}",
     "@notification_action_snoozeFor": {
@@ -132,13 +132,13 @@
             }
         }
     },
-    "dialog_picker_dateTime_title": "Select date and time",
-    "dialog_picker_dateTime_header_date": "Date",
-    "dialog_picker_dateTime_header_time": "Time",
-    "dialog_picker_dateTime_button_selectDate": "Select date",
-    "dialog_picker_dateTime_button_selectTime": "Select time",
-    "dialog_picker_repetition_title": "Select repeat duration",
-    "dialog_picker_repetition_subtitle": "repeats {durationString}",
+    "dialog_picker_dateTime_title": "Agħżel data u ħin",
+    "dialog_picker_dateTime_header_date": "Data",
+    "dialog_picker_dateTime_header_time": "Ħin",
+    "dialog_picker_dateTime_button_selectDate": "Agħżel id-data",
+    "dialog_picker_dateTime_button_selectTime": "Agħżel il-ħin",
+    "dialog_picker_repetition_title": "Agħżel kemm idum biex jirrepeti",
+    "dialog_picker_repetition_subtitle": "Jirrepeti {durationString}",
     "@dialog_picker_repetition_subtitle": {
         "description": "Subtitle for dialog with repeat duration.",
         "placeholders": {
@@ -148,8 +148,8 @@
             }
         }
     },
-    "dialog_picker_repetition_field_number_label": "Number",
-    "dialog_picker_repetition_field_period_label": "Period",
+    "dialog_picker_repetition_field_number_label": "Numru",
+    "dialog_picker_repetition_field_period_label": "Perijodu",
     "dialog_picker_duration_title": "Select duration",
     "dialog_picker_duration_subtitle": "{durationString}",
     "@dialog_picker_duration_subtitle": {
@@ -163,12 +163,12 @@
     },
     "dialog_picker_duration_field_number_label": "Number",
     "dialog_picker_duration_field_period_label": "Period",
-    "dialog_picker_colour_title": "Select color",
-    "dialog_easterEgg_title": "Easter egg!",
+    "dialog_picker_colour_title": "Agħżel il-kulur",
+    "dialog_easterEgg_title": "Bajda tal-Għid!",
     "dialog_easterEgg_text": "Congratulations, you''ve found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
     "dialog_easterEgg_action_showDebugOptions": "Show debug options",
-    "dialog_about_translations_title": "Translations",
-    "dialog_about_action_showLicenses": "Licenses",
+    "dialog_about_translations_title": "Traduzzjonijiet",
+    "dialog_about_action_showLicenses": "Liċenzji",
     "tutorial_page_0_title": "Welcome to Noterly",
     "tutorial_page_0_subtitle": "Simple notification reminders",
     "tutorial_page_0_content": "Here''s some basic information to get you started.",
@@ -181,7 +181,7 @@
     "tutorial_page_3_content": "Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.",
     "tutorial_page_3_example": "Swipe to archive or delete",
     "tutorial_page_4_title": "Snoozing reminders",
-    "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customize the snooze duration in settings.",
+    "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.",
     "tutorial_page_5_title": "That''s it!",
     "tutorial_page_5_content": "You''re ready to start using Noterly. You can always come back to this tutorial in settings.",
     "tutorial_updatedExperienceText": "You''re seeing this because this tutorial experience has been updated.",
@@ -190,9 +190,9 @@
     "tutorial_action_done": "Done",
     "tutorial_action_skip": "Skip",
     "general_ok": "OK",
-    "general_cancel": "Cancel",
-    "general_undo": "Undo",
-    "general_close": "Close",
+    "general_cancel": "Ikkanċella",
+    "general_undo": "Ħassar",
+    "general_close": "Għalaq",
     "time_seconds": "{value, plural, =0{seconds} =1{second} other{seconds}}",
     "@time_seconds": {
         "description": "Used to pluralise second.",
@@ -204,7 +204,7 @@
             }
         }
     },
-    "time_seconds_value": "{value} seconds",
+    "time_seconds_value": "{value} sekondi",
     "@time_seconds_value": {
         "description": "Used to display a number of seconds.",
         "placeholders": {
@@ -226,7 +226,7 @@
             }
         }
     },
-    "time_minutes_value": "{value} minutes",
+    "time_minutes_value": "{value} minuti",
     "@time_minutes_value": {
         "description": "Used to display a number of minutes.",
         "placeholders": {
@@ -248,7 +248,7 @@
             }
         }
     },
-    "time_hours_value": "{value} hours",
+    "time_hours_value": "{value} sigħat",
     "@time_hours_value": {
         "description": "Used to display a number of hours.",
         "placeholders": {
@@ -270,7 +270,7 @@
             }
         }
     },
-    "time_days_value": "{value} days",
+    "time_days_value": "{value} ġranet",
     "@time_days_value": {
         "description": "Used to display a number of days.",
         "placeholders": {
@@ -292,7 +292,7 @@
             }
         }
     },
-    "time_weeks_value": "{value} weeks",
+    "time_weeks_value": "{value} ġimgħat",
     "@time_weeks_value": {
         "description": "Used to display a number of weeks.",
         "placeholders": {
@@ -314,7 +314,7 @@
             }
         }
     },
-    "time_months_value": "{value} months",
+    "time_months_value": "{value} xhar",
     "@time_months_value": {
         "description": "Used to display a number of months.",
         "placeholders": {
@@ -336,7 +336,7 @@
             }
         }
     },
-    "time_years_value": "{value, plural, =0{0 years} =1{1 year} other{{value} years}}",
+    "time_years_value": "{value} snin",
     "@time_years_value": {
         "description": "Used to display a number of years.",
         "placeholders": {
@@ -347,12 +347,12 @@
             }
         }
     },
-    "time_hourly": "hourly",
-    "time_daily": "daily",
-    "time_weekly": "weekly",
-    "time_monthly": "monthly",
-    "time_yearly": "yearly",
-    "time_repetition_every_value": "every {number} {type}",
+    "time_hourly": "Kull siegħa",
+    "time_daily": "Kuljum",
+    "time_weekly": "Kull ġimgħa",
+    "time_monthly": "Kull xahar",
+    "time_yearly": "Kull sena",
+    "time_repetition_every_value": "Kull {number} {type}",
     "@time_repetition_every_value": {
         "description": "Used to display a repeat duration.",
         "placeholders": {
@@ -377,7 +377,7 @@
             }
         }
     },
-    "time_todayAndTime": "Today, {timeString}",
+    "time_todayAndTime": "Illum, {timeString}",
     "@time_todayAndTime": {
         "description": "Used to display a time today.",
         "placeholders": {
@@ -387,7 +387,7 @@
             }
         }
     },
-    "time_yesterdayAndTime": "Yesterday, {timeString}",
+    "time_yesterdayAndTime": "Ilbieraħ, {timeString}",
     "@time_yesterdayAndTime": {
         "description": "Used to display a time yesterday.",
         "placeholders": {
@@ -397,7 +397,7 @@
             }
         }
     },
-    "time_tomorrowAndTime": "Tomorrow, {timeString}",
+    "time_tomorrowAndTime": "Għada, {timeString}",
     "@time_tomorrowAndTime": {
         "description": "Used to display a time tomorrow.",
         "placeholders": {

@@ -1,15 +1,15 @@
 {
-    "@@locale": "en_US",
-    "main_action_new": "New note",
-    "main_action_create": "Create",
-    "main_action_save": "Save",
+    "@@locale": "te",
+    "main_action_new": "కొత్త నోట్",
+    "main_action_create": "సృష్టించు",
+    "main_action_save": "సేవ్",
     "main_action_reactivate": "Reactivate",
-    "page_activeNotifications_label": "Active",
-    "page_activeNotifications_header_immediate": "Shown immediately",
-    "page_activeNotifications_header_scheduled": "Scheduled",
-    "page_activeNotifications_header_repeating": "Repeating",
-    "page_activeNotifications_empty": "No active notifications.",
-    "page_activeNotifications_item_repeats": "Repeats {durationString}",
+    "page_activeNotifications_label": "ఆక్టివ్",
+    "page_activeNotifications_header_immediate": "వెంటనే చూపబడుతుంది",
+    "page_activeNotifications_header_scheduled": "షెడ్యూల్ చేయబడింది",
+    "page_activeNotifications_header_repeating": "పునరావృతమవుతుంది (రిపీటింగ్)",
+    "page_activeNotifications_empty": "ఆక్టివ్ నోటిఫికెషన్స్ లేవు",
+    "page_activeNotifications_item_repeats": "పునరావృతం {durationString}",
     "@page_activeNotifications_item_repeats": {
         "description": "Under a notification item specifying repeat duration.",
         "placeholders": {
@@ -19,7 +19,7 @@
             }
         }
     },
-    "page_activeNotifications_item_snoozed": "Snoozed {dateTimeString}",
+    "page_activeNotifications_item_snoozed": "స్నూజ్ చేయబడింది {duration}",
     "@page_activeNotifications_item_snoozed": {
         "description": "Under a notification item specifying snooze duration.",
         "placeholders": {
@@ -29,10 +29,10 @@
             }
         }
     },
-    "page_archivedNotifications_label": "Archive",
-    "page_archivedNotifications_empty": "Archived notifications will appear here.",
-    "page_archivedNotifications_button_deleteAll": "Delete all archived notifications",
-    "page_archivedNotifications_item_archived": "Archived {dateTimeString}",
+    "page_archivedNotifications_label": "ఆర్కైవ్",
+    "page_archivedNotifications_empty": "ఆర్కైవ్ చేయబడిన నోటిఫికెషన్స్ ఇక్కడ చూపించబడతాయి",
+    "page_archivedNotifications_button_deleteAll": "ఆర్కైవ్ చేసిన నోటిఫికెషన్స్ ని  డిలీట్ చేయి",
+    "page_archivedNotifications_item_archived": "ఆర్కైవ్ చేయబడ్డాయి",
     "@page_archivedNotifications_item_archived": {
         "description": "Under a notification item specifying when it was archived.",
         "placeholders": {
@@ -104,7 +104,7 @@
     "page_createNotification_details_field_title_label": "Title",
     "page_createNotification_details_field_title_error": "Please enter a title",
     "page_createNotification_details_field_body_label": "Body",
-    "page_createNotification_details_field_colour_label": "Color",
+    "page_createNotification_details_field_colour_label": "Colour",
     "page_editNotification_title": "Edit Notification",
     "page_editNotification_header_details": "Notification details",
     "page_editNotification_header_timing": "Timing",
@@ -116,10 +116,10 @@
     "page_editNotification_details_field_title_label": "Title",
     "page_editNotification_details_field_title_error": "Please enter a title",
     "page_editNotification_details_field_body_label": "Body",
-    "page_editNotification_details_field_colour_label": "Color",
+    "page_editNotification_details_field_colour_label": "Colour",
     "item_title": "Title",
     "item_body": "Body",
-    "item_colour": "Color",
+    "item_colour": "Colour",
     "notification_action_markAsDone": "Mark as done",
     "notification_action_snooze": "Snooze",
     "notification_action_snoozeFor": "Snooze for {durationString}",
@@ -163,7 +163,7 @@
     },
     "dialog_picker_duration_field_number_label": "Number",
     "dialog_picker_duration_field_period_label": "Period",
-    "dialog_picker_colour_title": "Select color",
+    "dialog_picker_colour_title": "Select colour",
     "dialog_easterEgg_title": "Easter egg!",
     "dialog_easterEgg_text": "Congratulations, you''ve found the easter egg! You can now enable debug options. Please note that these options are not supported and may cause issues.",
     "dialog_easterEgg_action_showDebugOptions": "Show debug options",
@@ -181,7 +181,7 @@
     "tutorial_page_3_content": "Completed your task? Swipe the notification away. To delete a notification, go to the archive page and swipe it away.",
     "tutorial_page_3_example": "Swipe to archive or delete",
     "tutorial_page_4_title": "Snoozing reminders",
-    "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customize the snooze duration in settings.",
+    "tutorial_page_4_content": "You can snooze a reminder by tapping the button in the notification. Customise the snooze duration in settings.",
     "tutorial_page_5_title": "That''s it!",
     "tutorial_page_5_content": "You''re ready to start using Noterly. You can always come back to this tutorial in settings.",
     "tutorial_updatedExperienceText": "You''re seeing this because this tutorial experience has been updated.",
@@ -204,7 +204,7 @@
             }
         }
     },
-    "time_seconds_value": "{value} seconds",
+    "time_seconds_value": "{value, plural, =0{0 seconds} =1{1 second} other{{value} seconds}}",
     "@time_seconds_value": {
         "description": "Used to display a number of seconds.",
         "placeholders": {
@@ -226,7 +226,7 @@
             }
         }
     },
-    "time_minutes_value": "{value} minutes",
+    "time_minutes_value": "{value, plural, =0{0 minutes} =1{1 minute} other{{value} minutes}}",
     "@time_minutes_value": {
         "description": "Used to display a number of minutes.",
         "placeholders": {
@@ -248,7 +248,7 @@
             }
         }
     },
-    "time_hours_value": "{value} hours",
+    "time_hours_value": "{value, plural, =0{0 hours} =1{1 hour} other{{value} hours}}",
     "@time_hours_value": {
         "description": "Used to display a number of hours.",
         "placeholders": {
@@ -270,7 +270,7 @@
             }
         }
     },
-    "time_days_value": "{value} days",
+    "time_days_value": "{value, plural, =0{0 days} =1{1 day} other{{value} days}}",
     "@time_days_value": {
         "description": "Used to display a number of days.",
         "placeholders": {
@@ -292,7 +292,7 @@
             }
         }
     },
-    "time_weeks_value": "{value} weeks",
+    "time_weeks_value": "{value, plural, =0{0 weeks} =1{1 week} other{{value} weeks}}",
     "@time_weeks_value": {
         "description": "Used to display a number of weeks.",
         "placeholders": {
@@ -314,7 +314,7 @@
             }
         }
     },
-    "time_months_value": "{value} months",
+    "time_months_value": "{value, plural, =0{0 months} =1{1 month} other{{value} months}}",
     "@time_months_value": {
         "description": "Used to display a number of months.",
         "placeholders": {
