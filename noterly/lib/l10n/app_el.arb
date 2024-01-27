@@ -1,0 +1,424 @@
+{
+    "@@locale": "el",
+    "main_action_new": "Υπενθύμιση",
+    "main_action_create": "Δημιουργία",
+    "main_action_save": "Αποθήκευση",
+    "main_action_reactivate": "Επανενεργοποίηση",
+    "page_activeNotifications_label": "Ενεργές",
+    "page_activeNotifications_header_immediate": "Άμεσες",
+    "page_activeNotifications_header_scheduled": "Προγραμματισμένες",
+    "page_activeNotifications_header_repeating": "Επαναλαμβανόμενες",
+    "page_activeNotifications_empty": "Καμία ενεργή υπενθύμιση.",
+    "page_activeNotifications_item_repeats": "Επαναλαμβάνεται {durationString}",
+    "@page_activeNotifications_item_repeats": {
+        "description": "Under a notification item specifying repeat duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "page_activeNotifications_item_snoozed": "Αναβλήθηκε μέχρι {dateTimeString}",
+    "@page_activeNotifications_item_snoozed": {
+        "description": "Under a notification item specifying snooze duration.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "until 1st January 2023, 12:00"
+            }
+        }
+    },
+    "page_archivedNotifications_label": "Αρχειοθέτηση",
+    "page_archivedNotifications_empty": "Οι αρχειοθετημένες υπενθυμίσεις εμφανίζονται εδώ.",
+    "page_archivedNotifications_button_deleteAll": "Διαγραφή όλων των αρχειοθετημένων υπενθυμίσεων",
+    "page_archivedNotifications_item_archived": "Αρχειοθετήθηκε {dateTimeString}",
+    "@page_archivedNotifications_item_archived": {
+        "description": "Under a notification item specifying when it was archived.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "on 1st January 2023, 12:00"
+            }
+        }
+    },
+    "snackbar_notificationDeleted": "Η υπενθύμιση \"{title}\" διαγράφηκε.",
+    "@snackbar_notificationDeleted": {
+        "description": "Snackbar message when a notification is deleted.",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Example notification title"
+            }
+        }
+    },
+    "snackbar_notificationArchived": "Η υπεθύμιση \"{title}\" αρχειοθετήθηκε.",
+    "@snackbar_notificationArchived": {
+        "description": "Snackbar message when a notification is archived.",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Example notification title"
+            }
+        }
+    },
+    "snackbar_allArchivedNotificationsDeleted": "Όλες οι αρχειοθετημένες υπενθυμίσεις διαγράφηκαν.",
+    "toast_notificationSnoozed": "Η υπενθύμιση αναβλήθηκε για {durationString}",
+    "@toast_notificationSnoozed": {
+        "description": "Toast message when a notification is snoozed.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "page_settings_title": "Ρυθμίσεις",
+    "page_settings_header_notifications": "Ειδοποιήσεις",
+    "page_settings_header_system": "Σύστημα",
+    "page_settings_header_about": "Σχετικά",
+    "page_settings_header_debug": "Επιλογές αποσφαλμάτωσης",
+    "page_settings_header_debug_disclaimer": "Αυτές οι επιλογές δεν υποστηρίζονται και μπορεί να προκαλέσουν προβλήματα. Χρησιμοποιήστε τις με δική σας ευθύνη.",
+    "page_settings_notifications_snoozeDuration": "Διάρκεια αναβολής",
+    "page_settings_system_notificationSettings": "Ρυθμίσεις ειδοποιήσεων",
+    "page_settings_about_version_title": "Έκδοση",
+    "page_settings_about_copyright_title": "Πνευματικά δικαιώματα & ευχαριστίες",
+    "page_settings_about_copyright_text": "2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_tutorial_title": "Οδηγός",
+    "page_settings_about_licenses_title": "Άδειες",
+    "page_settings_about_licenses_page_legalese": "Copyright © 2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_licenses_page_openSourceSoftware": "Το Noterly είναι λογισμικό ανοικτού κώδικα. Ο πηγαίος κώδικας είναι διαθέσιμος στο GitHub.",
+    "page_settings_about_privacyPolicy_title": "Πολιτική απορρήτου",
+    "page_settings_about_feedback_title": "Αποστολή σχολίων",
+    "page_settings_about_translate_title": "Βοηθήστε στη μετάφραση",
+    "page_settings_about_donation_title": "Κεράστε με έναν καφέ",
+    "page_settings_about_github_title": "Ανοικτός κώδικας στο GitHub",
+    "page_createNotification_title": "Δημιουργία Υπενθύμισης",
+    "page_createNotification_header_details": "Λεπτομέρειες υπενθύμισης",
+    "page_createNotification_header_timing": "Χρόνος",
+    "page_createNotification_timing_schedule_title": "Προγραμματισμός",
+    "page_createNotification_timing_schedule_subtitle": "Ειδοποίηση",
+    "page_createNotification_timing_repeat_title": "Επαναλαμβανόμενη",
+    "page_createNotification_timing_repeat_subtitle": "Επανάληψη",
+    "page_createNotification_timing_repeat_info": "Οι επαναλαμβανόμενες ειδοποιήσεις θα επαναλαμβάνονται μόνο όταν σημειώνονται ως ολοκληρωμένες στην ειδοποίηση.",
+    "page_createNotification_details_field_title_label": "Τίτλος",
+    "page_createNotification_details_field_title_error": "Παρακαλώ εισάγετε έναν τίτλο",
+    "page_createNotification_details_field_body_label": "Κείμενο",
+    "page_createNotification_details_field_colour_label": "Χρώμα",
+    "page_editNotification_title": "Επεξεργασία Υπενθύμισης",
+    "page_editNotification_header_details": "Λεπτομέρειες υπενθύμισης",
+    "page_editNotification_header_timing": "Χρόνος",
+    "page_editNotification_timing_schedule_title": "Προγραμματισμός",
+    "page_editNotification_timing_schedule_subtitle": "Ειδοποίηση",
+    "page_editNotification_timing_repeat_title": "Επαναλαμβανόμενη",
+    "page_editNotification_timing_repeat_subtitle": "Επανάληψη",
+    "page_editNotification_timing_repeat_info": "Οι επαναλαμβανόμενες ειδοποιήσεις θα επαναλαμβάνονται μόνο όταν σημειώνονται ως ολοκληρωμένες στην ειδοποίηση.",
+    "page_editNotification_details_field_title_label": "Τίτλος",
+    "page_editNotification_details_field_title_error": "Παρακαλώ εισάγετε έναν τίτλο",
+    "page_editNotification_details_field_body_label": "Κείμενο",
+    "page_editNotification_details_field_colour_label": "Χρώμα",
+    "item_title": "Τίτλος",
+    "item_body": "Κείμενο",
+    "item_colour": "Χρώμα",
+    "notification_action_markAsDone": "Ολοκλήρωση",
+    "notification_action_snooze": "Αναβολή",
+    "notification_action_snoozeFor": "Αναβολή για {durationString}",
+    "@notification_action_snoozeFor": {
+        "description": "Snooze action with duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_dateTime_title": "Επιλέξτε ημερομηνία και ώρα",
+    "dialog_picker_dateTime_header_date": "Ημερομηνία",
+    "dialog_picker_dateTime_header_time": "Ώρα",
+    "dialog_picker_dateTime_button_selectDate": "Επιλέξτε ημερομηνία",
+    "dialog_picker_dateTime_button_selectTime": "Επιλέξτε ώρα",
+    "dialog_picker_repetition_title": "Επιλέξτε διάρκεια επανάληψης",
+    "dialog_picker_repetition_subtitle": "επαναλαμβάνεται {durationString}",
+    "@dialog_picker_repetition_subtitle": {
+        "description": "Subtitle for dialog with repeat duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_repetition_field_number_label": "Αριθμός",
+    "dialog_picker_repetition_field_period_label": "Περίοδος",
+    "dialog_picker_duration_title": "Επιλέξτε διάρκεια",
+    "dialog_picker_duration_subtitle": "{durationString}",
+    "@dialog_picker_duration_subtitle": {
+        "description": "Subtitle for dialog with duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_duration_field_number_label": "Αριθμός",
+    "dialog_picker_duration_field_period_label": "Περίοδος",
+    "dialog_picker_colour_title": "Επιλέξτε χρώμα",
+    "dialog_easterEgg_title": "Πασχαλινό αυγό!",
+    "dialog_easterEgg_text": "Συγχαρητήρια, βρήκατε το πασχαλινό αυγό! Τώρα μπορείτε να ενεργοποιήσετε τις επιλογές αποσφαλμάτωσης. Παρακαλώ σημειώστε ότι αυτές οι επιλογές δεν υποστηρίζονται και μπορεί να προκαλέσουν προβλήματα.",
+    "dialog_easterEgg_action_showDebugOptions": "Εμφάνιση επιλογών αποσφαλμάτωσης",
+    "dialog_about_translations_title": "Μεταφράσεις",
+    "dialog_about_action_showLicenses": "Άδειες",
+    "tutorial_page_0_title": "Καλώς ήρθατε στο Noterly",
+    "tutorial_page_0_subtitle": "Απλές υπενθυμίσεις ειδοποιήσεων",
+    "tutorial_page_0_content": "Εδώ είναι μερικές βασικές πληροφορίες για να ξεκινήσετε.",
+    "tutorial_page_1_title": "Υπενθυμίσεις",
+    "tutorial_page_1_content": "Το Noterly έχει σχεδιαστεί για γρήγορες, απλές υπενθυμίσεις. Μπορείτε να βρείτε μια εφαρμογή πιο κατάλληλη για πιο σύνθετες εργασίες.",
+    "tutorial_page_2_title": "Δημιουργία υπενθύμισης",
+    "tutorial_page_2_content": "Πατήστε το αιωρούμενο κουμπί για να δημιουργήσετε μια νέα υπενθύμιση.",
+    "tutorial_page_2_confirmations": "Πολύ σωστά!|Μπράβο!|Το πιάσατε!|Πολύ ωραία!|Επιτυχία!",
+    "tutorial_page_3_title": "Διαχείριση υπενθυμίσεων",
+    "tutorial_page_3_content": "Ολοκληρώθηκε η εργασία σας; Σύρετε την ειδοποίηση μακριά. Για να διαγράψετε μια ειδοποίηση, μεταβείτε στη σελίδα αρχειοθέτησης και σαρώστε την μακριά.",
+    "tutorial_page_3_example": "Σύρετε για αρχειοθέτηση ή διαγραφή",
+    "tutorial_page_4_title": "Αναβολή υπενθυμίσεων",
+    "tutorial_page_4_content": "Μπορείτε να αναβάλετε μια υπενθύμιση πατώντας το κουμπί στην ειδοποίηση. Προσαρμόστε τη διάρκεια αναβολής στις ρυθμίσεις.",
+    "tutorial_page_5_title": "Αυτό ήταν!",
+    "tutorial_page_5_content": "Είστε έτοιμοι να αρχίσετε να χρησιμοποιείτε το Noterly. Μπορείτε πάντα να επιστρέψετε σε αυτόν τον οδηγό από τις ρυθμίσεις.",
+    "tutorial_updatedExperienceText": "Το βλέπετε αυτό επειδή αυτός ο οδηγός έχει ενημερωθεί.",
+    "tutorial_action_back": "Πίσω",
+    "tutorial_action_next": "Επόμενο",
+    "tutorial_action_done": "Τέλος",
+    "tutorial_action_skip": "Παράλειψη",
+    "general_ok": "OΚ",
+    "general_cancel": "Άκυρο",
+    "general_undo": "Αναίρεση",
+    "general_close": "Κλείσιμο",
+    "time_seconds": "{value, plural, =0{δευτερόλεπτα} =1{δευτερόλεπτο} other{δευτερόλεπτα}}",
+    "@time_seconds": {
+        "description": "Used to pluralise second.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_seconds_value": "{value, plural, =0{0 δευτερόλεπτα} =1{1 δευτερόλεπτο} other{{value} δευτερόλεπτα}}",
+    "@time_seconds_value": {
+        "description": "Used to display a number of seconds.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_minutes": "{value, plural, =0{λεπτά} =1{λεπτό} other{λεπτά}}",
+    "@time_minutes": {
+        "description": "Used to pluralise minute.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_minutes_value": "{value, plural, =0{0 λεπτά} =1{1 λεπτό} other{{value} λεπτά}}",
+    "@time_minutes_value": {
+        "description": "Used to display a number of minutes.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hours": "{value, plural, =0{ώρες} =1{ώρα} other{ώρες}}",
+    "@time_hours": {
+        "description": "Used to pluralise hour.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hours_value": "{value, plural, =0{0 ώρες} =1{1 ώρα} other{{value} ώρες}}",
+    "@time_hours_value": {
+        "description": "Used to display a number of hours.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_days": "{value, plural, =0{ημέρες} =1{ημέρα} other{ημέρες}}",
+    "@time_days": {
+        "description": "Used to pluralise day.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_days_value": "{value, plural, =0{0 ημέρες} =1{1 ημέρα} other{{value} ημέρες}}",
+    "@time_days_value": {
+        "description": "Used to display a number of days.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_weeks": "{value, plural, =0{εβδομάδες} =1{εβδομάδα} other{εβδομάδες}}",
+    "@time_weeks": {
+        "description": "Used to pluralise week.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_weeks_value": "{value, plural, =0{0 εβδομάδες} =1{1 εβδομάδα} other{{value} εβδομάδες}}",
+    "@time_weeks_value": {
+        "description": "Used to display a number of weeks.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_months": "{value, plural, =0{μήνες} =1{μήνας} other{μήνες}}",
+    "@time_months": {
+        "description": "Used to pluralise month.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_months_value": "{value, plural, =0{0 μήνες} =1{1 μήνας} other{{value} μήνες}}",
+    "@time_months_value": {
+        "description": "Used to display a number of months.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_years": "{value, plural, =0{έτη} =1{έτος} other{έτη}}",
+    "@time_years": {
+        "description": "Used to pluralise year.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_years_value": "{value, plural, =0{0 έτη} =1{1 έτος} other{{value} έτη}}",
+    "@time_years_value": {
+        "description": "Used to display a number of years.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hourly": "ωριαία",
+    "time_daily": "ημερήσια",
+    "time_weekly": "εβδομαδιαία",
+    "time_monthly": "μηνιαία",
+    "time_yearly": "ετησίως",
+    "time_repetition_every_value": "κάθε {number} {type}",
+    "@time_repetition_every_value": {
+        "description": "Used to display a repeat duration.",
+        "placeholders": {
+            "number": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            },
+            "type": {
+                "type": "String",
+                "example": "hour(s)"
+            }
+        }
+    },
+    "time_snooze_until": "έως {dateTimeString}",
+    "@time_snooze_until": {
+        "description": "Used to display a snooze duration.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "tomorrow"
+            }
+        }
+    },
+    "time_todayAndTime": "Σήμερα, {timeString}",
+    "@time_todayAndTime": {
+        "description": "Used to display a time today.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_yesterdayAndTime": "Χθες, {timeString}",
+    "@time_yesterdayAndTime": {
+        "description": "Used to display a time yesterday.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_tomorrowAndTime": "Αύριο, {timeString}",
+    "@time_tomorrowAndTime": {
+        "description": "Used to display a time tomorrow.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_dateAndTime": "{dateTimeString}, {timeString}",
+    "@time_dateAndTime": {
+        "description": "Used to display a date and time.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "yesterday"
+            },
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    }
+}

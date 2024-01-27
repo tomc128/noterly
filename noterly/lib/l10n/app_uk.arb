@@ -1,0 +1,424 @@
+{
+    "@@locale": "uk",
+    "main_action_new": "Нова нотатка",
+    "main_action_create": "Створити",
+    "main_action_save": "Зберегти",
+    "main_action_reactivate": "Відновити",
+    "page_activeNotifications_label": "Активно",
+    "page_activeNotifications_header_immediate": "Миттєві",
+    "page_activeNotifications_header_scheduled": "Заплановані",
+    "page_activeNotifications_header_repeating": "Повторювані",
+    "page_activeNotifications_empty": "Немає активних сповіщень.",
+    "page_activeNotifications_item_repeats": "Повторювати {durationString}",
+    "@page_activeNotifications_item_repeats": {
+        "description": "Under a notification item specifying repeat duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "page_activeNotifications_item_snoozed": "Відкладено {dateTimeString}",
+    "@page_activeNotifications_item_snoozed": {
+        "description": "Under a notification item specifying snooze duration.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "until 1st January 2023, 12:00"
+            }
+        }
+    },
+    "page_archivedNotifications_label": "Архів",
+    "page_archivedNotifications_empty": "Архівні повідомлення з''являтимуться тут.",
+    "page_archivedNotifications_button_deleteAll": "Видалити всі архівні повідомлення",
+    "page_archivedNotifications_item_archived": "В архіві {dateTimeString}",
+    "@page_archivedNotifications_item_archived": {
+        "description": "Under a notification item specifying when it was archived.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "on 1st January 2023, 12:00"
+            }
+        }
+    },
+    "snackbar_notificationDeleted": "Повідомлення \"{title}\" видалено.",
+    "@snackbar_notificationDeleted": {
+        "description": "Snackbar message when a notification is deleted.",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Example notification title"
+            }
+        }
+    },
+    "snackbar_notificationArchived": "Повідомлення \"{title}\" в архіві.",
+    "@snackbar_notificationArchived": {
+        "description": "Snackbar message when a notification is archived.",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Example notification title"
+            }
+        }
+    },
+    "snackbar_allArchivedNotificationsDeleted": "Усі архівні повідомлення видалені.",
+    "toast_notificationSnoozed": "Сповіщення відкладено на {durationString}",
+    "@toast_notificationSnoozed": {
+        "description": "Toast message when a notification is snoozed.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "page_settings_title": "Налаштування",
+    "page_settings_header_notifications": "Сповіщення",
+    "page_settings_header_system": "Системні",
+    "page_settings_header_about": "Про додаток",
+    "page_settings_header_debug": "Параметри налагодження",
+    "page_settings_header_debug_disclaimer": "Ці параметри не підтримуються і можуть спричинити проблеми. Використовуйте на свій страх і ризик.",
+    "page_settings_notifications_snoozeDuration": "Інтервал повторення",
+    "page_settings_system_notificationSettings": "Налаштування сповіщень",
+    "page_settings_about_version_title": "Версія",
+    "page_settings_about_copyright_title": "Авторські права",
+    "page_settings_about_copyright_text": "2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_tutorial_title": "Інструкція",
+    "page_settings_about_licenses_title": "Ліцензії",
+    "page_settings_about_licenses_page_legalese": "Copyright © 2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_licenses_page_openSourceSoftware": "Noterly is open-source software. The source code is available on GitHub.",
+    "page_settings_about_privacyPolicy_title": "Політика конфіденційності",
+    "page_settings_about_feedback_title": "Надіслати відгук",
+    "page_settings_about_translate_title": "Допомога у перекладі Noterly",
+    "page_settings_about_donation_title": "Пригостити мене кавою",
+    "page_settings_about_github_title": "Open-source on GitHub",
+    "page_createNotification_title": "Створити повідомлення",
+    "page_createNotification_header_details": "Деталі сповіщення",
+    "page_createNotification_header_timing": "Терміни",
+    "page_createNotification_timing_schedule_title": "Розклад",
+    "page_createNotification_timing_schedule_subtitle": "Надіслати",
+    "page_createNotification_timing_repeat_title": "Повторення",
+    "page_createNotification_timing_repeat_subtitle": "Повторювати",
+    "page_createNotification_timing_repeat_info": "Повторювані сповіщення повторюватимуться, доки не будуть позначені як виконані.",
+    "page_createNotification_details_field_title_label": "Назва",
+    "page_createNotification_details_field_title_error": "Будь ласка, введіть назву",
+    "page_createNotification_details_field_body_label": "Введіть текст",
+    "page_createNotification_details_field_colour_label": "Колір",
+    "page_editNotification_title": "Редагування повідомлення",
+    "page_editNotification_header_details": "Деталі повідомлення",
+    "page_editNotification_header_timing": "Терміни",
+    "page_editNotification_timing_schedule_title": "Розклад",
+    "page_editNotification_timing_schedule_subtitle": "Надіслати",
+    "page_editNotification_timing_repeat_title": "Повтор",
+    "page_editNotification_timing_repeat_subtitle": "Повторити",
+    "page_editNotification_timing_repeat_info": "Повторювані сповіщення повторюватимуться, доки не будуть позначені як виконані.",
+    "page_editNotification_details_field_title_label": "Назва",
+    "page_editNotification_details_field_title_error": "Будь ласка, введіть назву",
+    "page_editNotification_details_field_body_label": "Введіть текст",
+    "page_editNotification_details_field_colour_label": "Колір",
+    "item_title": "Назва",
+    "item_body": "Введіть текст",
+    "item_colour": "Колір",
+    "notification_action_markAsDone": "Позначити як виконане",
+    "notification_action_snooze": "Відкласти",
+    "notification_action_snoozeFor": "Відкласти на {durationString}",
+    "@notification_action_snoozeFor": {
+        "description": "Snooze action with duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_dateTime_title": "Обрати дату та час",
+    "dialog_picker_dateTime_header_date": "Дата",
+    "dialog_picker_dateTime_header_time": "Час",
+    "dialog_picker_dateTime_button_selectDate": "Обрати дату",
+    "dialog_picker_dateTime_button_selectTime": "Обрати час",
+    "dialog_picker_repetition_title": "Оберіть тривалість повтору",
+    "dialog_picker_repetition_subtitle": "повторювати {durationString}",
+    "@dialog_picker_repetition_subtitle": {
+        "description": "Subtitle for dialog with repeat duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_repetition_field_number_label": "Кількість",
+    "dialog_picker_repetition_field_period_label": "Строк",
+    "dialog_picker_duration_title": "Обрати тривалість",
+    "dialog_picker_duration_subtitle": "{durationString}",
+    "@dialog_picker_duration_subtitle": {
+        "description": "Subtitle for dialog with duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_duration_field_number_label": "Кількість",
+    "dialog_picker_duration_field_period_label": "Строк",
+    "dialog_picker_colour_title": "Обрати колір",
+    "dialog_easterEgg_title": "Закладка!",
+    "dialog_easterEgg_text": "Вітаємо, ви знайшли закладку! Тепер ви можете увімкнути параметри налагодження. Зверніть увагу, що ці опції не підтримуються і можуть спричинити проблеми.",
+    "dialog_easterEgg_action_showDebugOptions": "Показати параметри налагодження",
+    "dialog_about_translations_title": "Переклади",
+    "dialog_about_action_showLicenses": "Ліцензії",
+    "tutorial_page_0_title": "Ласкаво просимо до Noterly",
+    "tutorial_page_0_subtitle": "Прості нагадування про повідомлення",
+    "tutorial_page_0_content": "Ось деяка основна інформація для початку.",
+    "tutorial_page_1_title": "Нагадування",
+    "tutorial_page_1_content": "Noterly призначений для швидких і простих нагадувань. Можливо, для більш складних завдань вам більше підійде додаток зі списком справ або календарем.",
+    "tutorial_page_2_title": "Створити сповіщення",
+    "tutorial_page_2_content": "Натисніть на плаваючу кнопку, щоб створити нове сповіщення.",
+    "tutorial_page_2_confirmations": "Саме так!|Чудово!|У вас вийшло!|Чудова робота!|Величезний успіх!",
+    "tutorial_page_3_title": "Керуйте сповіщеннями",
+    "tutorial_page_3_content": "Виконали завдання? Змахніть сповіщення. Щоб видалити сповіщення, перейдіть на сторінку архіву та проведіть по ньому пальцем.",
+    "tutorial_page_3_example": "Проведіть пальцем по екрану для додавання до архіву або видалення",
+    "tutorial_page_4_title": "Відкладення нагадувань",
+    "tutorial_page_4_content": "Ви можете відкласти нагадування, натиснувши кнопку в сповіщенні. Налаштуйте тривалість нагадування в налаштуваннях.",
+    "tutorial_page_5_title": "От і все!",
+    "tutorial_page_5_content": "Ви готові почати користуватися Noterly. Ви завжди можете повернутися до цієї інструкції в налаштуваннях.",
+    "tutorial_updatedExperienceText": "Ви бачите це, тому що ця інструкція була оновлена.",
+    "tutorial_action_back": "Назад",
+    "tutorial_action_next": "Далі",
+    "tutorial_action_done": "Готово",
+    "tutorial_action_skip": "Пропустити",
+    "general_ok": "OK",
+    "general_cancel": "Скасувати",
+    "general_undo": "Скасувати",
+    "general_close": "Закрити",
+    "time_seconds": "{value, plural, =0{секунд} =1{секунда} other{секунди}}",
+    "@time_seconds": {
+        "description": "Used to pluralise second.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_seconds_value": "{value} секунд",
+    "@time_seconds_value": {
+        "description": "Used to display a number of seconds.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_minutes": "{value, plural, =0{хвилин} =1{хвилина} other{хвилини}}",
+    "@time_minutes": {
+        "description": "Used to pluralise minute.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_minutes_value": "{value} хвилин",
+    "@time_minutes_value": {
+        "description": "Used to display a number of minutes.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hours": "{value, plural, =0{годин} =1{година} other{години}}",
+    "@time_hours": {
+        "description": "Used to pluralise hour.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hours_value": "{value} години",
+    "@time_hours_value": {
+        "description": "Used to display a number of hours.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_days": "{value, plural, =0{днів} =1{день} other{дні}}",
+    "@time_days": {
+        "description": "Used to pluralise day.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_days_value": "{value} дня",
+    "@time_days_value": {
+        "description": "Used to display a number of days.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_weeks": "{value, plural, =0{тижнів} =1{тиждень} other{тижні}}",
+    "@time_weeks": {
+        "description": "Used to pluralise week.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_weeks_value": "{value} тижні",
+    "@time_weeks_value": {
+        "description": "Used to display a number of weeks.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_months": "{value, plural, =0{місяців} =1{місяць} other{місяці}}",
+    "@time_months": {
+        "description": "Used to pluralise month.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_months_value": "{value} місяці",
+    "@time_months_value": {
+        "description": "Used to display a number of months.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_years": "{value, plural, =0{років} =1{рік} other{роки}}",
+    "@time_years": {
+        "description": "Used to pluralise year.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_years_value": "{value} роки",
+    "@time_years_value": {
+        "description": "Used to display a number of years.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hourly": "кожну годину",
+    "time_daily": "кожного дня",
+    "time_weekly": "кожного тижня",
+    "time_monthly": "кожного місяця",
+    "time_yearly": "кожного року",
+    "time_repetition_every_value": "кожні {number} {type}",
+    "@time_repetition_every_value": {
+        "description": "Used to display a repeat duration.",
+        "placeholders": {
+            "number": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            },
+            "type": {
+                "type": "String",
+                "example": "hour(s)"
+            }
+        }
+    },
+    "time_snooze_until": "до {dateTimeString}",
+    "@time_snooze_until": {
+        "description": "Used to display a snooze duration.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "tomorrow"
+            }
+        }
+    },
+    "time_todayAndTime": "Сьогодні, {timeString}",
+    "@time_todayAndTime": {
+        "description": "Used to display a time today.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_yesterdayAndTime": "Учора, {timeString}",
+    "@time_yesterdayAndTime": {
+        "description": "Used to display a time yesterday.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_tomorrowAndTime": "Завтра, {timeString}",
+    "@time_tomorrowAndTime": {
+        "description": "Used to display a time tomorrow.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_dateAndTime": "{dateTimeString}, {timeString}",
+    "@time_dateAndTime": {
+        "description": "Used to display a date and time.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "yesterday"
+            },
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    }
+}

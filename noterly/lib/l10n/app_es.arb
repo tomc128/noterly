@@ -1,0 +1,424 @@
+{
+    "@@locale": "es",
+    "main_action_new": "Nueva nota",
+    "main_action_create": "Crear",
+    "main_action_save": "Guardar",
+    "main_action_reactivate": "Reactivar",
+    "page_activeNotifications_label": "Activas",
+    "page_activeNotifications_header_immediate": "Aparición inmediata",
+    "page_activeNotifications_header_scheduled": "Programadas",
+    "page_activeNotifications_header_repeating": "Repetitivas",
+    "page_activeNotifications_empty": "Ninguna notificación activa",
+    "page_activeNotifications_item_repeats": "Se repite cada {durationString}",
+    "@page_activeNotifications_item_repeats": {
+        "description": "Under a notification item specifying repeat duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "page_activeNotifications_item_snoozed": "Pospuesto {dateTimeString}",
+    "@page_activeNotifications_item_snoozed": {
+        "description": "Under a notification item specifying snooze duration.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "until 1st January 2023, 12:00"
+            }
+        }
+    },
+    "page_archivedNotifications_label": "Archivo",
+    "page_archivedNotifications_empty": "Las notificaciones archivadas se mostrarán aquí.",
+    "page_archivedNotifications_button_deleteAll": "Borrar todas las notificaciones archivadas",
+    "page_archivedNotifications_item_archived": "Archivado {dateTimeString}",
+    "@page_archivedNotifications_item_archived": {
+        "description": "Under a notification item specifying when it was archived.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "on 1st January 2023, 12:00"
+            }
+        }
+    },
+    "snackbar_notificationDeleted": "Notificación \"{title}\" eliminada.",
+    "@snackbar_notificationDeleted": {
+        "description": "Snackbar message when a notification is deleted.",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Example notification title"
+            }
+        }
+    },
+    "snackbar_notificationArchived": "Notificación \"{title}\" archivada.",
+    "@snackbar_notificationArchived": {
+        "description": "Snackbar message when a notification is archived.",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Example notification title"
+            }
+        }
+    },
+    "snackbar_allArchivedNotificationsDeleted": "Se eliminaron todas las notificaciones archivadas.",
+    "toast_notificationSnoozed": "Notificación pospuesta durante {durationString}",
+    "@toast_notificationSnoozed": {
+        "description": "Toast message when a notification is snoozed.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "page_settings_title": "Ajustes",
+    "page_settings_header_notifications": "Notificaciones",
+    "page_settings_header_system": "Sistema",
+    "page_settings_header_about": "Acerca de",
+    "page_settings_header_debug": "Opciones de depuración",
+    "page_settings_header_debug_disclaimer": "Estas opciones no tienen soporte y podrían causar problemas. Úsalas bajo tu propio riesgo.",
+    "page_settings_notifications_snoozeDuration": "Duración de la pausa",
+    "page_settings_system_notificationSettings": "Ajustes de notificaciones",
+    "page_settings_about_version_title": "Versión",
+    "page_settings_about_copyright_title": "Derechos de autor & créditos",
+    "page_settings_about_copyright_text": "2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_tutorial_title": "Tutorial",
+    "page_settings_about_licenses_title": "Licencias",
+    "page_settings_about_licenses_page_legalese": "Derechos de autor © 2023 Tom Chapman, TDS Studios.",
+    "page_settings_about_licenses_page_openSourceSoftware": "Noterly is open-source software. The source code is available on GitHub.",
+    "page_settings_about_privacyPolicy_title": "Política de privacidad",
+    "page_settings_about_feedback_title": "Enviar comentarios",
+    "page_settings_about_translate_title": "Ayuda a traducir Noterly",
+    "page_settings_about_donation_title": "Cómprame un café",
+    "page_settings_about_github_title": "Open-source on GitHub",
+    "page_createNotification_title": "Crear Notificación",
+    "page_createNotification_header_details": "Detalles de la notificación",
+    "page_createNotification_header_timing": "Horario",
+    "page_createNotification_timing_schedule_title": "Programar",
+    "page_createNotification_timing_schedule_subtitle": "Enviar",
+    "page_createNotification_timing_repeat_title": "Repetitiva",
+    "page_createNotification_timing_repeat_subtitle": "Repetir",
+    "page_createNotification_timing_repeat_info": "Las notificaciones repetidas solo se repetirán una vez que se hayan marcado como hechas desde la notificación.",
+    "page_createNotification_details_field_title_label": "Título",
+    "page_createNotification_details_field_title_error": "Por favor, escribe un título",
+    "page_createNotification_details_field_body_label": "Cuerpo",
+    "page_createNotification_details_field_colour_label": "Color",
+    "page_editNotification_title": "Editar Notificación",
+    "page_editNotification_header_details": "Detalles de la notificación",
+    "page_editNotification_header_timing": "Horario",
+    "page_editNotification_timing_schedule_title": "Programar",
+    "page_editNotification_timing_schedule_subtitle": "Enviar",
+    "page_editNotification_timing_repeat_title": "Repetitiva",
+    "page_editNotification_timing_repeat_subtitle": "Repetir",
+    "page_editNotification_timing_repeat_info": "Las notificaciones repetidas solo se repetirán una vez que se hayan marcado como hechas desde la notificación.",
+    "page_editNotification_details_field_title_label": "Título",
+    "page_editNotification_details_field_title_error": "Por favor, escribe un título",
+    "page_editNotification_details_field_body_label": "Cuerpo",
+    "page_editNotification_details_field_colour_label": "Color",
+    "item_title": "Título",
+    "item_body": "Cuerpo",
+    "item_colour": "Color",
+    "notification_action_markAsDone": "Marcar hecho",
+    "notification_action_snooze": "Siesta",
+    "notification_action_snoozeFor": "Posponer durante {durationString}",
+    "@notification_action_snoozeFor": {
+        "description": "Snooze action with duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_dateTime_title": "Elige una fecha y hora",
+    "dialog_picker_dateTime_header_date": "Fecha",
+    "dialog_picker_dateTime_header_time": "Hora",
+    "dialog_picker_dateTime_button_selectDate": "Elegir fecha",
+    "dialog_picker_dateTime_button_selectTime": "Elegir hora",
+    "dialog_picker_repetition_title": "Elegir la duración de repetición",
+    "dialog_picker_repetition_subtitle": "se repite {durationString}",
+    "@dialog_picker_repetition_subtitle": {
+        "description": "Subtitle for dialog with repeat duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_repetition_field_number_label": "Número",
+    "dialog_picker_repetition_field_period_label": "Período",
+    "dialog_picker_duration_title": "Seleccionar duración",
+    "dialog_picker_duration_subtitle": "{durationString}",
+    "@dialog_picker_duration_subtitle": {
+        "description": "Subtitle for dialog with duration.",
+        "placeholders": {
+            "durationString": {
+                "type": "String",
+                "example": "every x hour(s)"
+            }
+        }
+    },
+    "dialog_picker_duration_field_number_label": "Número",
+    "dialog_picker_duration_field_period_label": "Período",
+    "dialog_picker_colour_title": "Elige un color",
+    "dialog_easterEgg_title": "¡Easter egg!",
+    "dialog_easterEgg_text": "¡Felicidades, encontraste el Easter egg! Ahora puedes acceder a las opciones de depuración. Ten en cuenta que éstas no tienen soporte y podrían causar problemas.",
+    "dialog_easterEgg_action_showDebugOptions": "Mostrar opciones de depuración",
+    "dialog_about_translations_title": "Traducciones",
+    "dialog_about_action_showLicenses": "Licencias",
+    "tutorial_page_0_title": "Bienvenido a Noterly",
+    "tutorial_page_0_subtitle": "Recordatorios de notificación simples",
+    "tutorial_page_0_content": "Aquí hay información básica para comenzar.",
+    "tutorial_page_1_title": "Recordatorios",
+    "tutorial_page_1_content": "Noterly está diseñado para recordatorios rápidos y sencillos. Puede encontrar una lista de tareas pendientes o una aplicación de calendario más adecuada para tareas más complejas.",
+    "tutorial_page_2_title": "Crear una notificación",
+    "tutorial_page_2_content": "Toque el botón flotante para crear una nueva notificación.",
+    "tutorial_page_2_confirmations": "¡Está bien!|¡Bien hecho!|¡Lo tienes!|¡Buen trabajo!",
+    "tutorial_page_3_title": "Administrar notificaciones",
+    "tutorial_page_3_content": "¿Terminaste tu tarea? Deslice la notificación de distancia. Para eliminar una notificación, vaya a la página de archivo y deslícela.",
+    "tutorial_page_3_example": "Deslizar para archivar o eliminar",
+    "tutorial_page_4_title": "Recordatorios de repetición",
+    "tutorial_page_4_content": "Puede posponer un recordatorio tocando el botón en la notificación. Personaliza la duración de la repetición en la configuración.",
+    "tutorial_page_5_title": "¡Eso es todo!",
+    "tutorial_page_5_content": "Estás listo para comenzar a usar Noterly. Siempre puede volver a este tutorial en la configuración.",
+    "tutorial_updatedExperienceText": "Estás viendo esto porque esta experiencia de tutorial se ha actualizado.",
+    "tutorial_action_back": "Atrás",
+    "tutorial_action_next": "Próximo",
+    "tutorial_action_done": "Hecho",
+    "tutorial_action_skip": "Saltar",
+    "general_ok": "OK",
+    "general_cancel": "Cancelar",
+    "general_undo": "Deshacer",
+    "general_close": "Cerrar",
+    "time_seconds": "{value, plural, =0{segundos} =1{segundo} other{segundos}}",
+    "@time_seconds": {
+        "description": "Used to pluralise second.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_seconds_value": "{value} segundos",
+    "@time_seconds_value": {
+        "description": "Used to display a number of seconds.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_minutes": "{value, plural, =0{minutos} =1{minuto} other{minutos}}",
+    "@time_minutes": {
+        "description": "Used to pluralise minute.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_minutes_value": "{value} minutos",
+    "@time_minutes_value": {
+        "description": "Used to display a number of minutes.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hours": "{value, plural, =0{hora} =1{horas} other{horas}}",
+    "@time_hours": {
+        "description": "Used to pluralise hour.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hours_value": "{value} horas",
+    "@time_hours_value": {
+        "description": "Used to display a number of hours.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_days": "{value, plural, =0{días} =1{día} other{días}}",
+    "@time_days": {
+        "description": "Used to pluralise day.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_days_value": "{value} días",
+    "@time_days_value": {
+        "description": "Used to display a number of days.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_weeks": "{value, plural, =0{semanas} =1{semana} other{semanas}}",
+    "@time_weeks": {
+        "description": "Used to pluralise week.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_weeks_value": "{value} semanas",
+    "@time_weeks_value": {
+        "description": "Used to display a number of weeks.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_months": "{value, plural, =0{meses} =1{mes} other{meses}}",
+    "@time_months": {
+        "description": "Used to pluralise month.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_months_value": "{value} meses",
+    "@time_months_value": {
+        "description": "Used to display a number of months.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_years": "{value, plural, =0{años} =1{año} other{años}}",
+    "@time_years": {
+        "description": "Used to pluralise year.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_years_value": "{value} años",
+    "@time_years_value": {
+        "description": "Used to display a number of years.",
+        "placeholders": {
+            "value": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            }
+        }
+    },
+    "time_hourly": "cada hora",
+    "time_daily": "diariamente",
+    "time_weekly": "semanalmente",
+    "time_monthly": "mensualmente",
+    "time_yearly": "anualmente",
+    "time_repetition_every_value": "cada {number} {type}",
+    "@time_repetition_every_value": {
+        "description": "Used to display a repeat duration.",
+        "placeholders": {
+            "number": {
+                "type": "num",
+                "format": "compact",
+                "example": "1"
+            },
+            "type": {
+                "type": "String",
+                "example": "hour(s)"
+            }
+        }
+    },
+    "time_snooze_until": "hasta el {dateTimeString}",
+    "@time_snooze_until": {
+        "description": "Used to display a snooze duration.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "tomorrow"
+            }
+        }
+    },
+    "time_todayAndTime": "Hoy, {timeString}",
+    "@time_todayAndTime": {
+        "description": "Used to display a time today.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_yesterdayAndTime": "Ayer, {timeString}",
+    "@time_yesterdayAndTime": {
+        "description": "Used to display a time yesterday.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_tomorrowAndTime": "Mañana, {timeString}",
+    "@time_tomorrowAndTime": {
+        "description": "Used to display a time tomorrow.",
+        "placeholders": {
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    },
+    "time_dateAndTime": "{dateTimeString}, {timeString}",
+    "@time_dateAndTime": {
+        "description": "Used to display a date and time.",
+        "placeholders": {
+            "dateTimeString": {
+                "type": "String",
+                "example": "yesterday"
+            },
+            "timeString": {
+                "type": "String",
+                "example": "12:00"
+            }
+        }
+    }
+}
