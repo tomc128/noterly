@@ -26,6 +26,7 @@
                 "flutter",
                 "build",
                 "appbundle",
+                "--flavor=${input:flavour}",
                 "--build-name=${input:versionName}",
                 "--build-number=${input:versionCode}",
                 "--split-debug-info=build/app/outputs/symbols",
@@ -52,7 +53,7 @@
         {
             "id": "versionName",
             "type": "promptString",
-            "description": "Set the version name, i.e. '1.0.0'",
+            "description": "Set the version name, i.e. '1.0.0', '1.0.0-beta.2",
         },
         {
             "id": "versionCode",
@@ -67,6 +68,15 @@
                 "stable",
                 "beta",
                 "personalTest",
+            ]
+        },
+        {
+            "id": "flavour",
+            "type": "pickString",
+            "description": "Set the flavour. 'production' should be used for stable and beta releases, 'dev' for personalTest",
+            "options": [
+                "dev",
+                "production",
             ]
         }
     ]
