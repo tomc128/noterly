@@ -139,7 +139,7 @@ class _MainPageState extends State<MainPage> {
                   count: activeNotifications.length,
                   child: Icon(activeNotifications.isNotEmpty ? Icons.notifications : Icons.notifications_none),
                 ),
-                label: Strings.of(context).page_archivedNotifications_label,
+                label: Strings.of(context).page_activeNotifications_label,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.history),
