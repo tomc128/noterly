@@ -8,6 +8,7 @@ import 'package:noterly/models/notification_item.dart';
 
 import 'log.dart';
 
+@pragma('vm:entry-point')
 class AppManager {
   static final AppManager _instance = AppManager._internal();
 
@@ -99,7 +100,8 @@ class AppManager {
     return found.isEmpty ? null : found.first;
   }
 
-  Future addItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
+  Future addItem(NotificationItem item,
+      {bool deferNotificationManagerCall = false}) async {
     notifier.value.add(item);
     await _save();
     _updateNotifier();
@@ -109,7 +111,8 @@ class AppManager {
     }
   }
 
-  Future editItem(NotificationItem item, {bool deferNotificationManagerCall = false}) async {
+  Future editItem(NotificationItem item,
+      {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == item.id);
     if (found.isEmpty) {
       return;
@@ -125,7 +128,8 @@ class AppManager {
     }
   }
 
-  Future deleteItem(String id, {bool deferNotificationManagerCall = false}) async {
+  Future deleteItem(String id,
+      {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -142,8 +146,10 @@ class AppManager {
     }
   }
 
-  Future deleteAllArchivedItems({bool deferNotificationManagerCall = false}) async {
-    var archivedItems = notifier.value.where((element) => element.archived).toList();
+  Future deleteAllArchivedItems(
+      {bool deferNotificationManagerCall = false}) async {
+    var archivedItems =
+        notifier.value.where((element) => element.archived).toList();
     if (archivedItems.isEmpty) {
       return;
     }
@@ -178,7 +184,8 @@ class AppManager {
     }
   }
 
-  Future restoreArchivedItem(String id, {bool deferNotificationManagerCall = false}) async {
+  Future restoreArchivedItem(String id,
+      {bool deferNotificationManagerCall = false}) async {
     var found = notifier.value.where((element) => element.id == id);
     if (found.isEmpty) {
       return;
@@ -191,17 +198,20 @@ class AppManager {
     _updateNotifier();
 
     if (!deferNotificationManagerCall) {
-      NotificationManager.instance.showOrUpdateNotification(notifier.value[index]);
+      NotificationManager.instance
+          .showOrUpdateNotification(notifier.value[index]);
     }
   }
 
-  Future restoreLastDeletedItems({bool deferNotificationManagerCall = false}) async {
+  Future restoreLastDeletedItems(
+      {bool deferNotificationManagerCall = false}) async {
     if (deletedItems.isEmpty) {
       return;
     }
 
     for (var item in deletedItems) {
-      await addItem(item!, deferNotificationManagerCall: deferNotificationManagerCall);
+      await addItem(item!,
+          deferNotificationManagerCall: deferNotificationManagerCall);
     }
 
     deletedItems = [];

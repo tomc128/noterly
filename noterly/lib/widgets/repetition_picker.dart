@@ -37,7 +37,8 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
   void initState() {
     super.initState();
 
-    _intervalController = TextEditingController(text: widget.initialRepetitionData.number.toString());
+    _intervalController = TextEditingController(
+        text: widget.initialRepetitionData.number.toString());
 
     _repetitionData = widget.initialRepetitionData;
   }
@@ -55,8 +56,10 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
 
     // The header should use the primary color in light themes and surface color in dark
     final bool isDark = colorScheme.brightness == Brightness.dark;
-    final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
-    final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+    final Color primarySurfaceColor =
+        isDark ? colorScheme.surface : colorScheme.primary;
+    final Color onPrimarySurfaceColor =
+        isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
     return Dialog(
       child: Column(
@@ -66,7 +69,8 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(24)),
               color: primarySurfaceColor,
             ),
             child: Column(
@@ -74,17 +78,24 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               children: [
                 Text(
                   translate('dialog.picker.repetition.title'),
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  translate('dialog.picker.repetition.subtitle', args: {'duration': _repetitionData.toReadableString()}),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
+                  translate('dialog.picker.repetition.subtitle',
+                      args: {'duration': _repetitionData.toReadableString()}),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
             ),
           ),
           _getMainSection(),
-          ButtonBar(
+          OverflowBar(
             children: [
               TextButton(
                 onPressed: () {
@@ -114,7 +125,8 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.repetition.field.number.label'),
+                  labelText:
+                      translate('dialog.picker.repetition.field.number.label'),
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -146,16 +158,32 @@ class _RepetitionPickerState extends State<RepetitionPicker> {
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.repetition.field.period.label'),
+                  labelText:
+                      translate('dialog.picker.repetition.field.period.label'),
                 ),
                 items: [
-                  DropdownMenuItem(value: Repetition.hourly, child: Text(translate('time.hour${_repetitionData.number == 1 ? '' : 's'}'))),
-                  DropdownMenuItem(value: Repetition.daily, child: Text(translate('time.day${_repetitionData.number == 1 ? '' : 's'}'))),
-                  DropdownMenuItem(value: Repetition.weekly, child: Text(translate('time.week${_repetitionData.number == 1 ? '' : 's'}'))),
-                  DropdownMenuItem(value: Repetition.monthly, child: Text(translate('time.month${_repetitionData.number == 1 ? '' : 's'}'))),
-                  DropdownMenuItem(value: Repetition.yearly, child: Text(translate('time.year${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: Repetition.hourly,
+                      child: Text(translate(
+                          'time.hour${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: Repetition.daily,
+                      child: Text(translate(
+                          'time.day${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: Repetition.weekly,
+                      child: Text(translate(
+                          'time.week${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: Repetition.monthly,
+                      child: Text(translate(
+                          'time.month${_repetitionData.number == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: Repetition.yearly,
+                      child: Text(translate(
+                          'time.year${_repetitionData.number == 1 ? '' : 's'}'))),
                 ],
-                value: _repetitionData.type,
+                initialValue: _repetitionData.type,
                 onChanged: (value) {
                   setState(() {
                     _repetitionData.type = value!;

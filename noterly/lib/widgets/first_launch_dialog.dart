@@ -9,11 +9,11 @@ class FirstLaunchDialog extends Dialog {
   final Function onComplete;
   final bool isShownAfterUpdate;
 
-  FirstLaunchDialog({
-    Key? key,
+  const FirstLaunchDialog({
+    super.key,
     required this.onComplete,
     this.isShownAfterUpdate = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,8 @@ class FirstLaunchDialog extends Dialog {
             ];
             var message = messages[DateTime.now().second % messages.length];
             ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(message)));
           },
           label: Text(translate('main.action.new')),
           icon: const Icon(Icons.add),
@@ -104,9 +105,13 @@ class FirstLaunchDialog extends Dialog {
       child: StatefulBuilder(
         builder: (context, setState) {
           var hasSubtitle = pages[currentPage].subtitle != null;
-          Widget subtitle = hasSubtitle ? Text(pages[currentPage].subtitle!, style: Theme.of(context).textTheme.titleMedium) : const SizedBox();
+          Widget subtitle = hasSubtitle
+              ? Text(pages[currentPage].subtitle!,
+                  style: Theme.of(context).textTheme.titleMedium)
+              : const SizedBox();
 
-          var hasChild = !(pages[currentPage].child == null && pages[currentPage].image == null);
+          var hasChild = !(pages[currentPage].child == null &&
+              pages[currentPage].image == null);
           Widget child = Padding(
             padding: EdgeInsets.symmetric(vertical: hasChild ? 16 : 8),
             child: pages[currentPage].child ?? const SizedBox(),
@@ -119,10 +124,12 @@ class FirstLaunchDialog extends Dialog {
                   children: [
                     Icon(pages[currentPage].icon),
                     const SizedBox(width: 16),
-                    Text(pages[currentPage].title, style: Theme.of(context).textTheme.titleLarge),
+                    Text(pages[currentPage].title,
+                        style: Theme.of(context).textTheme.titleLarge),
                   ],
                 )
-              : Text(pages[currentPage].title, style: Theme.of(context).textTheme.titleLarge);
+              : Text(pages[currentPage].title,
+                  style: Theme.of(context).textTheme.titleLarge);
           var content = Text(pages[currentPage].content);
 
           return Column(
@@ -141,17 +148,18 @@ class FirstLaunchDialog extends Dialog {
                     content,
                     if (isShownAfterUpdate && currentPage == 0) ...[
                       const SizedBox(height: 16),
-                      Text(translate('tutorial.updated_experience_text'), style: Theme.of(context).textTheme.labelSmall),
+                      Text(translate('tutorial.updated_experience_text'),
+                          style: Theme.of(context).textTheme.labelSmall),
                     ],
                   ],
                 ),
               ),
               DotsIndicator(
                 dotsCount: pages.length,
-                position: currentPage,
+                position: currentPage.toDouble(),
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
-              ButtonBar(
+              OverflowBar(
                 children: [
                   TextButton(
                     onPressed: () {
@@ -164,7 +172,9 @@ class FirstLaunchDialog extends Dialog {
                         });
                       }
                     },
-                    child: Text(translate(currentPage == 0 ? 'tutorial.action.skip' : 'tutorial.action.back')),
+                    child: Text(translate(currentPage == 0
+                        ? 'tutorial.action.skip'
+                        : 'tutorial.action.back')),
                   ),
                   TextButton(
                     onPressed: () {
@@ -177,7 +187,9 @@ class FirstLaunchDialog extends Dialog {
                         });
                       }
                     },
-                    child: Text(translate(currentPage == pages.length - 1 ? 'tutorial.action.done' : 'tutorial.action.next')),
+                    child: Text(translate(currentPage == pages.length - 1
+                        ? 'tutorial.action.done'
+                        : 'tutorial.action.next')),
                   ),
                 ],
               ),
@@ -212,7 +224,6 @@ class _LaunchDialogPage {
     required this.title,
     this.subtitle,
     required this.content,
-    this.image,
     this.child,
     this.icon,
   });

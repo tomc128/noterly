@@ -11,13 +11,16 @@ class IsolateManager {
 
   static void init() {
     // Register the port with the main isolate
-    var registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, mainPortName);
+    var registerResult = IsolateNameServer.registerPortWithName(
+        mainRecievePort.sendPort, mainPortName);
     if (!registerResult) {
       IsolateNameServer.removePortNameMapping(mainPortName);
-      registerResult = IsolateNameServer.registerPortWithName(mainRecievePort.sendPort, mainPortName);
+      registerResult = IsolateNameServer.registerPortWithName(
+          mainRecievePort.sendPort, mainPortName);
 
       if (!registerResult) {
-        throw IsolateSpawnException('Failed to register port with main isolate (x2)');
+        throw IsolateSpawnException(
+            'Failed to register port with main isolate (x2)');
       }
     }
 

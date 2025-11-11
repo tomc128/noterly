@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
@@ -42,23 +41,23 @@ class ArchivedNotificationsPage extends NavigationScreen {
               onPressed: () {
                 AppManager.instance.deleteAllArchivedItems();
 
-                ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars
+                ScaffoldMessenger.of(context)
+                    .clearSnackBars(); // Clear any existing snackbars
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(translate('snackbar.all_archived_notifications_deleted')),
+                    content: Text(translate(
+                        'snackbar.all_archived_notifications_deleted')),
                     action: SnackBarAction(
                       label: translate('general.undo'),
                       onPressed: () {
                         AppManager.instance.restoreLastDeletedItems();
-                        FirebaseAnalytics.instance.logEvent(name: 'restore_all_deleted_items');
                       },
                     ),
                   ),
                 );
-
-                FirebaseAnalytics.instance.logEvent(name: 'delete_all_archived_items');
               },
-              child: Text(translate('page.archived_notifications.button.delete_all')),
+              child: Text(
+                  translate('page.archived_notifications.button.delete_all')),
             ),
           );
         }
@@ -68,26 +67,23 @@ class ArchivedNotificationsPage extends NavigationScreen {
         return Dismissible(
           key: ValueKey(item.id),
           background: _getDismissibleBackground(context),
-          secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
+          secondaryBackground:
+              _getDismissibleBackground(context, isSecondary: true),
           onDismissed: (direction) {
             AppManager.instance.deleteItem(item.id);
-            ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars to prevent buildup
+            ScaffoldMessenger.of(context)
+                .clearSnackBars(); // Clear any existing snackbars to prevent buildup
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(translate('snackbar.notification_deleted', args: {'title': item.title})),
+                content: Text(translate('snackbar.notification_deleted',
+                    args: {'title': item.title})),
                 action: SnackBarAction(
                   label: translate('general.undo'),
                   onPressed: () {
                     AppManager.instance.restoreLastDeletedItems();
-                    FirebaseAnalytics.instance.logEvent(name: 'restore_deleted_item');
                   },
                 ),
               ),
-            );
-
-            FirebaseAnalytics.instance.logEvent(
-              name: 'delete_item',
-              parameters: {'from': 'archived_notifications_page'},
             );
           },
           child: ListTile(
@@ -111,7 +107,9 @@ class ArchivedNotificationsPage extends NavigationScreen {
     );
   }
 
-  Widget _getDismissibleBackground(BuildContext context, {bool isSecondary = false}) => Container(
+  Widget _getDismissibleBackground(BuildContext context,
+          {bool isSecondary = false}) =>
+      Container(
         color: Theme.of(context).colorScheme.primary,
         child: Align(
           alignment: isSecondary ? Alignment.centerRight : Alignment.centerLeft,
@@ -135,7 +133,10 @@ class ArchivedNotificationsPage extends NavigationScreen {
               const SizedBox(width: 6),
               Flexible(
                 child: Text(
-                  translate('page.archived_notifications.item.archived', args: {'date_time': item.archivedDateTime!.toRelativeDateTimeString()}),
+                  translate('page.archived_notifications.item.archived', args: {
+                    'date_time':
+                        item.archivedDateTime!.toRelativeDateTimeString()
+                  }),
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
@@ -144,7 +145,8 @@ class ArchivedNotificationsPage extends NavigationScreen {
         ],
       );
 
-  void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(
+  void _onItemTap(BuildContext context, NotificationItem item) =>
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => EditNotificationPage(
             item: item,

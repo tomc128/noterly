@@ -78,8 +78,10 @@ class _ColourPickerState extends State<ColourPicker> {
 
     // The header should use the primary color in light themes and surface color in dark
     final bool isDark = colorScheme.brightness == Brightness.dark;
-    final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
-    final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+    final Color primarySurfaceColor =
+        isDark ? colorScheme.surface : colorScheme.primary;
+    final Color onPrimarySurfaceColor =
+        isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
     return Dialog(
       child: SingleChildScrollView(
@@ -90,12 +92,16 @@ class _ColourPickerState extends State<ColourPicker> {
             Container(
               padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(24)),
                 color: primarySurfaceColor,
               ),
               child: Text(
                 translate('dialog.picker.colour.title'),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: onPrimarySurfaceColor),
               ),
             ),
             GridView.builder(
@@ -124,19 +130,27 @@ class _ColourPickerState extends State<ColourPicker> {
                       borderRadius: BorderRadius.circular(16),
                       color: colour,
                       border: Border.all(
-                        color: _colour == colour ? Theme.of(context).colorScheme.primary : Colors.transparent,
+                        color: _colour == colour
+                            ? Theme.of(context).colorScheme.primary
+                            : Colors.transparent,
                         width: 2,
                       ),
                       boxShadow: [
-                        BoxShadow(color: colour.withOpacity(0.5), blurRadius: 2, offset: const Offset(0, 2)),
-                        BoxShadow(color: colour.withOpacity(0.25), blurRadius: 5, offset: const Offset(0, 5)),
+                        BoxShadow(
+                            color: colour.withOpacity(0.5),
+                            blurRadius: 2,
+                            offset: const Offset(0, 2)),
+                        BoxShadow(
+                            color: colour.withOpacity(0.25),
+                            blurRadius: 5,
+                            offset: const Offset(0, 5)),
                       ],
                     ),
                   ),
                 );
               },
             ),
-            ButtonBar(
+            OverflowBar(
               children: [
                 TextButton(
                   onPressed: () {

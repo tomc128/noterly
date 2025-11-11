@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -14,7 +12,7 @@ import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/first_launch_dialog.dart';
-import 'package:system_settings/system_settings.dart';
+import 'package:system_settings_2/system_settings_2.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
@@ -58,8 +56,10 @@ class _SettingsPageState extends State<SettingsPage> {
           _getHeader(translate('page.settings.header.notifications')),
           _getCard(context, [
             ListTile(
-              title: Text(translate('page.settings.notifications.snooze_duration')),
-              subtitle: Text(AppManager.instance.data.snoozeDuration.toRelativeDurationString()),
+              title: Text(
+                  translate('page.settings.notifications.snooze_duration')),
+              subtitle: Text(AppManager.instance.data.snoozeDuration
+                  .toRelativeDurationString()),
               leading: const Icon(Icons.snooze),
               trailing: const Icon(Icons.chevron_right),
               minVerticalPadding: 12,
@@ -71,7 +71,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   if (value == null) return;
                   setState(() {
                     AppManager.instance.data.snoozeDuration = value;
-                    AppManager.instance.data.snoozeToastText = translate('toast.notification_snoozed', args: {'duration': value.toRelativeDurationString()});
+                    AppManager.instance.data.snoozeToastText = translate(
+                        'toast.notification_snoozed',
+                        args: {'duration': value.toRelativeDurationString()});
                   });
                   AppManager.instance.saveSettings();
                 });
@@ -82,7 +84,8 @@ class _SettingsPageState extends State<SettingsPage> {
           _getHeader(translate('page.settings.header.system')),
           _getCard(context, [
             ListTile(
-              title: Text(translate('page.settings.system.notification_settings')),
+              title:
+                  Text(translate('page.settings.system.notification_settings')),
               leading: const Icon(Icons.notifications),
               trailing: const Icon(Icons.open_in_new),
               minVerticalPadding: 12,
@@ -94,13 +97,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     SystemSettings.app();
                   } catch (_) {
                     Log.logger.e('Failed to open system settings');
-                    await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to open system settings');
                   }
                 }
-
-                await FirebaseAnalytics.instance.logEvent(
-                  name: 'open_notification_settings',
-                );
               },
             )
           ]),
@@ -115,10 +113,6 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () async {
                 var uri = Uri.parse('https://ko-fi.com/tomchapman128');
                 await _launchUrl(uri);
-
-                await FirebaseAnalytics.instance.logEvent(
-                  name: 'open_donation_link',
-                );
               },
             )
           ]),
@@ -128,13 +122,17 @@ class _SettingsPageState extends State<SettingsPage> {
               title: Text(translate('page.settings.about.version.title')),
               subtitle: Builder(
                 builder: (BuildContext context) {
-                  if (BuildInfo.releaseType == ReleaseType.stable) return const Text(BuildInfo.appVersion);
+                  if (BuildInfo.releaseType == ReleaseType.stable) {
+                    return const Text(BuildInfo.appVersion);
+                  }
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${BuildInfo.releaseType.name} release', style: const TextStyle(color: Colors.amber)),
-                      const Text('${BuildInfo.appVersion} (${BuildInfo.branch})'),
+                      Text('${BuildInfo.releaseType.name} release',
+                          style: const TextStyle(color: Colors.amber)),
+                      const Text(
+                          '${BuildInfo.appVersion} (${BuildInfo.branch})'),
                     ],
                   );
                 },
@@ -162,7 +160,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             setState(() => _debugOptions = true);
                             Navigator.of(context).pop();
                           },
-                          child: Text(translate('dialog_easter_egg.action.show_debug_options')),
+                          child: Text(translate(
+                              'dialog_easter_egg.action.show_debug_options')),
                         ),
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
@@ -171,10 +170,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       ],
                     ),
                     barrierDismissible: false,
-                  );
-
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'easter_egg',
                   );
                 }
               },
@@ -192,14 +187,20 @@ class _SettingsPageState extends State<SettingsPage> {
                     return AlertDialog(
                       title: Column(
                         children: [
-                          Text('Noterly', style: Theme.of(context).textTheme.titleLarge),
+                          Text('Noterly',
+                              style: Theme.of(context).textTheme.titleLarge),
                           if (BuildInfo.releaseType != ReleaseType.stable)
                             Text('${BuildInfo.releaseType.name} release',
-                                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
                                       color: Colors.amber,
                                     )),
                           Text(
-                            BuildInfo.releaseType == ReleaseType.stable ? BuildInfo.appVersion : '${BuildInfo.appVersion} (${BuildInfo.branch})',
+                            BuildInfo.releaseType == ReleaseType.stable
+                                ? BuildInfo.appVersion
+                                : '${BuildInfo.appVersion} (${BuildInfo.branch})',
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
@@ -209,27 +210,27 @@ class _SettingsPageState extends State<SettingsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(translate('page.settings.about.licenses.page.legalese')),
+                            Text(translate(
+                                'page.settings.about.licenses.page.legalese')),
                             const SizedBox(height: 16),
-                            Text(translate('dialog.about.translations.title'), style: Theme.of(context).textTheme.titleMedium),
+                            Text(translate('dialog.about.translations.title'),
+                                style: Theme.of(context).textTheme.titleMedium),
                             const Text(_copyrightText),
                             const SizedBox(height: 16),
-                            ButtonBar(
+                            OverflowBar(
                               children: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                     showLicensePage(
                                       context: context,
-                                      applicationLegalese: translate('page.settings.about.licenses.page.legalese'),
+                                      applicationLegalese: translate(
+                                          'page.settings.about.licenses.page.legalese'),
                                       applicationVersion: BuildInfo.appVersion,
                                     );
-
-                                    FirebaseAnalytics.instance.logEvent(
-                                      name: 'open_licenses',
-                                    );
                                   },
-                                  child: Text(translate('dialog.about.action.show_licenses')),
+                                  child: Text(translate(
+                                      'dialog.about.action.show_licenses')),
                                 ),
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
@@ -242,10 +243,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     );
                   },
-                );
-
-                FirebaseAnalytics.instance.logEvent(
-                  name: 'open_about_dialog',
                 );
               },
             ),
@@ -270,17 +267,14 @@ class _SettingsPageState extends State<SettingsPage> {
             context,
             [
               ListTile(
-                title: Text(translate('page.settings.about.privacy_policy.title')),
+                title:
+                    Text(translate('page.settings.about.privacy_policy.title')),
                 leading: const Icon(Icons.privacy_tip),
                 trailing: const Icon(Icons.open_in_new),
                 minVerticalPadding: 12,
                 onTap: () async {
                   var uri = Uri.parse('https://tdsstudios.co.uk/privacy');
                   await _launchUrl(uri);
-
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'open_privacy_policy',
-                  );
                 },
               ),
               ListTile(
@@ -291,10 +285,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () async {
                   var uri = Uri.parse('https://forms.gle/5HZNjmr5wF1t4r8q6');
                   await _launchUrl(uri);
-
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'open_feedback_form',
-                  );
                 },
               ),
               ListTile(
@@ -305,10 +295,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () async {
                   var uri = Uri.parse('https://forms.gle/qzaLRZk7JTbjqsq86');
                   await _launchUrl(uri);
-
-                  await FirebaseAnalytics.instance.logEvent(
-                    name: 'open_translate_form',
-                  );
                 },
               )
             ],
@@ -326,7 +312,6 @@ class _SettingsPageState extends State<SettingsPage> {
       }
     } on Exception catch (e) {
       Log.logger.e('Failed to launch URL: $uri [$e]');
-      await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to launch URL: $uri');
     }
   }
 
@@ -347,7 +332,9 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 String randomString() {
                   const chars = 'abcdefghijklmnopqrstuvwxyz';
-                  return List.generate(10, (index) => chars[Random().nextInt(chars.length)]).join();
+                  return List.generate(
+                          10, (index) => chars[Random().nextInt(chars.length)])
+                      .join();
                 }
 
                 for (var i = 0; i < 10; i++) {
@@ -359,20 +346,24 @@ class _SettingsPageState extends State<SettingsPage> {
                   RepetitionData? repetitionData;
 
                   if (shouldBeRepeating) {
-                    scheduledTime = DateTime.now().add(Duration(days: Random().nextInt(10) + 1));
+                    scheduledTime = DateTime.now()
+                        .add(Duration(days: Random().nextInt(10) + 1));
                     repetitionData = RepetitionData(
                       number: Random().nextInt(5) + 1,
-                      type: Repetition.values[Random().nextInt(Repetition.values.length)],
+                      type: Repetition
+                          .values[Random().nextInt(Repetition.values.length)],
                     );
                   } else if (shouldBeScheduled) {
-                    scheduledTime = DateTime.now().add(Duration(days: Random().nextInt(10) + 1));
+                    scheduledTime = DateTime.now()
+                        .add(Duration(days: Random().nextInt(10) + 1));
                     repetitionData = null;
                   } else {
                     scheduledTime = null;
                     repetitionData = null;
                   }
 
-                  Color colour = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+                  Color colour = Colors
+                      .primaries[Random().nextInt(Colors.primaries.length)];
 
                   var item = NotificationItem(
                     id: const Uuid().v4(),
@@ -405,21 +396,13 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
-              title: const Text('Send test analytics event'),
-              trailing: const Icon(Icons.chevron_right),
-              leading: const Icon(Icons.analytics),
-              minVerticalPadding: 12,
-              onTap: () {
-                FirebaseAnalytics.instance.logEvent(name: 'test');
-              },
-            ),
-            ListTile(
               title: const Text('Delete all app data'),
               trailing: const Icon(Icons.chevron_right),
               leading: const Icon(Icons.delete_forever),
               minVerticalPadding: 12,
               onTap: () {
-                FileManager.delete().then((value) => AppManager.instance.fullUpdate());
+                FileManager.delete()
+                    .then((value) => AppManager.instance.fullUpdate());
               },
             ),
           ],
@@ -434,7 +417,10 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         shadowColor: Colors.transparent,
         child: Column(
-          children: children.expand((child) => [child, _getDivider(context)]).take(children.length * 2 - 1).toList(),
+          children: children
+              .expand((child) => [child, _getDivider(context)])
+              .take(children.length * 2 - 1)
+              .toList(),
         ),
       );
 
@@ -449,6 +435,6 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _getDivider(BuildContext context) => Divider(
         thickness: 2,
         height: 2,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       );
 }

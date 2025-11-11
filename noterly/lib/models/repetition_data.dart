@@ -41,7 +41,10 @@ class RepetitionData {
     if (number == 1) {
       return translate(type.lyTranslationKey); // i.e. 'hourly'
     } else {
-      return translate('time.repetition.every.value', args: {'number': number, 'type': translate(type.sTranslationKey)}); // i.e. 'every 2 hours'
+      return translate('time.repetition.every.value', args: {
+        'number': number,
+        'type': translate(type.sTranslationKey)
+      }); // i.e. 'every 2 hours'
     }
   }
 }

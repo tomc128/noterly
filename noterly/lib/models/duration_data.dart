@@ -41,7 +41,10 @@ class DurationData {
     if (number == 1) {
       return translate(type.translationKey); // i.e. 'hour'
     } else {
-      return translate('time.repetition.every.value', args: {'number': number, 'type': translate(type.sTranslationKey)}); // i.e. '2 hours'
+      return translate('time.repetition.every.value', args: {
+        'number': number,
+        'type': translate(type.sTranslationKey)
+      }); // i.e. '2 hours'
     }
   }
 }
