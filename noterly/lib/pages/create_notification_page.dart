@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
@@ -35,7 +34,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   late DateTime _dateTime;
 
   // Duration _duration = const Duration(days: 1);
-  RepetitionData _repetitionData = RepetitionData(number: 1, type: Repetition.daily);
+  RepetitionData _repetitionData =
+      RepetitionData(number: 1, type: Repetition.daily);
 
   late Color _colour;
 
@@ -46,7 +46,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
     var now = DateTime.now();
     _dateTime = DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
 
-    _colour = ColourPicker.colours.values.elementAt(DateTime.now().second % ColourPicker.colours.length);
+    _colour = ColourPicker.colours.values
+        .elementAt(DateTime.now().second % ColourPicker.colours.length);
 
     super.initState();
   }
@@ -63,7 +64,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(translate('page.create_notification.title'), overflow: TextOverflow.fade),
+        title: Text(translate('page.create_notification.title'),
+            overflow: TextOverflow.fade),
       ),
       body: Form(
         key: _formKey,
@@ -80,10 +82,14 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
-                    labelText: translate('page.create_notification.details.field.title.label'),
+                    labelText: translate(
+                        'page.create_notification.details.field.title.label'),
                     border: InputBorder.none,
                   ),
-                  validator: (value) => value!.isEmpty ? translate('page.create_notification.details.field.title.error') : null,
+                  validator: (value) => value!.isEmpty
+                      ? translate(
+                          'page.create_notification.details.field.title.error')
+                      : null,
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
@@ -94,17 +100,20 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
-                    labelText: translate('page.create_notification.details.field.body.label'),
+                    labelText: translate(
+                        'page.create_notification.details.field.body.label'),
                     border: InputBorder.none,
                   ),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
               ListTile(
-                title: Text(translate('page.create_notification.details.field.colour.label')),
+                title: Text(translate(
+                    'page.create_notification.details.field.colour.label')),
                 leading: ItemListDecoration(colour: _colour),
                 onTap: () {
-                  showColourPicker(context: context, initialColour: _colour).then((value) {
+                  showColourPicker(context: context, initialColour: _colour)
+                      .then((value) {
                     if (value != null) {
                       setState(() {
                         _colour = value;
@@ -119,7 +128,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
             _getCard([
               SwitchListTile(
                 value: _isScheduled,
-                title: Text(translate('page.create_notification.timing.schedule.title')),
+                title: Text(translate(
+                    'page.create_notification.timing.schedule.title')),
                 secondary: const Icon(Icons.calendar_today),
                 onChanged: _isRepeating
                     ? null
@@ -131,8 +141,10 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ),
               if (_isScheduled)
                 ListTile(
-                  title: Text(translate('page.create_notification.timing.schedule.subtitle')),
-                  subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  title: Text(translate(
+                      'page.create_notification.timing.schedule.subtitle')),
+                  subtitle: Text(
+                      _dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
                   minVerticalPadding: 12,
                   onTap: () {
                     showDateTimePicker(
@@ -153,7 +165,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
                 ),
               SwitchListTile(
                 value: _isRepeating,
-                title: Text(translate('page.create_notification.timing.repeat.title')),
+                title: Text(
+                    translate('page.create_notification.timing.repeat.title')),
                 secondary: const Icon(Icons.repeat),
                 onChanged: (value) {
                   setState(() {
@@ -167,7 +180,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               ),
               if (_isRepeating)
                 ListTile(
-                  title: Text(translate('page.create_notification.timing.repeat.subtitle')),
+                  title: Text(translate(
+                      'page.create_notification.timing.repeat.subtitle')),
                   subtitle: Text(_repetitionData.toReadableString()),
                   minVerticalPadding: 12,
                   onTap: () {
@@ -188,7 +202,8 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
               _getSpacer(),
               ListTile(
                 leading: const Icon(Icons.info),
-                subtitle: Text(translate('page.create_notification.timing.repeat.info')),
+                subtitle: Text(
+                    translate('page.create_notification.timing.repeat.info')),
               ),
             ],
           ],
@@ -209,14 +224,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
             ),
           );
 
-          await FirebaseAnalytics.instance.logEvent(
-            name: 'create_item',
-            parameters: {
-              'is_scheduled': _isScheduled ? 'yes' : 'no',
-              'is_repeating': _isRepeating ? 'yes' : 'no',
-            },
-          );
-
           if (mounted) {
             Navigator.of(context).pop();
           }
@@ -235,7 +242,10 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
         ),
         shadowColor: Colors.transparent,
         child: Column(
-          children: children.expand((child) => [child, _getDivider()]).take(children.length * 2 - 1).toList(),
+          children: children
+              .expand((child) => [child, _getDivider()])
+              .take(children.length * 2 - 1)
+              .toList(),
         ),
       );
 
@@ -246,6 +256,6 @@ class _CreateNotificationPageState extends State<CreateNotificationPage> {
   Widget _getDivider() => Divider(
         thickness: 2,
         height: 2,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       );
 }

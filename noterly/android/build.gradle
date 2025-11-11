@@ -1,31 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.8.10' // WAS: 1.7.10
-
-    ext {
-        compileSdkVersion = 33
-        targetSdkVersion = 33
-        minSdkVersion = 23 // INFO: 19 for Firebase, 23 is minimum for getActiveNotifications() function
-        appCompatVersion = "1.6.1" // INFO: Required for background_fetch plugin, was 1.4.2
-    }
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        // WAS: 7.1.2, 7.2.2, 7.3.0
-        // 7.3.0 and higher break
-        // all 7.x versions cause issues with gradle in IntelliJ
-        // therefore downgraded to 4.2.0, 4.2.2
-        // UPDATE: 4.2.2 no longer worked, updating to 7.2.2 fixed it and seems to work (flutter upgrade fixed?)
-        classpath 'com.android.tools.build:gradle:7.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        classpath 'com.google.gms:google-services:4.3.15' // INFO: Firebase manual installation
-    }
-}
-
 allprojects {
     repositories {
         google()
@@ -34,6 +6,19 @@ allprojects {
         // INFO: Required for background_fetch plugin
         maven {
             url "${project(':background_fetch').projectDir}/libs"
+        }
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                if (!hasProperty('namespace') || namespace == null || namespace.isEmpty()) {
+                    // Assign a default namespace based on the project name or group
+                    namespace = project.group.toString() ?: "uk.co.tdsstudios.${project.name}"
+                }
+            }
         }
     }
 }

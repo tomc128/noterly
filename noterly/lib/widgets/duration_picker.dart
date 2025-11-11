@@ -38,7 +38,9 @@ class _DurationPickerState extends State<DurationPicker> {
   void initState() {
     super.initState();
 
-    _value = widget.initialDuration.inHours > 0 ? widget.initialDuration.inHours : widget.initialDuration.inMinutes;
+    _value = widget.initialDuration.inHours > 0
+        ? widget.initialDuration.inHours
+        : widget.initialDuration.inMinutes;
     _intervalController = TextEditingController(text: _value.toString());
 
     _duration = widget.initialDuration;
@@ -57,8 +59,10 @@ class _DurationPickerState extends State<DurationPicker> {
 
     // The header should use the primary color in light themes and surface color in dark
     final bool isDark = colorScheme.brightness == Brightness.dark;
-    final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
-    final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+    final Color primarySurfaceColor =
+        isDark ? colorScheme.surface : colorScheme.primary;
+    final Color onPrimarySurfaceColor =
+        isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
     return Dialog(
       child: Column(
@@ -68,7 +72,8 @@ class _DurationPickerState extends State<DurationPicker> {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(24)),
               color: primarySurfaceColor,
             ),
             child: Column(
@@ -76,17 +81,24 @@ class _DurationPickerState extends State<DurationPicker> {
               children: [
                 Text(
                   translate('dialog.picker.duration.title'),
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: onPrimarySurfaceColor),
                 ),
                 Text(
-                  translate('dialog.picker.duration.subtitle', args: {'duration': _duration.toRelativeDurationString()}),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: onPrimarySurfaceColor),
+                  translate('dialog.picker.duration.subtitle',
+                      args: {'duration': _duration.toRelativeDurationString()}),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: onPrimarySurfaceColor),
                 ),
               ],
             ),
           ),
           _getMainSection(),
-          ButtonBar(
+          OverflowBar(
             children: [
               TextButton(
                 onPressed: () {
@@ -116,7 +128,8 @@ class _DurationPickerState extends State<DurationPicker> {
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.duration.field.number.label'),
+                  labelText:
+                      translate('dialog.picker.duration.field.number.label'),
                 ),
                 controller: _intervalController,
                 onChanged: (value) {
@@ -126,7 +139,9 @@ class _DurationPickerState extends State<DurationPicker> {
 
                   setState(() {
                     _value = number;
-                    _duration = _duration.inHours > 0 ? Duration(hours: number) : Duration(minutes: number);
+                    _duration = _duration.inHours > 0
+                        ? Duration(hours: number)
+                        : Duration(minutes: number);
                   });
                 },
                 onSubmitted: (value) {
@@ -134,7 +149,9 @@ class _DurationPickerState extends State<DurationPicker> {
 
                   setState(() {
                     _value = number;
-                    _duration = _duration.inHours > 0 ? Duration(hours: number) : Duration(minutes: number);
+                    _duration = _duration.inHours > 0
+                        ? Duration(hours: number)
+                        : Duration(minutes: number);
                     _intervalController.text = number.toString();
                   });
                 },
@@ -147,16 +164,25 @@ class _DurationPickerState extends State<DurationPicker> {
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: translate('dialog.picker.duration.field.period.label'),
+                  labelText:
+                      translate('dialog.picker.duration.field.period.label'),
                 ),
                 items: [
-                  DropdownMenuItem(value: 'hour', child: Text(translate('time.hour${_value == 1 ? '' : 's'}'))),
-                  DropdownMenuItem(value: 'minute', child: Text(translate('time.minute${_value == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: 'hour',
+                      child: Text(
+                          translate('time.hour${_value == 1 ? '' : 's'}'))),
+                  DropdownMenuItem(
+                      value: 'minute',
+                      child: Text(
+                          translate('time.minute${_value == 1 ? '' : 's'}'))),
                 ],
-                value: _duration.inHours > 0 ? 'hour' : 'minute',
+                initialValue: _duration.inHours > 0 ? 'hour' : 'minute',
                 onChanged: (value) {
                   setState(() {
-                    _duration = value == 'hour' ? Duration(hours: _value) : Duration(minutes: _value);
+                    _duration = value == 'hour'
+                        ? Duration(hours: _value)
+                        : Duration(minutes: _value);
                   });
                 },
               ),

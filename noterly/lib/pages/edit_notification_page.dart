@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:noterly/extensions/date_time_extensions.dart';
@@ -43,10 +42,12 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
     _item = widget.item;
 
     var now = DateTime.now();
-    _dateTime = _item.dateTime ?? DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
+    _dateTime = _item.dateTime ??
+        DateTime(now.year, now.month, now.day, now.hour + 1, 0, 0);
     _isScheduled = _item.dateTime != null;
 
-    _repetitionData = _item.repetitionData ?? RepetitionData(number: 1, type: Repetition.daily);
+    _repetitionData = _item.repetitionData ??
+        RepetitionData(number: 1, type: Repetition.daily);
     _isRepeating = _item.isRepeating;
 
     _titleController.text = _item.title;
@@ -77,24 +78,21 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             icon: const Icon(Icons.delete),
             onPressed: () {
               AppManager.instance.deleteItem(_item.id);
-              ScaffoldMessenger.of(context).clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
+              ScaffoldMessenger.of(context)
+                  .clearSnackBars(); // Clear any existing snackbars, as only one item can be restored.
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(translate('snackbar.notification_deleted', args: {'title': _item.title})),
+                  content: Text(translate('snackbar.notification_deleted',
+                      args: {'title': _item.title})),
                   action: SnackBarAction(
                     label: translate('general.undo'),
                     onPressed: () {
                       AppManager.instance.restoreLastDeletedItems();
-                      FirebaseAnalytics.instance.logEvent(name: 'restore_deleted_item');
                     },
                   ),
                 ),
               );
               Navigator.of(context).pop();
-              FirebaseAnalytics.instance.logEvent(
-                name: 'delete_item',
-                parameters: {'from': 'edit_notification_page'},
-              );
             },
           ),
         ],
@@ -113,10 +111,14 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
-                    labelText: translate('page.edit_notification.details.field.title.label'),
+                    labelText: translate(
+                        'page.edit_notification.details.field.title.label'),
                     border: InputBorder.none,
                   ),
-                  validator: (value) => value!.isEmpty ? translate('page.edit_notification.details.field.title.error') : null,
+                  validator: (value) => value!.isEmpty
+                      ? translate(
+                          'page.edit_notification.details.field.title.error')
+                      : null,
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
@@ -127,17 +129,21 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                   keyboardType: TextInputType.text,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
-                    labelText: translate('page.edit_notification.details.field.body.label'),
+                    labelText: translate(
+                        'page.edit_notification.details.field.body.label'),
                     border: InputBorder.none,
                   ),
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               ),
               ListTile(
-                title: Text(translate('page.edit_notification.details.field.colour.label')),
+                title: Text(translate(
+                    'page.edit_notification.details.field.colour.label')),
                 leading: ItemListDecoration(colour: _item.colour),
                 onTap: () {
-                  showColourPicker(context: context, initialColour: _item.colour).then((value) {
+                  showColourPicker(
+                          context: context, initialColour: _item.colour)
+                      .then((value) {
                     if (value != null) {
                       setState(() {
                         _item.colour = value;
@@ -152,7 +158,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
             _getCard([
               SwitchListTile(
                 value: _isScheduled,
-                title: Text(translate('page.edit_notification.timing.schedule.title')),
+                title: Text(
+                    translate('page.edit_notification.timing.schedule.title')),
                 secondary: const Icon(Icons.calendar_today),
                 onChanged: _isRepeating
                     ? null
@@ -164,8 +171,10 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ),
               if (_isScheduled)
                 ListTile(
-                  title: Text(translate('page.edit_notification.timing.schedule.subtitle')),
-                  subtitle: Text(_dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
+                  title: Text(translate(
+                      'page.edit_notification.timing.schedule.subtitle')),
+                  subtitle: Text(
+                      _dateTime.toRelativeDateTimeString(alwaysShowDay: true)),
                   minVerticalPadding: 12,
                   onTap: () {
                     showDateTimePicker(
@@ -186,7 +195,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
                 ),
               SwitchListTile(
                 value: _isRepeating,
-                title: Text(translate('page.edit_notification.timing.repeat.title')),
+                title: Text(
+                    translate('page.edit_notification.timing.repeat.title')),
                 secondary: const Icon(Icons.repeat),
                 onChanged: (value) {
                   setState(() {
@@ -200,7 +210,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               ),
               if (_isRepeating)
                 ListTile(
-                  title: Text(translate('page.edit_notification.timing.repeat.subtitle')),
+                  title: Text(translate(
+                      'page.edit_notification.timing.repeat.subtitle')),
                   subtitle: Text(_repetitionData.toReadableString()),
                   minVerticalPadding: 12,
                   onTap: () {
@@ -221,7 +232,8 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
               _getSpacer(),
               ListTile(
                 leading: const Icon(Icons.info),
-                subtitle: Text(translate('page.edit_notification.timing.repeat.info')),
+                subtitle: Text(
+                    translate('page.edit_notification.timing.repeat.info')),
               ),
             ],
           ],
@@ -242,20 +254,15 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
 
           await AppManager.instance.editItem(_item);
 
-          await FirebaseAnalytics.instance.logEvent(
-            name: itemWasArchived ? 'reactivate_item' : 'edit_item',
-            parameters: {
-              'is_scheduled': _isScheduled ? 'yes' : 'no',
-              'is_repeating': _isRepeating ? 'yes' : 'no',
-            },
-          );
-
           if (mounted) {
             Navigator.of(context).pop();
           }
         },
-        label: _item.archived ? Text(translate('main.action.reactivate')) : Text(translate('main.action.save')),
-        icon: _item.archived ? const Icon(Icons.restore) : const Icon(Icons.save),
+        label: _item.archived
+            ? Text(translate('main.action.reactivate'))
+            : Text(translate('main.action.save')),
+        icon:
+            _item.archived ? const Icon(Icons.restore) : const Icon(Icons.save),
       ),
     );
   }
@@ -268,7 +275,10 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
         ),
         shadowColor: Colors.transparent,
         child: Column(
-          children: children.expand((child) => [child, _getDivider()]).take(children.length * 2 - 1).toList(),
+          children: children
+              .expand((child) => [child, _getDivider()])
+              .take(children.length * 2 - 1)
+              .toList(),
         ),
       );
 
@@ -279,6 +289,6 @@ class _EditNotificationPageState extends State<EditNotificationPage> {
   Widget _getDivider() => Divider(
         thickness: 2,
         height: 2,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       );
 }

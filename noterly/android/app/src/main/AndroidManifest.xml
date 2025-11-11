@@ -4,12 +4,13 @@ INFO: xmlns:tools and tools:replace added for background_fetch plugin
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="uk.co.tdsstudios.noterly">
+          android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!-- Android 13+. Used instead of SCHEDULE_EXACT_ALARM. This is because Noterly's main use is notifications. -->
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
             android:name="${applicationName}"
@@ -19,7 +20,7 @@ INFO: xmlns:tools and tools:replace added for background_fetch plugin
 
         <!-- INFO: launchMode changed from singleTop to singleTask for share intent. -->
         <activity
-                android:name=".MainActivity"
+                android:name="uk.co.tdsstudios.noterly.MainActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
                 android:exported="true"
                 android:hardwareAccelerated="true"
@@ -79,6 +80,16 @@ INFO: xmlns:tools and tools:replace added for background_fetch plugin
                 android:windowSoftInputMode="adjustResize"
                 tools:ignore="Instantiatable"/>
 
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

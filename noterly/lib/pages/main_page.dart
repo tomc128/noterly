@@ -28,8 +28,10 @@ class _MainPageState extends State<MainPage> {
     initialPage: 0,
   );
 
-  final ScrollController _activeNotificationsPageScrollController = ScrollController();
-  final ScrollController _archivedNotificationsPageScrollController = ScrollController();
+  final ScrollController _activeNotificationsPageScrollController =
+      ScrollController();
+  final ScrollController _archivedNotificationsPageScrollController =
+      ScrollController();
 
   late final List<ScrollController> _scrollControllers;
 
@@ -51,12 +53,15 @@ class _MainPageState extends State<MainPage> {
     ];
 
     _activeNotificationsPageScrollController.addListener(() => setState(() {}));
-    _archivedNotificationsPageScrollController.addListener(() => setState(() {}));
+    _archivedNotificationsPageScrollController
+        .addListener(() => setState(() {}));
 
     NotificationManager.instance.requestAndroid13Permissions();
 
     // Ensure app manager has been initialised, then update notifications
-    AppManager.instance.ensureInitialised().then((value) => NotificationManager.instance.updateAllNotifications());
+    AppManager.instance
+        .ensureInitialised()
+        .then((value) => NotificationManager.instance.updateAllNotifications());
   }
 
   @override
@@ -81,8 +86,10 @@ class _MainPageState extends State<MainPage> {
     return ValueListenableBuilder(
       valueListenable: AppManager.instance.notifier,
       builder: (context, value, child) {
-        var activeNotifications = value.where((element) => !element.archived).toList();
-        var archivedNotifications = value.where((element) => element.archived).toList();
+        var activeNotifications =
+            value.where((element) => !element.archived).toList();
+        var archivedNotifications =
+            value.where((element) => element.archived).toList();
 
         return Scaffold(
           appBar: AppBar(
@@ -137,7 +144,9 @@ class _MainPageState extends State<MainPage> {
                 icon: Badge.count(
                   isLabelVisible: activeNotifications.isNotEmpty,
                   count: activeNotifications.length,
-                  child: Icon(activeNotifications.isNotEmpty ? Icons.notifications : Icons.notifications_none),
+                  child: Icon(activeNotifications.isNotEmpty
+                      ? Icons.notifications
+                      : Icons.notifications_none),
                 ),
                 label: translate('page.active_notifications.label'),
               ),
@@ -181,7 +190,8 @@ class _MainPageState extends State<MainPage> {
     if (AppManager.instance.data.firstLaunchDialogLastShown == -1) {
       // Show the dialog because it has never been shown before
       shouldShowFirstLaunchDialog = true;
-    } else if (AppManager.instance.data.firstLaunchDialogLastShown < FirstLaunchDialog.lastUpdatedBuildNumber) {
+    } else if (AppManager.instance.data.firstLaunchDialogLastShown <
+        FirstLaunchDialog.lastUpdatedBuildNumber) {
       // Show the dialog because the app has been updated since the dialog was last shown
       shouldShowFirstLaunchDialog = true;
       isShownAfterUpdate = true;
@@ -201,7 +211,8 @@ class _MainPageState extends State<MainPage> {
           context: context,
           builder: (context) => FirstLaunchDialog(
             onComplete: () async {
-              AppManager.instance.data.firstLaunchDialogLastShown = BuildInfo.buildNumber;
+              AppManager.instance.data.firstLaunchDialogLastShown =
+                  BuildInfo.buildNumber;
               await AppManager.instance.saveSettings();
             },
             isShownAfterUpdate: isShownAfterUpdate,

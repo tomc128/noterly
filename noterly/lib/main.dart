@@ -3,9 +3,6 @@ import 'dart:isolate';
 
 import 'package:background_fetch/background_fetch.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -14,7 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-import 'package:noterly/build_info.dart';
 import 'package:noterly/managers/app_manager.dart';
 import 'package:noterly/managers/isolate_manager.dart';
 import 'package:noterly/managers/log.dart';
@@ -53,29 +49,6 @@ Future<void> main(List<String> args) async {
 
   Log.logger.d("Starting app with args: $args");
 
-  // Initialise Firebase analytics
-  //* IF CHANGING THIS TO DART-ONLY, ALSO CHANGE THIS IN NOTIFICATION_MANAGER
-  // await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions
-  //         .currentPlatform); // Previous method of initialising Firebase
-  await Firebase.initializeApp(); // Remove options to use native manual installation of Firebase, as Dart-only isn't working yet for some reason
-  await FirebaseAnalytics.instance.setDefaultEventParameters({
-    'version': BuildInfo.appVersion,
-    'branch': BuildInfo.branch,
-    'release_type': BuildInfo.releaseType.toString(),
-  });
-
-  // Pass all uncaught "fatal" errors from the framework to Crashlytics
-  FlutterError.onError = (details) {
-    // INFO: change to recordFlutterFatalError if we only want to record fatal errors
-    FirebaseCrashlytics.instance.recordFlutterError(details);
-  };
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
-
   // Ensure the app renders behind the system UI.
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -88,7 +61,6 @@ Future<void> main(List<String> args) async {
     IsolateManager.init();
   } on IsolateSpawnException catch (e) {
     Log.logger.e('Failed to initialise isolate manager: $e');
-    await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to initialise isolate manager');
   }
 
   // Add the Google Fonts license to the license registry
@@ -137,13 +109,17 @@ Future<void> main(List<String> args) async {
   });
 
   quickActions.setShortcutItems(<ShortcutItem>[
-    const ShortcutItem(type: 'action_new', localizedTitle: 'New note', icon: 'ic_shortcut_add'),
+    const ShortcutItem(
+        type: 'action_new',
+        localizedTitle: 'New note',
+        icon: 'ic_shortcut_add'),
   ]);
 }
 
 class MyApp extends StatefulWidget {
   final String? launchMessage;
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey(debugLabel: "Main Navigator");
 
   const MyApp({
     super.key,
@@ -166,36 +142,39 @@ class _MyAppState extends State<MyApp> {
     if (widget.launchMessage == 'launchFromQuickTile') {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+          MaterialPageRoute(
+              builder: (context) => const CreateNotificationPage()),
           (route) => route.isFirst,
         );
       });
     }
 
     // SHARING INTENT
-    handleSharedText(String? text) {
-      if (text == null) return;
+    handleSharedText(List value) {
+      if (value.isEmpty) return;
 
+      var text = value.first.toString();
       // Show create notification page with the shared text as the title
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => CreateNotificationPage(initialTitle: text)),
+        MaterialPageRoute(
+            builder: (context) => CreateNotificationPage(initialTitle: text)),
         (route) => route.isFirst,
       );
-
-      // Analytics event
-      FirebaseAnalytics.instance.logEvent(name: 'share_to_app');
     }
 
     handleShareError(Object error) {
       Log.logger.e("getLinkStream error: $error");
-      FirebaseCrashlytics.instance.recordError(error, StackTrace.current, reason: 'getLinkStream error');
     }
 
     // Share sheet listener, while app is open
-    _shareIntentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(handleSharedText, onError: handleShareError);
+    _shareIntentDataStreamSubscription = ReceiveSharingIntent.instance
+        .getMediaStream()
+        .listen(handleSharedText, onError: handleShareError);
 
     // Share sheet listener, when app is closed
-    ReceiveSharingIntent.getInitialText().then(handleSharedText, onError: handleShareError);
+    ReceiveSharingIntent.instance
+        .getInitialMedia()
+        .then(handleSharedText, onError: handleShareError);
 
     // GENERAL INTENT
     handleIntent(receive_intent.Intent? intent) {
@@ -205,25 +184,24 @@ class _MyAppState extends State<MyApp> {
       if (intent.action == 'uk.co.tdsstudios.noterly.ACTION_CREATE_NOTE') {
         // Show create notification page
         MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const CreateNotificationPage()),
+          MaterialPageRoute(
+              builder: (context) => const CreateNotificationPage()),
           (route) => route.isFirst,
         );
-
-        // Analytics event
-        FirebaseAnalytics.instance.logEvent(name: 'from_quick_tile');
       }
     }
 
     handleIntentError(Object error) {
       Log.logger.e("getLinkStream error: $error");
-      FirebaseCrashlytics.instance.recordError(error, StackTrace.current, reason: 'getLinkStream error');
     }
 
     // Intent listener, while app is open
-    _intentDataStreamSubscription = ReceiveIntent.receivedIntentStream.listen(handleIntent, onError: handleIntentError);
+    _intentDataStreamSubscription = ReceiveIntent.receivedIntentStream
+        .listen(handleIntent, onError: handleIntentError);
 
     // Intent listener, when app is closed
-    ReceiveIntent.getInitialIntent().then(handleIntent, onError: handleIntentError);
+    ReceiveIntent.getInitialIntent()
+        .then(handleIntent, onError: handleIntentError);
   }
 
   @override
@@ -255,7 +233,8 @@ class _MyAppState extends State<MyApp> {
         await AppManager.instance.fullUpdate();
         await NotificationManager.instance.updateAllNotifications();
 
-        BackgroundFetch.finish(taskId); // Signal the task is complete. IMPORTANT
+        BackgroundFetch.finish(
+            taskId); // Signal the task is complete. IMPORTANT
       },
       (String taskId) async {
         // <-- Task timeout handler.
@@ -276,7 +255,8 @@ class _MyAppState extends State<MyApp> {
 
     return LocalizationProvider(
       state: LocalizationProvider.of(context).state,
-      child: DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      child: DynamicColorBuilder(
+          builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
         ColorScheme lightColorScheme, darkColorScheme;
 
         if (lightDynamic != null && darkDynamic != null) {
@@ -318,7 +298,8 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             colorScheme: darkColorScheme,
             fontFamily: GoogleFonts.inter().fontFamily,
-            textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
+            textTheme:
+                GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
               labelLarge: TextStyle(color: Colors.white.withOpacity(0.5)),
             ),
           ),

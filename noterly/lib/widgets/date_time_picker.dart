@@ -70,8 +70,10 @@ class _DateTimePickerState extends State<DateTimePicker> {
 
     // The header should use the primary color in light themes and surface color in dark
     final bool isDark = colorScheme.brightness == Brightness.dark;
-    final Color primarySurfaceColor = isDark ? colorScheme.surface : colorScheme.primary;
-    final Color onPrimarySurfaceColor = isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+    final Color primarySurfaceColor =
+        isDark ? colorScheme.surface : colorScheme.primary;
+    final Color onPrimarySurfaceColor =
+        isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
     return Dialog(
       child: Column(
@@ -81,25 +83,31 @@ class _DateTimePickerState extends State<DateTimePicker> {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(24)),
               color: primarySurfaceColor,
             ),
             child: Text(
               translate('dialog.picker.date_time.title'),
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: onPrimarySurfaceColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: onPrimarySurfaceColor),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(translate('dialog.picker.date_time.header.date'), style: Theme.of(context).textTheme.titleMedium),
+            child: Text(translate('dialog.picker.date_time.header.date'),
+                style: Theme.of(context).textTheme.titleMedium),
           ),
           _getDatePicker(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(translate('dialog.picker.date_time.header.time'), style: Theme.of(context).textTheme.titleMedium),
+            child: Text(translate('dialog.picker.date_time.header.time'),
+                style: Theme.of(context).textTheme.titleMedium),
           ),
           _getTimePicker(),
-          ButtonBar(
+          OverflowBar(
             children: [
               TextButton(
                 onPressed: () {
@@ -128,7 +136,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    var newDateTime = _dateTime.subtract(const Duration(days: 1));
+                    var newDateTime =
+                        _dateTime.subtract(const Duration(days: 1));
                     if (newDateTime.isAfter(widget.firstDate)) {
                       _dateTime = newDateTime;
                     }
@@ -166,7 +175,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
               });
             },
             icon: const Icon(Icons.calendar_month),
-            label: Text(translate('dialog.picker.date_time.button.select_date')),
+            label:
+                Text(translate('dialog.picker.date_time.button.select_date')),
           ),
         ],
       );
@@ -179,9 +189,11 @@ class _DateTimePickerState extends State<DateTimePicker> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    var newDateTime = _dateTime.subtract(const Duration(hours: 1));
+                    var newDateTime =
+                        _dateTime.subtract(const Duration(hours: 1));
                     if (!newDateTime.isAfter(widget.firstDate)) return;
-                    if (newDateTime.isBefore(DateTime.now())) newDateTime = DateTime.now();
+                    if (newDateTime.isBefore(DateTime.now()))
+                      newDateTime = DateTime.now();
 
                     _dateTime = newDateTime;
                   });
@@ -226,7 +238,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
               });
             },
             icon: const Icon(Icons.timer),
-            label: Text(translate('dialog.picker.date_time.button.select_time')),
+            label:
+                Text(translate('dialog.picker.date_time.button.select_time')),
           ),
         ],
       );

@@ -29,9 +29,11 @@ class NotificationItem {
 
   bool get isNotSnoozed => snoozeDateTime == null;
 
-  bool get isSnoozedPast => snoozeDateTime != null && snoozeDateTime!.isBefore(DateTime.now());
+  bool get isSnoozedPast =>
+      snoozeDateTime != null && snoozeDateTime!.isBefore(DateTime.now());
 
-  bool get isSnoozedFuture => snoozeDateTime != null && snoozeDateTime!.isAfter(DateTime.now());
+  bool get isSnoozedFuture =>
+      snoozeDateTime != null && snoozeDateTime!.isAfter(DateTime.now());
 
   NotificationItem({
     required this.id,
@@ -66,9 +68,11 @@ class NotificationItem {
       case Repetition.weekly:
         return lastSent.add(Duration(days: repetitionData!.number * 7));
       case Repetition.monthly:
-        return DateTime(lastSent.year, lastSent.month + repetitionData!.number, lastSent.day);
+        return DateTime(lastSent.year, lastSent.month + repetitionData!.number,
+            lastSent.day);
       case Repetition.yearly:
-        return DateTime(lastSent.year + repetitionData!.number, lastSent.month, lastSent.day);
+        return DateTime(lastSent.year + repetitionData!.number, lastSent.month,
+            lastSent.day);
     }
   }
 
@@ -84,15 +88,23 @@ class NotificationItem {
         'snoozeDateTime': snoozeDateTime?.toIso8601String(),
       };
 
-  factory NotificationItem.fromJson(Map<String, dynamic> json) => NotificationItem(
+  factory NotificationItem.fromJson(Map<String, dynamic> json) =>
+      NotificationItem(
         id: json['id'],
         title: json['title'],
         body: json['body'],
-        dateTime: json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
-        repetitionData: json['repetitionData'] != null ? RepetitionData.fromJson(json['repetitionData']) : null,
+        dateTime:
+            json['dateTime'] != null ? DateTime.parse(json['dateTime']) : null,
+        repetitionData: json['repetitionData'] != null
+            ? RepetitionData.fromJson(json['repetitionData'])
+            : null,
         colour: Color(json['colour']),
         archived: json['archived'] ?? false,
-        archivedDateTime: json['archivedDateTime'] != null ? DateTime.parse(json['archivedDateTime']) : null,
-        snoozeDateTime: json['snoozeDateTime'] != null ? DateTime.parse(json['snoozeDateTime']) : null,
+        archivedDateTime: json['archivedDateTime'] != null
+            ? DateTime.parse(json['archivedDateTime'])
+            : null,
+        snoozeDateTime: json['snoozeDateTime'] != null
+            ? DateTime.parse(json['snoozeDateTime'])
+            : null,
       );
 }

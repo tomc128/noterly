@@ -36,28 +36,35 @@ class ActiveNotificationsPage extends NavigationScreen {
       }
     });
 
-    var immediateItems = items.where((element) => element.dateTime == null && !element.isRepeating).toList();
-    var scheduledItems = items.where((element) => element.dateTime != null && !element.isRepeating).toList();
+    var immediateItems = items
+        .where((element) => element.dateTime == null && !element.isRepeating)
+        .toList();
+    var scheduledItems = items
+        .where((element) => element.dateTime != null && !element.isRepeating)
+        .toList();
     var repeatingItems = items.where((element) => element.isRepeating).toList();
 
     var immediateWidgets = immediateItems.isEmpty
         ? []
         : [
-            _getListHeader(context, translate('page.active_notifications.header.immediate')),
+            _getListHeader(context,
+                translate('page.active_notifications.header.immediate')),
             _getCard(context, immediateItems),
           ];
 
     var scheduledWidgets = scheduledItems.isEmpty
         ? []
         : [
-            _getListHeader(context, translate('page.active_notifications.header.scheduled')),
+            _getListHeader(context,
+                translate('page.active_notifications.header.scheduled')),
             _getCard(context, scheduledItems),
           ];
 
     var repeatingWidgets = repeatingItems.isEmpty
         ? []
         : [
-            _getListHeader(context, translate('page.active_notifications.header.repeating')),
+            _getListHeader(context,
+                translate('page.active_notifications.header.repeating')),
             _getCard(context, repeatingItems),
           ];
 
@@ -69,15 +76,19 @@ class ActiveNotificationsPage extends NavigationScreen {
       ),
     ];
 
-    bool isEmpty = immediateWidgets.isEmpty && scheduledWidgets.isEmpty && repeatingWidgets.isEmpty;
+    bool isEmpty = immediateWidgets.isEmpty &&
+        scheduledWidgets.isEmpty &&
+        repeatingWidgets.isEmpty;
 
     var widgets = isEmpty
         ? emptyWidgets
         : [
             ...immediateWidgets,
-            if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+            if (immediateWidgets.isNotEmpty && scheduledWidgets.isNotEmpty)
+              const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
             ...scheduledWidgets,
-            if (scheduledWidgets.isNotEmpty && repeatingWidgets.isNotEmpty) const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+            if (scheduledWidgets.isNotEmpty && repeatingWidgets.isNotEmpty)
+              const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
             ...repeatingWidgets,
           ];
 
@@ -85,18 +96,23 @@ class ActiveNotificationsPage extends NavigationScreen {
       controller: scrollController,
       slivers: [
         ...widgets,
-        const SliverToBoxAdapter(child: SizedBox(height: 86)), // Add some padding at the bottom so the FAB doesn't overlap with the last item
+        const SliverToBoxAdapter(
+            child: SizedBox(
+                height:
+                    86)), // Add some padding at the bottom so the FAB doesn't overlap with the last item
       ],
     );
   }
 
-  Widget _getListHeader(BuildContext context, String title) => SliverToBoxAdapter(
+  Widget _getListHeader(BuildContext context, String title) =>
+      SliverToBoxAdapter(
         child: ListTile(
           title: Text(title),
         ),
       );
 
-  Widget _getCard(BuildContext context, List<NotificationItem> items) => SliverToBoxAdapter(
+  Widget _getCard(BuildContext context, List<NotificationItem> items) =>
+      SliverToBoxAdapter(
         child: Card(
           margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
           elevation: 1,
@@ -108,7 +124,10 @@ class ActiveNotificationsPage extends NavigationScreen {
           child: Column(
             children: [
               for (var i = 0; i < items.length; i++)
-                if (i == items.length - 1) _getItem(context, items[i]) else _wrapItem(context, _getItem(context, items[i])),
+                if (i == items.length - 1)
+                  _getItem(context, items[i])
+                else
+                  _wrapItem(context, _getItem(context, items[i])),
             ],
           ),
         ),
@@ -120,7 +139,7 @@ class ActiveNotificationsPage extends NavigationScreen {
           Divider(
             thickness: 2,
             height: 2,
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
           ),
         ],
       );
@@ -128,16 +147,20 @@ class ActiveNotificationsPage extends NavigationScreen {
   Widget _getItem(BuildContext context, NotificationItem item) => Dismissible(
         key: ValueKey(item.id),
         background: _getDismissibleBackground(context),
-        secondaryBackground: _getDismissibleBackground(context, isSecondary: true),
+        secondaryBackground:
+            _getDismissibleBackground(context, isSecondary: true),
         onDismissed: (direction) {
           AppManager.instance.archiveItem(item.id);
-          ScaffoldMessenger.of(context).clearSnackBars(); // Prevents multiple snackbars from building up
+          ScaffoldMessenger.of(context)
+              .clearSnackBars(); // Prevents multiple snackbars from building up
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(translate('snackbar.notification_archived', args: {'title': item.title})),
+              content: Text(translate('snackbar.notification_archived',
+                  args: {'title': item.title})),
               action: SnackBarAction(
                 label: translate('general.undo'),
-                onPressed: () => AppManager.instance.restoreArchivedItem(item.id),
+                onPressed: () =>
+                    AppManager.instance.restoreArchivedItem(item.id),
               ),
             ),
           );
@@ -160,7 +183,9 @@ class ActiveNotificationsPage extends NavigationScreen {
         ),
       );
 
-  Widget _getDismissibleBackground(BuildContext context, {bool isSecondary = false}) => Container(
+  Widget _getDismissibleBackground(BuildContext context,
+          {bool isSecondary = false}) =>
+      Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
         ),
@@ -193,13 +218,16 @@ class ActiveNotificationsPage extends NavigationScreen {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (item.body.isNotEmpty) Text(item.body),
-        if ((item.dateTime != null || item.isRepeating)) const SizedBox(height: 4),
+        if ((item.dateTime != null || item.isRepeating))
+          const SizedBox(height: 4),
         if (item.dateTime != null)
           Row(
             children: [
               const Icon(Icons.access_time, size: 16),
               const SizedBox(width: 8),
-              Flexible(child: Text(item.dateTime!.toRelativeDateTimeString(), style: Theme.of(context).textTheme.labelLarge)),
+              Flexible(
+                  child: Text(item.dateTime!.toRelativeDateTimeString(),
+                      style: Theme.of(context).textTheme.labelLarge)),
             ],
           ),
         if (item.isRepeating)
@@ -209,7 +237,9 @@ class ActiveNotificationsPage extends NavigationScreen {
               const SizedBox(width: 8),
               Flexible(
                 child: Text(
-                  translate('page.active_notifications.item.repeats', args: {'duration': item.repetitionData!.toReadableString()}),
+                  translate('page.active_notifications.item.repeats', args: {
+                    'duration': item.repetitionData!.toReadableString()
+                  }),
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
@@ -220,14 +250,22 @@ class ActiveNotificationsPage extends NavigationScreen {
             children: [
               const Icon(Icons.snooze, size: 16),
               const SizedBox(width: 8),
-              Flexible(child: Text(translate('page.active_notifications.item.snoozed', args: {'date_time': item.snoozeDateTime!.toSnoozedUntilDateTimeString()}), style: Theme.of(context).textTheme.labelLarge)),
+              Flexible(
+                  child: Text(
+                      translate('page.active_notifications.item.snoozed',
+                          args: {
+                            'date_time': item.snoozeDateTime!
+                                .toSnoozedUntilDateTimeString()
+                          }),
+                      style: Theme.of(context).textTheme.labelLarge)),
             ],
           ),
       ],
     );
   }
 
-  void _onItemTap(BuildContext context, NotificationItem item) => Navigator.of(context).push(
+  void _onItemTap(BuildContext context, NotificationItem item) =>
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => EditNotificationPage(
             item: item,
