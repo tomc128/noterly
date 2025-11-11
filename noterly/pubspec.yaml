@@ -1,60 +1,50 @@
 name: noterly
 description: Simple notification reminders.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 0.0.1+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.0.11
-  intl: ^0.18.0
-  uuid: ^3.0.7
-  flutter_local_notifications: ^14.0.0
-  timezone: ^0.9.1
-  google_fonts: ^4.0.3
+  intl: ^0.19.0
+  uuid: ^4.5.2
+  flutter_local_notifications: ^19.5.0
+  timezone: ^0.10.1
+  google_fonts: ^6.3.0
   dynamic_color: ^1.6.3
   jiffy: ^6.0.0
-  background_fetch: ^1.1.3
+  background_fetch: ^1.4.0
   quick_actions: ^1.0.1
   url_launcher: ^6.1.8
-  logger: ^1.1.0
-  system_settings: ^2.1.0
-  firebase_core: ^2.4.1
-  firebase_analytics: ^10.1.0
-  firebase_crashlytics: ^3.0.11
+  logger: ^2.6.2
   flutter_localizations:
     sdk: flutter
   auto_size_text: ^3.0.0
-  fluttertoast: ^8.2.1
-  receive_sharing_intent: ^1.4.5
+  fluttertoast: ^9.0.0
+  receive_sharing_intent:
+    git:
+      url: https://github.com/KasemJaffer/receive_sharing_intent
   receive_intent: ^0.2.3
-  dots_indicator: ^3.0.0
+  dots_indicator: ^4.0.1
   flutter_translate: ^4.0.4
+  system_settings_2: ^3.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
+
+dependency_overrides:
+  intl: ^0.20.2
 
 flutter:
   uses-material-design: true
   assets:
     - assets/i18n/
     - assets/google_fonts/
-
-
-# IconKitchen
-# Old: https://icon.kitchen/i/H4sIAAAAAAAAA0WQMWvEMAyF%2F0rQfENnz6XblUKylQ66WHbE2ZaxlcIR7r9XTindpE967wkd8I1ppw7uAI%2FtvmyUCZy2nS4Q4vKo1gFnjAQDXLHf%2F8cf6D2XOMQqFdzLBRrHTc%2FqJqqSzzJRGOxp8M9ylSTNLG9x3vCXcFvTSNFxgwcXMHWLqf1NiskPCJg5PWz19TrNWDqYYe0Lq8kcvItSs%2FHJMCYug86ca6KpiHLgFZWlTI0yF0%2FtNMji9zQe8AlYfBP28PX8AdrnM%2FUXAQAA
-
-# https://icon.kitchen/i/H4sIAAAAAAAAA12OvQrDMAyE30Vzhs5%2Bh0Kh2UoHOfIfseNgy4US8u61TKdsp0P33R3wwdhMBXUAYVlnb5IBxaWZCaybv3u%2FICR0BsR4IFHYnLxz3kHdJijBeR5KZ%2BachozGindK5o51BWUx1s7U7ulxQJdQlihUfa1hGUH%2FSEekTC3KxhfgRiUHgvf5A0C99Nq6AAAA
-# Change foreground to the themed version to generate better themed icon
-
-
-# Flutter rename:
-# flutter pub global run rename --bundleId com.name.here
-# flutter pub global run rename --appname "Name Here" 
