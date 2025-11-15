@@ -19,6 +19,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../build_info.dart';
 
+@pragma('vm:entry-point')
 class NotificationManager {
   static final NotificationManager _instance = NotificationManager._internal();
 

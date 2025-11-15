@@ -1,14 +1,15 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -21,11 +22,6 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services' // INFO: Firebase manual installation
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
 // INFO: app signing and keystore
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
@@ -34,20 +30,20 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion // WAS: flutter.compileSdkVersion
+    namespace "uk.co.tdsstudios.noterly"
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
         // INFO: required for flutter_local_notifications plugin, when minSdkVersion < 20
-        // INFO: required for Firebase
         coreLibraryDesugaringEnabled true
 
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     sourceSets {
@@ -61,8 +57,8 @@ android {
         // INFO: required for Firebase
         multiDexEnabled true
 
-        minSdkVersion rootProject.ext.minSdkVersion // WAS: flutter.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion // WAS: flutter.targetSdkVersion
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
@@ -82,10 +78,7 @@ android {
     }
     buildTypes {
         release {
-            // INFO: testing to try and fix splash screen hang issue
-            minifyEnabled true
             shrinkResources false // INFO: unsure if this needs to be false or not
-
             signingConfig signingConfigs.release
         }
     }
@@ -96,16 +89,13 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     // INFO: required for Firebase
     implementation 'com.android.support:multidex:1.0.3'
 
-    // INFO: needed to prevent desugaring error for flutter_local_notifications plugin, 1.1.5 is the LAST VERSION that works
-    // noinspection GradleDependency
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    // INFO: needed to prevent desugaring error for flutter_local_notifications plugin
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
     // INFO: needed to prevent Android 12L crash for flutter_local_notifications plugin
-    implementation 'androidx.window:window:1.0.0'
-    implementation 'androidx.window:window-java:1.0.0'
+    implementation 'androidx.window:window:1.5.0'
+    implementation 'androidx.window:window-java:1.5.0'
 }

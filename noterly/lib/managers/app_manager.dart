@@ -8,6 +8,7 @@ import 'package:noterly/models/notification_item.dart';
 
 import 'log.dart';
 
+@pragma('vm:entry-point')
 class AppManager {
   static final AppManager _instance = AppManager._internal();
 
