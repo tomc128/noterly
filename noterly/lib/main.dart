@@ -173,8 +173,10 @@ class _MyAppState extends State<MyApp> {
     }
 
     // SHARING INTENT
-    handleSharedText(String? text) {
-      if (text == null) return;
+    handleSharedText(List media) {
+      if (media.isEmpty) return;
+
+      var text = media.first.toString();
 
       // Show create notification page with the shared text as the title
       MyApp.navigatorKey.currentState!.pushAndRemoveUntil(
@@ -192,10 +194,10 @@ class _MyAppState extends State<MyApp> {
     }
 
     // Share sheet listener, while app is open
-    _shareIntentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(handleSharedText, onError: handleShareError);
+    _shareIntentDataStreamSubscription = ReceiveSharingIntent.instance.getMediaStream().listen(handleSharedText, onError: handleShareError);
 
     // Share sheet listener, when app is closed
-    ReceiveSharingIntent.getInitialText().then(handleSharedText, onError: handleShareError);
+    ReceiveSharingIntent.instance.getInitialMedia().then(handleSharedText, onError: handleShareError);
 
     // GENERAL INTENT
     handleIntent(receive_intent.Intent? intent) {

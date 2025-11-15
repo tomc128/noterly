@@ -14,7 +14,7 @@ import 'package:noterly/models/notification_item.dart';
 import 'package:noterly/models/repetition_data.dart';
 import 'package:noterly/widgets/duration_picker.dart';
 import 'package:noterly/widgets/first_launch_dialog.dart';
-import 'package:system_settings/system_settings.dart';
+import 'package:system_settings_2/system_settings_2.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 

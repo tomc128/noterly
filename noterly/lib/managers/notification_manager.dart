@@ -162,7 +162,7 @@ class NotificationManager {
       var android = _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
       if (android != null) {
-        var result = await android.requestPermission();
+        var result = await android.requestNotificationsPermission();
         Log.logger.d('Got A13 permission result: $result');
       }
     } catch (e) {
@@ -274,12 +274,12 @@ class NotificationManager {
         payload: jsonEncode(item),
       );
     } on Exception catch (e) {
-      Log.logger.e('Failed to show notification "${item.title}" at ${item.dateTime}', e);
+      Log.logger.e('Failed to show notification "${item.title}" at ${item.dateTime}', error: e);
       await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to show notification');
       try {
         Fluttertoast.showToast(msg: 'Failed to send notification, check notification permissions');
       } catch (e) {
-        Log.logger.w('Failed to show toast', e);
+        Log.logger.w('Failed to show toast', error: e);
       }
     }
   }
@@ -305,16 +305,15 @@ class NotificationManager {
         tz.TZDateTime.from(dateTime!, tz.local),
         details,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
         payload: jsonEncode(item),
       );
     } on Exception catch (e) {
-      Log.logger.e('Failed to schedule notification "${item.title}" at ${item.dateTime}', e);
+      Log.logger.e('Failed to schedule notification "${item.title}" at ${item.dateTime}', error: e);
       await FirebaseCrashlytics.instance.recordError(e, StackTrace.current, reason: 'Failed to schedule notification');
       try {
         Fluttertoast.showToast(msg: 'Failed to send notification, check notification permissions');
       } catch (e) {
-        Log.logger.w('Failed to show toast', e);
+        Log.logger.w('Failed to show toast', error: e);
       }
     }
   }
